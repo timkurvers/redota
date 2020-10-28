@@ -1,0 +1,10 @@
+{
+  "name": "@timkurvers/redota",
+  "author": "Tim Kurvers <tim@moonsphere.net>",
+  "repository": "github:timkurvers/redota",
+  "license": "MIT",
+  "private": true,
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {}
+}
