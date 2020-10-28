@@ -5,12 +5,16 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "lint": ""
+    "lint": "eslint ."
   },
   "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@timkurvers/eslint-config": "^2.1.0",
+    "eslint": "^7.12.1",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.1",
     "husky": "^4.3.0"
   }
 }

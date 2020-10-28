@@ -1,0 +1,6 @@
+{
+  "extends": "@timkurvers",
+  "env": {
+    "browser": true
+  }
+}
