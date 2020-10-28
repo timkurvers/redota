@@ -1,5 +1,5 @@
 {
-  "extends": "@timkurvers",
+  "extends": "@timkurvers/eslint-config/react",
   "env": {
     "browser": true
   }
