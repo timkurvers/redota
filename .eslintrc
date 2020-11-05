@@ -2,5 +2,13 @@
   "extends": "@timkurvers/eslint-config/react",
   "env": {
     "browser": true
+  },
+  "rules": {
+    "camelcase": "off",
+    "import/extensions": ["error", "always"],
+    "no-bitwise": "off",
+    "no-continue": "off",
+    "no-restricted-syntax": "off",
+    "no-plusplus": "off"
   }
 }

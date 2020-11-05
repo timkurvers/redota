@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
-  entry: './src/bootstrap.jsx',
+  entry: './src/ui/bootstrap.jsx',
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'redota-[chunkhash:8].js',
@@ -19,7 +19,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       hash: true,
       inject: true,
-      template: './src/index.html',
+      template: './src/ui/index.html',
     }),
   ],
   module: {
