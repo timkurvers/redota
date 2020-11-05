@@ -1,1 +1,3 @@
-.gitignore
+/dota/compiled.cjs
+/node_modules/
+/public/*
