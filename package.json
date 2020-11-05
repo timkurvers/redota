@@ -8,7 +8,10 @@
   "scripts": {
     "build": "webpack",
     "lint": "eslint . --ext js,cjs",
-    "start:dev": "webpack serve"
+    "start:dev": "webpack serve",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "protobufjs": "^6.10.1",

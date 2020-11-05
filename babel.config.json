@@ -9,7 +9,7 @@
           "not android 1-62"
         ]
       },
-      "modules": false
+      "modules": "auto"
     }],
     "@babel/preset-react"
   ]
