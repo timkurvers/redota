@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 const path = require('path');
+const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -13,9 +14,15 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js'],
+    fallback: {
+      buffer: require.resolve('buffer/'),
+    },
   },
   devtool: 'source-map',
   plugins: [
+    new webpack.ProvidePlugin({
+      Buffer: ['buffer', 'Buffer'],
+    }),
     new HtmlWebpackPlugin({
       hash: true,
       inject: true,

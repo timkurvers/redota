@@ -15,6 +15,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "buffer": "^6.0.1",
     "protobufjs": "^6.10.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -38,6 +39,7 @@
     "html-webpack-plugin": "^4.5.0",
     "husky": "^4.3.0",
     "jest": "^26.6.1",
+    "uglify-js": "^3.11.5",
     "webpack": "^5.3.0",
     "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.0"

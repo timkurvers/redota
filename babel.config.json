@@ -4,9 +4,10 @@
       "targets": {
         "node": "current",
         "browsers": [
-          "last 2 versions",
-          "not ie 1-11",
-          "not android 1-62"
+          "last 2 chrome versions",
+          "last 2 edge versions",
+          "last 2 firefox versions",
+          "last 2 safari versions"
         ]
       },
       "modules": "auto"
