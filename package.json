@@ -8,7 +8,7 @@
   "scripts": {
     "build": "webpack",
     "build:proto": "pbjs -t static-module --no-create --no-encode --no-verify --no-convert -w commonjs dota/*.proto | uglifyjs -cm --keep-fnames > dota/compiled.cjs",
-    "lint": "eslint . --ext js,cjs",
+    "lint": "eslint . --ext js,jsx,cjs",
     "start:dev": "webpack serve",
     "test": "jest",
     "test:coverage": "jest --coverage",
