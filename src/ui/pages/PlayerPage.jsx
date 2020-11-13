@@ -8,10 +8,13 @@ const PlayerPage = () => {
 
   const [data, setData] = useState(null);
 
-  useEffect(async () => {
-    const match = await fetchPlayer(id);
-    setData(match);
-  }, []);
+  useEffect(() => {
+    const fetch = async () => {
+      const match = await fetchPlayer(id);
+      setData(match);
+    };
+    fetch();
+  }, [id]);
 
   return (
     <div>
