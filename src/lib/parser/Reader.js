@@ -1,5 +1,7 @@
 /* eslint-disable no-param-reassign */
 
+import FieldPath from './FieldPath.js';
+
 const guard = (pos, length) => (
   new RangeError(`cannot read ${length} bytes at position ${pos}`)
 );
@@ -159,6 +161,16 @@ class Reader {
       vec[2] = -vec[2];
     }
     return vec;
+  }
+
+  // Reads fields into given state using given serializer
+  readFieldsInto(state, serializer) {
+    const fps = FieldPath.from(this);
+    for (const fp of fps) {
+      const decoder = serializer.getDecoderForFieldPath(fp, 0);
+      const value = decoder(this);
+      state.set(fp, value);
+    }
   }
 
   // Reads given length string from buffer
