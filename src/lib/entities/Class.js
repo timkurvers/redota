@@ -1,7 +1,8 @@
 class Class {
-  constructor(id, name) {
+  constructor(id, name, serializer) {
     this.id = id;
     this.name = name;
+    this.serializer = serializer;
   }
 }
 
