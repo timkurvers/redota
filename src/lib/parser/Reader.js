@@ -9,7 +9,7 @@ const guard = (pos, length) => (
 // See: https://github.com/dotabuff/manta/blob/master/reader.go
 class Reader {
   constructor(buffer) {
-    this.buffer = buffer;
+    this.buffer = Buffer.from(buffer);
     this.pos = 0;
 
     this.bitVal = 0;

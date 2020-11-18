@@ -38,7 +38,7 @@ const SERIAL_BITS = 17;
 // See: https://github.com/dotabuff/manta/blob/master/parser.go
 class Parser extends Reader {
   constructor(buffer) {
-    super(Buffer.from(buffer));
+    super(buffer);
 
     this.buildNumber = null;
     this.classes = new IndexedCollection(Class, 'id', 'name');
