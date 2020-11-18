@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 // See: https://github.com/dotabuff/manta/blob/master/serializer.go
 class Serializer {
   constructor(name, version) {
@@ -23,6 +25,32 @@ class Serializer {
     const index = fp.path[pos];
     // TODO: Guard?
     return this.fields[index].getFieldForFieldPath(fp, pos + 1);
+  }
+
+  // TODO: Mutates fp argument
+  getFieldPathForName(fp, name) {
+    for (const [index, field] of this.fields.entries()) {
+      if (name === field.varName) {
+        fp.path[fp.last] = index;
+        return true;
+      }
+      if (name.startsWith(`${field.varName}.`)) {
+        fp.path[fp.last] = index;
+        fp.last++;
+        return field.getFieldPathForName(fp, name.slice(field.varName.length + 1));
+      }
+    }
+    return false;
+  }
+
+  // TODO: Mutates fp argument
+  getFieldPaths(fp, state) {
+    const fps = [];
+    for (const [index, field] of this.fields.entries()) {
+      fp.path[fp.last] = index;
+      fps.push(...field.getFieldPaths(fp, state));
+    }
+    return fps;
   }
 
   getNameForFieldPath(fp, pos) {

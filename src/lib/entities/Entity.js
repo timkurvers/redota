@@ -1,6 +1,7 @@
 /* eslint-disable key-spacing */
 
-import EntityState from './EntityState.js';
+import FieldPath from '../parser/FieldPath.js';
+import FieldState from '../parser/FieldState.js';
 
 class Entity {
   constructor(index, serial, cls) {
@@ -8,7 +9,26 @@ class Entity {
     this.serial = serial;
     this.class = cls;
     this.active = true;
-    this.state = new EntityState();
+    this.state = new FieldState();
+  }
+
+  get snapshot() {
+    const struct = {};
+    // TODO: Mutation of field path argument is oddly implemented here
+    const fps = this.class.getFieldPaths(new FieldPath(), this.state);
+    for (const fp of fps) {
+      struct[this.class.getNameForFieldPath(fp)] = this.state.get(fp);
+    }
+    return struct;
+  }
+
+  get(name) {
+    // TODO: Caching
+    const fp = new FieldPath();
+    if (!this.class.getFieldPathForName(fp, name)) {
+      return null;
+    }
+    return this.state.get(fp);
   }
 }
 

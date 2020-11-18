@@ -1,6 +1,8 @@
-/* eslint-disable default-case, key-spacing, no-multi-spaces */
+/* eslint-disable default-case, key-spacing, no-multi-spaces, no-param-reassign */
 
 import { getOwnProperty } from '../utils/index.js';
+
+import FieldState from './FieldState.js';
 import {
   booleanDecoder,
   findDecoder,
@@ -126,6 +128,71 @@ class Field {
         break;
     }
     return this;
+  }
+
+  // TODO: Mutates fp argument
+  getFieldPathForName(fp, name) {
+    switch (this.model) {
+      case FieldModel.FIXED_ARRAY:
+      case FieldModel.VARIABLE_ARRAY:
+        fp.path[fp.last] = +name;
+        return true;
+      case FieldModel.FIXED_TABLE:
+        return this.serializer.getFieldPathForName(fp, name);
+      case FieldModel.VARIABLE_TABLE:
+        fp.path[fp.last] = +name.slice(0, 4);
+        fp.last++;
+        return this.serializer.getFieldPathForName(fp, name.slice(5));
+      case FieldModel.SIMPLE:
+        throw new Error('not supported');
+    }
+    return false;
+  }
+
+  // TODO: Mutates fp argument
+  getFieldPaths(fp, state) {
+    const fps = [];
+    switch (this.model) {
+      case FieldModel.FIXED_ARRAY:
+      case FieldModel.VARIABLE_ARRAY: {
+        const sub = state.get(fp);
+        if (sub instanceof FieldState) {
+          fp.last++;
+          for (const [index, value] of sub.state.entries()) {
+            if (value !== null) {
+              fp.path[fp.last] = index;
+              fps.push(fp.copy());
+            }
+          }
+          fp.last--;
+        }
+      } break;
+      case FieldModel.FIXED_TABLE: {
+        const sub = state.get(fp);
+        if (sub instanceof FieldState) {
+          fp.last++;
+          fps.push(...this.serializer.getFieldPaths(fp, sub));
+          fp.last--;
+        }
+      } break;
+      case FieldModel.VARIABLE_TABLE: {
+        const sub = state.get(fp);
+        if (sub instanceof FieldState) {
+          fp.last += 2;
+          for (const [index, value] of sub.state.entries()) {
+            if (value instanceof FieldState) {
+              fp.path[fp.last - 1] = index;
+              fps.push(...this.serializer.getFieldPaths(fp, value));
+            }
+          }
+          fp.last -= 2;
+        }
+      } break;
+      case FieldModel.SIMPLE:
+        fps.push(fp.copy());
+        break;
+    }
+    return fps;
   }
 
   getNameForFieldPath(fp, pos) {
