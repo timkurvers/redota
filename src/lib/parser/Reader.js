@@ -12,8 +12,8 @@ class Reader {
     this.buffer = buffer;
     this.pos = 0;
 
-    this.bitVal = 0n;
-    this.bitCount = 0n;
+    this.bitVal = 0;
+    this.bitCount = 0;
   }
 
   get length() {
@@ -27,7 +27,7 @@ class Reader {
   get bitPos() {
     const { bitCount, pos } = this;
     if (bitCount > 0) {
-      return `${pos - 1}.${8n - bitCount}`;
+      return `${pos - 1}.${8 - bitCount}`;
     }
     return pos;
   }
@@ -57,15 +57,31 @@ class Reader {
 
   // Reads given number of bits from buffer as integer
   readBitInt(count) {
-    const bicount = BigInt(count);
-    while (count > this.bitCount) {
-      this.bitVal |= BigInt(this.nextByte()) << this.bitCount;
-      this.bitCount += 8n;
+    if (count >= 32) {
+      // Casting numbers to BigInts just for bitwise operations is disastrous
+      // for performance as this method is THE hotspot for the parser.
+      // By only using it when absolutely necessary parsing speeds up by 10x.
+      const countn = BigInt(count);
+      let bitVal = BigInt(this.bitVal);
+      let bitCount = BigInt(this.bitCount);
+      while (countn > bitCount) {
+        bitVal |= BigInt(this.nextByte()) << bitCount;
+        bitCount += 8n;
+      }
+      const value = bitVal & ((1n << countn) - 1n);
+      this.bitVal = Number(bitVal >> countn);
+      this.bitCount = Number(bitCount - countn);
+      return Number(value);
     }
-    const value = this.bitVal & ((1n << bicount) - 1n);
-    this.bitVal >>= bicount;
-    this.bitCount -= bicount;
-    return Number(value);
+
+    while (count > this.bitCount) {
+      this.bitVal |= this.nextByte() << this.bitCount;
+      this.bitCount += 8;
+    }
+    const value = this.bitVal & ((1 << count) - 1);
+    this.bitVal >>= count;
+    this.bitCount -= count;
+    return value;
   }
 
   // Reads a single bit as a boolean
@@ -87,26 +103,26 @@ class Reader {
 
   // Reads a single byte
   readByte() {
-    if (this.bitCount === 0n) {
+    if (this.bitCount === 0) {
       return this.nextByte();
     }
     return this.readBitInt(8);
   }
 
   // Reads given length number of bytes from buffer
-  readBytes(length) {
-    if (this.bitCount === 0n) {
+  readBytes(count) {
+    if (this.bitCount === 0) {
       const start = this.pos;
-      const end = start + length;
+      const end = start + count;
       if (end > this.length) {
-        throw guard(start, length);
+        throw guard(start, count);
       }
       this.pos = end;
       return this.buffer.slice(start, end);
     }
 
-    const buffer = Buffer.alloc(length);
-    for (let i = 0; i < length; ++i) {
+    const buffer = Buffer.alloc(count);
+    for (let i = 0; i < count; ++i) {
       buffer[i] = this.readBitInt(8);
     }
     return buffer;
