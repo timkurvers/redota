@@ -78,20 +78,19 @@ class Parser extends Reader {
 
     // Skip currently unused integers
     this.skip(8);
-
-    // Seek to beginning of replay time
-    this.start();
   }
 
   get summary() {
-    const { pos, tick } = this;
+    const { parsing, pos, tick } = this;
     this.pos = MAGIC_SOURCE_2.length;
     this.pos = this.readUint32LE();
     let summary;
     this.emitter.once('msg:CDemoFileInfo', (msg) => {
       summary = msg;
     });
+    this.parsing = true;
     this.step();
+    this.parsing = parsing;
     this.pos = pos;
     this.tick = tick;
     return summary;
