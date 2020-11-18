@@ -82,7 +82,7 @@ class Reader {
     if (count > 0) {
       bytes.push(this.readBitInt(count));
     }
-    return bytes;
+    return Buffer.from(bytes);
   }
 
   // Reads a single byte
