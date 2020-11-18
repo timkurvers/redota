@@ -13,7 +13,7 @@ class QuantizedFloatDecoder {
     if (bitCount === 0 || bitCount >= 32) {
       this.noScale = true;
       this.bitCount = 32;
-      throw new Error('quantized float with bitCount 32 not yet supported');
+      throw new Error('quantized float with bitCount >= 32 not yet supported');
     }
 
     this.noScale = false;

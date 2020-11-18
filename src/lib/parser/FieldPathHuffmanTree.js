@@ -2,8 +2,6 @@ import { BinaryHeap } from '../utils/index.js';
 
 import { operations } from './FieldPathOperation.js';
 
-let num = 0;
-
 // See: https://github.com/dotabuff/manta/blob/master/huffman.go
 class HuffmanNode {
   constructor(weight, value) {
@@ -11,7 +9,6 @@ class HuffmanNode {
     this.value = value;
     this.left = null;
     this.right = null;
-    this.num = num++;
   }
 
   get isLeaf() {

@@ -258,11 +258,12 @@ class Parser extends Reader {
   }
 
   onCSVCMsg_ServerInfo(msg) {
+    this.classIdSize = Reader.calcBitsNeededFor(msg.maxClasses);
+
     const match = msg.gameDir.match(/dota_v(\d+)/);
     if (match) {
       this.buildNumber = +match[1];
     }
-    this.classIdSize = Reader.calcBitsNeededFor(msg.maxClasses);
   }
 
   onCMsgSource1LegacyGameEventList(msg) {
