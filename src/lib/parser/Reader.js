@@ -87,7 +87,7 @@ class Reader {
 
   // Reads a single byte
   readByte() {
-    if (this.bitCount === 0) {
+    if (this.bitCount === 0n) {
       return this.nextByte();
     }
     return this.readBitInt(8);
@@ -95,7 +95,7 @@ class Reader {
 
   // Reads given length number of bytes from buffer
   readBytes(length) {
-    if (this.bitCount === 0) {
+    if (this.bitCount === 0n) {
       const start = this.pos;
       const end = start + length;
       if (end > this.length) {
