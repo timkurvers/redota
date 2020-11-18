@@ -1,3 +1,5 @@
+/* eslint-disable no-multi-spaces */
+
 import EventEmitter from 'events';
 
 import snappy from 'snappyjs';
@@ -26,7 +28,8 @@ import { fieldPatches } from './FieldPatch.js';
 const MAGIC_SOURCE_1 = 'PBUFDEM\0'; // eslint-disable-line
 const MAGIC_SOURCE_2 = 'PBDEMS2\0';
 
-const TICK_RATE_MS = 1000.0 / 30.0;
+const TICK_RATE    = 30;
+const TICK_RATE_MS = 1000.0 / TICK_RATE;
 
 const INDEX_BITS = 14; // eslint-disable-line
 const SERIAL_BITS = 17;
@@ -111,6 +114,10 @@ class Parser extends Reader {
 
   step() {
     this.seek(this.tick + 1);
+  }
+
+  frame() {
+    this.seek(this.tick + TICK_RATE);
   }
 
   seek(target) {
