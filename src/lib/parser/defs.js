@@ -48,3 +48,22 @@ export const packetToTypeMapping = {
   ...mapping(NET_Messages, 'net_', 'CNETMsg_'),
   ...mapping(SVC_Messages, 'svc_', 'CSVCMsg_'),
 };
+
+export const priorityForType = (type) => {
+  switch (type) {
+    // High priority: provides context for the rest of the tick
+    case NET_Messages.net_Tick:
+    case SVC_Messages.svc_CreateStringTable:
+    case SVC_Messages.svc_UpdateStringTable:
+    case NET_Messages.net_SpawnGroup_Load:
+      return -10;
+    // Medium priority: provides and needs context for the rest of the tick
+    case SVC_Messages.svc_PacketEntities:
+      return 5;
+    // Low priority: mostly needs context for the rest of the tick
+    case EBaseGameEvents.GE_Source1LegacyGameEvent:
+      return 10;
+    default:
+      return 0;
+  }
+};

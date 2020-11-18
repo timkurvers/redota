@@ -19,6 +19,7 @@ import {
   EDemoCommands,
   commandToTypeMapping,
   packetToTypeMapping,
+  priorityForType,
 } from './defs.js';
 import { fieldPatches } from './FieldPatch.js';
 
@@ -164,7 +165,9 @@ class Parser extends Reader {
       pending.push({ type, size, data });
     }
 
-    // TODO: Sort pending
+    if (pending.length > 1) {
+      pending.sort(prioritizePendingMessages); // eslint-disable-line
+    }
 
     for (const message of pending) {
       const lookup = packetToTypeMapping[message.type];
@@ -455,6 +458,12 @@ class Parser extends Reader {
     }
   }
 }
+
+const prioritizePendingMessages = (a, b) => {
+  const ap = priorityForType(a);
+  const bp = priorityForType(b);
+  return ap - bp;
+};
 
 export default Parser;
 export { TICK_RATE_MS };
