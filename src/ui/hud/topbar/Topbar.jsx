@@ -21,7 +21,7 @@ const Topbar = (props) => {
   const { heroes, setSelection, time } = props;
 
   const radiant = heroes.slice(0, 5);
-  const dire = heroes.slice(5);
+  const dire = heroes.slice(5, 10);
 
   return (
     <StyledTopbar>
