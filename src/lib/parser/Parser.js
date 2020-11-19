@@ -107,11 +107,7 @@ class Parser extends Reader {
     this.seek(this.tick + 1);
   }
 
-  frame() {
-    this.seek(this.tick + TICK_RATE);
-  }
-
-  seek(target) {
+  seek(target, { silent = false } = {}) {
     while (this.tick <= target && this.parsing) {
       const cmd = this.readVarUint32();
       const tick = this.readVarUint32();
@@ -131,6 +127,9 @@ class Parser extends Reader {
       const [Type, as = Type.name] = lookup;
 
       this.tick = tick;
+      if (!silent) {
+        this.emitter.emit('tick', tick);
+      }
 
       const event = `msg:${as}`;
       const numListeners = this.emitter.listenerCount(event);
@@ -141,6 +140,9 @@ class Parser extends Reader {
 
       const struct = Type.decode(data);
       this.emitter.emit(event, struct, tick);
+    }
+    if (silent) {
+      this.emitter.emit('tick', this.tick);
     }
   }
 
