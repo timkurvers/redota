@@ -28,6 +28,7 @@ import { fieldPatches } from './FieldPatch.js';
 const MAGIC_SOURCE_1 = 'PBUFDEM\0'; // eslint-disable-line
 const MAGIC_SOURCE_2 = 'PBDEMS2\0';
 
+// TODO: Figure out what is up with these values
 const TICK_RATE    = 30;
 const TICK_RATE_MS = 1000.0 / TICK_RATE;
 
@@ -80,24 +81,15 @@ class Parser extends Reader {
     this.skip(8);
   }
 
-  get summary() {
-    const { parsing, pos, tick } = this;
-    this.pos = MAGIC_SOURCE_2.length;
-    this.pos = this.readUint32LE();
-    let summary;
-    this.emitter.once('msg:CDemoFileInfo', (msg) => {
-      summary = msg;
-    });
-    this.parsing = true;
-    this.step();
-    this.parsing = parsing;
-    this.pos = pos;
-    this.tick = tick;
-    return summary;
-  }
-
   get lastTick() {
-    return this.summary.playbackTicks;
+    const { pos } = this;
+    this.pos = MAGIC_SOURCE_2.length;
+    // Jump to the position of CDemoFileInfo message in replay
+    this.pos = this.readUint32LE();
+    this.readVarUint32();
+    const lastTick = this.readVarUint32();
+    this.pos = pos;
+    return lastTick;
   }
 
   on(...args) {
