@@ -64,9 +64,9 @@ const Bar = (props) => {
     <StyledBar size={size}>
       {size === 'default' && (
         <StyledText>
-          {value}
+          {value | 0}
           <span>/</span>
-          {max}
+          {max | 0}
         </StyledText>
       )}
       <StyledFill style={{ background: color, width: `${pct}%` }} />
