@@ -14,7 +14,7 @@ const ReDota = () => (
   <StyledReDota>
     <HashRouter>
       <Switch>
-        <Route path="/replay"><ReplayPage /></Route>
+        <Route path="/replay/:safeFilename/:safeReplayURL"><ReplayPage /></Route>
         <Route path="/"><HomePage /></Route>
       </Switch>
     </HashRouter>

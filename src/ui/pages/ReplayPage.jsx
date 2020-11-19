@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useHistory, useParams } from 'react-router-dom';
 
 import HUD from '../hud/HUD.jsx';
 import Parser from '../../lib/parser/Parser.js';
@@ -22,6 +23,10 @@ const StyledReplayPage = styled.div`
 `;
 
 const ReplayPage = () => {
+  const history = useHistory();
+  const { safeReplayURL } = useParams();
+  const replayURL = decodeURIComponent(safeReplayURL);
+
   const [replay, setReplay] = useState(null);
   const [tick, setTick] = useState(0);
   const [maxTick, setMaxTick] = useState(0);
@@ -105,11 +110,20 @@ const ReplayPage = () => {
   }, [replay]);
 
   useEffect(() => {
-    // TODO: Allow selecting a replay via a file picker
-    fetch('./replays/some-local-replay.dem').then((res) => res.arrayBuffer()).then((buf) => {
-      setReplay(new Parser(buf));
-    });
-  }, []);
+    const fetchReplay = async () => {
+      let buffer = null;
+      try {
+        const res = await fetch(replayURL);
+        buffer = await res.arrayBuffer();
+      } catch (e) {
+        // TODO: Blob objects expire on unload, so for now, redirect home
+        history.push('/');
+        return;
+      }
+      setReplay(new Parser(buffer));
+    };
+    fetchReplay();
+  }, [history, replayURL]);
 
   useEffect(() => {
     if (!replay) return;
@@ -117,7 +131,6 @@ const ReplayPage = () => {
     setMaxTick(replay.lastTick);
     replay.start();
     replay.on('tick', onTick);
-    replay.step();
   }, [onTick, replay]);
 
   // TODO: Tick rate seems off, why?
