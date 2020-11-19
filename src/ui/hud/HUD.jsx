@@ -6,19 +6,25 @@ import Topbar from './topbar/Topbar.jsx';
 
 const HUD = (props) => {
   const {
-    entities, selectedEntity, setSelection, tick, maxTick, setTick,
+    heroes,
+    selectedEntity, setSelection,
+    playing, setPlaying,
+    tick, maxTick, time, requestTick,
   } = props;
-
-  // TODO: Actually find heroes properly
-  const heroes = entities.filter(Boolean);
 
   return (
     <div>
       {selectedEntity && (
         <Selection selectedEntity={selectedEntity} setSelection={setSelection} />
       )}
-      <Timeline tick={tick} maxTick={maxTick} setTick={setTick} />
-      <Topbar heroes={heroes} setSelection={setSelection} tick={tick} />
+      <Timeline
+        playing={playing}
+        setPlaying={setPlaying}
+        tick={tick}
+        maxTick={maxTick}
+        requestTick={requestTick}
+      />
+      <Topbar heroes={heroes} setSelection={setSelection} time={time} />
     </div>
   );
 };

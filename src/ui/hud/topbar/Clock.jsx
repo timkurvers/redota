@@ -1,10 +1,10 @@
 import React from 'react';
 
 const Clock = (props) => {
-  let { tick } = props;
-  const mins = tick / 60 | 0;
-  tick %= 60;
-  const secs = tick;
+  let { time } = props;
+  const mins = time / 60 | 0;
+  time %= 60;
+  const secs = time | 0;
   return (
     <div>
       {`00${mins}`.slice(-2)}

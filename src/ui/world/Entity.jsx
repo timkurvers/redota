@@ -19,7 +19,7 @@ const StyledEntity = styled.div`
 
 const Entity = (props) => {
   const {
-    color, onClick, selected, name, x, y,
+    color, onClick, selected, name, x, y, type,
   } = props;
 
   return (
@@ -29,7 +29,7 @@ const Entity = (props) => {
       selected={selected}
       style={{ left: `${x}px`, bottom: `${y}px` }}
     >
-      <HeroResource name={name} variant="icon" />
+      {type === 'hero' && <HeroResource name={name} variant="icon" />}
     </StyledEntity>
   );
 };

@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { HStack } from '../../components/index.js';
+import { Button, HStack } from '../../components/index.js';
 
 const StyledTimeline = styled(HStack)`
+  display: flex;
+  align-items: center;
   width: 500px;
   padding: 7px 7px;
   position: absolute;
@@ -15,23 +17,35 @@ const StyledTimeline = styled(HStack)`
   border-radius: 100px;
   text-align: center;
 
+  & > * {
+    margin: auto 5px;
+  }
+
   & input {
     width: 100%;
   }
 `;
 
 const Timeline = (props) => {
-  const { tick, maxTick, setTick } = props;
+  const {
+    tick, maxTick, requestTick, playing, setPlaying,
+  } = props;
   return (
     <StyledTimeline>
+      <Button onClick={() => setPlaying(!playing)}>
+        {!playing ? '►' : '❚❚'}
+      </Button>
       <input
         type="range"
         min={0}
         max={maxTick}
         step={1}
         value={tick}
-        onChange={(e) => setTick(+e.target.value)}
+        onChange={(e) => requestTick(+e.target.value)}
       />
+      <div style={{ whiteSpace: 'nowrap' }}>
+        {tick} / {maxTick}
+      </div>
     </StyledTimeline>
   );
 };

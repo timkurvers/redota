@@ -18,7 +18,7 @@ const StyledTopbar = styled(HStack)`
 `;
 
 const Topbar = (props) => {
-  const { heroes, setSelection, tick } = props;
+  const { heroes, setSelection, time } = props;
 
   const radiant = heroes.slice(0, 5);
   const dire = heroes.slice(5);
@@ -27,7 +27,7 @@ const Topbar = (props) => {
     <StyledTopbar>
       <HeroList heroes={radiant} setSelection={setSelection} />
       <Score value="7" />
-      <Clock tick={tick} />
+      <Clock time={time} />
       <Score value="1" />
       <HeroList heroes={dire} setSelection={setSelection} />
     </StyledTopbar>
