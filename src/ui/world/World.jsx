@@ -4,6 +4,11 @@ import styled from 'styled-components';
 import Entity from './Entity.jsx';
 import Map from './Map.jsx';
 
+const DOTA_MAP_SIZE = 16384;
+const REDOTA_MAP_SIZE = 4000;
+
+const scale = (value) => (REDOTA_MAP_SIZE / DOTA_MAP_SIZE) * value;
+
 const StyledWorld = styled.div`
   width: 100%;
   height: 100%;
@@ -27,13 +32,14 @@ const World = (props) => {
     entities, focus, selectedEntity, setSelection,
   } = props;
 
-  const [x, setX] = useState(-1285);
-  const [y, setY] = useState(-1285);
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
   const [dragging, setDragging] = useState(false);
 
   useEffect(() => {
-    setX(-focus.x);
-    setY(-focus.y);
+    if (!focus) return;
+    setX(-scale(focus.x));
+    setY(scale(focus.y));
   }, [focus]);
 
   const move = (dx, dy) => {
@@ -68,6 +74,8 @@ const World = (props) => {
           <Entity
             key={entity.id}
             {...entity}
+            x={scale(entity.x)}
+            y={scale(entity.y)}
             selected={selectedEntity === entity}
             onClick={() => setSelection(entity.id)}
           />

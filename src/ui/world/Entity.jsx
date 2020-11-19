@@ -12,7 +12,7 @@ const StyledEntity = styled.div`
     border: 3px solid white;
   `}
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 50%);
   background: ${(props) => props.color}88;
   cursor: pointer;
 `;
@@ -27,7 +27,7 @@ const Entity = (props) => {
       color={color}
       onClick={onClick}
       selected={selected}
-      style={{ left: `${x}px`, top: `${y}px` }}
+      style={{ left: `${x}px`, bottom: `${y}px` }}
     >
       <HeroResource name={name} variant="icon" />
     </StyledEntity>
