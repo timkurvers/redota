@@ -4,8 +4,10 @@ import styled, { css } from 'styled-components';
 import { HeroResource } from '../components/index.js';
 
 const StyledEntity = styled.div`
-  width: 30px;
-  height: 30px;
+  ${(props) => props.type === 'hero' && css`
+    width: 30px;
+    height: 30px;
+  `}
   padding: 10px;
   border-radius: 50%;
   ${(props) => props.selected && css`
@@ -13,7 +15,7 @@ const StyledEntity = styled.div`
   `}
   position: absolute;
   transform: translate(-50%, 50%);
-  background: ${(props) => props.color}88;
+  background: ${(props) => props.color}AA;
   cursor: pointer;
 `;
 
