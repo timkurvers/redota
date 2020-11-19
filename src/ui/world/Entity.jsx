@@ -17,6 +17,10 @@ const StyledEntity = styled.div`
   transform: translate(-50%, 50%);
   background: ${(props) => props.color}AA;
   cursor: pointer;
+
+  & img {
+    display: block;
+  }
 `;
 
 const Entity = (props) => {
