@@ -39,6 +39,10 @@ class IndexedCollection extends Set {
       this[collection] = {};
     }
   }
+
+  find(...args) {
+    return Array.from(this).find(...args);
+  }
 }
 
 export default IndexedCollection;
