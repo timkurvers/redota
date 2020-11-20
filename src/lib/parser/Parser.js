@@ -124,7 +124,7 @@ class Parser extends Reader {
       if (!lookup) {
         throw new Error(`no type to handle demo command: ${type}`);
       }
-      const [Type, as = Type.name] = lookup;
+      const [Type, as] = lookup;
 
       this.tick = tick;
       if (!silent) {
@@ -175,7 +175,7 @@ class Parser extends Reader {
         continue;
       }
 
-      const [Type, as = Type.name] = lookup;
+      const [Type, as] = lookup;
 
       const event = `msg:${as}`;
       const numListeners = this.emitter.listenerCount(event);

@@ -21,9 +21,10 @@ export const { SVC_Messages } = dota;
 
 const mapping = (enumeration, search, replace, lookup = {}) => {
   for (const [name, value] of Object.entries(enumeration)) {
-    const type = dota[name.replace(search, replace)];
+    const fnname = name.replace(search, replace);
+    const type = dota[fnname];
     if (type) {
-      lookup[value] = [type];
+      lookup[value] = [type, fnname];
     }
   }
   return lookup;
@@ -40,10 +41,10 @@ export const packetToTypeMapping = {
   ...mapping(EBaseGameEvents, 'GE_', 'CMsg'),
   ...mapping(EBaseUserMessages, 'UM_', 'CUserMessage'),
   ...mapping(EDotaUserMessages, 'DOTA_UM_', 'CDOTAUserMsg_', {
-    [EDotaUserMessages.DOTA_UM_TournamentDrop]: [CMsgGCToClientTournamentItemDrop],
-    [EDotaUserMessages.DOTA_UM_StatsHeroDetails]: [CDOTAUserMsg_StatsHeroMinuteDetails],
-    [EDotaUserMessages.DOTA_UM_CombatLogDataHLTV]: [CMsgDOTACombatLogEntry],
-    [EDotaUserMessages.DOTA_UM_MatchMetadata]: [CDOTAMatchMetadataFile],
+    [EDotaUserMessages.DOTA_UM_TournamentDrop]: [CMsgGCToClientTournamentItemDrop, 'CMsgGCToClientTournamentItemDrop'],
+    [EDotaUserMessages.DOTA_UM_StatsHeroDetails]: [CDOTAUserMsg_StatsHeroMinuteDetails, 'CDOTAUserMsg_StatsHeroMinuteDetails'],
+    [EDotaUserMessages.DOTA_UM_CombatLogDataHLTV]: [CMsgDOTACombatLogEntry, 'CMsgDOTACombatLogEntry'],
+    [EDotaUserMessages.DOTA_UM_MatchMetadata]: [CDOTAMatchMetadataFile, 'CDOTAMatchMetadataFile'],
   }),
   ...mapping(NET_Messages, 'net_', 'CNETMsg_'),
   ...mapping(SVC_Messages, 'svc_', 'CSVCMsg_'),
