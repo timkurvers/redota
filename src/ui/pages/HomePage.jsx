@@ -36,6 +36,11 @@ const HomePage = () => {
   const opendota = <Link to="https://github.com/odota/parser">OpenDota</Link>;
   const skadistats = <Link to="https://github.com/skadistats/clarity">Skadistats</Link>;
   const github = <Link to="https://github.com/timkurvers/redota">GitHub</Link>;
+  const example = (
+    <Link to="http://replay308.valve.net/570/4986461644_1194860475.dem.bz2">
+      Download and unzip replay of a pro-team match
+    </Link>
+  );
 
   const onReplaySelect = async (e) => {
     const file = e.target.files[0];
@@ -64,11 +69,11 @@ const HomePage = () => {
         relying on parsing replays client-side without any server involvement.
       </p>
       <p>
-        ReDota is a heavily derived project and stands on the shoulders of giants,
-        notably parsers by {dotabuff}, {opendota} and {skadistats}.
+        Source is available on {github}. Contributions welcome!
       </p>
       <p>
-        Source is available on {github}. Contributions welcome!
+        ReDota is a heavily derived project and stands on the shoulders of giants,
+        notably parsers by {dotabuff}, {opendota} and {skadistats}.
       </p>
       <h2>Select replay file</h2>
       <p>
@@ -83,6 +88,9 @@ const HomePage = () => {
         The replay file you select is never uploaded to any server. Real-time
         playback of replays can be taxing on your machine, but should be decently
         performant in latest versions of Mozilla Firefox and Google Chrome.
+      </p>
+      <p>
+        Do not have a replay file? {example}.
       </p>
       <h2>Status</h2>
       <p>
