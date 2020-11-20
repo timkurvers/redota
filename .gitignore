@@ -1,5 +1,6 @@
 /coverage/
 /design/
+/dota/compiled.cjs
 /node_modules/
 /public/replays
 /replays/
