@@ -129,6 +129,7 @@ const ReplayPage = () => {
     if (!replay) return;
 
     setMaxTick(replay.lastTick);
+    replay.on('warn', console.warn);
     replay.start();
     replay.on('tick', onTick);
   }, [onTick, replay]);

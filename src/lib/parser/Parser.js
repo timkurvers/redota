@@ -262,6 +262,9 @@ class Parser extends Reader {
     const match = msg.gameDir.match(/dota_v(\d+)/);
     if (match) {
       this.buildNumber = +match[1];
+    } else {
+      const warning = new Error(`could not retrieve build number from: ${msg.gameDir}`);
+      this.emitter.emit('warn', warning);
     }
   }
 
