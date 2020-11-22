@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Button, HStack } from '../../components/index.js';
+import { Button, HStack, StyledButton } from '../../components/index.js';
 
 const StyledTimeline = styled(HStack)`
   display: flex;
@@ -23,6 +23,10 @@ const StyledTimeline = styled(HStack)`
 
   & input {
     width: 100%;
+  }
+
+  ${StyledButton} {
+    width: 50px;
   }
 `;
 
