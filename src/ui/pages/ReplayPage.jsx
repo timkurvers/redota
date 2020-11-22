@@ -134,11 +134,11 @@ const ReplayPage = () => {
     replay.on('tick', onTick);
   }, [onTick, replay]);
 
-  // TODO: Tick rate seems off, why?
+  // Replay files seem to (mostly) hop over every other tick, so decrease the
+  // tick rate by a factor two
   useInterval(() => {
-    if (!replay) return;
-    replay.step();
-  }, playing ? 1000 / 16 : null);
+    replay.step(2);
+  }, replay && playing ? (1 / replay.tickInterval) * 2 : null);
 
   return (
     <StyledReplayPage>
