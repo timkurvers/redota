@@ -28,10 +28,6 @@ import { fieldPatches } from './FieldPatch.js';
 const MAGIC_SOURCE_1 = 'PBUFDEM\0'; // eslint-disable-line
 const MAGIC_SOURCE_2 = 'PBDEMS2\0';
 
-// TODO: Figure out what is up with these values
-const TICK_RATE    = 30;
-const TICK_RATE_MS = 1000.0 / TICK_RATE;
-
 const INDEX_BITS = 14; // eslint-disable-line
 const SERIAL_BITS = 17;
 
@@ -52,7 +48,8 @@ class Parser extends Reader {
     this.stringTables = new IndexedCollection(StringTable, 'name', 'index');
 
     this.emitter = new EventEmitter();
-    this.tick = 0;
+    this.tick = -1;
+    this.tickInterval = null;
     this.parsing = false;
     this.synced = false;
 
@@ -103,12 +100,12 @@ class Parser extends Reader {
     }
   }
 
-  step() {
-    this.seek(this.tick + 1);
+  step(ticks = 1) {
+    this.seek(this.tick + ticks);
   }
 
   seek(target, { silent = false } = {}) {
-    while (this.tick <= target && this.parsing) {
+    while (this.tick < target && this.parsing) {
       const cmd = this.readVarUint32();
       const tick = this.readVarUint32();
       const size = this.readVarUint32();
@@ -127,9 +124,6 @@ class Parser extends Reader {
       const [Type, as] = lookup;
 
       this.tick = tick;
-      if (!silent) {
-        this.emitter.emit('tick', tick);
-      }
 
       const event = `msg:${as}`;
       const numListeners = this.emitter.listenerCount(event);
@@ -140,6 +134,10 @@ class Parser extends Reader {
 
       const struct = Type.decode(data);
       this.emitter.emit(event, struct, tick);
+
+      if (!silent) {
+        this.emitter.emit('tick', tick);
+      }
     }
     if (silent) {
       this.emitter.emit('tick', this.tick);
@@ -259,6 +257,7 @@ class Parser extends Reader {
 
   onCSVCMsg_ServerInfo(msg) {
     this.classIdSize = Reader.calcBitsNeededFor(msg.maxClasses);
+    this.tickInterval = msg.tickInterval;
 
     const match = msg.gameDir.match(/dota_v(\d+)/);
     if (match) {
@@ -476,4 +475,3 @@ const prioritizePendingMessages = (a, b) => {
 };
 
 export default Parser;
-export { TICK_RATE_MS };
