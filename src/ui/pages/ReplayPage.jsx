@@ -87,6 +87,8 @@ const ReplayPage = () => {
 
         // TODO: Look up player color through player
         unit.color = PLAYER_COLORS[++players];
+        unit.level = e.get('m_iCurrentLevel');
+        unit.xp = e.get('m_iCurrentXP');
       } else if (cls === 'CDOTA_Unit_Courier') {
         unit.type = 'courier';
       } else if (cls === 'CDOTA_Unit_Roshan') {

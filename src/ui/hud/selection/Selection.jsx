@@ -51,13 +51,13 @@ const Selection = (props) => {
   }
 
   const {
-    id, name, hp, hpMax, mp, mpMax,
+    id, name, hp, hpMax, mp, mpMax, level, xp,
   } = selectedEntity;
 
   return (
     <StyledSelection>
       <Name>{name}</Name>
-      <Level>1</Level>
+      {level && <Level xp={xp}>{level}</Level>}
       <Portrait hero={name} onClick={() => setSelection(id)} />
       <VStack>
         <Abilities />
