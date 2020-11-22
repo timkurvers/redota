@@ -90,7 +90,7 @@ const HomePage = () => {
         performant in latest versions of Mozilla Firefox and Google Chrome.
       </p>
       <p>
-        Do not have a replay file? {example}.
+        Need a replay file? {example}.
       </p>
       <h2>Status</h2>
       <p>
