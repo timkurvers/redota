@@ -32,7 +32,7 @@ const ReplayPage = () => {
   const [maxTick, setMaxTick] = useState(0);
   const [playing, setPlaying] = useState(false);
 
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(null);
   const [entities, setEntities] = useState([]);
   const [selectionId, setSelectionId] = useState(null);
   const [focus, setFocus] = useState(null);
