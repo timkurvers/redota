@@ -23,6 +23,11 @@ const Topbar = (props) => {
   const radiant = heroes.slice(0, 5);
   const dire = heroes.slice(5, 10);
 
+  // TODO: Render topbar based on game state, not whether heroes are present
+  if (!heroes.length) {
+    return null;
+  }
+
   return (
     <StyledTopbar>
       <HeroList heroes={radiant} setSelection={setSelection} />
