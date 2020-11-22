@@ -59,8 +59,17 @@ const ReplayPage = () => {
       // TODO: Handle game phase
       // const phase = game.get('m_pGameRules.m_nGameState');
 
-      // TODO: Game time is incorrect, needs some adjustments
-      setTime(game.get('m_pGameRules.m_fGameTime'));
+      const gameTime = game.get('m_pGameRules.m_fGameTime');
+      const startTime = game.get('m_pGameRules.m_flGameStartTime');
+      const preStartTime = game.get('m_pGameRules.m_flPreGameStartTime');
+
+      // TODO: Handle game end time?
+      if (startTime) {
+        setTime(gameTime - startTime);
+      } else if (preStartTime) {
+        const transitionTime = game.get('m_pGameRules.m_flStateTransitionTime');
+        setTime(gameTime - transitionTime);
+      }
     }
 
     // TODO: This handling of all entities is absolutely disastrous for performance
