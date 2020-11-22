@@ -10,6 +10,7 @@ class Entity {
     this.class = cls;
     this.active = true;
     this.state = new FieldState();
+    this.fpCache = {};
   }
 
   get snapshot() {
@@ -23,10 +24,13 @@ class Entity {
   }
 
   get(name) {
-    // TODO: Caching
-    const fp = new FieldPath();
-    if (!this.class.getFieldPathForName(fp, name)) {
-      return null;
+    let fp = this.fpCache[name];
+    if (!fp) {
+      fp = new FieldPath();
+      if (!this.class.getFieldPathForName(fp, name)) {
+        throw new Error(`entity ${this.class.name} does not have field: ${name}`);
+      }
+      this.fpCache[name] = fp;
     }
     return this.state.get(fp);
   }
