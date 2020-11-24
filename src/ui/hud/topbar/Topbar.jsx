@@ -6,6 +6,7 @@ import { HStack } from '../../components/index.js';
 import Clock from './Clock.jsx';
 import HeroList from './HeroList.jsx';
 import Score from './Score.jsx';
+import { TEAM_DIRE, TEAM_RADIANT } from '../../constants.js';
 
 const StyledTopbar = styled(HStack)`
   align-items: center;
@@ -20,13 +21,14 @@ const StyledTopbar = styled(HStack)`
 const Topbar = (props) => {
   const { heroes, setSelection, time } = props;
 
-  const radiant = heroes.slice(0, 5);
-  const dire = heroes.slice(5, 10);
-
   // TODO: Render topbar based on game state, not whether heroes are present
   if (!heroes.length) {
     return null;
   }
+
+  // TODO: Does not work properly for illusion heroes
+  const radiant = heroes.filter((h) => h.team === TEAM_RADIANT);
+  const dire = heroes.filter((h) => h.team === TEAM_DIRE);
 
   return (
     <StyledTopbar>
