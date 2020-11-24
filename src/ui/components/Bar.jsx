@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
+import { TEAM_COLORS } from '../constants.js';
+
 const StyledFill = styled.div`
   position: absolute;
   z-index: 1;
@@ -50,12 +52,12 @@ const StyledBar = styled.div`
 const Bar = (props) => {
   let { color } = props;
   const {
-    max, value, size = 'default', type,
+    max, value, size = 'default', team, type,
   } = props;
   const pct = (value / max) * 100 | 0;
 
   if (type === 'health') {
-    color = '#4D8A2F';
+    color = TEAM_COLORS[team];
   } else if (type === 'mana') {
     color = '#466DDC';
   }
