@@ -118,6 +118,8 @@ const ReplayPage = () => {
       unit.hpMax = e.get('m_iMaxHealth');
       unit.mp = e.get('m_flMana');
       unit.mpMax = e.get('m_flMaxMana');
+      // TODO: Probably not the most legit way to figure out death state
+      unit.dead = unit.hp === 0;
       unit.team = e.get('m_iTeamNum');
       unit.name = unit.name || unit.type;
       unit.color = unit.color || TEAM_COLORS[unit.team];

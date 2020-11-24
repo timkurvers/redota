@@ -52,14 +52,14 @@ const Selection = (props) => {
   }
 
   const {
-    id, name, refname, hp, hpMax, mp, mpMax, level, team, xp,
+    id, dead, name, refname, hp, hpMax, mp, mpMax, level, team, xp,
   } = selectedEntity;
 
   return (
     <StyledSelection>
       <Name>{name}</Name>
       {level && <Level xp={xp}>{level}</Level>}
-      <Portrait hero={refname} onClick={() => setSelection(id)} />
+      <Portrait dead={dead} hero={refname} onClick={() => setSelection(id)} />
       <VStack>
         <Abilities />
         <Bar type="health" value={hp} max={hpMax} team={team} />

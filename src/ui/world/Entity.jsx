@@ -2,10 +2,10 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 import {
-  HeroResource, Level, StyledLevel,
+  DeathFilter, HeroResource, Level, StyledLevel,
 } from '../components/index.js';
 
-const StyledEntity = styled.div`
+const StyledEntity = styled(DeathFilter)`
   ${(props) => props.type === 'hero' && css`
     width: 30px;
     height: 30px;
@@ -19,10 +19,6 @@ const StyledEntity = styled.div`
   transform: translate(-50%, 50%);
   background: ${(props) => props.color}AA;
   cursor: pointer;
-
-  ${(props) => props.dead && css`
-    opacity: 0.5;
-  `}
 
   & img {
     display: block;
@@ -38,15 +34,14 @@ const StyledEntity = styled.div`
 
 const Entity = (props) => {
   const {
-    id, refname, hp, level, xp,
+    id, refname, level, xp, dead,
     color, onClick, selected, x, y, type,
   } = props;
 
   return (
     <StyledEntity
       color={color}
-      // TODO: Probably not the most legit way to figure out death state
-      dead={hp === 0}
+      dead={dead}
       onClick={() => onClick(id)}
       selected={selected}
       style={{ left: `${x}px`, bottom: `${y}px` }}

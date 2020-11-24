@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import {
-  Bar, HeroResource, PlayerColor,
+  Bar, DeathFilter, HeroResource, PlayerColor,
 } from '../../components/index.js';
 
 const StyledHeroListEntry = styled.div`
@@ -16,14 +16,16 @@ const StyledHeroListEntry = styled.div`
 
 const HeroListEntry = (props) => {
   const {
-    color, id, hp, hpMax, mp, mpMax, refname, onClick, team,
+    color, dead, id, hp, hpMax, mp, mpMax, refname, onClick, team,
   } = props;
   return (
     <StyledHeroListEntry onClick={onClick}>
       <PlayerColor color={color} />
-      <HeroResource key={id} refname={refname} variant="landscape" />
-      <Bar type="health" size="mini" value={hp} max={hpMax} team={team} />
-      <Bar type="mana" size="mini" value={mp} max={mpMax} />
+      <DeathFilter dead={dead}>
+        <HeroResource key={id} refname={refname} variant="landscape" />
+        <Bar type="health" size="mini" value={hp} max={hpMax} team={team} />
+        <Bar type="mana" size="mini" value={mp} max={mpMax} />
+      </DeathFilter>
     </StyledHeroListEntry>
   );
 };
