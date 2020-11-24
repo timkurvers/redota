@@ -7,7 +7,7 @@ import { HomePage, ReplayPage } from './pages/index.js';
 const StyledReDota = styled.div`
   box-sizing: content-box;
   font-family: 'Galdeano', sans-serif;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
 `;
 
 const ReDota = () => (
