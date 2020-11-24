@@ -4,18 +4,17 @@ import EventEmitter from 'events';
 
 import snappy from 'snappyjs';
 
-import {
-  Class,
-  Entity, EntityEvent,
-  GameEvent, GameEventField, GameEventType,
-} from '../entities/index.js';
-import { IndexedCollection } from '../utils/index.js';
-
 import Field, { FieldModel } from './Field.js';
 import FieldType from './FieldType.js';
 import Reader from './Reader.js';
 import Serializer from './Serializer.js';
 import StringTable, { StringTableEntry } from './StringTable.js';
+import {
+  Class,
+  Entity, EntityEvent,
+  GameEvent, GameEventField, GameEventType,
+} from './model/index.js';
+import { IndexedCollection } from '../utils/index.js';
 import {
   CSVCMsg_FlattenedSerializer,
   EDemoCommands,

@@ -1,7 +1,7 @@
 /* eslint-disable key-spacing */
 
-import FieldPath from '../parser/FieldPath.js';
-import FieldState from '../parser/FieldState.js';
+import FieldPath from '../FieldPath.js';
+import FieldState from '../FieldState.js';
 
 class Entity {
   constructor(index, serial, cls) {
