@@ -15,7 +15,7 @@ const Portrait = (props) => {
   const { hero, onClick } = props;
   return (
     <StyledPortrait onClick={onClick}>
-      <HeroResource name={hero} variant="portrait" />
+      {hero && <HeroResource refname={hero} variant="portrait" />}
     </StyledPortrait>
   );
 };
