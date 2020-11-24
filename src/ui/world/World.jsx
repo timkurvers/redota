@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import Entity from './Entity.jsx';
@@ -61,6 +61,10 @@ const World = (props) => {
     if (dragging) move(e.movementX, e.movementY);
   };
 
+  const onClick = useCallback((id) => {
+    setSelection(id);
+  }, [setSelection]);
+
   return (
     <StyledWorld
       dragging={dragging}
@@ -77,7 +81,7 @@ const World = (props) => {
             x={scale(entity.x)}
             y={scale(entity.y)}
             selected={selectedEntity === entity}
-            onClick={() => setSelection(entity.id)}
+            onClick={onClick}
           />
         ))}
       </Map>

@@ -40,4 +40,4 @@ const Entity = (props) => {
   );
 };
 
-export default Entity;
+export default React.memo(Entity);
