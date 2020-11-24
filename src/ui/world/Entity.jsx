@@ -1,7 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { HeroResource } from '../components/index.js';
+import {
+  HeroResource, Level, StyledLevel,
+} from '../components/index.js';
 
 const StyledEntity = styled.div`
   ${(props) => props.type === 'hero' && css`
@@ -21,11 +23,19 @@ const StyledEntity = styled.div`
   & img {
     display: block;
   }
+
+  ${StyledLevel} {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translate(-20%, 20%);
+  }
 `;
 
 const Entity = (props) => {
   const {
-    color, onClick, selected, name, x, y, type,
+    id, refname, hp, level, xp,
+    color, onClick, selected, x, y, type,
   } = props;
 
   return (
@@ -35,7 +45,12 @@ const Entity = (props) => {
       selected={selected}
       style={{ left: `${x}px`, bottom: `${y}px` }}
     >
-      {type === 'hero' && <HeroResource name={name} variant="icon" />}
+      {type === 'hero' && (
+        <>
+          <HeroResource refname={refname} variant="icon" />
+          <Level xp={xp} size="small">{level}</Level>
+        </>
+      )}
     </StyledEntity>
   );
 };

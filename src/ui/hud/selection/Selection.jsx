@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Bar, HStack, VStack } from '../../components/index.js';
+import {
+  Bar, HStack, Level, StyledLevel, VStack,
+} from '../../components/index.js';
 
 import Abilities from './Abilities.jsx';
 import Inventory, { StyledInventory } from './Inventory.jsx';
-import Level, { StyledLevel } from './Level.jsx';
 import Name, { StyledName } from './Name.jsx';
 import Portrait, { StyledPortrait } from './Portrait.jsx';
 
