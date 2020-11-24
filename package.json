@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "buffer": "^6.0.1",
+    "dotaconstants": "^6.38.0",
     "protobufjs": "^6.10.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
