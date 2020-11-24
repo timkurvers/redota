@@ -41,7 +41,7 @@ const Entity = (props) => {
   return (
     <StyledEntity
       color={color}
-      onClick={onClick}
+      onClick={() => onClick(id)}
       selected={selected}
       style={{ left: `${x}px`, bottom: `${y}px` }}
     >
