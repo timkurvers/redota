@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Button, HStack, StyledButton } from '../../components/index.js';
+import {
+  Button, HStack, StyledButton, Time,
+} from '../../components/index.js';
 
 const StyledTimeline = styled(HStack)`
   display: flex;
@@ -48,7 +50,7 @@ const Timeline = (props) => {
         onChange={(e) => requestTick(+e.target.value)}
       />
       <div style={{ whiteSpace: 'nowrap' }}>
-        {tick} / {maxTick}
+        <Time time={tick / 30} /> / <Time time={maxTick / 30} />
       </div>
     </StyledTimeline>
   );

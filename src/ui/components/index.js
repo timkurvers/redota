@@ -9,3 +9,4 @@ export {
 export {
   default as Stack, HStack, VStack,
 } from './Stack.jsx';
+export { default as Time } from './Time.jsx';
