@@ -33,6 +33,7 @@ const StyledSelection = styled(HStack)`
     position: absolute;
     left: 0;
     bottom: 75px;
+    z-index: 1;
     transform: translateX(-50%);
   }
 
