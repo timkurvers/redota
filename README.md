@@ -16,8 +16,8 @@ notably parsers by [Dotabuff], [OpenDota] and [Skadistats].
 
 # Status
 
-Currently, ReDota is capable of parsing replays minimally, but cannot yet extract
-useful replay data required for playback.
+Currently, ReDota is capable of parsing replays and playing back in real time.
+It does not yet parse everything correctly though.
 
 # Legalese
 
