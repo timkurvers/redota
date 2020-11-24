@@ -3,8 +3,8 @@ export const TEAM_DIRE = 3;
 export const TEAM_NEUTRAL = 4;
 export const TEAM_COLORS = {
   [TEAM_RADIANT]: '#4D8A2F',
-  [TEAM_DIRE]: '#FF1700',
-  [TEAM_NEUTRAL]: '#000000',
+  [TEAM_DIRE]: '#B21000',
+  [TEAM_NEUTRAL]: '#CAAA32',
 };
 
 // TODO: Needs a mapping by player ID
