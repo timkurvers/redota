@@ -62,7 +62,7 @@ const Bar = (props) => {
 
   return (
     <StyledBar size={size}>
-      {size === 'default' && (
+      {size === 'default' && max > 0 && (
         <StyledText>
           {value | 0}
           <span>/</span>
