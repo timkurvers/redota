@@ -16,13 +16,13 @@ const Resource = (props) => {
 };
 
 const AbilityResource = (props) => {
-  const { name, hero } = props;
-  const path = `/abilities/${hero}_${name}_md.png`;
+  const { refname, hero } = props;
+  const path = `/abilities/${hero}_${refname}_md.png`;
   return <Resource path={path} />;
 };
 
 const HeroResource = (props) => {
-  const { name, variant } = props;
+  const { refname, variant } = props;
 
   let suffix = 'full.png';
   switch (variant) {
@@ -39,12 +39,12 @@ const HeroResource = (props) => {
       suffix = 'full.png';
       break;
   }
-  return <Resource path={`heroes/${name}_${suffix}`} />;
+  return <Resource path={`heroes/${refname}_${suffix}`} />;
 };
 
 const ItemResource = (props) => {
-  const { name } = props;
-  return <Resource path={`items/${name}_lg.png`} />;
+  const { refname } = props;
+  return <Resource path={`items/${refname}_lg.png`} />;
 };
 
 export default Resource;

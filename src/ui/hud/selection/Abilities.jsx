@@ -28,11 +28,11 @@ const StyledAbilityLevel = styled.span`
 const Ability = (props) => {
   // TODO: Retrieve abilities for given hero
   const hero = 'phoenix';
-  const { name } = props;
+  const { refname } = props;
   return (
     <StyledAbility>
       <VStack>
-        <AbilityResource hero={hero} name={name} />
+        <AbilityResource hero={hero} refname={refname} />
         <HStack justify="center">
           <StyledAbilityLevel acquired />
           <StyledAbilityLevel acquired />
@@ -47,10 +47,10 @@ const Abilities = (props) => {
   const { hero } = props;
   return (
     <HStack>
-      <Ability hero={hero} name="icarus_dive" />
-      <Ability hero={hero} name="fire_spirits" />
-      <Ability hero={hero} name="sun_ray" />
-      <Ability hero={hero} name="supernova" />
+      <Ability hero={hero} refname="icarus_dive" />
+      <Ability hero={hero} refname="fire_spirits" />
+      <Ability hero={hero} refname="sun_ray" />
+      <Ability hero={hero} refname="supernova" />
     </HStack>
   );
 };

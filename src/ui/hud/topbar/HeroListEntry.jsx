@@ -16,13 +16,13 @@ const StyledHeroListEntry = styled.div`
 
 const HeroListEntry = (props) => {
   const {
-    color, id, hp, hpMax, mp, mpMax, name, onClick,
+    color, id, hp, hpMax, mp, mpMax, refname, onClick, team,
   } = props;
   return (
-    <StyledHeroListEntry onClick={onClick} name={name}>
+    <StyledHeroListEntry onClick={onClick}>
       <PlayerColor color={color} />
-      <HeroResource key={id} name={name} variant="landscape" />
-      <Bar type="health" size="mini" value={hp} max={hpMax} />
+      <HeroResource key={id} refname={refname} variant="landscape" />
+      <Bar type="health" size="mini" value={hp} max={hpMax} team={team} />
       <Bar type="mana" size="mini" value={mp} max={mpMax} />
     </StyledHeroListEntry>
   );

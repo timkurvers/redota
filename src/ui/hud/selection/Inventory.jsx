@@ -12,10 +12,10 @@ const StyledItem = styled.div`
 `;
 
 const Item = (props) => {
-  const { name } = props;
+  const { refname } = props;
   return (
     <StyledItem>
-      <ItemResource name={name} />
+      <ItemResource refname={refname} />
     </StyledItem>
   );
 };
@@ -29,14 +29,14 @@ const Inventory = (props) => {
   const { hero } = props; // eslint-disable-line
   return (
     <StyledInventory justify="center" wrap>
-      <Item name="tranquil_boots" />
-      <Item name="rod_of_atos" />
-      <Item name="heavens_halberd" />
-      <Item name="heart" />
-      <Item name="octarine_core" />
-      <Item name="shivas_guard" />
-      <Item name="ward_dispenser" />
-      <Item name="gem" />
+      <Item refname="tranquil_boots" />
+      <Item refname="rod_of_atos" />
+      <Item refname="heavens_halberd" />
+      <Item refname="heart" />
+      <Item refname="octarine_core" />
+      <Item refname="shivas_guard" />
+      <Item refname="ward_dispenser" />
+      <Item refname="gem" />
     </StyledInventory>
   );
 };

@@ -8,6 +8,7 @@ import World from '../world/World.jsx';
 import { TEAM_COLORS, PLAYER_COLORS } from '../constants.js';
 import { Link } from '../components/index.js';
 import { useInterval } from '../hooks/index.js';
+import { heroesByName } from '../../lib/dotaconstants.js';
 
 const StyledQuitLink = styled(Link)`
   position: absolute;
@@ -72,6 +73,9 @@ const ReplayPage = () => {
       }
     }
 
+    // Allows looking up reference names for heroes (among other things)
+    const entityNames = replay.stringTables.byName.EntityNames;
+
     // TODO: This handling of all entities is absolutely disastrous for performance
     // and bypasses any kind of optimizations React could apply :(
     const units = [];
@@ -82,8 +86,11 @@ const ReplayPage = () => {
       const cls = e.class.name;
       if (cls.startsWith('CDOTA_Unit_Hero_')) {
         unit.type = 'hero';
-        // TODO: Hero name should go via string tables
-        unit.name = e.class.name.match(/CDOTA_Unit_Hero_(.+)/)[1].toLowerCase();
+        const stringIndex = e.get('m_pEntity.m_nameStringableIndex');
+        const refname = entityNames.entries[stringIndex].key;
+        const lookup = heroesByName[refname];
+        unit.name = lookup.localized_name;
+        unit.refname = refname.replace('npc_dota_hero_', '');
 
         // TODO: Look up player color through player
         unit.color = PLAYER_COLORS[++players];
