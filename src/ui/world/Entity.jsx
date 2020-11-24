@@ -20,6 +20,10 @@ const StyledEntity = styled.div`
   background: ${(props) => props.color}AA;
   cursor: pointer;
 
+  ${(props) => props.dead && css`
+    opacity: 0.5;
+  `}
+
   & img {
     display: block;
   }
@@ -41,6 +45,8 @@ const Entity = (props) => {
   return (
     <StyledEntity
       color={color}
+      // TODO: Probably not the most legit way to figure out death state
+      dead={hp === 0}
       onClick={() => onClick(id)}
       selected={selected}
       style={{ left: `${x}px`, bottom: `${y}px` }}
