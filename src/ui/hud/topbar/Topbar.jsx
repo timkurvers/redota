@@ -33,9 +33,9 @@ const Topbar = (props) => {
   return (
     <StyledTopbar>
       <HeroList heroes={radiant} setSelection={setSelection} />
-      <Score value="7" />
+      <Score value="?" />
       <Clock time={time} />
-      <Score value="1" />
+      <Score value="?" />
       <HeroList heroes={dire} setSelection={setSelection} />
     </StyledTopbar>
   );
