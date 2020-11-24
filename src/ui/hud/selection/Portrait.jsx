@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { HeroResource } from '../../components/index.js';
 
 const StyledPortrait = styled.div`
+  width: 138px;
   cursor: pointer;
 
   & img {
