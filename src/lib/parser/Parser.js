@@ -35,14 +35,14 @@ class Parser extends Reader {
     super(buffer);
 
     this.buildNumber = null;
-    this.classes = new IndexedCollection(Class, 'id', 'name');
+    this.classes = new IndexedCollection('id', 'name');
     this.classBaselines = {};
     this.classIdSize = null;
     this.entityFullPacketCount = 0;
-    this.entities = new IndexedCollection(Entity, 'index');
-    this.gameEventTypes = new IndexedCollection(GameEventType, 'id', 'name');
-    this.serializers = new IndexedCollection(Serializer, 'name');
-    this.stringTables = new IndexedCollection(StringTable, 'name', 'index');
+    this.entities = new IndexedCollection('index');
+    this.gameEventTypes = new IndexedCollection('id', 'name');
+    this.serializers = new IndexedCollection('name');
+    this.stringTables = new IndexedCollection('name', 'index');
 
     this.emitter = new EventEmitter();
     this.tick = -1;
@@ -240,7 +240,7 @@ class Parser extends Reader {
       stringData: buffer, numChangedEntries, tableId,
     } = msg;
 
-    const table = this.stringTables.byIndex[tableId];
+    const table = this.stringTables.byIndex.get(tableId);
     if (!table) {
       throw new Error(`could not find string table: ${tableId}`);
     }
@@ -278,7 +278,7 @@ class Parser extends Reader {
   }
 
   onCMsgSource1LegacyGameEvent(msg) {
-    const type = this.gameEventTypes.byId[msg.eventid];
+    const type = this.gameEventTypes.get(msg.eventid);
     if (!type) {
       throw new Error(`unknown event: ${msg.eventid}`);
     }
@@ -293,7 +293,7 @@ class Parser extends Reader {
       const cls = new Class(
         classId,
         networkName,
-        this.serializers.byName[networkName],
+        this.serializers.get(networkName),
       );
       this.classes.add(cls);
     }
@@ -336,7 +336,7 @@ class Parser extends Reader {
           field.fieldType = fieldType;
 
           if (field.serializerName) {
-            field.serializer = this.serializers.byName[field.serializerName];
+            field.serializer = this.serializers.get(field.serializerName);
           }
 
           for (const patch of patches) {
@@ -398,7 +398,7 @@ class Parser extends Reader {
           serial = reader.readBitInt(SERIAL_BITS);
           reader.readVarUint32();
 
-          const cls = this.classes.byId[classId];
+          const cls = this.classes.get(classId);
           if (!cls) {
             throw new Error(`unable to find new class: ${classId}`);
           }
@@ -408,12 +408,13 @@ class Parser extends Reader {
             throw new Error(`unable to find new baseline: ${classId}`);
           }
 
-          entity = this.entities.create(index, serial, cls);
+          entity = new Entity(index, serial, cls);
+          this.entities.add(entity);
           new Reader(baseline).readFieldsInto(entity.state, cls.serializer);
           reader.readFieldsInto(entity.state, cls.serializer);
           event = EntityEvent.CREATED | EntityEvent.ENTERED;
         } else {
-          entity = this.entities.byIndex[index];
+          entity = this.entities.get(index);
           if (!entity) {
             throw new Error(`unable to find existing entity: ${index}`);
           }
@@ -426,7 +427,7 @@ class Parser extends Reader {
           reader.readFieldsInto(entity.state, entity.class.serializer);
         }
       } else {
-        entity = this.entities.byIndex[index];
+        entity = this.entities.get(index);
         if (!entity) {
           throw new Error(`unable to find existing entity: ${index}`);
         }
@@ -447,7 +448,7 @@ class Parser extends Reader {
   }
 
   updateInstanceBaseline() {
-    const table = this.stringTables.byName.instancebaseline;
+    const table = this.stringTables.get('instancebaseline');
     if (!table) {
       return;
     }
