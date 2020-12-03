@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { TEAM_COLORS } from '../constants.js';
+import { TEAM_COLORS } from '../../lib/constants.js';
 
 const StyledFill = styled.div`
   position: absolute;
