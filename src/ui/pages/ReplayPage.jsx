@@ -1,27 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import HUD from '../hud/HUD.jsx';
-import Parser from '../../lib/parser/Parser.js';
-import World from '../world/World.jsx';
-import { TEAM_COLORS, PLAYER_COLORS } from '../constants.js';
-import { Link } from '../components/index.js';
-import { useInterval } from '../hooks/index.js';
-import { heroesByName } from '../../lib/dotaconstants.js';
-
-const StyledQuitLink = styled(Link)`
-  position: absolute;
-  top: 12px;
-  left: 15px;
-  z-index: 5;
-`;
-
-const StyledReplayPage = styled.div`
-  width: 100%;
-  height: 100%;
-  text-shadow: 1px 1px 1px black, -1px -1px 1px black;
-`;
+import Replay from '../../lib/replay/Replay.js';
+import ReplayView from '../replay/ReplayView.jsx';
 
 const ReplayPage = () => {
   const history = useHistory();
@@ -29,106 +10,8 @@ const ReplayPage = () => {
   const replayURL = decodeURIComponent(safeReplayURL);
 
   const [replay, setReplay] = useState(null);
-  const [tick, setTick] = useState(0);
-  const [maxTick, setMaxTick] = useState(0);
-  const [playing, setPlaying] = useState(false);
 
-  const [time, setTime] = useState(null);
-  const [entities, setEntities] = useState([]);
-  const [selectionId, setSelectionId] = useState(null);
-  const [focus, setFocus] = useState(null);
-
-  const selectedEntity = entities.find((e) => e.id === selectionId);
-  const heroes = entities.filter((e) => e.type === 'hero');
-
-  const requestTick = useCallback((t) => {
-    replay.seek(t, { silent: true });
-  }, [replay]);
-
-  const setSelection = useCallback((id) => {
-    if (id === selectionId) {
-      setFocus(selectedEntity);
-    }
-    setSelectionId(id);
-  }, [setFocus, setSelectionId, selectedEntity, selectionId]);
-
-  const onTick = useCallback((t) => {
-    setTick(t);
-
-    const game = replay.entities.find((e) => e.class.name === 'CDOTAGamerulesProxy');
-    if (game) {
-      // TODO: Handle game phase
-      // const phase = game.get('m_pGameRules.m_nGameState');
-
-      const gameTime = game.get('m_pGameRules.m_fGameTime');
-      const startTime = game.get('m_pGameRules.m_flGameStartTime');
-      const preStartTime = game.get('m_pGameRules.m_flPreGameStartTime');
-
-      // TODO: Handle game end time?
-      if (startTime) {
-        setTime(gameTime - startTime);
-      } else if (preStartTime) {
-        const transitionTime = game.get('m_pGameRules.m_flStateTransitionTime');
-        setTime(gameTime - transitionTime);
-      }
-    }
-
-    // Allows looking up reference names for heroes (among other things)
-    const entityNames = replay.stringTables.byName.EntityNames;
-
-    // TODO: This handling of all entities is absolutely disastrous for performance
-    // and bypasses any kind of optimizations React could apply :(
-    const units = [];
-    let players = 0;
-    for (const e of replay.entities) {
-      const unit = { id: e.index };
-
-      const cls = e.class.name;
-      if (cls.startsWith('CDOTA_Unit_Hero_')) {
-        unit.type = 'hero';
-        const stringIndex = e.get('m_pEntity.m_nameStringableIndex');
-        const refname = entityNames.entries[stringIndex].key;
-        const lookup = heroesByName[refname];
-        unit.name = lookup.localized_name;
-        unit.refname = refname.replace('npc_dota_hero_', '');
-
-        // TODO: Look up player color through player
-        unit.color = PLAYER_COLORS[++players];
-        unit.level = e.get('m_iCurrentLevel');
-        unit.xp = e.get('m_iCurrentXP');
-      } else if (cls === 'CDOTA_Unit_Courier') {
-        unit.type = 'courier';
-      } else if (cls === 'CDOTA_Unit_Roshan') {
-        unit.type = 'roshan';
-      } else if (cls === 'CDOTA_BaseNPC_Creep_Lane' || cls === 'CDOTA_BaseNPC_Creep_Siege') {
-        unit.type = 'creep';
-      } else if (cls === 'CDOTA_BaseNPC_Creep_Neutral') {
-        unit.type = 'neutral-creep';
-      } else if (cls === 'CDOTA_NPC_Observer_Ward' || cls === 'CDOTA_NPC_Sentry_Ward') {
-        unit.type = 'ward';
-      } else if (cls === 'CDOTA_BaseNPC_Tower' || cls === 'CDOTA_BaseNPC_Barracks' || cls === 'CDOTA_BaseNPC_Fort') {
-        unit.type = 'building';
-      } else {
-        continue;
-      }
-
-      unit.x = e.get('CBodyComponent.m_cellX') * 128 + e.get('CBodyComponent.m_vecX') - 16384;
-      unit.y = e.get('CBodyComponent.m_cellY') * 128 + e.get('CBodyComponent.m_vecY') - 16384;
-      unit.hp = e.get('m_iHealth');
-      unit.hpMax = e.get('m_iMaxHealth');
-      unit.mp = e.get('m_flMana');
-      unit.mpMax = e.get('m_flMaxMana');
-      // TODO: Probably not the most legit way to figure out death state
-      unit.dead = unit.hp === 0;
-      unit.team = e.get('m_iTeamNum');
-      unit.name = unit.name || unit.type;
-      unit.color = unit.color || TEAM_COLORS[unit.team];
-      units.push(unit);
-    }
-
-    setEntities(units);
-  }, [replay]);
-
+  // TODO: Replay clean-up on component unmount
   useEffect(() => {
     const fetchReplay = async () => {
       let buffer = null;
@@ -140,48 +23,16 @@ const ReplayPage = () => {
         history.push('/');
         return;
       }
-      setReplay(new Parser(buffer));
+      setReplay(new Replay(buffer));
     };
     fetchReplay();
   }, [history, replayURL]);
 
-  useEffect(() => {
-    if (!replay) return;
+  if (!replay) {
+    return null;
+  }
 
-    setMaxTick(replay.lastTick);
-    replay.on('warn', console.warn);
-    replay.start();
-    replay.on('tick', onTick);
-  }, [onTick, replay]);
-
-  // Replay files seem to (mostly) hop over every other tick, so decrease the
-  // tick rate by a factor two
-  useInterval(() => {
-    replay.step(2);
-  }, replay && playing ? (1 / replay.tickInterval) * 2 : null);
-
-  return (
-    <StyledReplayPage>
-      <StyledQuitLink to="/">Back to ReDota</StyledQuitLink>
-      <HUD
-        heroes={heroes}
-        selectedEntity={selectedEntity}
-        setSelection={setSelection}
-        playing={playing}
-        setPlaying={setPlaying}
-        tick={tick}
-        time={time}
-        maxTick={maxTick}
-        requestTick={requestTick}
-      />
-      <World
-        entities={entities}
-        focus={focus}
-        selectedEntity={selectedEntity}
-        setSelection={setSelection}
-      />
-    </StyledReplayPage>
-  );
+  return <ReplayView replay={replay} />;
 };
 
 export default ReplayPage;

@@ -1,12 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { observer } from 'mobx-react-lite';
 
-import { AbilityResource, HStack, VStack } from '../../components/index.js';
+import { AbilityResource, HStack, VStack } from '../../../components/index.js';
 
 const StyledAbility = styled.div`
   margin: 5px;
 
-  & img {
+  img {
     width: 60px;
     border: 1px solid darkgray;
   }
@@ -25,7 +26,7 @@ const StyledAbilityLevel = styled.span`
   }
 `;
 
-const Ability = (props) => {
+const Ability = observer((props) => {
   // TODO: Retrieve abilities for given hero
   const hero = 'phoenix';
   const { refname } = props;
@@ -41,9 +42,9 @@ const Ability = (props) => {
       </VStack>
     </StyledAbility>
   );
-};
+});
 
-const Abilities = (props) => {
+const Abilities = observer((props) => {
   const { hero } = props;
   return (
     <HStack>
@@ -53,6 +54,6 @@ const Abilities = (props) => {
       <Ability hero={hero} refname="supernova" />
     </HStack>
   );
-};
+});
 
 export default Abilities;

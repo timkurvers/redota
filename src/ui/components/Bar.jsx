@@ -52,12 +52,12 @@ const StyledBar = styled.div`
 const Bar = (props) => {
   let { color } = props;
   const {
-    max, value, size = 'default', team, type,
+    max, value, size = 'default', teamID, type,
   } = props;
   const pct = (value / max) * 100 | 0;
 
   if (type === 'health') {
-    color = TEAM_COLORS[team];
+    color = TEAM_COLORS[teamID];
   } else if (type === 'mana') {
     color = '#466DDC';
   }

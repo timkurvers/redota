@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react-lite';
 
 import {
   Bar, HStack, Level, StyledLevel, VStack,
-} from '../../components/index.js';
+} from '../../../components/index.js';
 
 import Abilities from './Abilities.jsx';
 import Inventory, { StyledInventory } from './Inventory.jsx';
 import Name, { StyledName } from './Name.jsx';
 import Portrait, { StyledPortrait } from './Portrait.jsx';
+import Hero from '../../../../lib/replay/entities/Hero.js';
 
 const StyledSelection = styled(HStack)`
   height: 160px;
@@ -46,29 +48,36 @@ const StyledSelection = styled(HStack)`
   }
 `;
 
-const Selection = (props) => {
-  const { selectedEntity, setSelection } = props;
-  if (!selectedEntity) {
+const Selection = observer((props) => {
+  const { selectedUnit, setSelection } = props;
+  if (!selectedUnit) {
     return null;
   }
 
   const {
-    id, dead, name, refname, hp, hpMax, mp, mpMax, level, team, xp,
-  } = selectedEntity;
+    eid, isDead, name, refname, hp, hpMax, mp, mpMax, level, teamID, xp,
+  } = selectedUnit;
+
+  // TODO: Support for couriers and Lone Druid bear
+  const hasInventory = selectedUnit instanceof Hero;
+
+  const onUnitSelect = useCallback(() => {
+    setSelection(eid);
+  }, [eid, setSelection]);
 
   return (
     <StyledSelection>
       <Name>{name}</Name>
       {level && <Level xp={xp}>{level}</Level>}
-      <Portrait dead={dead} hero={refname} onClick={() => setSelection(id)} />
+      <Portrait isDead={isDead} hero={refname} onClick={onUnitSelect} />
       <VStack>
         <Abilities />
-        <Bar type="health" value={hp} max={hpMax} team={team} />
+        <Bar type="health" value={hp} max={hpMax} teamID={teamID} />
         <Bar type="mana" value={mp} max={mpMax} />
       </VStack>
-      <Inventory />
+      {hasInventory && <Inventory items={selectedUnit.inventory} />}
     </StyledSelection>
   );
-};
+});
 
 export default Selection;

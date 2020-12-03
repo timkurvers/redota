@@ -16,5 +16,5 @@ const Name = (props) => {
   );
 };
 
-export default Name;
+export default React.memo(Name);
 export { StyledName };

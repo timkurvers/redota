@@ -1,29 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react-lite';
 
-import { HStack } from '../../components/index.js';
+import { HStack } from '../../../components/index.js';
 
 import HeroListEntry from './HeroListEntry.jsx';
 
 const StyledHeroList = styled(HStack)`
-  & img {
+  img {
     display: block;
   }
 `;
 
-const HeroList = (props) => {
+const HeroList = observer((props) => {
   const { heroes, setSelection } = props;
   return (
     <StyledHeroList>
       {heroes.map((hero) => (
         <HeroListEntry
-          key={hero.id}
-          {...hero}
-          onClick={() => setSelection(hero.id)}
+          key={hero.eid}
+          hero={hero}
+          onClick={() => setSelection(hero.eid)}
         />
       ))}
     </StyledHeroList>
   );
-};
+});
 
 export default HeroList;

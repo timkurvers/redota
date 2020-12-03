@@ -1,13 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import Entity from './Entity.jsx';
 import Map from './Map.jsx';
-
-const DOTA_MAP_SIZE = 16384;
-const REDOTA_MAP_SIZE = 4000;
-
-const scale = (value) => (REDOTA_MAP_SIZE / DOTA_MAP_SIZE) * value;
+import { scale } from './projection.js';
 
 const StyledWorld = styled.div`
   width: 100%;
@@ -29,7 +24,7 @@ const StyledWorld = styled.div`
 
 const World = (props) => {
   const {
-    entities, focus, selectedEntity, setSelection,
+    children, focus,
   } = props;
 
   const [x, setX] = useState(0);
@@ -61,10 +56,6 @@ const World = (props) => {
     if (dragging) move(e.movementX, e.movementY);
   };
 
-  const onClick = useCallback((id) => {
-    setSelection(id);
-  }, [setSelection]);
-
   return (
     <StyledWorld
       dragging={dragging}
@@ -74,16 +65,7 @@ const World = (props) => {
       onMouseMove={onMouseMove}
     >
       <Map style={{ transform: `translate(${x}px, ${y}px)` }}>
-        {entities.map((entity) => (
-          <Entity
-            key={entity.id}
-            {...entity}
-            x={scale(entity.x)}
-            y={scale(entity.y)}
-            selected={selectedEntity === entity}
-            onClick={onClick}
-          />
-        ))}
+        {children}
       </Map>
     </StyledWorld>
   );

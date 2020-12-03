@@ -13,7 +13,7 @@ const StyledMap = styled.div`
 const StyledOffset = styled.div`
   position: relative;
 
-  & > img {
+  > img {
     position: relative;
     width: 4000px;
     height: 4000px;
@@ -30,7 +30,7 @@ const StyledWebPFallback = styled.div`
   transform: translate(-50%, 50%);
   text-align: center;
 
-  & p {
+  p {
     margin: 10px 10px;
   }
 `;

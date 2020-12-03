@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import {
   Button, HStack, StyledButton, Time,
-} from '../../components/index.js';
+} from '../../../components/index.js';
 
 const StyledTimeline = styled(HStack)`
   display: flex;
@@ -19,11 +19,11 @@ const StyledTimeline = styled(HStack)`
   border-radius: 100px;
   text-align: center;
 
-  & > * {
+  > * {
     margin: auto 5px;
   }
 
-  & input {
+  input {
     width: 100%;
   }
 
@@ -34,7 +34,7 @@ const StyledTimeline = styled(HStack)`
 
 const Timeline = (props) => {
   const {
-    tick, maxTick, requestTick, playing, setPlaying,
+    tick, lastTick, requestTick, playing, setPlaying,
   } = props;
   return (
     <StyledTimeline>
@@ -44,13 +44,13 @@ const Timeline = (props) => {
       <input
         type="range"
         min={0}
-        max={maxTick}
+        max={lastTick}
         step={1}
         value={tick}
         onChange={(e) => requestTick(+e.target.value)}
       />
       <div style={{ whiteSpace: 'nowrap' }}>
-        <Time time={tick / 30} /> / <Time time={maxTick / 30} />
+        <Time time={tick / 30} /> / <Time time={lastTick / 30} />
       </div>
     </StyledTimeline>
   );
