@@ -371,6 +371,7 @@ class Parser extends Reader {
 
   onCSVCMsg_PacketEntities(msg) {
     const reader = new Reader(msg.entityData);
+    const changeset = [];
 
     let index = -1;
     let cmd;
@@ -440,9 +441,10 @@ class Parser extends Reader {
           this.entities.delete(entity);
         }
       }
-
-      this.emitter.emit('entity', entity, event);
+      // TODO: Should changed field path values be exposed in this changeset?
+      changeset.push({ entity, event });
     }
+    this.emitter.emit('entities', changeset);
   }
 
   updateInstanceBaseline() {
