@@ -13,6 +13,7 @@ import {
   Class,
   Entity, EntityEvent,
   GameEvent, GameEventField, GameEventType,
+  SERIAL_BITS,
 } from './model/index.js';
 import { IndexedCollection } from '../utils/index.js';
 import {
@@ -26,9 +27,6 @@ import { fieldPatches } from './FieldPatch.js';
 
 const MAGIC_SOURCE_1 = 'PBUFDEM\0'; // eslint-disable-line
 const MAGIC_SOURCE_2 = 'PBDEMS2\0';
-
-const INDEX_BITS = 14; // eslint-disable-line
-const SERIAL_BITS = 17;
 
 // Based on Dotabuff's Manta parser
 // See: https://github.com/dotabuff/manta/blob/master/parser.go

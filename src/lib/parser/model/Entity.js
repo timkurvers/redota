@@ -3,10 +3,13 @@
 import FieldPath from '../FieldPath.js';
 import FieldState from '../FieldState.js';
 
+import { handleForIndexAndSerial } from './handle.js';
+
 class Entity {
   constructor(index, serial, cls) {
     this.index = index;
     this.serial = serial;
+    this.handle = handleForIndexAndSerial(index, serial);
     this.class = cls;
     this.active = true;
     this.state = new FieldState();
