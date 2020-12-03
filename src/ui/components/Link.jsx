@@ -21,4 +21,4 @@ const Link = (props) => {
   return <StyledLink {...props} />;
 };
 
-export default Link;
+export default React.memo(Link);

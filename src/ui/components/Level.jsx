@@ -77,5 +77,5 @@ const Level = (props) => {
   );
 };
 
-export default Level;
+export default React.memo(Level);
 export { StyledLevel };

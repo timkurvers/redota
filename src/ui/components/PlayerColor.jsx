@@ -13,4 +13,4 @@ const PlayerColor = (props) => {
   );
 };
 
-export default PlayerColor;
+export default React.memo(PlayerColor);

@@ -15,13 +15,13 @@ const Resource = (props) => {
   );
 };
 
-const AbilityResource = (props) => {
+const AbilityResource = React.memo((props) => {
   const { refname, hero } = props;
   const path = `/abilities/${hero}_${refname}_md.png`;
   return <Resource path={path} />;
-};
+});
 
-const HeroResource = (props) => {
+const HeroResource = React.memo((props) => {
   const { refname, variant } = props;
 
   let suffix = 'full.png';
@@ -40,12 +40,12 @@ const HeroResource = (props) => {
       break;
   }
   return <Resource path={`heroes/${refname}_${suffix}`} />;
-};
+});
 
-const ItemResource = (props) => {
+const ItemResource = React.memo((props) => {
   const { refname } = props;
   return <Resource path={`items/${refname}_lg.png`} />;
-};
+});
 
 export default Resource;
 export { AbilityResource, HeroResource, ItemResource };
