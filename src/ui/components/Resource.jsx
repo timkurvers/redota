@@ -47,5 +47,12 @@ const ItemResource = React.memo((props) => {
   return <Resource path={`items/${refname}_lg.png`} />;
 });
 
+const TeamLogoResource = React.memo((props) => {
+  const { teamID } = props;
+  return <Resource path={`team_logos/${teamID}.png`} />;
+});
+
 export default Resource;
-export { AbilityResource, HeroResource, ItemResource };
+export {
+  AbilityResource, HeroResource, ItemResource, TeamLogoResource,
+};

@@ -5,9 +5,10 @@ export { default as Level, StyledLevel } from './Level.jsx';
 export { default as Link } from './Link.jsx';
 export { default as PlayerColor } from './PlayerColor.jsx';
 export {
-  default as Resource, AbilityResource, HeroResource, ItemResource,
+  default as Resource, AbilityResource, HeroResource, ItemResource, TeamLogoResource,
 } from './Resource.jsx';
 export {
   default as Stack, HStack, VStack,
 } from './Stack.jsx';
+export { default as TeamLogo } from './TeamLogo.jsx';
 export { default as Time } from './Time.jsx';
