@@ -22,8 +22,8 @@ const StyledTopbar = styled(HStack)`
 const Topbar = observer((props) => {
   const { setSelection, teams, time } = props;
 
-  const radiant = teams.byId.get(TEAM_RADIANT);
-  const dire = teams.byId.get(TEAM_DIRE);
+  const radiant = teams.byID.get(TEAM_RADIANT);
+  const dire = teams.byID.get(TEAM_DIRE);
   if (!radiant || !dire) {
     return null;
   }

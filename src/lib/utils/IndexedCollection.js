@@ -1,9 +1,9 @@
 class IndexedCollection {
-  constructor(keyProp, ...indices) {
+  constructor(keyProp, indices = {}) {
     this.keyProp = keyProp;
     this.data = new Map();
-    this.indices = indices.map((prop) => {
-      const accessor = `by${prop.charAt(0).toUpperCase()}${prop.slice(1)}`;
+
+    this.indices = Object.entries(indices).map(([accessor, prop]) => {
       const collection = new Map();
       this[accessor] = collection;
       return { prop, collection };

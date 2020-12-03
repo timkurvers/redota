@@ -45,7 +45,7 @@ class Hero extends Unit {
   }
 
   get player() {
-    return this.replay.players.byId.get(this.playerID);
+    return this.replay.players.byID.get(this.playerID);
   }
 }
 

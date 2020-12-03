@@ -41,7 +41,7 @@ class Player {
   }
 
   get team() {
-    return this.replay.teams.byId.get(this.teamID);
+    return this.replay.teams.byID.get(this.teamID);
   }
 }
 

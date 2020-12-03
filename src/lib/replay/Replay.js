@@ -44,9 +44,9 @@ class Replay {
     this.tick = -1;
     this.tickInterval = null;
     this.lastTick = this.parser.lastTick;
-    this.items = new IndexedCollection('eid', 'handle');
-    this.players = new IndexedCollection('eid', 'id');
-    this.teams = new IndexedCollection('eid', 'id');
+    this.items = new IndexedCollection('eid', { byHandle: 'handle' });
+    this.players = new IndexedCollection('eid', { byID: 'id' });
+    this.teams = new IndexedCollection('eid', { byID: 'id' });
     this.units = new IndexedCollection('eid');
     this.time = null;
 

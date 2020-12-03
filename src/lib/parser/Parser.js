@@ -35,14 +35,14 @@ class Parser extends Reader {
     super(buffer);
 
     this.buildNumber = null;
-    this.classes = new IndexedCollection('id', 'name');
+    this.classes = new IndexedCollection('id', { byName: 'name' });
     this.classBaselines = {};
-    this.classIdSize = null;
+    this.classIDSize = null;
     this.entityFullPacketCount = 0;
     this.entities = new IndexedCollection('index');
-    this.gameEventTypes = new IndexedCollection('id', 'name');
+    this.gameEventTypes = new IndexedCollection('id', { byName: 'name' });
     this.serializers = new IndexedCollection('name');
-    this.stringTables = new IndexedCollection('name', 'index');
+    this.stringTables = new IndexedCollection('name', { byIndex: 'index' });
 
     this.emitter = new EventEmitter();
     this.tick = -1;
@@ -251,7 +251,7 @@ class Parser extends Reader {
   }
 
   onCSVCMsg_ServerInfo(msg) {
-    this.classIdSize = Reader.calcBitsNeededFor(msg.maxClasses);
+    this.classIDSize = Reader.calcBitsNeededFor(msg.maxClasses);
     this.tickInterval = msg.tickInterval;
 
     const match = msg.gameDir.match(/dota_v(\d+)/);
@@ -375,7 +375,7 @@ class Parser extends Reader {
 
     let index = -1;
     let cmd;
-    let classId;
+    let classID;
     let serial;
     let entity;
     let event;
@@ -393,18 +393,18 @@ class Parser extends Reader {
       cmd = reader.readBitInt(2);
       if ((cmd & 0x01) === 0) {
         if ((cmd & 0x02) !== 0) {
-          classId = reader.readBitInt(this.classIdSize);
+          classID = reader.readBitInt(this.classIDSize);
           serial = reader.readBitInt(SERIAL_BITS);
           reader.readVarUint32();
 
-          const cls = this.classes.get(classId);
+          const cls = this.classes.get(classID);
           if (!cls) {
-            throw new Error(`unable to find new class: ${classId}`);
+            throw new Error(`unable to find new class: ${classID}`);
           }
 
-          const baseline = this.classBaselines[classId];
+          const baseline = this.classBaselines[classID];
           if (!baseline) {
-            throw new Error(`unable to find new baseline: ${classId}`);
+            throw new Error(`unable to find new baseline: ${classID}`);
           }
 
           entity = new Entity(index, serial, cls);
@@ -454,8 +454,8 @@ class Parser extends Reader {
     }
 
     for (const entry of table.entries) {
-      const classId = +entry.key;
-      this.classBaselines[classId] = entry.data;
+      const classID = +entry.key;
+      this.classBaselines[classID] = entry.data;
     }
   }
 
