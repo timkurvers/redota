@@ -90,6 +90,10 @@ class Parser extends Reader {
     this.emitter.on(...args);
   }
 
+  off(...args) {
+    this.emitter.off(...args);
+  }
+
   start() {
     this.parsing = true;
     while (!this.synced && this.parsing) {
