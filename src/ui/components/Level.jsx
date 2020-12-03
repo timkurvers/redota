@@ -14,11 +14,11 @@ const StyledLevel = styled.div`
   text-align: center;
   line-height: 30px;
 
-  & svg {
+  svg {
     transform: rotate(-90deg);
   }
 
-  & span {
+  span {
     position: absolute;
     top: 50%;
     left: 50%;

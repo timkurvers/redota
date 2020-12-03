@@ -15,7 +15,7 @@ const StyledText = styled.div`
   z-index: 2;
   transform: translate(-50%, -50%);
 
-  & span {
+  span {
     margin: 5px;
   }
 `;
