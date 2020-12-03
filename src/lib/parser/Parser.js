@@ -101,7 +101,7 @@ class Parser extends Reader {
     this.seek(this.tick + ticks);
   }
 
-  seek(target, { silent = false } = {}) {
+  seek(target) {
     while (this.tick < target && this.parsing) {
       const cmd = this.readVarUint32();
       const tick = this.readVarUint32();
@@ -131,13 +131,7 @@ class Parser extends Reader {
 
       const struct = Type.decode(data);
       this.emitter.emit(event, struct, tick);
-
-      if (!silent) {
-        this.emitter.emit('tick', tick);
-      }
-    }
-    if (silent) {
-      this.emitter.emit('tick', this.tick);
+      this.emitter.emit('tick', tick);
     }
   }
 
