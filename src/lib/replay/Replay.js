@@ -20,8 +20,9 @@ const processorByClass = {
   CDOTA_BaseNPC_Fort: 'processBuilding',
   CDOTA_BaseNPC_Tower: 'processBuilding',
   CDOTA_BaseNPC_Watch_Tower: 'processBuilding',
+  CDOTA_Item_Physical: 'processCollectable',
+  CDOTA_Item_Rune: 'processCollectable',
   CDOTA_Item: 'processItem',
-  CDOTA_Item_Rune: null, // TODO: Process properly
   CDOTA_NPC_Observer_Ward: 'processUnit',
   CDOTA_NPC_Sentry_Ward: 'processUnit',
   CDOTA_PlayerResource: 'processPlayerResource',
@@ -157,6 +158,10 @@ class Replay {
 
   processBuilding(entity, event) {
     return this.processUnit(entity, event, { hasRotation: false });
+  }
+
+  // TODO: Process runes and physical item drops properly
+  processCollectable(entity, event) { // eslint-disable-line
   }
 
   processGameRules(entity) {
