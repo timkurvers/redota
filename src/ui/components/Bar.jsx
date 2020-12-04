@@ -22,7 +22,7 @@ const StyledText = styled.div`
 
 const StyledBar = styled.div`
   position: relative;
-  margin: 3px 0;
+  margin: 4px 0px 0px;
   background: rgba(0, 0, 0, .4);
   border-radius: 4px;
   text-align: center;

@@ -7,10 +7,9 @@ import {
 } from '../../../components/index.js';
 
 import Abilities from './Abilities.jsx';
-import Inventory, { StyledInventory } from './Inventory.jsx';
+import Inventory from './Inventory.jsx';
 import Name, { StyledName } from './Name.jsx';
 import Portrait, { StyledPortrait } from './Portrait.jsx';
-import Hero from '../../../../lib/replay/entities/Hero.js';
 
 const StyledSelection = styled(HStack)`
   height: 160px;
@@ -40,26 +39,24 @@ const StyledSelection = styled(HStack)`
   }
 
   ${StyledPortrait} {
-    margin-right: 15px;
-  }
-
-  ${StyledInventory} {
-    margin-left: 8px;
+    margin-right: 8px;
   }
 `;
 
+const StyledCenter = styled(VStack)`
+  margin: 0 10px;
+`;
+
 const Selection = observer((props) => {
-  const { selectedUnit, setSelection } = props;
-  if (!selectedUnit) {
+  const { selectedUnit: unit, setSelection } = props;
+  if (!unit) {
     return null;
   }
 
   const {
     eid, isDead, name, refname, hp, hpMax, mp, mpMax, level, teamID, xp,
-  } = selectedUnit;
-
-  // TODO: Support for couriers and Lone Druid bear
-  const hasInventory = selectedUnit instanceof Hero;
+    abilities, backpack, inventory, neutralItem, teleportScroll,
+  } = unit;
 
   const onUnitSelect = useCallback(() => {
     setSelection(eid);
@@ -70,12 +67,19 @@ const Selection = observer((props) => {
       <Name>{name}</Name>
       {level && <Level xp={xp}>{level}</Level>}
       <Portrait isDead={isDead} hero={refname} onClick={onUnitSelect} />
-      <VStack>
-        <Abilities />
+      <StyledCenter>
+        <Abilities abilities={abilities} />
         <Bar type="health" value={hp} max={hpMax} teamID={teamID} />
         <Bar type="mana" value={mp} max={mpMax} />
-      </VStack>
-      {hasInventory && <Inventory items={selectedUnit.inventory} />}
+      </StyledCenter>
+      {inventory && (
+        <Inventory
+          backpack={backpack}
+          inventory={inventory}
+          neutralItem={neutralItem}
+          teleportScroll={teleportScroll}
+        />
+      )}
     </StyledSelection>
   );
 });

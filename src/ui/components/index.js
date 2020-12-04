@@ -1,6 +1,7 @@
 export { default as Bar } from './Bar.jsx';
 export { default as Button, StyledButton } from './Button.jsx';
 export { default as DeathFilter } from './DeathFilter.jsx';
+export { default as ItemSlot, ItemSlotCollection, StyledItemSlot } from './ItemSlot.jsx';
 export { default as Level, StyledLevel } from './Level.jsx';
 export { default as Link } from './Link.jsx';
 export { default as PlayerColor } from './PlayerColor.jsx';
