@@ -2,9 +2,9 @@ import { computed, makeObservable, observable } from 'mobx';
 
 import { heroesByName } from '../../constants.js';
 
-import Unit from './Unit.js';
+import UnitWithInventory from './UnitWithInventory.js';
 
-class Hero extends Unit {
+class Hero extends UnitWithInventory {
   constructor(replay, eid) {
     super(replay, eid);
 
@@ -12,31 +12,38 @@ class Hero extends Unit {
     this.playerID = -1;
     this.level = 1;
     this.xp = 0;
-    this.inventoryHandles = [
-      null, null, null,
-      null, null, null,
-    ];
+
+    this.backpackHandles = [null, null, null];
+    this.neutralItemHandle = null;
+    this.stashHandles = [null, null, null, null, null, null];
+    this.teleportScrollHandle = null;
 
     makeObservable(this, {
       refname: observable,
       playerID: observable,
       level: observable,
       xp: observable,
-      inventoryHandles: observable,
 
-      inventory: computed,
+      backpackHandles: observable,
+      neutralItemHandle: observable,
+      stashHandles: observable,
+      teleportScrollHandle: observable,
+
+      backpack: computed,
+      neutralItem: computed,
       player: computed,
+      teleportScroll: computed,
     });
+  }
+
+  get backpack() {
+    return this.backpackHandles.map((handle) => (
+      this.replay.items.byHandle.get(handle)
+    ));
   }
 
   get color() {
     return this.player.color;
-  }
-
-  get inventory() {
-    return this.inventoryHandles.map((handle) => (
-      this.replay.items.byHandle.get(handle)
-    ));
   }
 
   get name() {
@@ -44,8 +51,22 @@ class Hero extends Unit {
     return heroesByName[key].localized_name;
   }
 
+  get neutralItem() {
+    return this.replay.items.byHandle.get(this.neutralItemHandle);
+  }
+
   get player() {
     return this.replay.players.byID.get(this.playerID);
+  }
+
+  get stash() {
+    return this.stashHandles.map((handle) => (
+      this.replay.items.byHandle.get(handle)
+    ));
+  }
+
+  get teleportScroll() {
+    return this.replay.items.byHandle.get(this.teleportScrollHandle);
   }
 }
 

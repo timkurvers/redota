@@ -9,7 +9,7 @@ import { EntityEvent } from '../parser/model/index.js';
 import { IndexedCollection } from '../utils/index.js';
 
 import {
-  Hero, Item, Player, Team, Unit,
+  Ability, Hero, Item, Player, Team, Unit, UnitWithInventory,
 } from './entities/index.js';
 
 const processorByClass = {
@@ -25,8 +25,8 @@ const processorByClass = {
   CDOTA_NPC_Observer_Ward: 'processUnit',
   CDOTA_NPC_Sentry_Ward: 'processUnit',
   CDOTA_PlayerResource: 'processPlayerResource',
-  CDOTA_Unit_Courier: 'processUnit',
-  CDOTA_Unit_Roshan: 'processUnit',
+  CDOTA_Unit_Courier: 'processUnitWithInventory',
+  CDOTA_Unit_Roshan: 'processUnitWithInventory',
   CDOTAGamerulesProxy: 'processGameRules',
   CDOTAPlayer: 'processPlayer',
   CDOTATeam: 'processTeam',
@@ -65,6 +65,7 @@ class Replay {
       tick: observable,
       tickInterval: observable,
       lastTick: observable,
+      items: observable,
       players: observable,
       teams: observable,
       units: observable,
@@ -146,7 +147,7 @@ class Replay {
   }
 
   processHero(entity, event) {
-    const hero = this.processUnit(entity, event, { class: Hero });
+    const hero = this.processUnitWithInventory(entity, event, { class: Hero });
     if (!hero) {
       // Deleted in the unit processor
       return;
@@ -159,17 +160,20 @@ class Replay {
     hero.playerID = entity.get('m_iPlayerID');
     hero.level = entity.get('m_iCurrentLevel');
     hero.xp = entity.get('m_iCurrentXP');
-    hero.inventoryHandles[0] = entity.get('m_hItems.0000');
-    hero.inventoryHandles[1] = entity.get('m_hItems.0001');
-    hero.inventoryHandles[2] = entity.get('m_hItems.0002');
-    hero.inventoryHandles[3] = entity.get('m_hItems.0003');
-    hero.inventoryHandles[4] = entity.get('m_hItems.0004');
-    hero.inventoryHandles[5] = entity.get('m_hItems.0005');
+    hero.backpackHandles[0] = entity.get('m_hItems.0006');
+    hero.backpackHandles[1] = entity.get('m_hItems.0007');
+    hero.backpackHandles[2] = entity.get('m_hItems.0008');
+    hero.stashHandles[0] = entity.get('m_hItems.0009');
+    hero.stashHandles[1] = entity.get('m_hItems.0010');
+    hero.stashHandles[2] = entity.get('m_hItems.0011');
+    hero.stashHandles[3] = entity.get('m_hItems.0012');
+    hero.stashHandles[4] = entity.get('m_hItems.0013');
+    hero.stashHandles[5] = entity.get('m_hItems.0014');
+    hero.teleportScrollHandle = entity.get('m_hItems.0015');
+    hero.neutralItemHandle = entity.get('m_hItems.0016');
   }
 
   processItem(entity, event) {
-    // console.log('item', entity, event);
-
     const eid = entity.index;
     let item = this.items.get(eid);
     if (!item) {
@@ -260,6 +264,21 @@ class Replay {
     unit.hpMax = entity.get('m_iMaxHealth');
     unit.mp = entity.get('m_flMana');
     unit.mpMax = entity.get('m_flMaxMana');
+    return unit;
+  }
+
+  processUnitWithInventory(entity, event, { class: klass = UnitWithInventory } = {}) {
+    const unit = this.processUnit(entity, event, { class: klass });
+    if (!unit) {
+      // Deleted in the unit processor
+      return null;
+    }
+    unit.inventoryHandles[0] = entity.get('m_hItems.0000');
+    unit.inventoryHandles[1] = entity.get('m_hItems.0001');
+    unit.inventoryHandles[2] = entity.get('m_hItems.0002');
+    unit.inventoryHandles[3] = entity.get('m_hItems.0003');
+    unit.inventoryHandles[4] = entity.get('m_hItems.0004');
+    unit.inventoryHandles[5] = entity.get('m_hItems.0005');
     return unit;
   }
 }
