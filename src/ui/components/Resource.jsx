@@ -16,9 +16,8 @@ const Resource = (props) => {
 };
 
 const AbilityResource = React.memo((props) => {
-  const { refname, hero } = props;
-  const path = `/abilities/${hero}_${refname}_md.png`;
-  return <Resource path={path} />;
+  const { refname } = props;
+  return <Resource path={`abilities/${refname}_md.png`} />;
 });
 
 const HeroResource = React.memo((props) => {
