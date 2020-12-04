@@ -42,7 +42,11 @@ const HeroResource = React.memo((props) => {
 });
 
 const ItemResource = React.memo((props) => {
-  const { refname } = props;
+  let { refname } = props;
+  // TODO: Overrides should preferably not be in the UI
+  if (refname.startsWith('recipe_')) {
+    refname = 'recipe';
+  }
   return <Resource path={`items/${refname}_lg.png`} />;
 });
 
