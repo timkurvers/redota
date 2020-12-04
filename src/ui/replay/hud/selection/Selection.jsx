@@ -44,6 +44,7 @@ const StyledSelection = styled(HStack)`
 `;
 
 const StyledCenter = styled(VStack)`
+  min-width: 360px;
   margin: 0 10px;
 `;
 

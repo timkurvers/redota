@@ -27,12 +27,14 @@ const processorByClass = {
   CDOTA_PlayerResource: 'processPlayerResource',
   CDOTA_Unit_Courier: 'processUnitWithInventory',
   CDOTA_Unit_Roshan: 'processUnitWithInventory',
+  CDOTABaseAbility: 'processAbility',
   CDOTAGamerulesProxy: 'processGameRules',
   CDOTAPlayer: 'processPlayer',
   CDOTATeam: 'processTeam',
 };
 
 const processorByPartialClass = [
+  { startsWith: 'CDOTA_Ability_', method: 'processAbility' },
   { startsWith: 'CDOTA_Item_', method: 'processItem' },
   { startsWith: 'CDOTA_Unit_Hero_', method: 'processHero' },
 ];
@@ -41,9 +43,11 @@ class Replay {
   constructor(buffer) {
     this.emitter = new EventEmitter();
     this.parser = new Parser(buffer);
+
     this.tick = -1;
     this.tickInterval = null;
     this.lastTick = this.parser.lastTick;
+    this.abilities = new IndexedCollection('eid', { byHandle: 'handle' });
     this.items = new IndexedCollection('eid', { byHandle: 'handle' });
     this.players = new IndexedCollection('eid', { byID: 'id' });
     this.teams = new IndexedCollection('eid', { byID: 'id' });
@@ -65,6 +69,7 @@ class Replay {
       tick: observable,
       tickInterval: observable,
       lastTick: observable,
+      abilities: observable,
       items: observable,
       players: observable,
       teams: observable,
@@ -128,6 +133,28 @@ class Replay {
     this.emitter.emit('update');
   }
 
+  processAbility(entity, event) {
+    const eid = entity.index;
+    let ability = this.abilities.get(eid);
+    if (!ability) {
+      ability = new Ability(this, eid);
+      ability.handle = entity.handle;
+      this.abilities.add(ability);
+    }
+    if (ability && event & EntityEvent.DELETED) {
+      this.abilities.delete(ability);
+    }
+    if (!ability.refname) {
+      const index = entity.get('m_pEntity.m_nameStringableIndex');
+      const refname = this.parser.stringTables.get('EntityNames').entries[index].key;
+      ability.refname = refname;
+    }
+    ability.entity = entity;
+    ability.hidden = entity.get('m_bHidden');
+    ability.level = entity.get('m_iLevel');
+    ability.manaCost = entity.get('m_iManaCost');
+  }
+
   processBuilding(entity, event) {
     return this.processUnit(entity, event, { hasRotation: false });
   }
@@ -160,6 +187,23 @@ class Replay {
     hero.playerID = entity.get('m_iPlayerID');
     hero.level = entity.get('m_iCurrentLevel');
     hero.xp = entity.get('m_iCurrentXP');
+    hero.abilityHandles[0] = entity.get('m_hAbilities.0000');
+    hero.abilityHandles[1] = entity.get('m_hAbilities.0001');
+    hero.abilityHandles[2] = entity.get('m_hAbilities.0002');
+    hero.abilityHandles[3] = entity.get('m_hAbilities.0003');
+    hero.abilityHandles[4] = entity.get('m_hAbilities.0004');
+    hero.abilityHandles[5] = entity.get('m_hAbilities.0005');
+    hero.abilityHandles[6] = entity.get('m_hAbilities.0006');
+    hero.abilityHandles[7] = entity.get('m_hAbilities.0007');
+    hero.abilityHandles[8] = entity.get('m_hAbilities.0008');
+    hero.abilityHandles[9] = entity.get('m_hAbilities.0009');
+    hero.abilityHandles[10] = entity.get('m_hAbilities.0010');
+    hero.abilityHandles[11] = entity.get('m_hAbilities.0011');
+    hero.abilityHandles[12] = entity.get('m_hAbilities.0012');
+    hero.abilityHandles[13] = entity.get('m_hAbilities.0013');
+    hero.abilityHandles[14] = entity.get('m_hAbilities.0014');
+    hero.abilityHandles[15] = entity.get('m_hAbilities.0015');
+    hero.abilityHandles[16] = entity.get('m_hAbilities.0016');
     hero.backpackHandles[0] = entity.get('m_hItems.0006');
     hero.backpackHandles[1] = entity.get('m_hItems.0007');
     hero.backpackHandles[2] = entity.get('m_hItems.0008');
