@@ -39,14 +39,14 @@ const StyledUnit = styled(DeathFilter)`
 const Unit = observer((props) => {
   const { onClick, selected, unit } = props;
   const {
-    eid, isDead, color, x, y,
+    handle, isDead, color, x, y,
   } = unit;
   const isHero = unit instanceof Hero;
   return (
     <StyledUnit
       color={color}
       isDead={isDead}
-      onClick={() => onClick(eid)}
+      onClick={() => onClick(handle)}
       selected={selected}
       size={isHero ? 'large' : 'default'}
       style={{ left: `${scale(x)}px`, bottom: `${scale(y)}px` }}

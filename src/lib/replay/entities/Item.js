@@ -3,11 +3,10 @@ import { computed, makeObservable, observable } from 'mobx';
 import { itemsByName } from '../../constants.js';
 
 class Item {
-  constructor(replay, eid) {
+  constructor(replay, handle) {
     this.replay = replay;
-    this.eid = eid;
+    this.handle = handle;
 
-    this.handle = null;
     this.refname = null;
 
     makeObservable(this, {

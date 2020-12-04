@@ -1,9 +1,9 @@
 import { makeObservable, observable } from 'mobx';
 
 class Ability {
-  constructor(replay, eid) {
+  constructor(replay, handle) {
     this.replay = replay;
-    this.eid = eid;
+    this.handle = handle;
 
     this.refname = null;
     this.level = null;

@@ -42,7 +42,7 @@ const ReplayView = observer(({ replay }) => {
       <HUD>
         {selectedUnit && (
           <Selection
-            key={selectedUnit.eid}
+            key={selectedUnit.handle}
             selectedUnit={selectedUnit}
             setSelection={setSelection}
           />
@@ -63,7 +63,7 @@ const ReplayView = observer(({ replay }) => {
       <World focus={focus}>
         {replay.units.map((unit) => (
           <Unit
-            key={unit.eid}
+            key={unit.handle}
             unit={unit}
             selected={selectedUnit === unit}
             onClick={onUnitClick}

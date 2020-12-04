@@ -5,8 +5,8 @@ import { heroesByName } from '../../constants.js';
 import UnitWithInventory from './UnitWithInventory.js';
 
 class Hero extends UnitWithInventory {
-  constructor(replay, eid) {
-    super(replay, eid);
+  constructor(replay, handle) {
+    super(replay, handle);
 
     this.refname = null;
     this.playerID = -1;
@@ -40,13 +40,13 @@ class Hero extends UnitWithInventory {
 
   get abilities() {
     return this.abilityHandles.map((handle) => (
-      this.replay.abilities.byHandle.get(handle)
+      this.replay.abilities.get(handle)
     )).filter((ability) => ability && !ability.isTalent);
   }
 
   get backpack() {
     return this.backpackHandles.map((handle) => (
-      this.replay.items.byHandle.get(handle)
+      this.replay.items.get(handle)
     ));
   }
 
@@ -60,7 +60,7 @@ class Hero extends UnitWithInventory {
   }
 
   get neutralItem() {
-    return this.replay.items.byHandle.get(this.neutralItemHandle);
+    return this.replay.items.get(this.neutralItemHandle);
   }
 
   get player() {
@@ -69,12 +69,12 @@ class Hero extends UnitWithInventory {
 
   get stash() {
     return this.stashHandles.map((handle) => (
-      this.replay.items.byHandle.get(handle)
+      this.replay.items.get(handle)
     ));
   }
 
   get teleportScroll() {
-    return this.replay.items.byHandle.get(this.teleportScrollHandle);
+    return this.replay.items.get(this.teleportScrollHandle);
   }
 }
 

@@ -18,9 +18,9 @@ const HeroList = observer((props) => {
     <StyledHeroList>
       {heroes.map((hero) => (
         <HeroListEntry
-          key={hero.eid}
+          key={hero.handle}
           hero={hero}
-          onClick={() => setSelection(hero.eid)}
+          onClick={() => setSelection(hero.handle)}
         />
       ))}
     </StyledHeroList>

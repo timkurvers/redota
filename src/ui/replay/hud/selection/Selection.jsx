@@ -55,13 +55,13 @@ const Selection = observer((props) => {
   }
 
   const {
-    eid, isDead, name, refname, hp, hpMax, mp, mpMax, level, teamID, xp,
+    handle, isDead, name, refname, hp, hpMax, mp, mpMax, level, teamID, xp,
     abilities, backpack, inventory, neutralItem, teleportScroll,
   } = unit;
 
   const onUnitSelect = useCallback(() => {
-    setSelection(eid);
-  }, [eid, setSelection]);
+    setSelection(handle);
+  }, [handle, setSelection]);
 
   return (
     <StyledSelection>

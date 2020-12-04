@@ -48,11 +48,11 @@ class Replay {
     this.tick = -1;
     this.tickInterval = null;
     this.lastTick = this.parser.lastTick;
-    this.abilities = new IndexedCollection('eid', { byHandle: 'handle' });
-    this.items = new IndexedCollection('eid', { byHandle: 'handle' });
-    this.players = new IndexedCollection('eid', { byID: 'id' });
-    this.teams = new IndexedCollection('eid', { byID: 'id' });
-    this.units = new IndexedCollection('eid');
+    this.abilities = new IndexedCollection('handle');
+    this.items = new IndexedCollection('handle');
+    this.players = new IndexedCollection('handle', { byID: 'id' });
+    this.teams = new IndexedCollection('handle', { byID: 'id' });
+    this.units = new IndexedCollection('handle');
     this.time = null;
 
     this.onEntities = this.onEntities.bind(this);
@@ -135,11 +135,10 @@ class Replay {
   }
 
   processAbility(entity, event) {
-    const eid = entity.index;
-    let ability = this.abilities.get(eid);
+    const handle = entity.handle;
+    let ability = this.abilities.get(handle);
     if (!ability) {
-      ability = new Ability(this, eid);
-      ability.handle = entity.handle;
+      ability = new Ability(this, handle);
       this.abilities.add(ability);
     }
     if (ability && event & EntityEvent.DELETED) {
@@ -223,10 +222,10 @@ class Replay {
   }
 
   processItem(entity, event) {
-    const eid = entity.index;
-    let item = this.items.get(eid);
+    const handle = entity.handle;
+    let item = this.items.get(handle);
     if (!item) {
-      item = new Item(this, eid);
+      item = new Item(this, handle);
       item.handle = entity.handle;
       this.items.add(item);
     }
@@ -241,10 +240,10 @@ class Replay {
   }
 
   processPlayer(entity, event) {
-    const eid = entity.index;
-    let player = this.players.get(eid);
+    const handle = entity.handle;
+    let player = this.players.get(handle);
     if (!player) {
-      player = new Player(this, eid);
+      player = new Player(this, handle);
       player.id = entity.get('m_iPlayerID');
       this.players.add(player);
     }
@@ -273,10 +272,10 @@ class Replay {
   }
 
   processTeam(entity, event) {
-    const eid = entity.index;
-    let team = this.teams.get(eid);
+    const handle = entity.handle;
+    let team = this.teams.get(handle);
     if (!team) {
-      team = new Team(this, eid);
+      team = new Team(this, handle);
       team.id = entity.get('m_iTeamNum');
       team.proID = entity.get('m_unTournamentTeamID');
       this.teams.add(team);
@@ -289,10 +288,10 @@ class Replay {
   }
 
   processUnit(entity, event, { class: Class = Unit, hasRotation = true } = {}) {
-    const eid = entity.index;
-    let unit = this.units.get(eid);
+    const handle = entity.handle;
+    let unit = this.units.get(handle);
     if (!unit) {
-      unit = new Class(this, eid);
+      unit = new Class(this, handle);
       unit.class = entity.class.name;
       this.units.add(unit);
     }

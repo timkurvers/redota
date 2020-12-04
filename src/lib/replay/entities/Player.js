@@ -3,9 +3,9 @@ import { computed, makeObservable, observable } from 'mobx';
 import { PLAYER_COLORS } from '../../constants.js';
 
 class Player {
-  constructor(replay, eid) {
+  constructor(replay, handle) {
     this.replay = replay;
-    this.eid = eid;
+    this.handle = handle;
 
     this.id = null;
     this.name = null;

@@ -3,9 +3,9 @@ import { computed, makeObservable, observable } from 'mobx';
 import { TEAM_COLORS, UNIT_NAMES } from '../../constants.js';
 
 class Unit {
-  constructor(replay, eid) {
+  constructor(replay, handle) {
     this.replay = replay;
-    this.eid = eid;
+    this.handle = handle;
 
     this.class = null;
     this.teamID = null;
