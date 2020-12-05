@@ -226,7 +226,6 @@ class Replay {
     let item = this.items.get(handle);
     if (!item) {
       item = new Item(this, handle);
-      item.handle = entity.handle;
       this.items.add(item);
     }
     if (item && event & EntityEvent.DELETED) {
