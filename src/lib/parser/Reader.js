@@ -308,7 +308,7 @@ class Reader {
 
   // Calculates amount of bits needed for given number
   static calcBitsNeededFor(n) {
-    return (Math.log(n) / Math.log(2)) + 1 | 0;
+    return Math.log2(n) + 1 | 0;
   }
 }
 
