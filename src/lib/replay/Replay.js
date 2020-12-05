@@ -35,6 +35,9 @@ const processorByClass = {
 };
 
 const processorByPartialClass = [
+  // TODO: Arguably not the most performance efficient way of skipping these
+  { startsWith: 'CDOTA_Item_RuneSpawner_Bounty', method: null },
+  { startsWith: 'CDOTA_Item_RuneSpawner_Powerup', method: null },
   { startsWith: 'CDOTA_Ability_', method: 'processAbility' },
   { startsWith: 'CDOTA_Item_', method: 'processItem' },
   { startsWith: 'CDOTA_Unit_Hero_', method: 'processHero' },
