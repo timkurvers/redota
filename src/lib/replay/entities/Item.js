@@ -8,10 +8,14 @@ class Item {
     this.handle = handle;
 
     this.refname = null;
+    this.charges = null;
+    this.cooldown = null;
 
     makeObservable(this, {
       handle: observable,
       refname: observable,
+      charges: observable,
+      cooldown: observable,
 
       name: computed,
     });

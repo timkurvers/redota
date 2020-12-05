@@ -158,6 +158,7 @@ class Replay {
     ability.hidden = entity.get('m_bHidden');
     ability.level = entity.get('m_iLevel');
     ability.manaCost = entity.get('m_iManaCost');
+    ability.cooldown = entity.get('m_fCooldown');
   }
 
   processBuilding(entity, event) {
@@ -241,6 +242,9 @@ class Replay {
       const refname = this.parser.stringTables.get('EntityNames').entries[index].key;
       item.refname = refname.replace('item_', '');
     }
+    item.charges = entity.get('m_iCurrentCharges');
+    item.manaCost = entity.get('m_iManaCost');
+    item.cooldown = entity.get('m_fCooldown');
   }
 
   processPlayer(entity, event) {

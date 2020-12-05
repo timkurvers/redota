@@ -9,12 +9,14 @@ class Ability {
     this.level = null;
     this.hidden = false;
     this.manaCost = null;
+    this.cooldown = null;
 
     makeObservable(this, {
       refname: observable,
       hidden: observable,
       level: observable,
       manaCost: observable,
+      cooldown: observable,
     });
   }
 
