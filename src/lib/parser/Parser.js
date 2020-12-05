@@ -158,6 +158,9 @@ class Parser extends Reader {
       pending.push({ type, size, data });
     }
 
+    // TODO: Investigate whether the lookup / bailout can be done earlier
+    // TODO: Also investigate whether retrieving listener count is expensive
+
     if (pending.length > 1) {
       pending.sort(prioritizePendingMessages); // eslint-disable-line
     }

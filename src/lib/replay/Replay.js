@@ -48,6 +48,8 @@ class Replay {
     this.tick = -1;
     this.tickInterval = null;
     this.lastTick = this.parser.lastTick;
+
+    // TODO: Ensure these indexed collections are properly observed
     this.abilities = new IndexedCollection('handle');
     this.items = new IndexedCollection('handle');
     this.players = new IndexedCollection('handle', { byID: 'id' });
