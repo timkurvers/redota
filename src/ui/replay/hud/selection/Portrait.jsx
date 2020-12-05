@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { DeathFilter, HeroResource } from '../../../components/index.js';
+import { HeroResource } from '../../../components/index.js';
 
-const StyledPortrait = styled(DeathFilter)`
+const StyledPortrait = styled.div`
   width: 138px;
   cursor: pointer;
 
@@ -13,9 +13,9 @@ const StyledPortrait = styled(DeathFilter)`
 `;
 
 const Portrait = (props) => {
-  const { isDead, hero, onClick } = props;
+  const { hero, onClick } = props;
   return (
-    <StyledPortrait isDead={isDead} onClick={onClick}>
+    <StyledPortrait onClick={onClick}>
       {hero && <HeroResource refname={hero} variant="portrait" />}
     </StyledPortrait>
   );

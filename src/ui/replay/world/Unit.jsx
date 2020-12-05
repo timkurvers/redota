@@ -3,13 +3,13 @@ import styled, { css } from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import {
-  DeathFilter, HeroResource, Level, StyledLevel,
+  ActiveFilter, HeroResource, Level, StyledLevel,
 } from '../../components/index.js';
 import { Hero } from '../../../lib/replay/entities/index.js';
 
 import { scale } from './projection.js';
 
-const StyledUnit = styled(DeathFilter)`
+const StyledUnit = styled(ActiveFilter)`
   ${(props) => props.size === 'large' && css`
     width: 30px;
     height: 30px;
@@ -44,8 +44,8 @@ const Unit = observer((props) => {
   const isHero = unit instanceof Hero;
   return (
     <StyledUnit
+      active={!isDead}
       color={color}
-      isDead={isDead}
       onClick={() => onClick(handle)}
       selected={selected}
       size={isHero ? 'large' : 'default'}

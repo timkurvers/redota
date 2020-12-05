@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import {
-  DeathFilter, ItemSlot, ItemSlotCollection, VStack,
+  ActiveFilter, ItemSlot, ItemSlotCollection, VStack,
 } from '../../../components/index.js';
 
 const StyledInventory = styled(VStack)`
@@ -33,9 +33,9 @@ const Inventory = observer((props) => {
     <StyledInventory>
       <ItemSlotCollection items={inventory} wrap />
       {backpack && (
-        <DeathFilter isDead>
+        <ActiveFilter active={false}>
           <ItemSlotCollection items={backpack} />
-        </DeathFilter>
+        </ActiveFilter>
       )}
       <StyledNeutralItem>
         <ItemSlot item={neutralItem} rounded />

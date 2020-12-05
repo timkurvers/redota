@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import {
-  Bar, HStack, Level, StyledLevel, VStack,
+  ActiveFilter, Bar, HStack, Level, StyledLevel, VStack,
 } from '../../../components/index.js';
 
 import Abilities from './Abilities.jsx';
@@ -67,7 +67,9 @@ const Selection = observer((props) => {
     <StyledSelection>
       <Name>{name}</Name>
       {level && <Level xp={xp}>{level}</Level>}
-      <Portrait isDead={isDead} hero={refname} onClick={onUnitSelect} />
+      <ActiveFilter active={!isDead}>
+        <Portrait hero={refname} onClick={onUnitSelect} />
+      </ActiveFilter>
       <StyledCenter>
         <Abilities abilities={abilities} />
         <Bar type="health" value={hp} max={hpMax} teamID={teamID} />

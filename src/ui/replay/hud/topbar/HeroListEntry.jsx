@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import {
-  Bar, DeathFilter, HeroResource, PlayerColor,
+  ActiveFilter, Bar, HeroResource, PlayerColor,
 } from '../../../components/index.js';
 
 const StyledHeroListEntry = styled.div`
@@ -23,11 +23,11 @@ const HeroListEntry = observer((props) => {
   return (
     <StyledHeroListEntry onClick={onClick}>
       <PlayerColor color={color} />
-      <DeathFilter isDead={isDead}>
+      <ActiveFilter active={!isDead}>
         <HeroResource refname={refname} variant="landscape" />
         <Bar type="health" size="mini" value={hp} max={hpMax} teamID={teamID} />
         <Bar type="mana" size="mini" value={mp} max={mpMax} />
-      </DeathFilter>
+      </ActiveFilter>
     </StyledHeroListEntry>
   );
 });
