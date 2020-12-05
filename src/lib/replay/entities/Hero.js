@@ -39,9 +39,13 @@ class Hero extends UnitWithInventory {
   }
 
   get abilities() {
-    return this.abilityHandles.map((handle) => (
-      this.replay.abilities.get(handle)
-    )).filter((ability) => ability && !ability.isTalent);
+    return this.abilityHandles.reduce((abilities, handle) => {
+      const ability = this.replay.abilities.get(handle);
+      if (ability && !ability.isSeasonal && !ability.isTalent) {
+        abilities.push(ability);
+      }
+      return abilities;
+    }, []);
   }
 
   get backpack() {

@@ -18,6 +18,10 @@ class Ability {
     });
   }
 
+  get isSeasonal() {
+    return this.refname.startsWith('seasonal_');
+  }
+
   // TODO: Surely there is a better way to determine this?
   get isTalent() {
     return this.refname.startsWith('special_bonus_');
