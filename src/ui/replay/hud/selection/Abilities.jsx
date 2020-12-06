@@ -1,44 +1,50 @@
+/* eslint-disable react/no-array-index-key */
+
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
-import { AbilityResource, HStack, VStack } from '../../../components/index.js';
+import {
+  AbilitySlot, ActiveFilter, HStack, VStack,
+} from '../../../components/index.js';
 
-const StyledAbility = styled.div`
-  margin: 5px;
-
-  img {
-    width: 60px;
-    border: 1px solid darkgray;
-  }
+const StyledAbility = styled(VStack)`
+  margin: 11px 6px 14px;
+  justify-content: space-between;
 `;
 
-const StyledAbilityLevel = styled.span`
-  margin: 4px;
-  color: darkgray;
+const StyledAbilityLevel = styled.div`
+  flex: 1;
+  min-width: 3px;
+  max-width: 8px;
+  height: 3px;
+  margin: 0 3px;
+  background: darkgray;
+  box-shadow: 1px 1px 1px #111,
+              -1px 1px 1px #111,
+              1px -1px 1px #111,
+              -1px -1px 1px #111;
 
   ${(props) => props.acquired && css`
-    color: #FFCC00;
+    background: #FFCC00;
   `}
-
-  &:after {
-    content: '–';
-  }
 `;
 
 const Ability = observer((props) => {
   const { ability } = props;
-  const { refname } = ability;
+  const { level } = ability;
+  const levels = new Array(level).fill();
   return (
     <StyledAbility>
-      <VStack>
-        <AbilityResource refname={refname} />
-        <HStack justify="center">
-          <StyledAbilityLevel acquired />
-          <StyledAbilityLevel acquired />
-          <StyledAbilityLevel />
-        </HStack>
-      </VStack>
+      <ActiveFilter active={level >= 1}>
+        <AbilitySlot ability={ability} />
+      </ActiveFilter>
+      <HStack justify="center">
+        {/* TODO: Render unacquired levels, too */}
+        {levels.map((_, index) => (
+          <StyledAbilityLevel key={index} acquired />
+        ))}
+      </HStack>
     </StyledAbility>
   );
 });

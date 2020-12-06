@@ -1,3 +1,4 @@
+export { default as AbilitySlot } from './AbilitySlot.jsx';
 export { default as ActiveFilter } from './ActiveFilter.jsx';
 export { default as Annotation } from './Annotation.jsx';
 export { default as Bar } from './Bar.jsx';
