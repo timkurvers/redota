@@ -18,6 +18,7 @@ const StyledItemSlot = styled.div`
   background: black;
 
   img {
+    display: block;
     width: 100%;
     height: 100%;
   }
