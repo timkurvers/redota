@@ -19,7 +19,10 @@ const StyledQuitLink = styled(Link)`
 const StyledReplayView = styled.div`
   width: 100%;
   height: 100%;
-  text-shadow: 1px 1px 1px black, -1px -1px 1px black;
+  text-shadow: 1px 1px 1px #111,
+               -1px 1px 1px #111,
+               1px -1px 1px #111,
+               -1px -1px 1px #111;
 `;
 
 const ReplayView = observer(({ replay }) => {
