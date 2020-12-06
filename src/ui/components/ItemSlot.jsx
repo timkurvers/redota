@@ -4,13 +4,17 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
+import Annotation from './Annotation.jsx';
+import Cooldown from './Cooldown.jsx';
 import { HStack } from './Stack.jsx';
 import { ItemResource } from './Resource.jsx';
 
 const StyledItemSlot = styled.div`
+  position: relative;
   width: 50px;
   height: 38px;
   border: 1px solid #333;
+  border-color: #333 #444 #444 #333;
   background: black;
 
   img {
@@ -34,7 +38,17 @@ const ItemSlot = observer((props) => {
   const { className, item, rounded = false } = props;
   return (
     <StyledItemSlot className={className} rounded={rounded}>
-      {item && <ItemResource refname={item.refname} />}
+      {item && (
+        <Cooldown remaining={item.cooldown}>
+          {item.charges > 0 && (
+            <Annotation value={item.charges} />
+          )}
+          {item.manaCost > 0 && (
+            <Annotation type="mana" value={item.manaCost} />
+          )}
+          <ItemResource refname={item.refname} />
+        </Cooldown>
+      )}
     </StyledItemSlot>
   );
 });
