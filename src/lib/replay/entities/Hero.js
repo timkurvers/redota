@@ -1,6 +1,6 @@
 import { computed, makeObservable, observable } from 'mobx';
 
-import { heroesByName } from '../../constants.js';
+import { PLAYER_COLORS, heroesByName } from '../../constants.js';
 
 import UnitWithInventory from './UnitWithInventory.js';
 
@@ -55,7 +55,8 @@ class Hero extends UnitWithInventory {
   }
 
   get color() {
-    return this.player.color;
+    // Note: Cannot rely on player being present in case of disconnects
+    return PLAYER_COLORS[this.playerID];
   }
 
   get name() {
