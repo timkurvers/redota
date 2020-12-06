@@ -45,6 +45,7 @@ const Unit = observer((props) => {
   return (
     <StyledUnit
       active={!isDead}
+      translucentWhenInactive
       color={color}
       onClick={() => onClick(handle)}
       selected={selected}
