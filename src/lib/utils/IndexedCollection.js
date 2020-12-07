@@ -1,3 +1,9 @@
+/* eslint-disable max-classes-per-file */
+
+import {
+  action, computed, makeObservable, observable,
+} from 'mobx';
+
 class IndexedCollection {
   constructor(keyProp, indices = {}) {
     this.keyProp = keyProp;
@@ -6,7 +12,7 @@ class IndexedCollection {
     this.indices = Object.entries(indices).map(([accessor, prop]) => {
       const collection = new Map();
       this[accessor] = collection;
-      return { prop, collection };
+      return { accessor, prop, collection };
     });
   }
 
@@ -75,4 +81,34 @@ class IndexedCollection {
   }
 }
 
+class ObservableIndexedCollection extends IndexedCollection {
+  constructor(keyProp, indices = {}) {
+    super(keyProp, indices);
+
+    makeObservable(this, {
+      data: observable,
+
+      size: computed,
+      get: observable,
+      filter: observable,
+      find: observable,
+      map: observable,
+      [Symbol.iterator]: observable,
+
+      add: action,
+      delete: action,
+      clear: action,
+    });
+
+    for (const entry of this.indices) {
+      makeObservable(this, {
+        [entry.accessor]: observable,
+      });
+      // Ensure collection points to the decorated observable map
+      entry.collection = this[entry.accessor];
+    }
+  }
+}
+
 export default IndexedCollection;
+export { ObservableIndexedCollection };

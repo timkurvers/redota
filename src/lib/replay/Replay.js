@@ -6,7 +6,7 @@ import { action, makeObservable, observable } from 'mobx';
 import Parser from '../parser/Parser.js';
 import { CELL_SIZE, MAP_SIZE } from '../constants.js';
 import { EntityEvent } from '../parser/model/index.js';
-import { IndexedCollection } from '../utils/index.js';
+import { ObservableIndexedCollection } from '../utils/index.js';
 
 import {
   Ability, Hero, Item, Player, Team, Unit, UnitWithInventory,
@@ -52,12 +52,11 @@ class Replay {
     this.tickInterval = null;
     this.lastTick = this.parser.lastTick;
 
-    // TODO: Ensure these indexed collections are properly observed
-    this.abilities = new IndexedCollection('handle');
-    this.items = new IndexedCollection('handle');
-    this.players = new IndexedCollection('handle', { byID: 'id' });
-    this.teams = new IndexedCollection('handle', { byID: 'id' });
-    this.units = new IndexedCollection('handle');
+    this.abilities = new ObservableIndexedCollection('handle');
+    this.items = new ObservableIndexedCollection('handle');
+    this.players = new ObservableIndexedCollection('handle', { byID: 'id' });
+    this.teams = new ObservableIndexedCollection('handle', { byID: 'id' });
+    this.units = new ObservableIndexedCollection('handle');
     this.time = null;
 
     this.onEntities = this.onEntities.bind(this);
