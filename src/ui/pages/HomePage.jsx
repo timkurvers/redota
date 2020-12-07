@@ -37,7 +37,7 @@ const HomePage = () => {
   const skadistats = <Link to="https://github.com/skadistats/clarity">Skadistats</Link>;
   const github = <Link to="https://github.com/timkurvers/redota">GitHub</Link>;
   const example = (
-    <Link to="http://replay308.valve.net/570/4986461644_1194860475.dem.bz2">
+    <Link to="http://replay138.valve.net/570/5712001132_579859928.dem.bz2">
       Download and unzip replay of a pro-team match
     </Link>
   );
