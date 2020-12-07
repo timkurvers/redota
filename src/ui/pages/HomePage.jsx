@@ -16,6 +16,10 @@ const StyledHomePage = styled.div`
   h2 {
     margin-top: 1.5em;
   }
+
+  img {
+    max-width: 85%;
+  }
 `;
 
 const StyledHighlight = styled.span`
@@ -68,6 +72,7 @@ const HomePage = () => {
         This is an experiment to revisit past Dota 2 matches in the browser, fully
         relying on parsing replays client-side without any server involvement.
       </p>
+      <img src="./images/redota.jpg" alt="ReDota" />
       <p>
         Source is available on {github}. Contributions welcome!
       </p>

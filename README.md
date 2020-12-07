@@ -6,6 +6,8 @@ Revisit past Dota 2 matches in the browser.
 
 View live: https://timkurvers.github.io/redota
 
+![ReDota](./public/images/redota.jpg)
+
 # Background
 
 This is an experiment to revisit past Dota 2 matches in the browser, fully relying
