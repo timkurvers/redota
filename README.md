@@ -21,6 +21,8 @@ notably parsers by [Dotabuff], [OpenDota] and [Skadistats].
 Currently, ReDota is capable of parsing replays and playing back in real time.
 It does not yet parse everything correctly though.
 
+Contributions in form of issues, feedback or pull requests more than welcome!
+
 # Legalese
 
 - Dota 2 is a registered trademark of [Valve Corporation].
