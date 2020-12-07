@@ -31,8 +31,8 @@ Contributions in form of issues, feedback or pull requests more than welcome!
 
 # Setup & Development
 
-ReDota is written in [ES2020+], powered by [MobX] and [React], modularized using [ECMAScript modules] and
-developed with [webpack].
+ReDota is written in [ES2020+], powered by [MobX] and [React], styled with [styled-components],
+modularized using [ECMAScript modules] and bundled with [webpack].
 
 1. Clone the repository:
 
@@ -64,4 +64,5 @@ developed with [webpack].
 [React]: https://reactjs.org/
 [Skadistats]: https://github.com/skadistats/clarity
 [Valve Corporation]: https://www.valvesoftware.com/
+[styled-components]: https://styled-components.com/
 [webpack]: https://webpack.js.org/
