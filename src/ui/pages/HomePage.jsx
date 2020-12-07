@@ -9,7 +9,7 @@ import { Link } from '../components/index.js';
 
 const StyledHomePage = styled.div`
   max-width: 560px;
-  padding: 100px 0;
+  padding: 60px 0;
   margin: 0 auto;
   background: rgba(0, 0, 0, .9);
   text-align: center;
