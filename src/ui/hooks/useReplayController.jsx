@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { GAME_PHASE } from '../../lib/constants.js';
+
 import useInterval from './useInterval.jsx';
 
 const useReplayController = (replay) => {
@@ -11,6 +13,7 @@ const useReplayController = (replay) => {
   useEffect(() => {
     replay.on('warn', console.warn);
     replay.start();
+    replay.jumpTo(GAME_PHASE.PREGAME);
   }, [replay]);
 
   // Replay files seem to (mostly) hop over every other tick, so decrease the
