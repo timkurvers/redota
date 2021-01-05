@@ -58,6 +58,7 @@ class Replay {
     this.teams = new ObservableIndexedCollection('handle', { byID: 'id' });
     this.units = new ObservableIndexedCollection('handle');
     this.time = null;
+    this.phase = null;
 
     this.onEntities = this.onEntities.bind(this);
     this.onTick = this.onTick.bind(this);
@@ -109,6 +110,14 @@ class Replay {
 
     this.onTick(this.parser.tick);
     this.onEntities(changesets);
+  }
+
+  // TODO: As with jump(), this should preferably be supported in the parser
+  jumpTo(targetPhase) {
+    // TODO: Potentially scary if target phase does not exist
+    while (this.phase !== targetPhase) {
+      this.step();
+    }
   }
 
   on(...args) {
@@ -184,6 +193,9 @@ class Replay {
       const transitionTime = entity.get('m_pGameRules.m_flStateTransitionTime');
       this.time = gameTime - transitionTime;
     }
+
+    // TODO: Store both game time and phase in some kind of game object
+    this.phase = entity.get('m_pGameRules.m_nGameState');
   }
 
   processHero(entity, event) {

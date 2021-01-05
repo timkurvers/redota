@@ -19,6 +19,12 @@ export const PLAYER_COLORS = [
   '#A46900',
 ];
 
+export const GAME_PHASE = {
+  PREGAME: 4,
+  START: 5,
+  END: 6,
+};
+
 export const TEAM_RADIANT = 2;
 export const TEAM_DIRE = 3;
 export const TEAM_NEUTRAL = 4;
