@@ -2,7 +2,8 @@ export { default as heroesByName } from 'dotaconstants/build/hero_names.json';
 export { default as itemsByName } from 'dotaconstants/build/items.json';
 export { default as xpPerLevel } from 'dotaconstants/build/xp_level.json';
 
-export const MAP_SIZE = 16384;
+export const MAP_SIZE = 32768;
+export const MAP_HALF_SIZE = MAP_SIZE / 2;
 export const CELL_SIZE = 128;
 
 export const PLAYER_COLORS = [
