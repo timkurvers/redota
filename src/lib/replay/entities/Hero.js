@@ -31,9 +31,11 @@ class Hero extends UnitWithInventory {
       stashHandles: observable,
       teleportScrollHandle: observable,
 
+      abilities: computed,
       backpack: computed,
       neutralItem: computed,
       player: computed,
+      stash: computed,
       teleportScroll: computed,
     });
   }
