@@ -24,7 +24,15 @@ class Reader {
     return this.pos >= this.length;
   }
 
+  get bitLength() {
+    return this.length * 8;
+  }
+
   get bitPos() {
+    return (this.pos - 1) * 8 + (8 - this.bitCount);
+  }
+
+  get posWithBit() {
     const { bitCount, pos } = this;
     if (bitCount > 0) {
       return `${pos - 1}.${8 - bitCount}`;
@@ -269,6 +277,7 @@ class Reader {
     const max = ((bits + 6) / 7) * 7;
     let value = 0;
     let shift = 0;
+    // TODO: Potential 32-bit return value overflowing here
     for (;;) {
       const byte = this.readByte();
       value |= (byte & 0x7F) << shift;
@@ -304,6 +313,9 @@ class Reader {
       throw new RangeError(`cannot skip ${count} bytes`);
     }
     this.pos = end;
+    if (this.bitCount > 0) {
+      this.bitVal = this.buffer[this.pos - 1] >> (8 - this.bitCount);
+    }
   }
 
   // Calculates amount of bits needed for given number
