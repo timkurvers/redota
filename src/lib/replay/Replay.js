@@ -22,6 +22,8 @@ const processorByClass = {
   CDOTA_BaseNPC_Watch_Tower: 'processBuilding',
   CDOTA_Item_Physical: 'processCollectable',
   CDOTA_Item_Rune: 'processCollectable',
+  CDOTA_Item_RuneSpawner_Bounty: null,
+  CDOTA_Item_RuneSpawner_Powerup: null,
   CDOTA_Item: 'processItem',
   CDOTA_NPC_Observer_Ward: 'processUnit',
   CDOTA_NPC_Sentry_Ward: 'processUnit',
@@ -34,10 +36,8 @@ const processorByClass = {
   CDOTATeam: 'processTeam',
 };
 
+// These partial matches are used to patch the above list at runtime
 const processorByPartialClass = [
-  // TODO: Arguably not the most performance efficient way of skipping these
-  { startsWith: 'CDOTA_Item_RuneSpawner_Bounty', method: null },
-  { startsWith: 'CDOTA_Item_RuneSpawner_Powerup', method: null },
   { startsWith: 'CDOTA_Ability_', method: 'processAbility' },
   { startsWith: 'CDOTA_Item_', method: 'processItem' },
   { startsWith: 'CDOTA_Unit_Hero_', method: 'processHero' },
@@ -122,9 +122,13 @@ class Replay {
   onEntities(changeset) {
     for (const { entity, event } of changeset) {
       const cls = entity.class.name;
-      const method = processorByClass[cls] || processorByPartialClass.find((c) => (
-        cls.startsWith(c.startsWith)
-      ))?.method;
+      let method = processorByClass[cls];
+      if (method === undefined) {
+        method = processorByPartialClass.find((c) => (
+          cls.startsWith(c.startsWith)
+        ))?.method;
+        processorByClass[cls] = method || null;
+      }
       if (method) {
         this[method](entity, event);
       }
