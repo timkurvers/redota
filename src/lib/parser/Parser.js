@@ -154,20 +154,10 @@ class Parser extends Reader {
     while (!reader.eof) {
       const type = reader.readUBitVar();
       const size = reader.readVarUint32();
-      const data = reader.readBytes(size);
-      pending.push({ type, size, data });
-    }
 
-    // TODO: Investigate whether the lookup / bailout can be done earlier
-    // TODO: Also investigate whether retrieving listener count is expensive
-
-    if (pending.length > 1) {
-      pending.sort(prioritizePendingMessages); // eslint-disable-line
-    }
-
-    for (const message of pending) {
-      const lookup = packetToTypeMapping[message.type];
+      const lookup = packetToTypeMapping[type];
       if (!lookup) {
+        reader.skip(size);
         continue;
       }
 
@@ -177,10 +167,23 @@ class Parser extends Reader {
       const numListeners = this.emitter.listenerCount(event);
       if (!numListeners) {
         this.emitter.emit('msg:skip', as);
+        reader.skip(size);
         continue;
       }
 
-      const struct = Type.decode(message.data);
+      const data = reader.readBytes(size);
+      pending.push({ Type, event, data });
+    }
+
+    // TODO: Also investigate whether retrieving listener count is expensive
+
+    if (pending.length > 1) {
+      pending.sort(prioritizePendingMessages); // eslint-disable-line
+    }
+
+    for (const message of pending) {
+      const { Type, event, data } = message;
+      const struct = Type.decode(data);
       this.emitter.emit(event, struct);
     }
   }
@@ -473,8 +476,8 @@ class Parser extends Reader {
 }
 
 const prioritizePendingMessages = (a, b) => {
-  const ap = priorityForType(a);
-  const bp = priorityForType(b);
+  const ap = priorityForType(a.type);
+  const bp = priorityForType(b.type);
   return ap - bp;
 };
 
