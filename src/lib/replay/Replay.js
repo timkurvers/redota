@@ -102,13 +102,13 @@ class Replay {
     this.teams.clear();
     this.units.clear();
 
-    const changeset = this.parser.entities.map((entity) => ({
+    const changesets = this.parser.entities.map((entity) => ({
       entity,
       event: EntityEvent.CREATED,
     }));
 
     this.onTick(this.parser.tick);
-    this.onEntities(changeset);
+    this.onEntities(changesets);
   }
 
   on(...args) {
@@ -119,8 +119,8 @@ class Replay {
     this.emitter.remove(...args);
   }
 
-  onEntities(changeset) {
-    for (const { entity, event } of changeset) {
+  onEntities(changesets) {
+    for (const { entity, event } of changesets) {
       const cls = entity.class.name;
       let method = processorByClass[cls];
       if (method === undefined) {
