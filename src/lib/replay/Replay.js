@@ -4,7 +4,7 @@ import EventEmitter from 'events';
 import { action, makeObservable, observable } from 'mobx';
 
 import Parser from '../parser/Parser.js';
-import { CELL_SIZE, MAP_SIZE } from '../constants.js';
+import { CELL_SIZE, MAP_HALF_SIZE } from '../constants.js';
 import { EntityEvent } from '../parser/model/index.js';
 import { ObservableIndexedCollection } from '../utils/index.js';
 
@@ -309,9 +309,9 @@ class Replay {
     unit.teamID = entity.get('m_iTeamNum');
     unit.x = entity.get('CBodyComponent.m_cellX') * CELL_SIZE
              + entity.get('CBodyComponent.m_vecX')
-             - MAP_SIZE;
+             - MAP_HALF_SIZE;
     unit.y = entity.get('CBodyComponent.m_cellY') * CELL_SIZE
-             + entity.get('CBodyComponent.m_vecY') - MAP_SIZE;
+             + entity.get('CBodyComponent.m_vecY') - MAP_HALF_SIZE;
     if (hasRotation) {
       unit.rotation = entity.get('CBodyComponent.m_angRotation')[1];
     }
