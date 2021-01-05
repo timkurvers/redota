@@ -27,6 +27,7 @@ const POINTER_TYPES = {
   CDOTAGameManager:           true,
   CDOTASpectatorGraphManager: true,
   CPlayerLocalData:           true,
+  PhysicsRagdollPose_t:       true,
 };
 
 // See: https://github.com/dotabuff/manta/blob/master/field.go
