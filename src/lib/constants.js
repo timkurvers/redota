@@ -29,7 +29,7 @@ export const TEAM_RADIANT = 2;
 export const TEAM_DIRE = 3;
 export const TEAM_NEUTRAL = 4;
 export const TEAM_COLORS = {
-  [TEAM_RADIANT]: '#4D8A2F',
+  [TEAM_RADIANT]: '#23B200',
   [TEAM_DIRE]: '#B21000',
   [TEAM_NEUTRAL]: '#CAAA32',
 };
