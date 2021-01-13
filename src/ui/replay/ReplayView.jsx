@@ -6,7 +6,7 @@ import { Link } from '../components/index.js';
 import { useReplayController } from '../hooks/index.js';
 
 import HUD, {
-  Selection, Timeline, Topbar,
+  MiniMap, Selection, Timeline, Topbar,
 } from './hud/HUD.jsx';
 import World from './world/World.jsx';
 
@@ -41,6 +41,11 @@ const ReplayView = observer(({ replay }) => {
     <StyledReplayView>
       <StyledQuitLink to="/">Back to ReDota</StyledQuitLink>
       <HUD>
+        <MiniMap
+          camera={camera}
+          setFreeCamera={setFreeCamera}
+          units={replay.units}
+        />
         {selectedUnit && (
           <Selection
             key={selectedUnit.handle}
