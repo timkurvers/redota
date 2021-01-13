@@ -29,6 +29,7 @@ class Player {
       isBroadcaster: observable,
 
       color: computed,
+      hero: computed,
       index: computed,
       team: computed,
     });
