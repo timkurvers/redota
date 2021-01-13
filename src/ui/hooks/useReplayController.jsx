@@ -5,9 +5,15 @@ import { GAME_PHASE } from '../../lib/constants.js';
 import useInterval from './useInterval.jsx';
 
 const useReplayController = (replay) => {
-  const [focus, setFocus] = useState(null);
+  const [freeCamera, setFreeCamera] = useState({
+    x: 0, y: 0, width: 0, height: 0,
+  });
+  const [cameraID, setCameraID] = useState('free');
   const [playing, setPlaying] = useState(false);
   const [selectionID, setSelectionID] = useState(null);
+
+  // TODO: Player perspective camera support
+  const camera = freeCamera;
 
   // TODO: Replay clean-up on component unmount
   useEffect(() => {
@@ -29,17 +35,24 @@ const useReplayController = (replay) => {
   }, [replay]);
 
   const setSelection = useCallback((id) => {
-    if (id === selectionID) {
-      setFocus({ x: selectedUnit.x, y: selectedUnit.y });
+    if (id === selectionID && cameraID === 'free') {
+      setFreeCamera((current) => ({
+        ...current,
+        x: selectedUnit.relX,
+        y: selectedUnit.relY,
+      }));
     }
     setSelectionID(id);
-  }, [selectionID, selectedUnit, setFocus, setSelectionID]);
+  }, [cameraID, selectionID, selectedUnit, setFreeCamera, setSelectionID]);
 
   return {
-    focus,
+    camera,
+    cameraID,
     playing,
     requestTick,
     selectedUnit,
+    setCameraID,
+    setFreeCamera,
     setPlaying,
     setSelection,
   };

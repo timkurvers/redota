@@ -7,8 +7,6 @@ import {
 } from '../../components/index.js';
 import { Hero } from '../../../lib/replay/entities/index.js';
 
-import { scale } from './projection.js';
-
 const StyledUnit = styled(ActiveFilter)`
   ${(props) => props.size === 'large' && css`
     width: 30px;
@@ -40,7 +38,7 @@ const StyledUnit = styled(ActiveFilter)`
 const Unit = observer((props) => {
   const { onClick, selected, unit } = props;
   const {
-    handle, isDead, color, x, y,
+    handle, isDead, color, relX, relY,
   } = unit;
   const isHero = unit instanceof Hero;
   return (
@@ -51,7 +49,7 @@ const Unit = observer((props) => {
       onClick={() => onClick(handle)}
       selected={selected}
       size={isHero ? 'large' : 'default'}
-      style={{ left: `${scale(x)}px`, bottom: `${scale(y)}px` }}
+      style={{ left: `${relX * 100}%`, bottom: `${relY * 100}%` }}
     >
       {isHero && (
         <>

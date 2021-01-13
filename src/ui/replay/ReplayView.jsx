@@ -1,12 +1,13 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import { Link } from '../components/index.js';
 import { useReplayController } from '../hooks/index.js';
 
-import HUD, { Selection, Timeline, Topbar } from './hud/HUD.jsx';
-import Unit from './world/Unit.jsx';
+import HUD, {
+  Selection, Timeline, Topbar,
+} from './hud/HUD.jsx';
 import World from './world/World.jsx';
 
 const StyledQuitLink = styled(Link)`
@@ -27,17 +28,14 @@ const StyledReplayView = styled.div`
 
 const ReplayView = observer(({ replay }) => {
   const {
-    focus,
+    camera,
     playing,
     requestTick,
     selectedUnit,
+    setFreeCamera,
     setPlaying,
     setSelection,
   } = useReplayController(replay);
-
-  const onUnitClick = useCallback((id) => {
-    setSelection(id);
-  }, [setSelection]);
 
   return (
     <StyledReplayView>
@@ -63,16 +61,13 @@ const ReplayView = observer(({ replay }) => {
           time={replay.time}
         />
       </HUD>
-      <World focus={focus}>
-        {replay.units.map((unit) => (
-          <Unit
-            key={unit.handle}
-            unit={unit}
-            selected={selectedUnit === unit}
-            onClick={onUnitClick}
-          />
-        ))}
-      </World>
+      <World
+        camera={camera}
+        selectedUnit={selectedUnit}
+        setFreeCamera={setFreeCamera}
+        setSelection={setSelection}
+        units={replay.units}
+      />
     </StyledReplayView>
   );
 });

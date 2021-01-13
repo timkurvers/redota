@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 import styled from 'styled-components';
 
+import { useWindowDimensions } from '../../hooks/index.js';
+
 import Map from './Map.jsx';
-import { scale } from './projection.js';
+import Unit from './Unit.jsx';
 
 const StyledWorld = styled.div`
   width: 100%;
@@ -24,38 +28,47 @@ const StyledWorld = styled.div`
 
 const World = (props) => {
   const {
-    children, focus,
+    camera, selectedUnit, setFreeCamera, setSelection, units,
   } = props;
 
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
   const [dragging, setDragging] = useState(false);
 
+  const mapRef = useRef(null);
+
+  // Ensure free camera is updated when window dimensions change
+  const [viewport] = useWindowDimensions();
   useEffect(() => {
-    if (!focus) return;
-    setX(-scale(focus.x));
-    setY(scale(focus.y));
-  }, [focus]);
+    const width = mapRef.current?.width;
+    const height = mapRef.current?.height;
+    setFreeCamera((current) => ({
+      ...current,
+      width: width ? viewport.width / width : 0,
+      height: height ? viewport.height / height : 0,
+    }));
+  }, [setFreeCamera, viewport]);
 
-  const move = (dx, dy) => {
-    if (dx) setX((cx) => cx + dx);
-    if (dy) setY((cy) => cy + dy);
-  };
-
-  const onMouseDown = (e) => {
+  const onMouseDown = useCallback((e) => {
     e.preventDefault();
     setDragging(true);
-  };
+  }, [setDragging]);
 
-  const onMouseUp = (e) => {
+  const onMouseUp = useCallback((e) => {
     e.preventDefault();
     setDragging(false);
-  };
+  }, [setDragging]);
 
-  const onMouseMove = (e) => {
-    if (dragging) move(e.movementX, e.movementY);
-  };
+  const onMouseMove = useCallback((e) => {
+    if (!dragging) return;
+    const { movementX: dx, movementY: dy } = e;
+    const { width, height } = mapRef.current;
+    setFreeCamera((current) => ({
+      ...current,
+      x: current.x + (-dx / width),
+      y: current.y + (dy / height),
+    }));
+  }, [dragging, setFreeCamera]);
 
+  const { x, y } = camera;
   return (
     <StyledWorld
       dragging={dragging}
@@ -64,8 +77,18 @@ const World = (props) => {
       onMouseUp={onMouseUp}
       onMouseMove={onMouseMove}
     >
-      <Map style={{ transform: `translate(${x}px, ${y}px)` }}>
-        {children}
+      <Map
+        ref={mapRef}
+        style={{ transform: `translate(${-x * 100}%, ${y * 100}%)` }}
+      >
+        {units.map((unit) => (
+          <Unit
+            key={unit.handle}
+            unit={unit}
+            selected={selectedUnit === unit}
+            onClick={setSelection}
+          />
+        ))}
       </Map>
     </StyledWorld>
   );
