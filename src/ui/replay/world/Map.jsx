@@ -35,7 +35,7 @@ const StyledWebPFallback = styled.div`
   }
 `;
 
-const Map = (props) => {
+const Map = React.forwardRef((props, ref) => {
   const { children, style } = props;
   return (
     <StyledMap style={style}>
@@ -45,11 +45,11 @@ const Map = (props) => {
           <p>If it never loads, your browser may not support the WebP image format.</p>
           <p>¯\_(ツ)_/¯</p>
         </StyledWebPFallback>
-        <img src="./images/map-7.27.webp" alt="Dota 2 map" />
+        <img ref={ref} src="./images/map/7.23.webp" alt="Dota 2 map" />
         {children}
       </StyledOffset>
     </StyledMap>
   );
-};
+});
 
 export default Map;

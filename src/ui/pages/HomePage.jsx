@@ -108,7 +108,7 @@ const HomePage = () => {
         <br />
         Image resources, lore and other references are property of Valve Corporation.
         <br />
-        The Dota 2 map background originates from Gamepedia.
+        The Dota 2 map and minimap images originate from Gamepedia.
       </StyledLegal>
     </StyledHomePage>
   );
