@@ -1,7 +1,5 @@
 import { computed, makeObservable, observable } from 'mobx';
 
-import Hero from './Hero.js';
-
 class Team {
   constructor(replay, handle) {
     this.replay = replay;
