@@ -5,12 +5,14 @@ const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const env = process.env.NODE_ENV || 'development';
+
 module.exports = {
-  mode: process.env.NODE_ENV || 'development',
+  mode: env,
   entry: './src/ui/bootstrap.jsx',
   output: {
     path: path.join(__dirname, 'public'),
-    filename: 'redota-[chunkhash:8].js',
+    filename: 'redota-[name]-[chunkhash:8].js',
   },
   resolve: {
     extensions: ['.js'],
@@ -18,7 +20,26 @@ module.exports = {
       buffer: require.resolve('buffer/'),
     },
   },
-  devtool: 'source-map',
+  devtool: env === 'development' ? 'inline-cheap-source-map' : false,
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        dotaconstants: {
+          name: 'dotaconstants',
+          test: /[\\/]node_modules[\\/]dotaconstants[\\/]/,
+        },
+        protobuf: {
+          name: 'protobuf',
+          test: /[\\/]dota[\\/]compiled.cjs|[\\/]node_modules[\\/]@?protobufjs/,
+        },
+        vendor: {
+          name: 'vendor',
+          test: /[\\/]node_modules[\\/](?!dotaconstants|(?:@?protobufjs))/,
+        },
+      },
+    },
+  },
   plugins: [
     new webpack.ProvidePlugin({
       Buffer: ['buffer', 'Buffer'],

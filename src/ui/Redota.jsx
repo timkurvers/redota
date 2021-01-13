@@ -1,8 +1,14 @@
 import React from 'react';
+import loadable from '@loadable/component';
 import styled from 'styled-components';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 
-import { HomePage, ReplayPage } from './pages/index.js';
+import HomePage from './pages/HomePage.jsx';
+
+// TODO: Need a loader here in case fetching the parser bundle is slow?
+const ReplayPage = loadable(() => (
+  import(/* webpackChunkName: 'parser+viewer' */ './pages/ReplayPage.jsx')
+));
 
 const StyledReDota = styled.div`
   box-sizing: content-box;

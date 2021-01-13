@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Parser from '../../lib/parser/Parser.js';
-import { Link } from '../components/index.js';
+// Note: Target individual modules specifically to keep the homepage bundle small
+import Link from '../components/Link.jsx';
+import isValidReplay from '../../lib/utils/isValidReplay.js';
 
 const StyledHomePage = styled.div`
   max-width: 560px;
@@ -51,7 +52,7 @@ const HomePage = () => {
     const file = e.target.files[0];
     let valid = null;
     if (file) {
-      valid = await Parser.validate(file);
+      valid = await isValidReplay(file);
       if (valid) {
         const ref = URL.createObjectURL(file);
         const safeName = encodeURIComponent(file.name);
