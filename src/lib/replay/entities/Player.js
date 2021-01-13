@@ -9,6 +9,7 @@ class Player {
 
     this.id = null;
     this.name = null;
+    this.heroID = null;
     this.teamID = null;
     this.kills = 0;
     this.assists = 0;
@@ -19,6 +20,7 @@ class Player {
     makeObservable(this, {
       id: observable,
       name: observable,
+      heroID: observable,
       teamID: observable,
       kills: observable,
       assists: observable,
@@ -34,6 +36,10 @@ class Player {
 
   get color() {
     return PLAYER_COLORS[this.id];
+  }
+
+  get hero() {
+    return this.replay.units.get(this.heroID);
   }
 
   get index() {

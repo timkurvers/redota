@@ -25,10 +25,7 @@ class Team {
   }
 
   get heroes() {
-    // TODO: This does not handle illusions properly
-    return this.replay.units.filter((u) => (
-      u instanceof Hero && u.teamID === this.id
-    ));
+    return this.players.map((p) => p.hero).filter(Boolean);
   }
 
   get players() {

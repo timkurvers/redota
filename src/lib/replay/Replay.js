@@ -274,6 +274,7 @@ class Replay {
       this.players.delete(player);
       return;
     }
+    player.heroID = entity.get('m_hAssignedHero');
     player.teamID = entity.get('m_iTeamNum');
   }
 
