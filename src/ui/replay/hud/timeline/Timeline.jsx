@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react-lite';
 
 import {
   Button, HStack, StyledButton, Time,
@@ -32,7 +33,7 @@ const StyledTimeline = styled(HStack)`
   }
 `;
 
-const Timeline = (props) => {
+const Timeline = observer((props) => {
   const {
     tick, lastTick, requestTick, playing, setPlaying,
   } = props;
@@ -54,6 +55,6 @@ const Timeline = (props) => {
       </div>
     </StyledTimeline>
   );
-};
+});
 
 export default Timeline;
