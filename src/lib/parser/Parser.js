@@ -464,15 +464,6 @@ class Parser extends Reader {
       this.classBaselines[classID] = entry.data;
     }
   }
-
-  static async validate(file) {
-    const { length } = MAGIC_SOURCE_2;
-    if (file.size < length) {
-      return false;
-    }
-    const magic = await file.slice(0, MAGIC_SOURCE_2.length).text();
-    return magic === MAGIC_SOURCE_2;
-  }
 }
 
 const prioritizePendingMessages = (a, b) => {
