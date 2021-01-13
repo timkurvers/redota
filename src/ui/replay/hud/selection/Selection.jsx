@@ -26,7 +26,7 @@ const StyledSelection = styled(HStack)`
   ${StyledName} {
     position: absolute;
     top: -25px;
-    left: 70px;
+    left: 69px;
     transform: translateX(-50%);
   }
 
