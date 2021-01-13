@@ -34,6 +34,11 @@ const processorByClass = {
   CDOTAGamerulesProxy: 'processGameRules',
   CDOTAPlayer: 'processPlayer',
   CDOTATeam: 'processTeam',
+
+  // TODO: How to handle these hero-specific units? There's probably more.
+  CDOTA_Unit_Hero_Beastmaster_Boar: 'processUnit',
+  CDOTA_Unit_Hero_Beastmaster_Hawk: 'processUnit',
+  CDOTA_Unit_SpiritBear: 'processUnit',
 };
 
 // These partial matches are used to patch the above list at runtime
