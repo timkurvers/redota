@@ -2,5 +2,5 @@
 
 import { MAP_HALF_SIZE } from '../constants.js';
 
-// Scales given coordinate value to a percentage between -1.0 (0%) and 1.0 (100%)
+// Scales given in-game coordinate to a value between -0.5 (0%) and 0.5 (100%)
 export const scale = (value) => value / MAP_HALF_SIZE;
