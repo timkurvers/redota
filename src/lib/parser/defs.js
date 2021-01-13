@@ -2,22 +2,26 @@
 
 import defs from '../../../dota/compiled.cjs';
 
-export const { dota } = defs;
+const { dota } = defs;
 
-export const { CDemoPacket } = dota;
-export const { CDOTAMatchMetadataFile } = dota;
-export const { CDOTAUserMsg_StatsHeroMinuteDetails } = dota;
-export const { CMsgDOTACombatLogEntry } = dota;
-export const { CMsgGCToClientTournamentItemDrop } = dota;
-export const { CSVCMsg_FlattenedSerializer } = dota;
+export const {
+  CSVCMsg_FlattenedSerializer,
+  EDemoCommands,
+} = dota;
 
-export const { EBaseEntityMessages } = dota;
-export const { EBaseGameEvents } = dota;
-export const { EBaseUserMessages } = dota;
-export const { EDemoCommands } = dota;
-export const { EDotaUserMessages } = dota;
-export const { NET_Messages } = dota;
-export const { SVC_Messages } = dota;
+const {
+  CDemoPacket,
+  CDOTAMatchMetadataFile,
+  CDOTAUserMsg_StatsHeroMinuteDetails,
+  CMsgDOTACombatLogEntry,
+  CMsgGCToClientTournamentItemDrop,
+  EBaseEntityMessages,
+  EBaseGameEvents,
+  EBaseUserMessages,
+  EDotaUserMessages,
+  NET_Messages,
+  SVC_Messages,
+} = dota;
 
 const mapping = (enumeration, search, replace, lookup = {}) => {
   for (const [name, value] of Object.entries(enumeration)) {
