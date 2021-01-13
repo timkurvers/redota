@@ -16,8 +16,9 @@ const StyledUnit = styled(ActiveFilter)`
   `}
   padding: 10px;
   border-radius: 50%;
+  border: 3px solid ${(props) => props.color}DD;
   ${(props) => props.selected && css`
-    border: 3px solid white;
+    border-color: white;
   `}
   position: absolute;
   transform: translate(-50%, 50%);
