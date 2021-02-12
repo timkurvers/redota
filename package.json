@@ -12,6 +12,7 @@
     "build:proto": "pbjs -t static-module --no-create --no-encode --no-verify --no-convert --no-comments -w commonjs dota/*.proto | uglifyjs -cm --keep-fnames > dota/compiled.cjs",
     "build:publish": "git subtree push --prefix public origin gh-pages",
     "lint": "eslint . --ext js,jsx,cjs",
+    "parse": "bin/parse.js",
     "start:dev": "webpack serve",
     "test": "jest",
     "test:coverage": "jest --coverage",
