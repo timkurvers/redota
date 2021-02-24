@@ -119,8 +119,7 @@ class Replay {
 
   // TODO: As with jump(), this should preferably be supported in the parser
   jumpTo(targetPhase) {
-    // TODO: Potentially scary if target phase does not exist
-    while (this.phase !== targetPhase) {
+    while (this.phase !== targetPhase && this.parser.parsing) {
       this.step();
     }
   }
