@@ -13,6 +13,7 @@
     "build:publish": "git subtree push --prefix public origin gh-pages",
     "lint": "eslint . --ext js,jsx,cjs",
     "parse": "bin/parse.js",
+    "parse:vrman": "bin/parse-vrman.js",
     "start:dev": "webpack serve",
     "test": "jest",
     "test:coverage": "jest --coverage",
