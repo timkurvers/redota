@@ -417,6 +417,7 @@ class Parser extends Reader {
       index += reader.readUBitVar() + 1;
       event = EntityEvent.NONE;
       cmd = reader.readBitInt(2);
+
       if ((cmd & 0x01) === 0) {
         if ((cmd & 0x02) !== 0) {
           classID = reader.readBitInt(this.classIDSize);
@@ -454,7 +455,7 @@ class Parser extends Reader {
       } else {
         entity = this.entities.get(index);
         if (!entity) {
-          throw new Error(`unable to find existing entity: ${index}`);
+          continue;
         }
 
         if (!entity.active) {
