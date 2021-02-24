@@ -17,6 +17,7 @@ class Unit {
     this.hpMax = 0;
     this.mp = 0;
     this.mpMax = 0;
+    this.isWaitingToSpawn = false;
 
     makeObservable(this, {
       class: observable,
@@ -28,6 +29,7 @@ class Unit {
       hpMax: observable,
       mp: observable,
       mpMax: observable,
+      isWaitingToSpawn: observable,
 
       color: computed,
       isDead: computed,

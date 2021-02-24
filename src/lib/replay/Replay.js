@@ -341,6 +341,7 @@ class Replay {
     unit.hpMax = entity.get('m_iMaxHealth');
     unit.mp = entity.get('m_flMana');
     unit.mpMax = entity.get('m_flMaxMana');
+    unit.isWaitingToSpawn = entity.get('m_bIsWaitingToSpawn');
     return unit;
   }
 
