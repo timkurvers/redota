@@ -53,6 +53,7 @@ class Parser extends Reader {
     this.on('msg:CDemoPacket', this.onCDemoPacket.bind(this));
     this.on('msg:CDemoSignonPacket', this.onCDemoPacket.bind(this));
     this.on('msg:CDemoFullPacket', this.onCDemoFullPacket.bind(this));
+    this.on('msg:CDemoStringTables', this.onCDemoStringTables.bind(this));
     this.on('msg:CDemoSyncTick', this.onCDemoSyncTick.bind(this));
     this.on('msg:CSVCMsg_ClearAllStringTables', this.onCSVCMsg_ClearAllStringTables.bind(this));
     this.on('msg:CSVCMsg_CreateStringTable', this.onCSVCMsg_CreateStringTable.bind(this));
@@ -193,6 +194,26 @@ class Parser extends Reader {
     }
     if (packet) {
       this.onCDemoPacket(packet);
+    }
+  }
+
+  // See: https://github.com/skadistats/clarity/blob/master/src/main/java/skadistats/clarity/processor/stringtables/BaseStringTableEmitter.java#L103
+  onCDemoStringTables({ tables }) {
+    for (const { items, tableName } of tables) {
+      const table = this.stringTables.get(tableName);
+      if (!table) {
+        continue;
+      }
+
+      table.clear();
+      for (const [index, { str: key, data }] of items.entries()) {
+        const entry = new StringTableEntry(index, key, data);
+        table.entries.push(entry);
+      }
+
+      if (table.name === 'instancebaseline') {
+        this.updateInstanceBaseline();
+      }
     }
   }
 

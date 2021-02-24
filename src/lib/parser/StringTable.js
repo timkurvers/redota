@@ -17,6 +17,10 @@ class StringTable {
     this.flags = flags;
     this.entries = [];
   }
+
+  clear() {
+    this.entries.length = 0;
+  }
 }
 
 class StringTableEntry {
