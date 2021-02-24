@@ -152,18 +152,19 @@ class Parser extends Reader {
 
     const pending = [];
     while (!reader.eof) {
-      const type = reader.readUBitVar();
+      const packet = reader.readUBitVar();
       const size = reader.readVarUint32();
 
-      const lookup = packetToTypeMapping[type];
+      const lookup = packetToTypeMapping[packet];
       if (!lookup) {
         reader.skip(size);
         continue;
       }
 
-      const [Type, as] = lookup;
-
+      const [type, as] = lookup;
       const event = `msg:${as}`;
+
+      // TODO: Investigate whether retrieving listener count is expensive
       const numListeners = this.emitter.listenerCount(event);
       if (!numListeners) {
         this.emitter.emit('msg:skip', as);
@@ -172,17 +173,15 @@ class Parser extends Reader {
       }
 
       const data = reader.readBytes(size);
-      pending.push({ Type, event, data });
+      pending.push({ type, event, data });
     }
-
-    // TODO: Also investigate whether retrieving listener count is expensive
 
     if (pending.length > 1) {
       pending.sort(prioritizePendingMessages); // eslint-disable-line
     }
 
     for (const message of pending) {
-      const { Type, event, data } = message;
+      const { type: Type, event, data } = message;
       const struct = Type.decode(data);
       this.emitter.emit(event, struct);
     }

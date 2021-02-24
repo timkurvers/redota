@@ -15,6 +15,13 @@ const {
   CDOTAUserMsg_StatsHeroMinuteDetails,
   CMsgDOTACombatLogEntry,
   CMsgGCToClientTournamentItemDrop,
+  CMsgSource1LegacyGameEvent,
+  CNETMsg_SpawnGroup_Load,
+  CNETMsg_Tick,
+  CSVCMsg_ClearAllStringTables,
+  CSVCMsg_CreateStringTable,
+  CSVCMsg_PacketEntities,
+  CSVCMsg_UpdateStringTable,
   EBaseEntityMessages,
   EBaseGameEvents,
   EBaseUserMessages,
@@ -57,16 +64,17 @@ export const packetToTypeMapping = {
 export const priorityForType = (type) => {
   switch (type) {
     // High priority: provides context for the rest of the tick
-    case NET_Messages.net_Tick:
-    case SVC_Messages.svc_CreateStringTable:
-    case SVC_Messages.svc_UpdateStringTable:
-    case NET_Messages.net_SpawnGroup_Load:
+    case CNETMsg_SpawnGroup_Load:
+    case CNETMsg_Tick:
+    case CSVCMsg_ClearAllStringTables:
+    case CSVCMsg_CreateStringTable:
+    case CSVCMsg_UpdateStringTable:
       return -10;
     // Medium priority: provides and needs context for the rest of the tick
-    case SVC_Messages.svc_PacketEntities:
+    case CSVCMsg_PacketEntities:
       return 5;
     // Low priority: mostly needs context for the rest of the tick
-    case EBaseGameEvents.GE_Source1LegacyGameEvent:
+    case CMsgSource1LegacyGameEvent:
       return 10;
     default:
       return 0;
