@@ -1,5 +1,7 @@
 /* eslint-disable max-classes-per-file, no-param-reassign */
 
+import snappy from 'snappyjs';
+
 import Reader from './Reader.js';
 
 const KEY_HISTORY_BITS = 5;
@@ -70,10 +72,9 @@ class StringTableEntry {
           bitLength = reader.readBitInt(17) * 8;
         }
 
+        data = reader.readBitsAsBytes(bitLength);
         if (isCompressed) {
-          throw new Error('does not yet support compressed string table data');
-        } else {
-          data = reader.readBitsAsBytes(bitLength);
+          data = snappy.uncompress(data);
         }
       }
 
