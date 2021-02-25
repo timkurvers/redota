@@ -49,7 +49,8 @@ const Level = (props) => {
 
   const min = xpPerLevel[level - 1];
   const max = xpPerLevel[level];
-  const pct = (xp - min) / (max - min);
+
+  const pct = !max ? 1 : (xp - min) / (max - min);
 
   const normalizedRadius = radius - stroke;
   const circumference = normalizedRadius * 2 * Math.PI;
