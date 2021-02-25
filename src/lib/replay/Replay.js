@@ -94,6 +94,11 @@ class Replay {
     });
   }
 
+  entityNameFor(entity) {
+    const index = entity.get('m_pEntity.m_nameStringableIndex');
+    return this.parser.stringTables.get('EntityNames').entries[index].key;
+  }
+
   // TODO: Rather than temporarily not listening for parser events, resetting
   // all observables, and then forcefully updating all entities, the parser
   // should optimally support seeking to full packets properly
@@ -159,18 +164,12 @@ class Replay {
     const handle = entity.handle;
     let ability = this.abilities.get(handle);
     if (!ability) {
-      ability = new Ability(this, handle);
+      ability = new Ability(this, entity, this.entityNameFor(entity));
       this.abilities.add(ability);
     }
     if (ability && event & EntityEvent.DELETED) {
       this.abilities.delete(ability);
     }
-    if (!ability.refname) {
-      const index = entity.get('m_pEntity.m_nameStringableIndex');
-      const refname = this.parser.stringTables.get('EntityNames').entries[index].key;
-      ability.refname = refname;
-    }
-    ability.entity = entity;
     ability.hidden = entity.get('m_bHidden');
     ability.level = entity.get('m_iLevel');
     ability.manaCost = entity.get('m_iManaCost');
@@ -207,11 +206,6 @@ class Replay {
     if (!hero) {
       // Deleted in the unit processor
       return;
-    }
-    if (!hero.refname) {
-      const index = entity.get('m_pEntity.m_nameStringableIndex');
-      const refname = this.parser.stringTables.get('EntityNames').entries[index].key;
-      hero.refname = refname.replace('npc_dota_hero_', '');
     }
     hero.playerID = entity.get('m_iPlayerID');
     hero.level = entity.get('m_iCurrentLevel');
@@ -250,16 +244,11 @@ class Replay {
     const handle = entity.handle;
     let item = this.items.get(handle);
     if (!item) {
-      item = new Item(this, handle);
+      item = new Item(this, entity, this.entityNameFor(entity));
       this.items.add(item);
     }
     if (item && event & EntityEvent.DELETED) {
       this.items.delete(item);
-    }
-    if (!item.refname) {
-      const index = entity.get('m_pEntity.m_nameStringableIndex');
-      const refname = this.parser.stringTables.get('EntityNames').entries[index].key;
-      item.refname = refname.replace('item_', '');
     }
     item.charges = entity.get('m_iCurrentCharges');
     item.manaCost = entity.get('m_iManaCost');
@@ -270,7 +259,7 @@ class Replay {
     const handle = entity.handle;
     let player = this.players.get(handle);
     if (!player) {
-      player = new Player(this, handle);
+      player = new Player(this, entity);
       player.id = entity.get('m_iPlayerID');
       this.players.add(player);
     }
@@ -303,7 +292,7 @@ class Replay {
     const handle = entity.handle;
     let team = this.teams.get(handle);
     if (!team) {
-      team = new Team(this, handle);
+      team = new Team(this, entity);
       team.id = entity.get('m_iTeamNum');
       team.proID = entity.get('m_unTournamentTeamID');
       this.teams.add(team);
@@ -319,8 +308,7 @@ class Replay {
     const handle = entity.handle;
     let unit = this.units.get(handle);
     if (!unit) {
-      unit = new Class(this, handle);
-      unit.class = entity.class.name;
+      unit = new Class(this, entity, this.entityNameFor(entity));
       this.units.add(unit);
     }
     if (unit && event & EntityEvent.DELETED) {

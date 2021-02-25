@@ -3,12 +3,12 @@ import { computed, makeObservable, observable } from 'mobx';
 import { TEAM_COLORS, UNIT_NAMES } from '../../constants.js';
 import { scale } from '../../utils/index.js';
 
-class Unit {
-  constructor(replay, handle) {
-    this.replay = replay;
-    this.handle = handle;
+import Entity from './Entity.js';
 
-    this.class = null;
+class Unit extends Entity {
+  constructor(...args) {
+    super(...args);
+
     this.teamID = null;
     this.x = 0;
     this.y = 0;
@@ -20,7 +20,6 @@ class Unit {
     this.isWaitingToSpawn = false;
 
     makeObservable(this, {
-      class: observable,
       teamID: observable,
       x: observable,
       y: observable,

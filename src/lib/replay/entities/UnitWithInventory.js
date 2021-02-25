@@ -3,8 +3,8 @@ import { computed, makeObservable, observable } from 'mobx';
 import Unit from './Unit.js';
 
 class UnitWithInventory extends Unit {
-  constructor(replay, handle) {
-    super(replay, handle);
+  constructor(...args) {
+    super(...args);
 
     this.inventoryHandles = [
       null, null, null,

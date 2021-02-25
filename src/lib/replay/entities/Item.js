@@ -2,18 +2,16 @@ import { computed, makeObservable, observable } from 'mobx';
 
 import { itemsByName } from '../../constants.js';
 
-class Item {
-  constructor(replay, handle) {
-    this.replay = replay;
-    this.handle = handle;
+import Entity from './Entity.js';
 
-    this.refname = null;
+class Item extends Entity {
+  constructor(...args) {
+    super(...args);
+
     this.charges = null;
     this.cooldown = null;
 
     makeObservable(this, {
-      handle: observable,
-      refname: observable,
       charges: observable,
       cooldown: observable,
 
@@ -22,7 +20,7 @@ class Item {
   }
 
   get name() {
-    return itemsByName[this.refname].dname;
+    return itemsByName[this.refname.replace('item_', '')].dname;
   }
 }
 

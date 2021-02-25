@@ -1,18 +1,17 @@
 import { makeObservable, observable } from 'mobx';
 
-class Ability {
-  constructor(replay, handle) {
-    this.replay = replay;
-    this.handle = handle;
+import Entity from './Entity.js';
 
-    this.refname = null;
+class Ability extends Entity {
+  constructor(...args) {
+    super(...args);
+
     this.level = null;
     this.hidden = false;
     this.manaCost = null;
     this.cooldown = null;
 
     makeObservable(this, {
-      refname: observable,
       hidden: observable,
       level: observable,
       manaCost: observable,

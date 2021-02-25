@@ -5,10 +5,9 @@ import { PLAYER_COLORS, heroesByName } from '../../constants.js';
 import UnitWithInventory from './UnitWithInventory.js';
 
 class Hero extends UnitWithInventory {
-  constructor(replay, handle) {
-    super(replay, handle);
+  constructor(...args) {
+    super(...args);
 
-    this.refname = null;
     this.playerID = -1;
     this.level = 1;
     this.xp = 0;
@@ -20,7 +19,6 @@ class Hero extends UnitWithInventory {
     this.teleportScrollHandle = null;
 
     makeObservable(this, {
-      refname: observable,
       playerID: observable,
       level: observable,
       xp: observable,
@@ -62,8 +60,7 @@ class Hero extends UnitWithInventory {
   }
 
   get name() {
-    const key = `npc_dota_hero_${this.refname}`;
-    return heroesByName[key].localized_name;
+    return heroesByName[this.refname].localized_name;
   }
 
   get neutralItem() {

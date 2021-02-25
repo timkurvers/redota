@@ -1,9 +1,10 @@
 import { computed, makeObservable, observable } from 'mobx';
 
-class Team {
-  constructor(replay, handle) {
-    this.replay = replay;
-    this.handle = handle;
+import Entity from './Entity.js';
+
+class Team extends Entity {
+  constructor(...args) {
+    super(...args);
 
     this.id = null;
     this.name = null;
