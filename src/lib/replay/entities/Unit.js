@@ -19,6 +19,8 @@ class Unit extends Entity {
     this.mpMax = 0;
     this.isWaitingToSpawn = false;
 
+    this.abilityHandles = [];
+
     makeObservable(this, {
       teamID: observable,
       x: observable,
@@ -30,6 +32,9 @@ class Unit extends Entity {
       mpMax: observable,
       isWaitingToSpawn: observable,
 
+      abilityHandles: observable,
+
+      abilities: computed,
       color: computed,
       isDead: computed,
       name: computed,
@@ -37,6 +42,16 @@ class Unit extends Entity {
       relY: computed,
       team: computed,
     });
+  }
+
+  get abilities() {
+    return this.abilityHandles.reduce((abilities, handle) => {
+      const ability = this.replay.abilities.get(handle);
+      if (ability && !ability.isSeasonal && !ability.isTalent) {
+        abilities.push(ability);
+      }
+      return abilities;
+    }, []);
   }
 
   get color() {

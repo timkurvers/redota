@@ -12,7 +12,6 @@ class Hero extends UnitWithInventory {
     this.level = 1;
     this.xp = 0;
 
-    this.abilityHandles = [];
     this.backpackHandles = [null, null, null];
     this.neutralItemHandle = null;
     this.stashHandles = [null, null, null, null, null, null];
@@ -23,29 +22,17 @@ class Hero extends UnitWithInventory {
       level: observable,
       xp: observable,
 
-      abilityHandles: observable,
       backpackHandles: observable,
       neutralItemHandle: observable,
       stashHandles: observable,
       teleportScrollHandle: observable,
 
-      abilities: computed,
       backpack: computed,
       neutralItem: computed,
       player: computed,
       stash: computed,
       teleportScroll: computed,
     });
-  }
-
-  get abilities() {
-    return this.abilityHandles.reduce((abilities, handle) => {
-      const ability = this.replay.abilities.get(handle);
-      if (ability && !ability.isSeasonal && !ability.isTalent) {
-        abilities.push(ability);
-      }
-      return abilities;
-    }, []);
   }
 
   get backpack() {

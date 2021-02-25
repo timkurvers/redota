@@ -210,23 +210,6 @@ class Replay {
     hero.playerID = entity.get('m_iPlayerID');
     hero.level = entity.get('m_iCurrentLevel');
     hero.xp = entity.get('m_iCurrentXP');
-    hero.abilityHandles[0] = entity.get('m_hAbilities.0000');
-    hero.abilityHandles[1] = entity.get('m_hAbilities.0001');
-    hero.abilityHandles[2] = entity.get('m_hAbilities.0002');
-    hero.abilityHandles[3] = entity.get('m_hAbilities.0003');
-    hero.abilityHandles[4] = entity.get('m_hAbilities.0004');
-    hero.abilityHandles[5] = entity.get('m_hAbilities.0005');
-    hero.abilityHandles[6] = entity.get('m_hAbilities.0006');
-    hero.abilityHandles[7] = entity.get('m_hAbilities.0007');
-    hero.abilityHandles[8] = entity.get('m_hAbilities.0008');
-    hero.abilityHandles[9] = entity.get('m_hAbilities.0009');
-    hero.abilityHandles[10] = entity.get('m_hAbilities.0010');
-    hero.abilityHandles[11] = entity.get('m_hAbilities.0011');
-    hero.abilityHandles[12] = entity.get('m_hAbilities.0012');
-    hero.abilityHandles[13] = entity.get('m_hAbilities.0013');
-    hero.abilityHandles[14] = entity.get('m_hAbilities.0014');
-    hero.abilityHandles[15] = entity.get('m_hAbilities.0015');
-    hero.abilityHandles[16] = entity.get('m_hAbilities.0016');
     hero.backpackHandles[0] = entity.get('m_hItems.0006');
     hero.backpackHandles[1] = entity.get('m_hItems.0007');
     hero.backpackHandles[2] = entity.get('m_hItems.0008');
@@ -329,6 +312,23 @@ class Replay {
     unit.mp = entity.get('m_flMana');
     unit.mpMax = entity.get('m_flMaxMana');
     unit.isWaitingToSpawn = entity.get('m_bIsWaitingToSpawn');
+    unit.abilityHandles[0] = entity.get('m_hAbilities.0000');
+    unit.abilityHandles[1] = entity.get('m_hAbilities.0001');
+    unit.abilityHandles[2] = entity.get('m_hAbilities.0002');
+    unit.abilityHandles[3] = entity.get('m_hAbilities.0003');
+    unit.abilityHandles[4] = entity.get('m_hAbilities.0004');
+    unit.abilityHandles[5] = entity.get('m_hAbilities.0005');
+    unit.abilityHandles[6] = entity.get('m_hAbilities.0006');
+    unit.abilityHandles[7] = entity.get('m_hAbilities.0007');
+    unit.abilityHandles[8] = entity.get('m_hAbilities.0008');
+    unit.abilityHandles[9] = entity.get('m_hAbilities.0009');
+    unit.abilityHandles[10] = entity.get('m_hAbilities.0010');
+    unit.abilityHandles[11] = entity.get('m_hAbilities.0011');
+    unit.abilityHandles[12] = entity.get('m_hAbilities.0012');
+    unit.abilityHandles[13] = entity.get('m_hAbilities.0013');
+    unit.abilityHandles[14] = entity.get('m_hAbilities.0014');
+    unit.abilityHandles[15] = entity.get('m_hAbilities.0015');
+    unit.abilityHandles[16] = entity.get('m_hAbilities.0016');
     return unit;
   }
 
