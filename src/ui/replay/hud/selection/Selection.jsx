@@ -70,7 +70,7 @@ const Selection = observer((props) => {
       <Name>{name}</Name>
       {level && <Level xp={xp}>{level}</Level>}
       <ActiveFilter active={!isDead}>
-        <Portrait hero={refname} onClick={onUnitSelect} />
+        <Portrait unit={unit} onClick={onUnitSelect} />
       </ActiveFilter>
       <StyledCenter>
         <Abilities abilities={abilities} />

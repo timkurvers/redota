@@ -1,13 +1,19 @@
 import React from 'react';
 
-const CDN_URL = 'https://steamcdn-a.akamaihd.net/apps/dota2/images';
+import Hero from '../../lib/replay/entities/Hero.js';
+import {
+  abilityResourceFor,
+  heroResourceFor,
+  itemResourceFor,
+  teamLogoResourceFor,
+  unitResourceFor,
+} from '../../lib/resources.js';
 
 const Resource = (props) => {
-  const { path } = props;
-  const fqpath = `${CDN_URL}/${path}`;
+  const { src } = props;
   return (
     <img
-      src={fqpath}
+      src={src}
       draggable="false"
       // TODO: Add user-select: none here to prevent double-click selection
       // TODO: Determine alt text for these resources
@@ -18,45 +24,44 @@ const Resource = (props) => {
 
 const AbilityResource = React.memo((props) => {
   const { refname } = props;
-  return <Resource path={`abilities/${refname}_md.png`} />;
+  return <Resource src={abilityResourceFor(refname)} />;
 });
 
 const HeroResource = React.memo((props) => {
   const { refname, variant } = props;
-
-  let suffix = 'full.png';
-  switch (variant) {
-    case 'portrait':
-      suffix = 'vert.jpg';
-      break;
-    case 'landscape':
-      suffix = 'sb.png';
-      break;
-    case 'icon':
-      suffix = 'icon.png';
-      break;
-    default:
-      suffix = 'full.png';
-      break;
-  }
-  return <Resource path={`heroes/${refname}_${suffix}`} />;
+  return <Resource src={heroResourceFor(refname, variant)} />;
 });
 
 const ItemResource = React.memo((props) => {
-  let { refname } = props;
-  // TODO: Overrides should preferably not be in the UI
-  if (refname.startsWith('recipe_')) {
-    refname = 'recipe';
-  }
-  return <Resource path={`items/${refname}_lg.png`} />;
+  const { refname } = props;
+  return <Resource src={itemResourceFor(refname)} />;
 });
 
 const TeamLogoResource = React.memo((props) => {
   const { teamID } = props;
-  return <Resource path={`team_logos/${teamID}.png`} />;
+  return <Resource src={teamLogoResourceFor(teamID)} />;
 });
 
-export default Resource;
+const UnitResource = React.memo((props) => {
+  const { refname, variant } = props;
+  const src = unitResourceFor(refname, variant);
+  if (!src) return null;
+  return <Resource src={src} />;
+});
+
+const UnitOrHeroResource = React.memo((props) => {
+  const { unit, unit: { refname }, variant } = props;
+  if (unit instanceof Hero) {
+    return <HeroResource refname={refname} variant={variant} />;
+  }
+  return <UnitResource refname={refname} variant={variant} />;
+});
+
 export {
-  AbilityResource, HeroResource, ItemResource, TeamLogoResource,
+  AbilityResource,
+  HeroResource,
+  ItemResource,
+  TeamLogoResource,
+  UnitOrHeroResource,
+  UnitResource,
 };

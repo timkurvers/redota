@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { HeroResource } from '../../../components/index.js';
+import { UnitOrHeroResource } from '../../../components/index.js';
 
 const StyledPortrait = styled.div`
   width: 138px;
@@ -13,10 +13,10 @@ const StyledPortrait = styled.div`
 `;
 
 const Portrait = (props) => {
-  const { hero, onClick } = props;
+  const { onClick, unit } = props;
   return (
     <StyledPortrait onClick={onClick}>
-      {hero && <HeroResource refname={hero} variant="portrait" />}
+      <UnitOrHeroResource unit={unit} variant="portrait" />
     </StyledPortrait>
   );
 };

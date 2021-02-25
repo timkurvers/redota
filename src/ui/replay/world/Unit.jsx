@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import {
-  ActiveFilter, HeroResource, Level, StyledLevel,
+  ActiveFilter, Level, StyledLevel, UnitOrHeroResource,
 } from '../../components/index.js';
 import { Hero } from '../../../lib/replay/entities/index.js';
 
@@ -56,11 +56,9 @@ const Unit = observer((props) => {
       size={isHero ? 'large' : 'default'}
       style={{ left: `${relX * 100}%`, bottom: `${relY * 100}%` }}
     >
+      <UnitOrHeroResource unit={unit} variant="icon" />
       {isHero && (
-        <>
-          <HeroResource refname={unit.refname} variant="icon" />
-          <Level xp={unit.xp} size="small">{unit.level}</Level>
-        </>
+        <Level xp={unit.xp} size="small">{unit.level}</Level>
       )}
     </StyledUnit>
   );

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const Stack = styled.div.withConfig({
+const HStack = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'wrap',
 })`
   display: flex;
@@ -15,11 +15,8 @@ const Stack = styled.div.withConfig({
   `}
 `;
 
-const HStack = Stack;
-
-const VStack = styled(Stack)`
+const VStack = styled(HStack)`
   flex-direction: column;
 `;
 
-export default Stack;
 export { VStack, HStack };
