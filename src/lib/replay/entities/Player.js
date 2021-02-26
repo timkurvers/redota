@@ -12,6 +12,7 @@ class Player extends Entity {
     this.name = null;
     this.heroID = null;
     this.teamID = null;
+    this.steamID = null;
     this.kills = 0;
     this.assists = 0;
     this.deaths = 0;
@@ -23,6 +24,7 @@ class Player extends Entity {
       name: observable,
       heroID: observable,
       teamID: observable,
+      steamID: observable,
       kills: observable,
       assists: observable,
       deaths: observable,

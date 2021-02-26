@@ -258,6 +258,7 @@ class Replay {
       player.name = entity.get(`${prefix}.m_iszPlayerName`);
       player.steamID = entity.get(`${prefix}.m_iPlayerSteamID`);
       player.isBot = entity.get(`${prefix}.m_bFakeClient`);
+      player.isBroadcaster = entity.get(`${prefix}.m_bIsBroadcaster`);
 
       const tprefix = `m_vecPlayerTeamData.${player.index}`;
       player.kills = entity.get(`${tprefix}.m_iKills`);
