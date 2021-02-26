@@ -174,7 +174,8 @@ class Replay {
     ability.hidden = entity.get('m_bHidden');
     ability.level = entity.get('m_iLevel');
     ability.manaCost = entity.get('m_iManaCost');
-    ability.cooldown = entity.get('m_fCooldown');
+    ability.cooldown.value = entity.get('m_fCooldown');
+    ability.cooldown.duration = entity.get('m_flCooldownLength');
   }
 
   processBuilding(entity, event) {
@@ -228,7 +229,8 @@ class Replay {
     }
     item.charges = entity.get('m_iCurrentCharges');
     item.manaCost = entity.get('m_iManaCost');
-    item.cooldown = entity.get('m_fCooldown');
+    item.cooldown.value = entity.get('m_fCooldown');
+    item.cooldown.duration = entity.get('m_flCooldownLength');
   }
 
   processPlayer(entity, event) {

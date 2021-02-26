@@ -27,7 +27,7 @@ const AbilitySlot = observer((props) => {
   return (
     <StyledAbilitySlot className={className}>
       {ability && (
-        <Cooldown remaining={ability.cooldown}>
+        <Cooldown remaining={ability.cooldown.remaining}>
           {ability.manaCost > 0 && (
             <Annotation type="mana" value={ability.manaCost} />
           )}

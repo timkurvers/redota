@@ -1,15 +1,16 @@
 import { computed, makeObservable, observable } from 'mobx';
 
 import { itemsByName } from '../../constants.js';
+import Cooldown from '../Cooldown.js';
 
 import Entity from './Entity.js';
 
 class Item extends Entity {
-  constructor(...args) {
-    super(...args);
+  constructor(replay, ...args) {
+    super(replay, ...args);
 
     this.charges = null;
-    this.cooldown = null;
+    this.cooldown = new Cooldown(replay);
 
     makeObservable(this, {
       charges: observable,

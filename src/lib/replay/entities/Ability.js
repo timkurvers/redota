@@ -1,21 +1,23 @@
 import { makeObservable, observable } from 'mobx';
 
+import Cooldown from '../Cooldown.js';
+
 import Entity from './Entity.js';
 
 class Ability extends Entity {
-  constructor(...args) {
-    super(...args);
+  constructor(replay, ...args) {
+    super(replay, ...args);
 
-    this.level = null;
+    this.cooldown = new Cooldown(replay);
     this.hidden = false;
+    this.level = null;
     this.manaCost = null;
-    this.cooldown = null;
 
     makeObservable(this, {
+      cooldown: observable,
       hidden: observable,
       level: observable,
       manaCost: observable,
-      cooldown: observable,
     });
   }
 
