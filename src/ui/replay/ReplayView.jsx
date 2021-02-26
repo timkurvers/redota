@@ -61,9 +61,9 @@ const ReplayView = observer(({ replay }) => {
           requestTick={requestTick}
         />
         <Topbar
+          clockTime={replay.game.clockTime}
           teams={replay.teams}
           setSelection={setSelection}
-          time={replay.time}
         />
       </HUD>
       <World

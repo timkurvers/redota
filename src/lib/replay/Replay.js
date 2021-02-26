@@ -8,6 +8,7 @@ import { CELL_SIZE, MAP_HALF_SIZE } from '../constants.js';
 import { EntityEvent } from '../parser/model/index.js';
 import { ObservableIndexedCollection } from '../utils/index.js';
 
+import Game from './Game.js';
 import {
   Ability, Hero, Item, Player, Team, Unit, UnitWithInventory,
 } from './entities/index.js';
@@ -62,8 +63,7 @@ class Replay {
     this.players = new ObservableIndexedCollection('handle', { byID: 'id' });
     this.teams = new ObservableIndexedCollection('handle', { byID: 'id' });
     this.units = new ObservableIndexedCollection('handle');
-    this.time = null;
-    this.phase = null;
+    this.game = new Game();
 
     this.onEntities = this.onEntities.bind(this);
     this.onTick = this.onTick.bind(this);
@@ -80,12 +80,13 @@ class Replay {
       tick: observable,
       tickInterval: observable,
       lastTick: observable,
+
       abilities: observable,
       items: observable,
       players: observable,
       teams: observable,
       units: observable,
-      time: observable,
+      game: observable,
 
       jump: action,
       seek: action,
@@ -124,7 +125,7 @@ class Replay {
 
   // TODO: As with jump(), this should preferably be supported in the parser
   jumpTo(targetPhase) {
-    while (this.phase !== targetPhase && this.parser.parsing) {
+    while (this.game.phase !== targetPhase && this.parser.parsing) {
       this.step();
     }
   }
@@ -185,20 +186,12 @@ class Replay {
   }
 
   processGameRules(entity) {
-    const gameTime = entity.get('m_pGameRules.m_fGameTime');
-    const startTime = entity.get('m_pGameRules.m_flGameStartTime');
-    const preStartTime = entity.get('m_pGameRules.m_flPreGameStartTime');
-
-    // TODO: Handle game end time?
-    if (startTime) {
-      this.time = gameTime - startTime;
-    } else if (preStartTime) {
-      const transitionTime = entity.get('m_pGameRules.m_flStateTransitionTime');
-      this.time = gameTime - transitionTime;
-    }
-
-    // TODO: Store both game time and phase in some kind of game object
-    this.phase = entity.get('m_pGameRules.m_nGameState');
+    const { game } = this;
+    game.phase = entity.get('m_pGameRules.m_nGameState');
+    game.preStartTime = entity.get('m_pGameRules.m_flPreGameStartTime');
+    game.startTime = entity.get('m_pGameRules.m_flGameStartTime');
+    game.stateTransitionTime = entity.get('m_pGameRules.m_flStateTransitionTime');
+    game.time = entity.get('m_pGameRules.m_fGameTime');
   }
 
   processHero(entity, event) {

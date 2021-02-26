@@ -20,7 +20,7 @@ const StyledTopbar = styled(HStack)`
 `;
 
 const Topbar = observer((props) => {
-  const { setSelection, teams, time } = props;
+  const { clockTime, setSelection, teams } = props;
 
   const radiant = teams.byID.get(TEAM_RADIANT);
   const dire = teams.byID.get(TEAM_DIRE);
@@ -33,7 +33,7 @@ const Topbar = observer((props) => {
       {radiant.proID > 0 && <TeamLogo teamID={radiant.proID} />}
       <HeroList heroes={radiant.heroes} setSelection={setSelection} />
       <Score value={radiant.kills} />
-      <Clock time={time} />
+      <Clock time={clockTime} />
       <Score value={dire.kills} />
       <HeroList heroes={dire.heroes} setSelection={setSelection} />
       {dire.proID > 0 && <TeamLogo teamID={dire.proID} />}
