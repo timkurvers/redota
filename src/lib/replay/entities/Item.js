@@ -11,10 +11,12 @@ class Item extends Entity {
 
     this.charges = null;
     this.cooldown = new Cooldown(replay);
+    this.manaCost = null;
 
     makeObservable(this, {
       charges: observable,
       cooldown: observable,
+      manaCost: observable,
 
       name: computed,
     });
