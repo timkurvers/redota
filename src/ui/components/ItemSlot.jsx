@@ -47,6 +47,9 @@ const ItemSlot = observer((props) => {
           {item.manaCost > 0 && (
             <Annotation type="mana" value={item.manaCost} />
           )}
+          {item.annotation && (
+            <Annotation value={item.annotation} />
+          )}
           <ItemResource refname={item.refname} />
         </Cooldown>
       )}

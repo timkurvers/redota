@@ -171,11 +171,11 @@ class Replay {
     if (ability && event & EntityEvent.DELETED) {
       this.abilities.delete(ability);
     }
+    ability.cooldown.value = entity.get('m_fCooldown');
+    ability.cooldown.duration = entity.get('m_flCooldownLength');
     ability.hidden = entity.get('m_bHidden');
     ability.level = entity.get('m_iLevel');
     ability.manaCost = entity.get('m_iManaCost');
-    ability.cooldown.value = entity.get('m_fCooldown');
-    ability.cooldown.duration = entity.get('m_flCooldownLength');
   }
 
   processBuilding(entity, event) {
@@ -227,10 +227,12 @@ class Replay {
     if (item && event & EntityEvent.DELETED) {
       this.items.delete(item);
     }
+    item.acquireTime = entity.get('m_flAssembledTime');
     item.charges = entity.get('m_iCurrentCharges');
-    item.manaCost = entity.get('m_iManaCost');
     item.cooldown.value = entity.get('m_fCooldown');
     item.cooldown.duration = entity.get('m_flCooldownLength');
+    item.level = entity.get('m_iLevel');
+    item.manaCost = entity.get('m_iManaCost');
   }
 
   processPlayer(entity, event) {
