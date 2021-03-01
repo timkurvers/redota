@@ -1,7 +1,7 @@
 import { computed, makeObservable, observable } from 'mobx';
 
 import { TEAM_COLORS, UNIT_NAMES } from '../../constants.js';
-import { scale } from '../../utils/index.js';
+import Position from '../Position.js';
 
 import Entity from './Entity.js';
 
@@ -10,8 +10,7 @@ class Unit extends Entity {
     super(...args);
 
     this.teamID = null;
-    this.x = 0;
-    this.y = 0;
+    this.position = new Position();
     this.rotation = null;
     this.hp = 0;
     this.hpMax = 0;
@@ -23,8 +22,7 @@ class Unit extends Entity {
 
     makeObservable(this, {
       teamID: observable,
-      x: observable,
-      y: observable,
+      position: observable,
       rotation: observable,
       hp: observable,
       hpMax: observable,
@@ -38,8 +36,6 @@ class Unit extends Entity {
       color: computed,
       isDead: computed,
       name: computed,
-      relX: computed,
-      relY: computed,
       team: computed,
     });
   }
@@ -64,14 +60,6 @@ class Unit extends Entity {
 
   get name() {
     return UNIT_NAMES[this.class];
-  }
-
-  get relX() {
-    return scale(this.x);
-  }
-
-  get relY() {
-    return scale(this.y);
   }
 
   get team() {

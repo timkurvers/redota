@@ -38,7 +38,7 @@ const StyledUnit = styled(ActiveFilter)`
 const Unit = observer((props) => {
   const { onClick, selected, unit } = props;
   const {
-    handle, isDead, isWaitingToSpawn, color, relX, relY,
+    color, handle, isDead, isWaitingToSpawn, position: { relX, relY },
   } = unit;
 
   if (isWaitingToSpawn) {

@@ -19,9 +19,7 @@ const StyledUnit = styled.div`
 
 const Unit = observer((props) => {
   const { selected, unit } = props;
-  const {
-    isDead, relX, relY,
-  } = unit;
+  const { isDead, position: { relX, relY } } = unit;
   const isHero = unit instanceof Hero;
 
   if (isDead) {
