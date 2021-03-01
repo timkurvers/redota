@@ -6,7 +6,7 @@ import { Link } from '../components/index.js';
 import { useReplayController } from '../hooks/index.js';
 
 import HUD, {
-  MiniMap, Selection, Timeline, Topbar,
+  MiniMap, Options, Selection, Timeline, Topbar,
 } from './hud/HUD.jsx';
 import World from './world/World.jsx';
 
@@ -29,9 +29,12 @@ const StyledReplayView = styled.div`
 const ReplayView = observer(({ replay }) => {
   const {
     camera,
+    cameraID,
+    isFreeCamera,
     playing,
     requestTick,
     selectedUnit,
+    setCameraID,
     setFreeCamera,
     setPlaying,
     setSelection,
@@ -43,8 +46,14 @@ const ReplayView = observer(({ replay }) => {
       <HUD>
         <MiniMap
           camera={camera}
+          isFreeCamera={isFreeCamera}
           setFreeCamera={setFreeCamera}
           units={replay.units}
+        />
+        <Options
+          cameraID={cameraID}
+          players={replay.players}
+          setCameraID={setCameraID}
         />
         {selectedUnit && (
           <Selection
@@ -68,6 +77,7 @@ const ReplayView = observer(({ replay }) => {
       </HUD>
       <World
         camera={camera}
+        isFreeCamera={isFreeCamera}
         selectedUnit={selectedUnit}
         setFreeCamera={setFreeCamera}
         setSelection={setSelection}

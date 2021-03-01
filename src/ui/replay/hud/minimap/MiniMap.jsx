@@ -53,7 +53,7 @@ const StyledCamera = styled.div`
 
 const MiniMap = observer((props) => {
   const {
-    camera, selectedUnit, setFreeCamera, units,
+    camera, isFreeCamera, selectedUnit, setFreeCamera, units,
   } = props;
 
   const [dragging, setDragging] = useState(false);
@@ -62,34 +62,36 @@ const MiniMap = observer((props) => {
 
   const onMouseDown = useCallback((e) => {
     e.preventDefault();
+    if (!isFreeCamera) return;
     setDragging(true);
 
     const { width, height } = mapRef.current;
     const rect = mapRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.x) - (width / 2);
-    const y = (e.clientY - rect.y) - (height / 2);
+    const relX = (e.clientX - rect.x) - (width / 2);
+    const relY = (e.clientY - rect.y) - (height / 2);
     setFreeCamera((current) => ({
       ...current,
-      x: x / width,
-      y: -y / height,
+      relX: relX / width,
+      relY: -relY / height,
     }));
-  }, [setFreeCamera]);
+  }, [isFreeCamera, setFreeCamera]);
 
   const onMouseUp = useCallback((e) => {
     e.preventDefault();
+    if (!isFreeCamera) return;
     setDragging(false);
-  }, [setDragging]);
+  }, [isFreeCamera, setDragging]);
 
   const onMouseMove = useCallback((e) => {
-    if (!dragging) return;
+    if (!isFreeCamera || !dragging) return;
     const { movementX: dx, movementY: dy } = e;
     const { width, height } = mapRef.current;
     setFreeCamera((current) => ({
       ...current,
-      x: current.x + (dx / width),
-      y: current.y + (-dy / height),
+      relX: current.relX + (dx / width),
+      relY: current.relY + (-dy / height),
     }));
-  }, [dragging, setFreeCamera]);
+  }, [dragging, isFreeCamera, setFreeCamera]);
 
   // TODO: Minimap should preferably also show buildings, creep camps etc.
   const heroes = units.filter((u) => u instanceof Hero);
@@ -110,8 +112,8 @@ const MiniMap = observer((props) => {
         />
         <StyledCamera
           style={{
-            left: `${camera.x * 100}%`,
-            bottom: `${camera.y * 100}%`,
+            left: `${camera.relX * 100}%`,
+            bottom: `${camera.relY * 100}%`,
             width: `${camera.width * 100}%`,
             height: `${camera.height * 100}%`,
           }}

@@ -8,12 +8,12 @@ const useReplayController = (replay) => {
   const [freeCamera, setFreeCamera] = useState({
     x: 0, y: 0, width: 0, height: 0,
   });
-  const [cameraID, setCameraID] = useState('free');
+  const [cameraID, setCameraID] = useState(-1);
   const [playing, setPlaying] = useState(false);
   const [selectionID, setSelectionID] = useState(null);
 
-  // TODO: Player perspective camera support
-  const camera = freeCamera;
+  const isFreeCamera = cameraID === -1;
+  const camera = isFreeCamera ? freeCamera : replay?.players.byID.get(cameraID)?.camera;
 
   // TODO: Replay clean-up on component unmount
   useEffect(() => {
@@ -35,19 +35,20 @@ const useReplayController = (replay) => {
   }, [replay]);
 
   const setSelection = useCallback((id) => {
-    if (id === selectionID && cameraID === 'free') {
+    if (id === selectionID && isFreeCamera) {
       setFreeCamera((current) => ({
         ...current,
-        x: selectedUnit.relX,
-        y: selectedUnit.relY,
+        relX: selectedUnit.position.relX,
+        relY: selectedUnit.position.relY,
       }));
     }
     setSelectionID(id);
-  }, [cameraID, selectionID, selectedUnit, setFreeCamera, setSelectionID]);
+  }, [isFreeCamera, selectionID, selectedUnit, setFreeCamera, setSelectionID]);
 
   return {
     camera,
     cameraID,
+    isFreeCamera,
     playing,
     requestTick,
     selectedUnit,

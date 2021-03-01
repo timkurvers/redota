@@ -28,7 +28,7 @@ const StyledWorld = styled.div`
 
 const World = (props) => {
   const {
-    camera, selectedUnit, setFreeCamera, setSelection, units,
+    camera, isFreeCamera, selectedUnit, setFreeCamera, setSelection, units,
   } = props;
 
   const [dragging, setDragging] = useState(false);
@@ -49,26 +49,28 @@ const World = (props) => {
 
   const onMouseDown = useCallback((e) => {
     e.preventDefault();
+    if (!isFreeCamera) return;
     setDragging(true);
-  }, [setDragging]);
+  }, [isFreeCamera, setDragging]);
 
   const onMouseUp = useCallback((e) => {
     e.preventDefault();
+    if (!isFreeCamera) return;
     setDragging(false);
-  }, [setDragging]);
+  }, [isFreeCamera, setDragging]);
 
   const onMouseMove = useCallback((e) => {
-    if (!dragging) return;
+    if (!isFreeCamera || !dragging) return;
     const { movementX: dx, movementY: dy } = e;
     const { width, height } = mapRef.current;
     setFreeCamera((current) => ({
       ...current,
-      x: current.x + (-dx / width),
-      y: current.y + (dy / height),
+      relX: current.relX + (-dx / width),
+      relY: current.relY + (dy / height),
     }));
-  }, [dragging, setFreeCamera]);
+  }, [dragging, isFreeCamera, setFreeCamera]);
 
-  const { x, y } = camera;
+  const { relX, relY } = camera;
   return (
     <StyledWorld
       dragging={dragging}
@@ -79,7 +81,7 @@ const World = (props) => {
     >
       <Map
         ref={mapRef}
-        style={{ transform: `translate(${-x * 100}%, ${y * 100}%)` }}
+        style={{ transform: `translate(${-relX * 100}%, ${relY * 100}%)` }}
       >
         {units.map((unit) => (
           <Unit

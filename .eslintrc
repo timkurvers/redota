@@ -13,6 +13,9 @@
   "rules": {
     "camelcase": "off",
     "import/extensions": ["error", "always"],
+    "jsx-a11y/label-has-associated-control": ["error", {
+      "assert": "either"
+    }],
     "no-bitwise": "off",
     "no-continue": "off",
     "no-plusplus": "off",

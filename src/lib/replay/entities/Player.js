@@ -1,5 +1,6 @@
 import { computed, makeObservable, observable } from 'mobx';
 
+import Camera from '../Camera.js';
 import {
   PLAYER_COLORS, TEAM_DIRE, TEAM_RADIANT, TEAM_SPECTATORS,
 } from '../../constants.js';
@@ -21,6 +22,8 @@ class Player extends Entity {
     this.isBot = false;
     this.isBroadcaster = false;
 
+    this.camera = new Camera();
+
     makeObservable(this, {
       id: observable,
       name: observable,
@@ -32,6 +35,8 @@ class Player extends Entity {
       deaths: observable,
       isBot: observable,
       isBroadcaster: observable,
+
+      camera: observable,
 
       color: computed,
       hero: computed,

@@ -248,6 +248,10 @@ class Replay {
     }
     player.heroID = entity.get('m_hAssignedHero');
     player.teamID = entity.get('m_iTeamNum');
+    player.camera.position.cellX = entity.get('CBodyComponent.m_cellX');
+    player.camera.position.cellY = entity.get('CBodyComponent.m_cellY');
+    player.camera.position.vecX = entity.get('CBodyComponent.m_vecX');
+    player.camera.position.vecY = entity.get('CBodyComponent.m_vecY');
   }
 
   processPlayerResource(entity) {
