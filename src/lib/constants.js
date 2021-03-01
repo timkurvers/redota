@@ -25,6 +25,7 @@ export const GAME_PHASE = {
   END: 6,
 };
 
+export const TEAM_SPECTATORS = 1;
 export const TEAM_RADIANT = 2;
 export const TEAM_DIRE = 3;
 export const TEAM_NEUTRAL = 4;

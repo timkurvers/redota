@@ -1,6 +1,8 @@
 import { computed, makeObservable, observable } from 'mobx';
 
-import { PLAYER_COLORS } from '../../constants.js';
+import {
+  PLAYER_COLORS, TEAM_DIRE, TEAM_RADIANT, TEAM_SPECTATORS,
+} from '../../constants.js';
 
 import Entity from './Entity.js';
 
@@ -48,6 +50,14 @@ class Player extends Entity {
 
   get index() {
     return String(this.id).padStart(4, '0');
+  }
+
+  get isPlayer() {
+    return this.teamID === TEAM_RADIANT || this.teamID === TEAM_DIRE;
+  }
+
+  get isSpectator() {
+    return this.teamID === TEAM_SPECTATORS;
   }
 
   get team() {
