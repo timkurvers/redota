@@ -9,7 +9,6 @@ class Hero extends UnitWithInventory {
     super(...args);
 
     this.playerID = -1;
-    this.level = 1;
     this.xp = 0;
 
     this.backpackHandles = [null, null, null];
@@ -19,7 +18,6 @@ class Hero extends UnitWithInventory {
 
     makeObservable(this, {
       playerID: observable,
-      level: observable,
       xp: observable,
 
       backpackHandles: observable,

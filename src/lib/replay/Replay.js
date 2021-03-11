@@ -202,7 +202,6 @@ class Replay {
       return;
     }
     hero.playerID = entity.get('m_iPlayerID');
-    hero.level = entity.get('m_iCurrentLevel');
     hero.xp = entity.get('m_iCurrentXP');
     hero.backpackHandles[0] = entity.get('m_hItems.0006');
     hero.backpackHandles[1] = entity.get('m_hItems.0007');
@@ -308,6 +307,7 @@ class Replay {
     if (hasRotation) {
       unit.rotation = entity.get('CBodyComponent.m_angRotation')[1];
     }
+    unit.level = entity.get('m_iCurrentLevel');
     unit.hp = entity.get('m_iHealth');
     unit.hpMax = entity.get('m_iMaxHealth');
     unit.mp = entity.get('m_flMana');

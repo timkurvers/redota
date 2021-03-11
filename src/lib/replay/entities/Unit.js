@@ -12,6 +12,7 @@ class Unit extends Entity {
     this.teamID = null;
     this.position = new Position();
     this.rotation = null;
+    this.level = 1;
     this.hp = 0;
     this.hpMax = 0;
     this.mp = 0;
@@ -24,6 +25,7 @@ class Unit extends Entity {
       teamID: observable,
       position: observable,
       rotation: observable,
+      level: observable,
       hp: observable,
       hpMax: observable,
       mp: observable,

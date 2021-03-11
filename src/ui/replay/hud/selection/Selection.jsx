@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import {
   ActiveFilter, Bar, HStack, Level, StyledLevel, VStack,
 } from '../../../components/index.js';
+import { Hero } from '../../../../lib/replay/entities/index.js';
 
 import Abilities from './Abilities.jsx';
 import Inventory from './Inventory.jsx';
@@ -65,10 +66,13 @@ const Selection = observer((props) => {
     setSelection(handle);
   }, [handle, setSelection]);
 
+  const isHero = unit instanceof Hero;
   return (
     <StyledSelection>
       <Name>{name}</Name>
-      {level && <Level xp={xp}>{level}</Level>}
+      {isHero && (
+        <Level xp={xp}>{level}</Level>
+      )}
       <ActiveFilter active={!isDead}>
         <Portrait unit={unit} onClick={onUnitSelect} />
       </ActiveFilter>
