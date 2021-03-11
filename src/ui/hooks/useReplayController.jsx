@@ -28,7 +28,7 @@ const useReplayController = (replay) => {
     replay.step(2);
   }, replay && playing ? (1 / replay.tickInterval) * 2 : null);
 
-  const selectedUnit = replay?.units?.find((u) => u.handle === selectionID);
+  const selectedUnit = replay?.units.find((u) => u.handle === selectionID);
 
   const requestTick = useCallback((target) => {
     replay.jump(target);
