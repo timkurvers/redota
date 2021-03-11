@@ -40,6 +40,10 @@ class Reader {
     return pos;
   }
 
+  get remaining() {
+    return this.length - this.pos;
+  }
+
   // Reads next aligned byte
   nextByte() {
     const { pos } = this;
