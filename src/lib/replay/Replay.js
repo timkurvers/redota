@@ -67,6 +67,7 @@ class Replay {
     this.onEntities = this.onEntities.bind(this);
     this.onTick = this.onTick.bind(this);
 
+    // TODO: Support deregistering listeners
     this.parser.on('warn', this.emitter.emit.bind(this.emitter, 'warn'));
     this.parser.on('entities', this.onEntities);
     this.parser.on('tick', this.onTick);

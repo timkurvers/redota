@@ -50,6 +50,7 @@ class Parser extends Reader {
     this.parsing = false;
     this.synced = false;
 
+    // TODO: Support deregistering listeners
     this.on('msg:CDemoPacket', this.onCDemoPacket.bind(this));
     this.on('msg:CDemoSignonPacket', this.onCDemoPacket.bind(this));
     this.on('msg:CDemoFullPacket', this.onCDemoFullPacket.bind(this));
