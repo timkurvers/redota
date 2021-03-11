@@ -20,6 +20,7 @@ class Unit extends Entity {
     this.mpMax = 0;
     this.isWaitingToSpawn = false;
 
+    this.ownerHandle = null;
     this.abilityHandles = [];
 
     makeObservable(this, {
@@ -34,12 +35,14 @@ class Unit extends Entity {
       mpMax: observable,
       isWaitingToSpawn: observable,
 
+      ownerHandle: observable,
       abilityHandles: observable,
 
       abilities: computed,
       color: computed,
       isDead: computed,
       name: computed,
+      owner: computed,
       team: computed,
     });
   }
@@ -64,6 +67,11 @@ class Unit extends Entity {
 
   get name() {
     return UNIT_NAMES[this.class];
+  }
+
+  get owner() {
+    const { ownerHandle, replay } = this;
+    return replay.units.get(ownerHandle) || replay.players.get(ownerHandle);
   }
 
   get team() {

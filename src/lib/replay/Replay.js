@@ -314,6 +314,7 @@ class Replay {
     unit.mp = entity.get('m_flMana');
     unit.mpMax = entity.get('m_flMaxMana');
     unit.isWaitingToSpawn = entity.get('m_bIsWaitingToSpawn');
+    unit.ownerHandle = entity.get('m_hOwnerEntity');
     unit.abilityHandles[0] = entity.get('m_hAbilities.0000');
     unit.abilityHandles[1] = entity.get('m_hAbilities.0001');
     unit.abilityHandles[2] = entity.get('m_hAbilities.0002');
