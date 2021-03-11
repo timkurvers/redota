@@ -15,9 +15,9 @@ const Resource = (props) => {
     <img
       src={src}
       draggable="false"
-      // TODO: Add user-select: none here to prevent double-click selection
       // TODO: Determine alt text for these resources
       alt=""
+      style={{ userSelect: 'none' }}
     />
   );
 };
