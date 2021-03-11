@@ -245,7 +245,7 @@ class Parser extends Reader {
 
     if (msg.dataCompressed) {
       const reader = new Reader(buffer);
-      const magic = reader.readStringN(8);
+      const magic = reader.readStringN(4);
       if (magic === 'LZSS') {
         throw new Error('LZSS string tables in old replays not yet supported');
       } else {
