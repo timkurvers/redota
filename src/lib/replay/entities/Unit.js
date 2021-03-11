@@ -9,6 +9,7 @@ class Unit extends Entity {
   constructor(...args) {
     super(...args);
 
+    this.modelID = null;
     this.teamID = null;
     this.position = new Position();
     this.rotation = null;
@@ -22,6 +23,7 @@ class Unit extends Entity {
     this.abilityHandles = [];
 
     makeObservable(this, {
+      modelID: observable,
       teamID: observable,
       position: observable,
       rotation: observable,

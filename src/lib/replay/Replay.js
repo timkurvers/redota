@@ -299,6 +299,7 @@ class Replay {
       this.units.delete(unit);
       return null;
     }
+    unit.modelID = entity.get('CBodyComponent.m_hModel');
     unit.teamID = entity.get('m_iTeamNum');
     unit.position.cellX = entity.get('CBodyComponent.m_cellX');
     unit.position.cellY = entity.get('CBodyComponent.m_cellY');
