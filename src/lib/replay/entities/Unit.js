@@ -59,7 +59,7 @@ class Unit extends Entity {
   }
 
   get color() {
-    return TEAM_COLORS[this.teamID];
+    return this.owner?.color || TEAM_COLORS[this.teamID];
   }
 
   get isDead() {
