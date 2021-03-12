@@ -28,6 +28,7 @@ Contributions in form of issues, feedback or pull requests more than welcome!
 - Dota 2 is a registered trademark of [Valve Corporation].
 - Image resources, lore and other references are property of [Valve Corporation].
 - The Dota 2 map and minimap images originate from [Gamepedia].
+- Lane creep icons come from The Noun Project, see [this README file](./public/images/icons/README.md).
 
 # Setup & Development
 
