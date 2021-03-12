@@ -33,6 +33,7 @@ const processorByClass = {
   CDOTA_DarkWillow_Creature: 'processUnit',
   CDOTA_Item_Physical: 'processCollectable',
   CDOTA_Item_Rune: 'processCollectable',
+  CDOTA_Item_RuneSpawner: null,
   CDOTA_Item_RuneSpawner_Bounty: null,
   CDOTA_Item_RuneSpawner_Powerup: null,
   CDOTA_Item: 'processItem',
