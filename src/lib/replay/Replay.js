@@ -9,7 +9,7 @@ import { ObservableIndexedCollection } from '../utils/index.js';
 
 import Game from './Game.js';
 import {
-  Ability, Hero, Item, Player, Team, Unit, UnitWithInventory,
+  Ability, Courier, Hero, Item, Player, Team, Unit, UnitWithInventory,
 } from './entities/index.js';
 
 const processorByClass = {
@@ -45,13 +45,13 @@ const processorByClass = {
   CDOTA_NPC_Treant_EyesInTheForest: 'processUnit',
   CDOTA_NPC_WitchDoctor_Ward: 'processUnit',
   CDOTA_PlayerResource: 'processPlayerResource',
-  CDOTA_Unit_Courier: 'processUnitWithInventory',
   CDOTA_Unit_Brewmaster_PrimalEarth: 'processUnit',
   CDOTA_Unit_Brewmaster_PrimalFire: 'processUnit',
   CDOTA_Unit_Brewmaster_PrimalStorm: 'processUnit',
   CDOTA_Unit_Brewmaster_PrimalVoid: 'processUnit',
   CDOTA_Unit_Broodmother_Spiderling: 'processUnit',
   CDOTA_Unit_Broodmother_Web: 'processUnit',
+  CDOTA_Unit_Courier: 'processCourier',
   CDOTA_Unit_Earth_Spirit_Stone: 'processUnit',
   CDOTA_Unit_Elder_Titan_AncestralSpirit: 'processUnit',
   CDOTA_Unit_Hero_Beastmaster_Boar: 'processUnit',
@@ -208,6 +208,15 @@ class Replay {
 
   processBuilding(entity, event) {
     return this.processUnit(entity, event, { hasRotation: false });
+  }
+
+  processCourier(entity, event) {
+    const courier = this.processUnitWithInventory(entity, event, { class: Courier });
+    if (!courier) {
+      // Deleted in the unit processor
+      return;
+    }
+    courier.isFlying = entity.get('m_bFlyingCourier');
   }
 
   // TODO: Process runes and physical item drops properly

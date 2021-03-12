@@ -1,4 +1,5 @@
 export { default as Ability } from './Ability.js';
+export { default as Courier } from './Courier.js';
 export { default as Hero } from './Hero.js';
 export { default as Item } from './Item.js';
 export { default as Player } from './Player.js';
