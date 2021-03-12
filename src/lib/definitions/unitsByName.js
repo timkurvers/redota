@@ -1,0 +1,577 @@
+import MurmurHash from '../utils/MurmurHash.js';
+
+// Names from Dota 2's English localization: resource/localizations/dota_english.txt
+//
+// Certain units (most notably neutral creeps) can only be uniquely identified
+// by their model ID: a Murmur resource-hash of the model's full path. As some of
+// these units support skins, we need to match on these variants, too.
+//
+// For units that share a model (such as granite and rock golems) a match function
+// is used to derive the type at runtime using a unit's properties (e.g level).
+
+const augment = (definitions) => {
+  for (const [, definition] of Object.entries(definitions)) {
+    const modelIDs = {
+      [MurmurHash.hash64(definition.model)]: definition.model,
+    };
+    if (definition.variants) {
+      for (const model of definition.variants) {
+        modelIDs[MurmurHash.hash64(model)] = model;
+      }
+    }
+    definition.modelIDs = modelIDs;
+  }
+  return definitions;
+};
+
+export default augment({
+
+  //
+  // Regular units
+  //
+
+  npc_dota_beastmaster_boar: {
+    name: 'Boar',
+    model: 'models/heroes/beastmaster/beastmaster_beast.vmdl',
+  },
+
+  npc_dota_beastmaster_hawk: {
+    name: 'Hawk',
+    model: 'models/heroes/beastmaster/beastmaster_bird.vmdl',
+  },
+
+  npc_dota_brewmaster_earth: {
+    name: 'Earth',
+    model: 'models/heroes/brewmaster/brewmaster_earthspirit.vmdl',
+  },
+
+  npc_dota_brewmaster_fire: {
+    name: 'Fire',
+    model: 'models/heroes/brewmaster/brewmaster_firespirit.vmdl',
+  },
+
+  npc_dota_brewmaster_storm: {
+    name: 'Storm',
+    model: 'models/heroes/brewmaster/brewmaster_windspirit.vmdl',
+  },
+
+  npc_dota_brewmaster_void: {
+    name: 'Void',
+    model: 'models/heroes/brewmaster/brewmaster_voidspirit.vmdl',
+  },
+
+  npc_dota_broodmother_spiderling: {
+    name: 'Spiderling',
+    model: 'models/heroes/broodmother/spiderling.vmdl',
+    match: (unit) => unit.level === 3,
+  },
+
+  npc_dota_broodmother_spiderite: {
+    name: 'Spiderite',
+    model: 'models/heroes/broodmother/spiderling.vmdl',
+    match: (unit) => unit.level === 2,
+  },
+
+  npc_dota_broodmother_web: {
+    name: 'Spin Web',
+    model: '???',
+  },
+
+  npc_dota_clinkz_skeleton_archer: {
+    name: 'Skeleton Archer',
+    model: 'models/heroes/clinkz/clinkz_archer.vmdl',
+  },
+
+  npc_dota_courier: {
+    name: 'Courier',
+    model: 'models/props_gameplay/donkey.vmdl',
+  },
+
+  npc_dota_flying_courier: {
+    name: 'Flying Courier',
+    model: 'models/props_gameplay/donkey_wings.vmdl',
+  },
+
+  npc_dota_earth_spirit_stone: {
+    name: 'Stone Remnant',
+    model: 'models/heroes/earth_spirit/stonesummon.vmdl',
+  },
+
+  npc_dota_eidolon: {
+    name: 'Eidolon',
+    model: 'models/heroes/enigma/eidelon.vmdl',
+  },
+
+  npc_dota_elder_titan_ancestral_spirit: {
+    name: 'Astral Spirit',
+    model: 'models/heroes/elder_titan/ancestral_spirit.vmdl',
+  },
+
+  npc_dota_furion_treant: {
+    name: 'Treant',
+    model: 'models/heroes/furion/treant.vmdl',
+  },
+
+  npc_dota_grimstroke_ink_creature: {
+    name: 'Phantom',
+    model: 'models/heroes/grimstroke/ink_phantom.vmdl',
+  },
+
+  npc_dota_gyrocopter_homing_missile: {
+    name: 'Homing Missile',
+    model: 'models/heroes/gyro/gyro_missile.vmdl',
+  },
+
+  npc_dota_ignis_fatuus: {
+    name: 'Will-o-Wisp',
+    model: 'models/heroes/keeper_of_the_light/kotl_wisp.vmdl',
+  },
+
+  npc_dota_invoker_forged_spirit: {
+    name: 'Forged Spirit',
+    model: 'models/heroes/invoker/forge_spirit.vmdl',
+  },
+
+  npc_dota_juggernaut_healing_ward: {
+    name: 'Healing Ward',
+    model: 'models/heroes/juggernaut/jugg_healing_ward.vmdl',
+  },
+
+  npc_dota_lich_ice_spire: {
+    name: 'Ice Spire',
+    model: 'models/heroes/lich/ice_spire.vmdl',
+  },
+
+  npc_dota_lone_druid_bear: {
+    name: 'Spirit Bear',
+    model: 'models/heroes/lone_druid/spirit_bear.vmdl',
+  },
+
+  npc_dota_lycan_wolf: {
+    name: 'Lycan Wolf',
+    model: 'models/heroes/lycan/summon_wolves.vmdl',
+    variants: [
+      'models/items/lycan/wolves/hunter_kings_wolves/hunter_kings_wolves.vmdl',
+    ],
+  },
+
+  npc_dota_necronomicon_warrior: {
+    name: 'Necronomicon Warrior',
+    model: 'models/creeps/item_creeps/i_creep_necro_warrior/necro_warrior.vmdl',
+  },
+
+  npc_dota_necronomicon_archer: {
+    name: 'Necronomicon Archer',
+    model: 'models/creeps/item_creeps/i_creep_necro_archer/necro_archer.vmdl',
+  },
+
+  npc_dota_phoenix_sun: {
+    name: 'Phoenix Sun',
+    model: 'models/heroes/phoenix/phoenix_egg.vmdl',
+  },
+
+  npc_dota_pugna_nether_ward: {
+    name: 'Nether Ward',
+    model: 'models/heroes/pugna/pugna_ward.vmdl',
+  },
+
+  npc_dota_rattletrap_cog: {
+    name: 'Power Cog',
+    model: 'models/heroes/rattletrap/rattletrap_cog.vmdl',
+  },
+
+  npc_dota_roshan: {
+    name: 'Roshan',
+    model: 'models/creeps/roshan/roshan.vmdl',
+  },
+
+  npc_dota_shadowshaman_serpentward: {
+    name: 'Serpent Ward',
+    model: 'models/heroes/shadowshaman/shadowshaman_totem.vmdl',
+  },
+
+  npc_dota_techies_land_mine: {
+    name: 'Proximity Mine',
+    model: 'models/heroes/techies/fx_techiesfx_mine.vmdl',
+  },
+
+  npc_dota_techies_minefield_sign: {
+    name: 'Minefield Sign',
+    model: 'models/heroes/techies/techies_sign.vmdl',
+  },
+
+  npc_dota_techies_stasis_trap: {
+    name: 'Stasis Trap',
+    model: 'models/heroes/techies/fx_techiesfx_stasis.vmdl',
+  },
+
+  npc_dota_techies_remote_mine: {
+    name: 'Remote Mine',
+    model: 'models/heroes/techies/fx_techies_remotebomb.vmdl',
+  },
+
+  npc_dota_templar_assassin_psionic_trap: {
+    name: 'Psionic Trap',
+    // Visual model: models/heroes/lanaya/lanaya_trap_crystal.vmdl
+    model: 'models/heroes/lanaya/lanaya_trap_crystal_invis.vmdl',
+  },
+
+  npc_dota_tusk_frozen_sigil: {
+    name: 'Frozen Sigil',
+    model: 'models/particle/tusk_sigil.vmdl',
+  },
+
+  npc_dota_unit_undying_tombstone: {
+    name: 'Tombstone',
+    model: 'models/heroes/undying/undying_tower.vmdl',
+  },
+
+  npc_dota_unit_undying_zombie: {
+    name: 'Undying Zombie',
+    model: 'models/heroes/undying/undying_minion.vmdl',
+  },
+
+  npc_dota_venomancer_plagueward: {
+    name: 'Plague Ward',
+    model: 'models/heroes/venomancer/venomancer_ward.vmdl',
+  },
+
+  npc_dota_visage_familiar: {
+    name: 'Familiar',
+    model: 'models/heroes/visage/visage_familiar.vmdl',
+  },
+
+  npc_dota_ward_base: {
+    name: 'Observer Ward',
+    model: 'models/props_gameplay/default_ward.vmdl',
+  },
+
+  npc_dota_ward_base_truesight: {
+    name: 'Sentry Ward',
+    model: 'models/props_gameplay/default_ward.vmdl',
+  },
+
+  npc_dota_warlock_golem: {
+    name: 'Warlock Golem',
+    model: 'models/heroes/warlock/warlock_demon.vmdl',
+  },
+
+  npc_dota_weaver_swarm: {
+    name: 'Beetle',
+    model: 'models/heroes/weaver/weaver_bug.vmdl',
+  },
+
+  npc_dota_witch_doctor_death_ward: {
+    name: 'Death Ward',
+    model: 'models/heroes/witchdoctor/witchdoctor_ward.vmdl',
+  },
+
+  npc_dota_zeus_cloud: {
+    name: 'Nimbus',
+    model: 'models/heroes/zeus/zeus_sigil.vmdl',
+  },
+
+  //
+  // Lane creeps
+  //
+
+  npc_dota_creep_badguys_melee: {
+    name: 'Dire Melee Creep',
+    model: 'models/creeps/lane_creeps/creep_bad_melee/creep_bad_melee.vmdl',
+  },
+
+  npc_dota_creep_badguys_melee_upgraded: {
+    name: 'Dire Super Melee Creep',
+    model: 'models/creeps/lane_creeps/creep_bad_melee/creep_bad_melee.vmdl',
+  },
+
+  npc_dota_creep_badguys_melee_upgraded_mega: {
+    name: 'Dire Mega Melee Creep',
+    model: 'models/creeps/lane_creeps/creep_bad_melee/creep_bad_melee_mega.vmdl',
+  },
+
+  npc_dota_creep_badguys_ranged: {
+    name: 'Dire Ranged Creep',
+    model: 'models/creeps/lane_creeps/creep_bad_ranged/lane_dire_ranged.vmdl',
+  },
+
+  npc_dota_creep_badguys_ranged_upgraded: {
+    name: 'Dire Super Ranged Creep',
+    model: 'models/creeps/lane_creeps/creep_bad_ranged/lane_dire_ranged.vmdl',
+  },
+
+  npc_dota_creep_badguys_ranged_upgraded_mega: {
+    name: 'Dire Mega Ranged Creep',
+    model: 'models/creeps/lane_creeps/creep_bad_ranged/lane_dire_ranged_mega.vmdl',
+  },
+
+  npc_dota_badguys_siege: {
+    name: 'Dire Siege Creep',
+    model: 'models/creeps/lane_creeps/creep_bad_siege/creep_bad_siege.vmdl',
+  },
+
+  npc_dota_badguys_siege_upgraded: {
+    name: 'Dire Super Siege Creep',
+    model: 'models/creeps/lane_creeps/creep_bad_siege/creep_bad_siege.vmdl',
+  },
+
+  npc_dota_badguys_siege_upgraded_mega: {
+    name: 'Dire Mega Siege Creep',
+    model: 'models/creeps/lane_creeps/creep_bad_siege/creep_bad_siege.vmdl',
+  },
+
+  npc_dota_creep_goodguys_melee: {
+    name: 'Radiant Melee Creep',
+    model: 'models/creeps/lane_creeps/creep_radiant_melee/radiant_melee.vmdl',
+  },
+
+  npc_dota_creep_goodguys_melee_upgraded: {
+    name: 'Radiant Super Melee Creep',
+    model: 'models/creeps/lane_creeps/creep_radiant_melee/radiant_melee.vmdl',
+  },
+
+  npc_dota_creep_goodguys_melee_upgraded_mega: {
+    name: 'Radiant Mega Melee Creep',
+    model: 'models/creeps/lane_creeps/creep_radiant_melee/radiant_melee_mega.vmdl',
+  },
+
+  npc_dota_creep_goodguys_ranged: {
+    name: 'Radiant Ranged Creep',
+    model: 'models/creeps/lane_creeps/creep_radiant_ranged/radiant_ranged.vmdl',
+  },
+
+  npc_dota_creep_goodguys_ranged_upgraded: {
+    name: 'Radiant Super Ranged Creep',
+    model: 'models/creeps/lane_creeps/creep_radiant_ranged/radiant_ranged.vmdl',
+  },
+
+  npc_dota_creep_goodguys_ranged_upgraded_mega: {
+    name: 'Radiant Mega Ranged Creep',
+    model: 'models/creeps/lane_creeps/creep_radiant_ranged/radiant_ranged_mega.vmdl',
+  },
+
+  npc_dota_goodguys_siege: {
+    name: 'Radiant Siege Creep',
+    model: 'models/creeps/lane_creeps/creep_good_siege/creep_good_siege.vmdl',
+  },
+
+  npc_dota_goodguys_siege_upgraded: {
+    name: 'Radiant Super Siege Creep',
+    model: 'models/creeps/lane_creeps/creep_good_siege/creep_good_siege.vmdl',
+  },
+
+  npc_dota_goodguys_siege_upgraded_mega: {
+    name: 'Radiant Mega Siege Creep',
+    model: 'models/creeps/lane_creeps/creep_good_siege/creep_good_siege.vmdl',
+  },
+
+  //
+  // Neutral creeps
+  //
+
+  npc_dota_dark_troll_warlord_skeleton_warrior: {
+    name: 'Skeleton',
+    model: 'models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl',
+  },
+
+  npc_dota_neutral_alpha_wolf: {
+    name: 'Alpha Wolf',
+    model: 'models/creeps/neutral_creeps/n_creep_worg_large/n_creep_worg_large.vmdl',
+  },
+
+  npc_dota_neutral_giant_wolf: {
+    name: 'Giant Wolf',
+    model: 'models/creeps/neutral_creeps/n_creep_worg_small/n_creep_worg_small.vmdl',
+  },
+
+  npc_dota_neutral_big_thunder_lizard: {
+    name: 'Ancient Thunderhide',
+    model: 'models/creeps/neutral_creeps/n_creep_thunder_lizard/n_creep_thunder_lizard_big.vmdl',
+  },
+
+  npc_dota_neutral_small_thunder_lizard: {
+    name: 'Ancient Rumblehide',
+    model: 'models/creeps/neutral_creeps/n_creep_thunder_lizard/n_creep_thunder_lizard_small.vmdl',
+  },
+
+  npc_dota_neutral_black_drake: {
+    name: 'Ancient Black Drake',
+    model: 'models/creeps/neutral_creeps/n_creep_black_drake/n_creep_black_drake.vmdl',
+  },
+
+  npc_dota_neutral_black_dragon: {
+    name: 'Ancient Black Dragon',
+    model: 'models/creeps/neutral_creeps/n_creep_black_dragon/n_creep_black_dragon.vmdl',
+  },
+
+  npc_dota_neutral_centaur_outrunner: {
+    name: 'Centaur Courser',
+    model: 'models/creeps/neutral_creeps/n_creep_centaur_med/n_creep_centaur_med.vmdl',
+  },
+
+  npc_dota_neutral_centaur_khan: {
+    name: 'Centaur Conqueror',
+    model: 'models/creeps/neutral_creeps/n_creep_centaur_lrg/n_creep_centaur_lrg.vmdl',
+  },
+
+  npc_dota_neutral_dark_troll: {
+    name: 'Hill Troll',
+    model: 'models/creeps/neutral_creeps/n_creep_troll_dark_a/n_creep_troll_dark_a.vmdl',
+  },
+
+  npc_dota_neutral_dark_troll_warlord: {
+    name: 'Dark Troll Summoner',
+    model: 'models/creeps/neutral_creeps/n_creep_troll_dark_b/n_creep_troll_dark_b.vmdl',
+  },
+
+  npc_dota_neutral_enraged_wildkin: {
+    name: 'Wildwing Ripper',
+    model: 'models/creeps/neutral_creeps/n_creep_vulture_a/n_creep_vulture_a.vmdl',
+  },
+
+  npc_dota_neutral_wildkin: {
+    name: 'Wildwing',
+    model: 'models/creeps/neutral_creeps/n_creep_vulture_b/n_creep_vulture_b.vmdl',
+  },
+
+  npc_dota_neutral_fel_beast: {
+    name: 'Fell Spirit',
+    model: 'models/creeps/neutral_creeps/n_creep_ghost_b/n_creep_ghost_b.vmdl',
+  },
+
+  npc_dota_neutral_ghost: {
+    name: 'Ghost',
+    model: 'models/creeps/neutral_creeps/n_creep_ghost_a/n_creep_ghost_a.vmdl',
+  },
+
+  npc_dota_neutral_forest_troll_berserker: {
+    name: 'Hill Troll Berserker',
+    model: 'models/creeps/neutral_creeps/n_creep_forest_trolls/n_creep_forest_troll_berserker.vmdl',
+  },
+
+  npc_dota_neutral_forest_troll_high_priest: {
+    name: 'Hill Troll Priest',
+    model: 'models/creeps/neutral_creeps/n_creep_forest_trolls/n_creep_forest_troll_high_priest.vmdl',
+  },
+
+  npc_dota_neutral_gnoll_assassin: {
+    name: 'Vhoul Assassin',
+    model: 'models/creeps/neutral_creeps/n_creep_gnoll/n_creep_gnoll.vmdl',
+  },
+
+  npc_dota_neutral_granite_golem: {
+    name: 'Ancient Granite Golem',
+    model: 'models/creeps/neutral_creeps/n_creep_golem_a/neutral_creep_golem_a.vmdl',
+    match: (unit) => unit.level === 6,
+  },
+
+  npc_dota_neutral_rock_golem: {
+    name: 'Ancient Rock Golem',
+    model: 'models/creeps/neutral_creeps/n_creep_golem_a/neutral_creep_golem_a.vmdl',
+    match: (unit) => unit.level === 5,
+  },
+
+  npc_dota_neutral_harpy_scout: {
+    name: 'Harpy Scout',
+    model: 'models/creeps/neutral_creeps/n_creep_harpy_a/n_creep_harpy_a.vmdl',
+  },
+
+  npc_dota_neutral_harpy_storm: {
+    name: 'Harpy Stormcrafter',
+    model: 'models/creeps/neutral_creeps/n_creep_harpy_b/n_creep_harpy_b.vmdl',
+  },
+
+  npc_dota_neutral_jungle_stalker: {
+    name: 'Ancient Stalker',
+    model: 'models/creeps/neutral_creeps/n_creep_gargoyle/n_creep_gargoyle.vmdl',
+    match: (unit) => unit.level === 5,
+  },
+
+  npc_dota_neutral_elder_jungle_stalker: {
+    name: 'Ancient Primal Stalker',
+    model: 'models/creeps/neutral_creeps/n_creep_gargoyle/n_creep_gargoyle.vmdl',
+    match: (unit) => unit.level === 6,
+  },
+
+  npc_dota_neutral_kobold: {
+    name: 'Kobold',
+    model: 'models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_c.vmdl',
+  },
+
+  npc_dota_neutral_kobold_tunneler: {
+    name: 'Kobold Soldier',
+    model: 'models/creeps/neutral_creeps/n_creep_kobold/kobold_b/n_creep_kobold_b.vmdl',
+  },
+
+  npc_dota_neutral_kobold_taskmaster: {
+    name: 'Kobold Foreman',
+    model: 'models/creeps/neutral_creeps/n_creep_kobold/kobold_a/n_creep_kobold_a.vmdl',
+  },
+
+  npc_dota_neutral_mud_golem: {
+    name: 'Mud Golem',
+    model: 'models/creeps/neutral_creeps/n_creep_golem_b/n_creep_golem_b.vmdl',
+    match: (unit) => unit.hpMax >= 800,
+  },
+
+  npc_dota_neutral_mud_golem_split: {
+    name: 'Shard Golem',
+    model: 'models/creeps/neutral_creeps/n_creep_golem_b/n_creep_golem_b.vmdl',
+    match: (unit) => unit.hpMax <= 400,
+  },
+
+  npc_dota_neutral_mud_golem_split_doom: {
+    name: 'Doom Shard',
+    model: 'models/heroes/doom/doom.vmdl',
+  },
+
+  npc_dota_neutral_ogre_mauler: {
+    name: 'Ogre Bruiser',
+    model: 'models/creeps/neutral_creeps/n_creep_ogre_med/n_creep_ogre_med.vmdl',
+  },
+
+  npc_dota_neutral_ogre_magi: {
+    name: 'Ogre Frostmage',
+    model: 'models/creeps/neutral_creeps/n_creep_ogre_lrg/n_creep_ogre_lrg.vmdl',
+  },
+
+  npc_dota_neutral_polar_furbolg_champion: {
+    name: 'Hellbear',
+    model: 'models/creeps/neutral_creeps/n_creep_beast/n_creep_beast.vmdl',
+  },
+
+  npc_dota_neutral_polar_furbolg_ursa_warrior: {
+    name: 'Hellbear Smasher',
+    model: 'models/creeps/neutral_creeps/n_creep_furbolg/n_creep_furbolg_disrupter.vmdl',
+  },
+
+  npc_dota_neutral_prowler_acolyte: {
+    name: 'Ancient Prowler Acolyte',
+    model: 'models/creeps/neutral_creeps/n_creep_satyr_spawn_a/n_creep_satyr_spawn_b.vmdl',
+  },
+
+  npc_dota_neutral_prowler_shaman: {
+    name: 'Ancient Prowler Shaman',
+    model: 'models/creeps/neutral_creeps/n_creep_satyr_spawn_a/n_creep_satyr_spawn_a.vmdl',
+  },
+
+  npc_dota_neutral_satyr_soulstealer: {
+    name: 'Satyr Mindstealer',
+    model: 'models/creeps/neutral_creeps/n_creep_satyr_c/n_creep_satyr_c.vmdl',
+  },
+
+  npc_dota_neutral_satyr_hellcaller: {
+    name: 'Satyr Tormenter',
+    model: 'models/creeps/neutral_creeps/n_creep_satyr_a/n_creep_satyr_a.vmdl',
+  },
+
+  npc_dota_neutral_satyr_trickster: {
+    name: 'Satyr Banisher',
+    model: 'models/creeps/neutral_creeps/n_creep_satyr_b/n_creep_satyr_b.vmdl',
+  },
+
+  //
+  // TODO: Buildings
+  //
+
+});

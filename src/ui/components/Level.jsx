@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-import { xpPerLevel } from '../../lib/constants.js';
+import { xpPerLevel } from '../../lib/definitions/index.js';
 
 const StyledLevel = styled.div`
   position: relative;

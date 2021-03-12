@@ -1,7 +1,8 @@
 import { computed, makeObservable, observable } from 'mobx';
 
-import { TEAM_COLORS, UNIT_NAMES } from '../../constants.js';
 import Position from '../Position.js';
+import { TEAM_COLORS } from '../../constants.js';
+import { unitsByName } from '../../definitions/index.js';
 
 import Entity from './Entity.js';
 
@@ -66,12 +67,31 @@ class Unit extends Entity {
   }
 
   get name() {
-    return UNIT_NAMES[this.class];
+    return unitsByName[this.refname]?.name || this.refname;
   }
 
   get owner() {
     const { ownerHandle, replay } = this;
     return replay.units.get(ownerHandle) || replay.players.get(ownerHandle);
+  }
+
+  get refname() {
+    const { internalName } = this;
+    const definition = unitsByName[internalName];
+    if (definition && !definition.match) {
+      return internalName;
+    }
+
+    const { modelID } = this;
+    for (const [key, entry] of Object.entries(unitsByName)) {
+      if (!(modelID in entry.modelIDs)) {
+        continue;
+      }
+      if (!entry.match || entry.match(this)) {
+        return key;
+      }
+    }
+    return internalName;
   }
 
   get team() {

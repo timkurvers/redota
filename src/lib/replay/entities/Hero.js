@@ -1,6 +1,7 @@
 import { computed, makeObservable, observable } from 'mobx';
 
-import { PLAYER_COLORS, heroesByName } from '../../constants.js';
+import { PLAYER_COLORS } from '../../constants.js';
+import { heroesByName } from '../../definitions/index.js';
 
 import UnitWithInventory from './UnitWithInventory.js';
 
@@ -54,6 +55,10 @@ class Hero extends UnitWithInventory {
 
   get player() {
     return this.replay.players.byID.get(this.playerID);
+  }
+
+  get refname() {
+    return this.internalName;
   }
 
   get stash() {

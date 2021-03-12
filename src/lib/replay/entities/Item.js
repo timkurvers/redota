@@ -1,7 +1,7 @@
 import { computed, makeObservable, observable } from 'mobx';
 
-import { itemsByName } from '../../constants.js';
 import Cooldown from '../Cooldown.js';
+import { itemsByName } from '../../definitions/index.js';
 
 import Entity from './Entity.js';
 
