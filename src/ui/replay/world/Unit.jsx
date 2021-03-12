@@ -8,11 +8,11 @@ import {
 import { Hero } from '../../../lib/replay/entities/index.js';
 
 const StyledUnit = styled(ActiveFilter)`
+  width: 32px;
+  height: 32px;
   ${(props) => props.size === 'large' && css`
-    width: 30px;
-    height: 30px;
+    padding: 10px;
   `}
-  padding: 10px;
   border-radius: 50%;
   border: 3px solid ${(props) => props.color}DD;
   ${(props) => props.selected && css`
