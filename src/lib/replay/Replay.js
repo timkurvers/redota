@@ -59,7 +59,7 @@ const processorByClass = {
   CDOTA_Unit_Hero_Beastmaster_Hawk: 'processUnit',
   CDOTA_Unit_IngisFatuus: 'processUnit',
   CDOTA_Unit_Roshan: 'processUnitWithInventory',
-  CDOTA_Unit_SpiritBear: 'processUnit',
+  CDOTA_Unit_SpiritBear: 'processUnitWithInventory',
   CDOTA_Unit_Undying_Tombstone: 'processUnit',
   CDOTA_Unit_Undying_Zombie: 'processUnit',
   CDOTA_Unit_VisageFamiliar: 'processUnit',
