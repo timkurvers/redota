@@ -3,15 +3,30 @@
 import fs from 'fs';
 
 import Parser from '../src/lib/parser/Parser.js';
+import Replay from '../src/lib/replay/Replay.js';
 
-const [,, replay] = process.argv;
-if (!replay) {
+const [,, ...args] = process.argv;
+
+const cmd = args.sort().join(' ');
+const match = cmd.match(/(?:--(?<level>low|high)-level )?(?<file>.*)/);
+
+const { file, level = 'low' } = match.groups;
+if (!file) {
   throw new Error('no replay .dem-file provided');
 }
 
-// Full low-level parse of given replay file for debugging purposes
-const buffer = fs.readFileSync(replay);
-const parser = new Parser(buffer);
+console.time('time taken');
+
+// Full length parse of given replay file for debugging purposes
+const buffer = fs.readFileSync(file);
+
+let parser;
+if (level === 'high') {
+  const replay = new Replay(buffer);
+  parser = replay.parser;
+} else if (level === 'low') {
+  parser = new Parser(buffer);
+}
 
 parser.on('msg:CDemoFileHeader', (msg) => {
   console.log('header', msg);
@@ -20,8 +35,6 @@ parser.on('msg:CDemoFileHeader', (msg) => {
 parser.on('msg:CUserMessageSayText2', (msg) => {
   console.log('all chat', `${msg.param1}: ${msg.param2}`);
 });
-
-console.time('time taken');
 
 parser.start();
 console.log('# of entities at replay start:', parser.entities.size);
