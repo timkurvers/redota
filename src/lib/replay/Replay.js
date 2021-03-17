@@ -145,6 +145,7 @@ class Replay {
 
     const changesets = this.parser.entities.map((entity) => ({
       entity,
+      delta: entity.snapshot,
       event: EntityEvent.CREATED,
     }));
 
@@ -168,7 +169,7 @@ class Replay {
   }
 
   onEntities(changesets) {
-    for (const { entity, event } of changesets) {
+    for (const { entity, delta, event } of changesets) {
       const cls = entity.class.name;
       let method = processorByClass[cls];
       if (method === undefined) {
@@ -178,7 +179,7 @@ class Replay {
         processorByClass[cls] = method || null;
       }
       if (method) {
-        this[method](entity, event);
+        this[method](entity, delta, event);
       }
     }
     this.emitter.emit('update');
@@ -190,7 +191,7 @@ class Replay {
     this.emitter.emit('update');
   }
 
-  processAbility(entity, event) {
+  processAbility(entity, delta, event) {
     const handle = entity.handle;
     let ability = this.abilities.get(handle);
     if (!ability) {
@@ -200,61 +201,109 @@ class Replay {
     if (ability && event & EntityEvent.DELETED) {
       this.abilities.delete(ability);
     }
-    ability.cooldown.value = entity.get('m_fCooldown');
-    ability.cooldown.duration = entity.get('m_flCooldownLength');
-    ability.hidden = entity.get('m_bHidden');
-    ability.level = entity.get('m_iLevel');
-    ability.manaCost = entity.get('m_iManaCost');
+    if ('m_flCooldown' in delta) {
+      ability.cooldown.value = delta.m_flCooldown;
+    }
+    if ('m_flCooldownLength' in delta) {
+      ability.cooldown.duration = delta.m_flCooldownLength;
+    }
+    if ('m_bHidden' in delta) {
+      ability.hidden = delta.m_bHidden;
+    }
+    if ('m_iLevel' in delta) {
+      ability.level = delta.m_iLevel;
+    }
+    if ('m_iManaCost' in delta) {
+      ability.manaCost = delta.m_iManaCost;
+    }
   }
 
-  processBuilding(entity, event) {
-    return this.processUnit(entity, event, { hasRotation: false });
+  processBuilding(entity, delta, event) {
+    return this.processUnit(entity, delta, event, { hasRotation: false });
   }
 
-  processCourier(entity, event) {
-    const courier = this.processUnitWithInventory(entity, event, { class: Courier });
+  processCourier(entity, delta, event) {
+    const courier = this.processUnitWithInventory(entity, delta, event, { class: Courier });
     if (!courier) {
       // Deleted in the unit processor
       return;
     }
-    courier.isFlying = entity.get('m_bFlyingCourier');
+    if ('m_bFlyingCourier' in delta) {
+      courier.isFlying = delta.m_bFlyingCourier;
+    }
   }
 
   // TODO: Process runes and physical item drops properly
-  processCollectable(entity, event) { // eslint-disable-line
+  processCollectable(entity, delta, event) { // eslint-disable-line
   }
 
-  processGameRules(entity) {
+  processGameRules(_entity, delta) {
     const { game } = this;
-    game.phase = entity.get('m_pGameRules.m_nGameState');
-    game.preStartTime = entity.get('m_pGameRules.m_flPreGameStartTime');
-    game.startTime = entity.get('m_pGameRules.m_flGameStartTime');
-    game.stateTransitionTime = entity.get('m_pGameRules.m_flStateTransitionTime');
-    game.time = entity.get('m_pGameRules.m_fGameTime');
+    if ('m_pGameRules.m_nGameState' in delta) {
+      game.phase = delta['m_pGameRules.m_nGameState'];
+    }
+    if ('m_pGameRules.m_flPreGameStartTime' in delta) {
+      game.preStartTime = delta['m_pGameRules.m_flPreGameStartTime'];
+    }
+    if ('m_pGameRules.m_flGameStartTime' in delta) {
+      game.startTime = delta['m_pGameRules.m_flGameStartTime'];
+    }
+    if ('m_pGameRules.m_flStateTransitionTime' in delta) {
+      game.stateTransitionTime = delta['m_pGameRules.m_flStateTransitionTime'];
+    }
+    if ('m_pGameRules.m_fGameTime' in delta) {
+      game.time = delta['m_pGameRules.m_fGameTime'];
+    }
   }
 
-  processHero(entity, event) {
-    const hero = this.processUnitWithInventory(entity, event, { class: Hero });
+  processHero(entity, delta, event) {
+    const hero = this.processUnitWithInventory(entity, delta, event, { class: Hero });
     if (!hero) {
       // Deleted in the unit processor
       return;
     }
-    hero.playerID = entity.get('m_iPlayerID');
-    hero.xp = entity.get('m_iCurrentXP');
-    hero.backpackHandles[0] = entity.get('m_hItems.0006');
-    hero.backpackHandles[1] = entity.get('m_hItems.0007');
-    hero.backpackHandles[2] = entity.get('m_hItems.0008');
-    hero.stashHandles[0] = entity.get('m_hItems.0009');
-    hero.stashHandles[1] = entity.get('m_hItems.0010');
-    hero.stashHandles[2] = entity.get('m_hItems.0011');
-    hero.stashHandles[3] = entity.get('m_hItems.0012');
-    hero.stashHandles[4] = entity.get('m_hItems.0013');
-    hero.stashHandles[5] = entity.get('m_hItems.0014');
-    hero.teleportScrollHandle = entity.get('m_hItems.0015');
-    hero.neutralItemHandle = entity.get('m_hItems.0016');
+    if ('m_iPlayerID' in delta) {
+      hero.playerID = delta.m_iPlayerID;
+    }
+    if ('m_iCurrentXP' in delta) {
+      hero.xp = delta.m_iCurrentXP;
+    }
+    if ('m_hItems.0006' in delta) {
+      hero.backpackHandles[0] = delta['m_hItems.0006'];
+    }
+    if ('m_hItems.0007' in delta) {
+      hero.backpackHandles[1] = delta['m_hItems.0007'];
+    }
+    if ('m_hItems.0008' in delta) {
+      hero.backpackHandles[2] = delta['m_hItems.0008'];
+    }
+    if ('m_hItems.0009' in delta) {
+      hero.stashHandles[0] = delta['m_hItems.0009'];
+    }
+    if ('m_hItems.0010' in delta) {
+      hero.stashHandles[1] = delta['m_hItems.0010'];
+    }
+    if ('m_hItems.0011' in delta) {
+      hero.stashHandles[2] = delta['m_hItems.0011'];
+    }
+    if ('m_hItems.0012' in delta) {
+      hero.stashHandles[3] = delta['m_hItems.0012'];
+    }
+    if ('m_hItems.0013' in delta) {
+      hero.stashHandles[4] = delta['m_hItems.0013'];
+    }
+    if ('m_hItems.0014' in delta) {
+      hero.stashHandles[5] = delta['m_hItems.0014'];
+    }
+    if ('m_hItems.0015' in delta) {
+      hero.teleportScrollHandle = delta['m_hItems.0015'];
+    }
+    if ('m_hItems.0016' in delta) {
+      hero.neutralItemHandle = delta['m_hItems.0016'];
+    }
   }
 
-  processItem(entity, event) {
+  processItem(entity, delta, event) {
     const handle = entity.handle;
     let item = this.items.get(handle);
     if (!item) {
@@ -264,15 +313,27 @@ class Replay {
     if (item && event & EntityEvent.DELETED) {
       this.items.delete(item);
     }
-    item.acquireTime = entity.get('m_flAssembledTime');
-    item.charges = entity.get('m_iCurrentCharges');
-    item.cooldown.value = entity.get('m_fCooldown');
-    item.cooldown.duration = entity.get('m_flCooldownLength');
-    item.level = entity.get('m_iLevel');
-    item.manaCost = entity.get('m_iManaCost');
+    if ('m_flAssembledTime' in delta) {
+      item.acquireTime = delta.m_flAssembledTime;
+    }
+    if ('m_iCurrentCharges' in delta) {
+      item.charges = delta.m_iCurrentCharges;
+    }
+    if ('m_fCooldown' in delta) {
+      item.cooldown.value = delta.m_fCooldown;
+    }
+    if ('m_flCooldownLength' in delta) {
+      item.cooldown.duration = delta.m_flCooldownLength;
+    }
+    if ('m_iLevel' in delta) {
+      item.level = delta.m_iLevel;
+    }
+    if ('m_iManaCost' in delta) {
+      item.manaCost = delta.m_iManaCost;
+    }
   }
 
-  processPlayer(entity, event) {
+  processPlayer(entity, delta, event) {
     const handle = entity.handle;
     let player = this.players.get(handle);
     if (!player) {
@@ -284,33 +345,59 @@ class Replay {
       this.players.delete(player);
       return;
     }
-    player.heroID = entity.get('m_hAssignedHero');
-    player.teamID = entity.get('m_iTeamNum');
-    player.camera.position.cellX = entity.get('CBodyComponent.m_cellX');
-    player.camera.position.cellY = entity.get('CBodyComponent.m_cellY');
-    player.camera.position.vecX = entity.get('CBodyComponent.m_vecX');
-    player.camera.position.vecY = entity.get('CBodyComponent.m_vecY');
+    if ('m_hAssignedHero' in delta) {
+      player.heroID = delta.m_hAssignedHero;
+    }
+    if ('m_iTeamNum' in delta) {
+      player.teamID = delta.m_iTeamNum;
+    }
+    if ('CBodyComponent.m_cellX' in delta) {
+      player.camera.position.cellX = delta['CBodyComponent.m_cellX'];
+    }
+    if ('CBodyComponent.m_cellY' in delta) {
+      player.camera.position.cellY = delta['CBodyComponent.m_cellY'];
+    }
+    if ('CBodyComponent.m_vecX' in delta) {
+      player.camera.position.vecX = delta['CBodyComponent.m_vecX'];
+    }
+    if ('CBodyComponent.m_vecY' in delta) {
+      player.camera.position.vecY = delta['CBodyComponent.m_vecY'];
+    }
   }
 
-  processPlayerResource(entity) {
+  processPlayerResource(_entity, delta) {
     // TODO: Race conditions may occur when reloading the entire entity state
     for (const player of this.players) {
       if (player.id === -1) continue;
 
       const prefix = `m_vecPlayerData.${player.index}`;
-      player.name = entity.get(`${prefix}.m_iszPlayerName`);
-      player.steamID = entity.get(`${prefix}.m_iPlayerSteamID`);
-      player.isBot = entity.get(`${prefix}.m_bFakeClient`);
-      player.isBroadcaster = entity.get(`${prefix}.m_bIsBroadcaster`);
+      if (`${prefix}.m_iszPlayerName` in delta) {
+        player.name = delta[`${prefix}.m_iszPlayerName`];
+      }
+      if (`${prefix}.m_iPlayerSteamID` in delta) {
+        player.steamID = delta[`${prefix}.m_iPlayerSteamID`];
+      }
+      if (`${prefix}.m_bFakeClient` in delta) {
+        player.isBot = delta[`${prefix}.m_bFakeClient`];
+      }
+      if (`${prefix}.m_bIsBroadcaster` in delta) {
+        player.isBroadcaster = delta[`${prefix}.m_bIsBroadcaster`];
+      }
 
       const tprefix = `m_vecPlayerTeamData.${player.index}`;
-      player.kills = entity.get(`${tprefix}.m_iKills`);
-      player.deaths = entity.get(`${tprefix}.m_iDeaths`);
-      player.assists = entity.get(`${tprefix}.m_iAssists`);
+      if (`${tprefix}.m_iKills` in delta) {
+        player.kills = delta[`${tprefix}.m_iKills`];
+      }
+      if (`${tprefix}.m_iDeaths` in delta) {
+        player.deaths = delta[`${tprefix}.m_iDeaths`];
+      }
+      if (`${tprefix}.m_iAssists` in delta) {
+        player.assists = delta[`${tprefix}.m_iAssists`];
+      }
     }
   }
 
-  processTeam(entity, event) {
+  processTeam(entity, delta, event) {
     const handle = entity.handle;
     let team = this.teams.get(handle);
     if (!team) {
@@ -322,11 +409,15 @@ class Replay {
     if (team && event & EntityEvent.DELETED) {
       throw new Error('no support for team deletion');
     }
-    team.name = entity.get('m_szTeamname');
-    team.kills = entity.get('m_iHeroKills');
+    if ('m_szTeamname' in delta) {
+      team.name = delta.m_szTeamname;
+    }
+    if ('m_iHeroKills' in delta) {
+      team.kills = delta.m_iHeroKills;
+    }
   }
 
-  processUnit(entity, event, { class: Class = Unit, hasRotation = true } = {}) {
+  processUnit(entity, delta, event, { class: Class = Unit, hasRotation = true } = {}) {
     const handle = entity.handle;
     let unit = this.units.get(handle);
     if (!unit) {
@@ -337,54 +428,127 @@ class Replay {
       this.units.delete(unit);
       return null;
     }
-    unit.modelID = entity.get('CBodyComponent.m_hModel');
-    unit.teamID = entity.get('m_iTeamNum');
-    unit.position.cellX = entity.get('CBodyComponent.m_cellX');
-    unit.position.cellY = entity.get('CBodyComponent.m_cellY');
-    unit.position.vecX = entity.get('CBodyComponent.m_vecX');
-    unit.position.vecY = entity.get('CBodyComponent.m_vecY');
-    if (hasRotation) {
-      unit.rotation = entity.get('CBodyComponent.m_angRotation')[1];
+    if ('CBodyComponent.m_hModel' in delta) {
+      unit.modelID = delta['CBodyComponent.m_hModel'];
     }
-    unit.level = entity.get('m_iCurrentLevel');
-    unit.hp = entity.get('m_iHealth');
-    unit.hpMax = entity.get('m_iMaxHealth');
-    unit.mp = entity.get('m_flMana');
-    unit.mpMax = entity.get('m_flMaxMana');
-    unit.isWaitingToSpawn = entity.get('m_bIsWaitingToSpawn');
-    unit.ownerHandle = entity.get('m_hOwnerEntity');
-    unit.abilityHandles[0] = entity.get('m_hAbilities.0000');
-    unit.abilityHandles[1] = entity.get('m_hAbilities.0001');
-    unit.abilityHandles[2] = entity.get('m_hAbilities.0002');
-    unit.abilityHandles[3] = entity.get('m_hAbilities.0003');
-    unit.abilityHandles[4] = entity.get('m_hAbilities.0004');
-    unit.abilityHandles[5] = entity.get('m_hAbilities.0005');
-    unit.abilityHandles[6] = entity.get('m_hAbilities.0006');
-    unit.abilityHandles[7] = entity.get('m_hAbilities.0007');
-    unit.abilityHandles[8] = entity.get('m_hAbilities.0008');
-    unit.abilityHandles[9] = entity.get('m_hAbilities.0009');
-    unit.abilityHandles[10] = entity.get('m_hAbilities.0010');
-    unit.abilityHandles[11] = entity.get('m_hAbilities.0011');
-    unit.abilityHandles[12] = entity.get('m_hAbilities.0012');
-    unit.abilityHandles[13] = entity.get('m_hAbilities.0013');
-    unit.abilityHandles[14] = entity.get('m_hAbilities.0014');
-    unit.abilityHandles[15] = entity.get('m_hAbilities.0015');
-    unit.abilityHandles[16] = entity.get('m_hAbilities.0016');
+    if ('m_iTeamNum' in delta) {
+      unit.teamID = delta.m_iTeamNum;
+    }
+    if ('CBodyComponent.m_cellX' in delta) {
+      unit.position.cellX = delta['CBodyComponent.m_cellX'];
+    }
+    if ('CBodyComponent.m_cellY' in delta) {
+      unit.position.cellY = delta['CBodyComponent.m_cellY'];
+    }
+    if ('CBodyComponent.m_vecX' in delta) {
+      unit.position.vecX = delta['CBodyComponent.m_vecX'];
+    }
+    if ('CBodyComponent.m_vecY' in delta) {
+      unit.position.vecY = delta['CBodyComponent.m_vecY'];
+    }
+    if (hasRotation && 'CBodyComponent.m_angRotation' in delta) {
+      unit.rotation = delta['CBodyComponent.m_angRotation'][1];
+    }
+    if ('m_iCurrentLevel' in delta) {
+      unit.level = delta.m_iCurrentLevel;
+    }
+    if ('m_iHealth' in delta) {
+      unit.hp = delta.m_iHealth;
+    }
+    if ('m_iMaxHealth' in delta) {
+      unit.hpMax = delta.m_iMaxHealth;
+    }
+    if ('m_flMana' in delta) {
+      unit.mp = delta.m_flMana;
+    }
+    if ('m_flMaxMana' in delta) {
+      unit.mpMax = delta.m_flMaxMana;
+    }
+    if ('m_bIsWaitingToSpawn' in delta) {
+      unit.isWaitingToSpawn = delta.m_bIsWaitingToSpawn;
+    }
+
+    if ('m_hOwnerEntity' in delta) {
+      unit.ownerHandle = delta.m_hOwnerEntity;
+    }
+    if ('m_hAbilities.0000' in delta) {
+      unit.abilityHandles[0] = delta['m_hAbilities.0000'];
+    }
+    if ('m_hAbilities.0001' in delta) {
+      unit.abilityHandles[1] = delta['m_hAbilities.0001'];
+    }
+    if ('m_hAbilities.0002' in delta) {
+      unit.abilityHandles[2] = delta['m_hAbilities.0002'];
+    }
+    if ('m_hAbilities.0003' in delta) {
+      unit.abilityHandles[3] = delta['m_hAbilities.0003'];
+    }
+    if ('m_hAbilities.0004' in delta) {
+      unit.abilityHandles[4] = delta['m_hAbilities.0004'];
+    }
+    if ('m_hAbilities.0005' in delta) {
+      unit.abilityHandles[5] = delta['m_hAbilities.0005'];
+    }
+    if ('m_hAbilities.0006' in delta) {
+      unit.abilityHandles[6] = delta['m_hAbilities.0006'];
+    }
+    if ('m_hAbilities.0007' in delta) {
+      unit.abilityHandles[7] = delta['m_hAbilities.0007'];
+    }
+    if ('m_hAbilities.0008' in delta) {
+      unit.abilityHandles[8] = delta['m_hAbilities.0008'];
+    }
+    if ('m_hAbilities.0009' in delta) {
+      unit.abilityHandles[9] = delta['m_hAbilities.0009'];
+    }
+    if ('m_hAbilities.0010' in delta) {
+      unit.abilityHandles[10] = delta['m_hAbilities.0010'];
+    }
+    if ('m_hAbilities.0011' in delta) {
+      unit.abilityHandles[11] = delta['m_hAbilities.0011'];
+    }
+    if ('m_hAbilities.0012' in delta) {
+      unit.abilityHandles[12] = delta['m_hAbilities.0012'];
+    }
+    if ('m_hAbilities.0013' in delta) {
+      unit.abilityHandles[13] = delta['m_hAbilities.0013'];
+    }
+    if ('m_hAbilities.0014' in delta) {
+      unit.abilityHandles[14] = delta['m_hAbilities.0014'];
+    }
+    if ('m_hAbilities.0015' in delta) {
+      unit.abilityHandles[15] = delta['m_hAbilities.0015'];
+    }
+    if ('m_hAbilities.0016' in delta) {
+      unit.abilityHandles[16] = delta['m_hAbilities.0016'];
+    }
     return unit;
   }
 
-  processUnitWithInventory(entity, event, { class: klass = UnitWithInventory } = {}) {
-    const unit = this.processUnit(entity, event, { class: klass });
+  processUnitWithInventory(entity, delta, event, { class: klass = UnitWithInventory } = {}) {
+    const unit = this.processUnit(entity, delta, event, { class: klass });
     if (!unit) {
       // Deleted in the unit processor
       return null;
     }
-    unit.inventoryHandles[0] = entity.get('m_hItems.0000');
-    unit.inventoryHandles[1] = entity.get('m_hItems.0001');
-    unit.inventoryHandles[2] = entity.get('m_hItems.0002');
-    unit.inventoryHandles[3] = entity.get('m_hItems.0003');
-    unit.inventoryHandles[4] = entity.get('m_hItems.0004');
-    unit.inventoryHandles[5] = entity.get('m_hItems.0005');
+    if ('m_hItems.0000' in delta) {
+      unit.inventoryHandles[0] = delta['m_hItems.0000'];
+    }
+    if ('m_hItems.0001' in delta) {
+      unit.inventoryHandles[1] = delta['m_hItems.0001'];
+    }
+    if ('m_hItems.0002' in delta) {
+      unit.inventoryHandles[2] = delta['m_hItems.0002'];
+    }
+    if ('m_hItems.0003' in delta) {
+      unit.inventoryHandles[3] = delta['m_hItems.0003'];
+    }
+    if ('m_hItems.0004' in delta) {
+      unit.inventoryHandles[4] = delta['m_hItems.0004'];
+    }
+    if ('m_hItems.0005' in delta) {
+      unit.inventoryHandles[5] = delta['m_hItems.0005'];
+    }
     return unit;
   }
 }

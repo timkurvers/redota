@@ -398,7 +398,7 @@ class Parser extends Reader {
 
   onCSVCMsg_PacketEntities(msg) {
     const reader = new Reader(msg.entityData);
-    const changeset = [];
+    const changesets = [];
 
     let index = -1;
     let cmd;
@@ -406,6 +406,7 @@ class Parser extends Reader {
     let serial;
     let entity;
     let event;
+    let delta;
 
     if (!msg.isDelta) {
       if (this.entityFullPacketCount > 0) {
@@ -418,6 +419,7 @@ class Parser extends Reader {
       index += reader.readUBitVar() + 1;
       event = EntityEvent.NONE;
       cmd = reader.readBitInt(2);
+      delta = {};
 
       if ((cmd & 0x01) === 0) {
         if ((cmd & 0x02) !== 0) {
@@ -440,6 +442,7 @@ class Parser extends Reader {
           new Reader(baseline).readFieldsInto(entity.state, cls.serializer);
           reader.readFieldsInto(entity.state, cls.serializer);
           event = EntityEvent.CREATED | EntityEvent.ENTERED;
+          delta = entity.snapshot;
         } else {
           entity = this.entities.get(index);
           if (!entity) {
@@ -451,7 +454,7 @@ class Parser extends Reader {
             entity.active = true;
             event |= EntityEvent.ENTERED;
           }
-          reader.readFieldsInto(entity.state, entity.class.serializer);
+          delta = reader.readFieldsInto(entity.state, entity.class.serializer);
         }
       } else {
         entity = this.entities.get(index);
@@ -469,10 +472,9 @@ class Parser extends Reader {
           this.entities.delete(entity);
         }
       }
-      // TODO: Should changed field path values be exposed in this changeset?
-      changeset.push({ entity, event });
+      changesets.push({ entity, delta, event });
     }
-    this.emitter.emit('entities', changeset);
+    this.emitter.emit('entities', changesets);
   }
 
   updateInstanceBaseline() {

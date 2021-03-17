@@ -194,11 +194,16 @@ class Reader {
   // Reads fields into given state using given serializer
   readFieldsInto(state, serializer) {
     const fps = FieldPath.from(this);
+    const delta = {};
     for (const fp of fps) {
       const decoder = serializer.getDecoderForFieldPath(fp, 0);
       const value = decoder(this);
+      // TODO: This slows down raw parsing pretty significantly
+      const name = serializer.getNameForFieldPath(fp, 0).join('.');
       state.set(fp, value);
+      delta[name] = value;
     }
+    return delta;
   }
 
   // Reads given length string from buffer
