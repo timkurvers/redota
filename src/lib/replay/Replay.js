@@ -243,16 +243,16 @@ class Replay {
       game.phase = delta['m_pGameRules.m_nGameState'];
     }
     if ('m_pGameRules.m_flPreGameStartTime' in delta) {
-      game.preStartTime = delta['m_pGameRules.m_flPreGameStartTime'];
+      game.preStartTime = delta['m_pGameRules.m_flPreGameStartTime'] | 0;
     }
     if ('m_pGameRules.m_flGameStartTime' in delta) {
-      game.startTime = delta['m_pGameRules.m_flGameStartTime'];
+      game.startTime = delta['m_pGameRules.m_flGameStartTime'] | 0;
     }
     if ('m_pGameRules.m_flStateTransitionTime' in delta) {
-      game.stateTransitionTime = delta['m_pGameRules.m_flStateTransitionTime'];
+      game.stateTransitionTime = delta['m_pGameRules.m_flStateTransitionTime'] | 0;
     }
     if ('m_pGameRules.m_fGameTime' in delta) {
-      game.time = delta['m_pGameRules.m_fGameTime'];
+      game.time = delta['m_pGameRules.m_fGameTime'] | 0;
     }
   }
 

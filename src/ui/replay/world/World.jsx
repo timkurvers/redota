@@ -2,6 +2,7 @@ import React, {
   useCallback, useEffect, useRef, useState,
 } from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react-lite';
 
 import { useWindowDimensions } from '../../hooks/index.js';
 
@@ -26,7 +27,7 @@ const StyledWorld = styled.div`
   cursor: ${(props) => (props.dragging ? 'grabbing' : 'grab')};
 `;
 
-const World = (props) => {
+const World = observer((props) => {
   const {
     camera, isFreeCamera, selectedUnit, setFreeCamera, setSelection, units,
   } = props;
@@ -94,6 +95,6 @@ const World = (props) => {
       </Map>
     </StyledWorld>
   );
-};
+});
 
 export default World;

@@ -64,13 +64,12 @@ const ReplayView = observer(({ replay }) => {
         )}
         <Timeline
           playing={playing}
+          replay={replay}
           setPlaying={setPlaying}
-          tick={replay.tick}
-          lastTick={replay.lastTick}
           requestTick={requestTick}
         />
         <Topbar
-          clockTime={replay.game.clockTime}
+          game={replay.game}
           teams={replay.teams}
           setSelection={setSelection}
         />

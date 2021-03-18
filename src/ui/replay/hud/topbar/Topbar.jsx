@@ -20,7 +20,7 @@ const StyledTopbar = styled(HStack)`
 `;
 
 const Topbar = observer((props) => {
-  const { clockTime, setSelection, teams } = props;
+  const { game: { clockTime }, setSelection, teams } = props;
 
   const radiant = teams.byID.get(TEAM_RADIANT);
   const dire = teams.byID.get(TEAM_DIRE);

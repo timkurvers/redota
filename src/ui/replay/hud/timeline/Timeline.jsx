@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
@@ -35,11 +35,20 @@ const StyledTimeline = styled(HStack)`
 
 const Timeline = observer((props) => {
   const {
-    tick, lastTick, requestTick, playing, setPlaying,
+    playing, replay: { lastTick, tick }, requestTick, setPlaying,
   } = props;
+
+  const onTogglePlaying = useCallback(() => {
+    setPlaying(!playing);
+  }, [playing, setPlaying]);
+
+  const onSliderChange = useCallback((e) => {
+    requestTick(+e.target.value);
+  }, [requestTick]);
+
   return (
     <StyledTimeline>
-      <Button onClick={() => setPlaying(!playing)}>
+      <Button onClick={onTogglePlaying}>
         {!playing ? '►' : '❚❚'}
       </Button>
       <input
@@ -48,7 +57,7 @@ const Timeline = observer((props) => {
         max={lastTick}
         step={1}
         value={tick}
-        onChange={(e) => requestTick(+e.target.value)}
+        onChange={onSliderChange}
       />
       <div style={{ whiteSpace: 'nowrap' }}>
         <Time time={tick / 30} /> / <Time time={lastTick / 30} />
