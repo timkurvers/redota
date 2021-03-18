@@ -100,6 +100,15 @@ export default augment({
   npc_dota_eidolon: {
     name: 'Eidolon',
     model: 'models/heroes/enigma/eidelon.vmdl',
+    variants: [
+      'models/items/enigma/eidolon/absolute_zero_updated_eidolon/absolute_zero_updated_eidolon.vmdl',
+      'models/items/enigma/eidolon/artifacts_of_crushing_depths_eidolon_of_crushing_depths/artifacts_of_crushing_depths_eidolon_of_crushing_depths.vmdl',
+      'models/items/enigma/eidolon/enigma_seer_of_infinity_space_eidolon/enigma_seer_of_infinity_space_eidolon.vmdl',
+      'models/items/enigma/eidolon/geodesic/geodesic.vmdl',
+      'models/items/enigma/eidolon/life_cycle_life_cycle_eidolons/life_cycle_life_cycle_eidolons.vmdl',
+      'models/items/enigma/eidolon/tentacular_conqueror_tentacular_conqueror_eidolons/tentacular_conqueror_tentacular_conqueror_eidolons.vmdl',
+      'models/items/enigma/eidolon/ti9_cache_enigma_lord_of_luminaries_eidolons/ti9_cache_enigma_lord_of_luminaries_eidolons.vmdl',
+    ],
   },
 
   npc_dota_elder_titan_ancestral_spirit: {
@@ -110,16 +119,51 @@ export default augment({
   npc_dota_furion_treant: {
     name: 'Treant',
     model: 'models/heroes/furion/treant.vmdl',
+    variants: [
+      'models/items/furion/treant_flower_1.vmdl',
+      'models/items/furion/treant_stump.vmdl',
+      'models/items/furion/treant/abyssal_prophet_abyssal_prophet_treant/abyssal_prophet_abyssal_prophet_treant.vmdl',
+      'models/items/furion/treant/allfather_of_nature_treant/allfather_of_nature_treant.vmdl',
+      'models/items/furion/treant/defender_of_the_jungle_lakad_coconut/defender_of_the_jungle_lakad_coconut.vmdl',
+      'models/items/furion/treant/eternalseasons_treant/eternalseasons_treant.vmdl',
+      'models/items/furion/treant/father_treant/father_treant.vmdl',
+      'models/items/furion/treant/fungal_lord_shroomthing/fungal_lord_shroomthing.vmdl',
+      'models/items/furion/treant/furion_treant_nelum_red/furion_treant_nelum_red.vmdl',
+      'models/items/furion/treant/hallowed_horde/hallowed_horde.vmdl',
+      'models/items/furion/treant/primeval_treant/primeval_treant.vmdl',
+      'models/items/furion/treant/ravenous_woodfang/ravenous_woodfang.vmdl',
+      'models/items/furion/treant/shroomling_treant/shroomling_treant.vmdl',
+      'models/items/furion/treant/the_ancient_guardian_the_ancient_treants/the_ancient_guardian_the_ancient_treants.vmdl',
+      'models/items/furion/treant/treant_cis/treant_cis.vmdl',
+    ],
   },
 
   npc_dota_grimstroke_ink_creature: {
     name: 'Phantom',
     model: 'models/heroes/grimstroke/ink_phantom.vmdl',
+    variants: [
+      // No known skin variants for this unit
+    ],
   },
 
   npc_dota_gyrocopter_homing_missile: {
     name: 'Homing Missile',
     model: 'models/heroes/gyro/gyro_missile.vmdl',
+    variants: [
+      'models/items/gyrocopter/dwarven_gyrocopter_off_hand/dwarven_gyrocopter_off_hand.vmdl',
+      'models/items/gyrocopter/emerging_dragon_attack/emerging_dragon_attack.vmdl',
+      'models/items/gyrocopter/emerging_dragon/emerging_dragon.vmdl',
+      'models/items/gyrocopter/flamed_falcon_patrol_off_hand/flamed_falcon_patrol_off_hand.vmdl',
+      'models/items/gyrocopter/flying_dutchman_offhand/flying_dutchman_offhand.vmdl',
+      'models/items/gyrocopter/g17_flying_fortress_offhand/g17_flying_fortress_offhand.vmdl',
+      'models/items/gyrocopter/gyro_allied_commander_off_hand/gyro_allied_commander_off_hand.vmdl',
+      'models/items/gyrocopter/gyro_ti10_immortal_missile/gyro_ti10_immortal_missile.vmdl',
+      'models/items/gyrocopter/gyros_gift_copter_off_hand_bluesnow/gyros_gift_copter_off_hand_bluesnow.vmdl',
+      'models/items/gyrocopter/rainmaker_offhand/rainmaker_offhand.vmdl',
+      'models/items/gyrocopter/skyhigh_bomb_missle/skyhigh_bomb.vmdl',
+      'models/items/gyrocopter/submersible_aircraft_08_off_hand/submersible_aircraft_08_off_hand.vmdl',
+      'models/items/gyrocopter/ti8_gyro_digger_wasp_copter_off_hand/ti8_gyro_digger_wasp_copter_off_hand.vmdl',
+    ],
   },
 
   npc_dota_ignis_fatuus: {
@@ -135,6 +179,17 @@ export default augment({
   npc_dota_juggernaut_healing_ward: {
     name: 'Healing Ward',
     model: 'models/heroes/juggernaut/jugg_healing_ward.vmdl',
+    variants: [
+      'models/items/juggernaut/ward_foo.vmdl',
+      'models/items/juggernaut/ward/dc_wardupate/dc_wardupate.vmdl',
+      'models/items/juggernaut/ward/fall20_juggernaut_katz_ward/fall20_juggernaut_katz_ward.vmdl',
+      'models/items/juggernaut/ward/fortunes_tout/fortunes_tout.vmdl',
+      'models/items/juggernaut/ward/frostivus2018_jugg_northern_wanderer_ward/frostivus2018_jugg_northern_wanderer_ward.vmdl',
+      'models/items/juggernaut/ward/healing_gills_of_the_lost_isles/healing_gills_of_the_lost_isles.vmdl',
+      'models/items/juggernaut/ward/sinister_shadow_healing_cauldron/sinister_shadow_healing_cauldron.vmdl',
+      'models/items/juggernaut/ward/sinister_shadow_helloween_cauldron/sinister_shadow_helloween_cauldron.vmdl',
+      'models/items/juggernaut/ward/susano_os_descendant_healing_ward/susano_os_descendant_healing_ward.vmdl',
+    ],
   },
 
   npc_dota_lich_ice_spire: {
@@ -151,7 +206,13 @@ export default augment({
     name: 'Lycan Wolf',
     model: 'models/heroes/lycan/summon_wolves.vmdl',
     variants: [
+      'models/items/lycan/wolves/alpha_summon_01/alpha_summon_01.vmdl',
+      'models/items/lycan/wolves/ambry_summon/ambry_summon.vmdl',
+      'models/items/lycan/wolves/blood_moon_hunter_wolves/blood_moon_hunter_wolves.vmdl',
+      'models/items/lycan/wolves/frostivus2018_lycan_winter_snow_wolf_wolves/frostivus2018_lycan_winter_snow_wolf_wolves.vmdl',
       'models/items/lycan/wolves/hunter_kings_wolves/hunter_kings_wolves.vmdl',
+      'models/items/lycan/wolves/icewrack_pack/icewrack_pack.vmdl',
+      'models/items/lycan/wolves/mutant_exorcist_summon/mutant_exorcist_summon.vmdl',
     ],
   },
 
@@ -168,11 +229,29 @@ export default augment({
   npc_dota_phoenix_sun: {
     name: 'Phoenix Sun',
     model: 'models/heroes/phoenix/phoenix_egg.vmdl',
+    variants: [
+      'models/items/phoenix/ultimate/aristocratic_rebirth_supernova/aristocratic_rebirth_supernova.vmdl',
+      'models/items/phoenix/ultimate/blazing_wing_blazing_egg/blazing_wing_blazing_egg.vmdl',
+      'models/items/phoenix/ultimate/eye_of_the_sun_sun_pyramid/eye_of_the_sun_sun_pyramid.vmdl',
+      'models/items/phoenix/ultimate/golden_nirvana_golden_nirvana_nova/golden_nirvana_golden_nirvana_nova.vmdl',
+      'models/items/phoenix/ultimate/nirvana_spiritual_supernova/nirvana_spiritual_supernova.vmdl',
+      'models/items/phoenix/ultimate/ti8_phoenix_heart_of_volcano_egg/ti8_phoenix_heart_of_volcano_egg.vmdl',
+      'models/items/rubick/rubick_arcana/rubick_arcana_phoenix_egg.vmdl',
+    ],
   },
 
   npc_dota_pugna_nether_ward: {
     name: 'Nether Ward',
     model: 'models/heroes/pugna/pugna_ward.vmdl',
+    variants: [
+      'models/items/pugna/ward/dplus_battlemages_fury_ward/dplus_battlemages_fury_ward.vmdl',
+      'models/items/pugna/ward/nether_grandmasters_ward/nether_grandmasters_ward.vmdl',
+      'models/items/pugna/ward/nether_heart/nether_heart.vmdl',
+      'models/items/pugna/ward/nether_heart/nether_heart.vmdl',
+      'models/items/pugna/ward/tentaclesofnetherreach/tentaclesofnetherreach.vmdl',
+      'models/items/pugna/ward/tentaclesofnetherreach/tentaclesofnetherreach.vmdl',
+      'models/items/pugna/ward/weta_call_of_the_nether_lotus_ward/weta_call_of_the_nether_lotus_ward.vmdl',
+    ],
   },
 
   npc_dota_rattletrap_cog: {
@@ -193,6 +272,10 @@ export default augment({
   npc_dota_techies_land_mine: {
     name: 'Proximity Mine',
     model: 'models/heroes/techies/fx_techiesfx_mine.vmdl',
+    variants: [
+      'models/items/techies/bigshot/fx_bigshot_mine.vmdl',
+      'models/items/techies/techies_ti9_immortal_prox_mine/techies_ti9_immortal_prox_mine.vmdl',
+    ],
   },
 
   npc_dota_techies_minefield_sign: {
@@ -203,17 +286,32 @@ export default augment({
   npc_dota_techies_stasis_trap: {
     name: 'Stasis Trap',
     model: 'models/heroes/techies/fx_techiesfx_stasis.vmdl',
+    variants: [
+      'models/items/techies/bigshot/fx_bigshot_stasis.vmdl',
+    ],
   },
 
   npc_dota_techies_remote_mine: {
     name: 'Remote Mine',
     model: 'models/heroes/techies/fx_techies_remotebomb.vmdl',
+    variants: [
+      'models/heroes/techies/fx_techies_remotebomb_rubick.vmdl',
+      'models/items/techies/bigshot/bigshot_remotebomb.vmdl',
+      'models/items/techies/crazy_night_of_magic_mines/crazy_night_of_magic_mines.vmdl',
+      'models/items/techies/frostivus2018_techies_squad_penguins_bomb/frostivus2018_techies_squad_penguins_bomb.vmdl',
+      'models/items/techies/frostivus2018_techies_team_nutcracker_remote/frostivus2018_techies_team_nutcracker_remote.vmdl',
+      'models/items/techies/techies_ti9_immortal_remote_mine/techies_ti9_immortal_remote_mine.vmdl',
+      'models/items/techies/ti8_techies_subterranean_sapper_squad_bomb/ti8_techies_subterranean_sapper_squad_bomb.vmdl',
+    ],
   },
 
   npc_dota_templar_assassin_psionic_trap: {
     name: 'Psionic Trap',
     // Visual model: models/heroes/lanaya/lanaya_trap_crystal.vmdl
     model: 'models/heroes/lanaya/lanaya_trap_crystal_invis.vmdl',
+    variants: [
+      // No known skin variants for this unit
+    ],
   },
 
   npc_dota_tusk_frozen_sigil: {
@@ -259,6 +357,9 @@ export default augment({
   npc_dota_weaver_swarm: {
     name: 'Beetle',
     model: 'models/heroes/weaver/weaver_bug.vmdl',
+    variants: [
+      'models/items/weaver/weaver_immortal_head_ti7/weaver_bug_ti7.vmdl',
+    ],
   },
 
   npc_dota_witch_doctor_death_ward: {
