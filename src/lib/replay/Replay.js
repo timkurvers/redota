@@ -201,8 +201,8 @@ class Replay {
     if (ability && event & EntityEvent.DELETED) {
       this.abilities.delete(ability);
     }
-    if ('m_flCooldown' in delta) {
-      ability.cooldown.value = delta.m_flCooldown;
+    if ('m_fCooldown' in delta) {
+      ability.cooldown.value = delta.m_fCooldown;
     }
     if ('m_flCooldownLength' in delta) {
       ability.cooldown.duration = delta.m_flCooldownLength;
