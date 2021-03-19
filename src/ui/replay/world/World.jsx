@@ -48,6 +48,8 @@ const World = observer((props) => {
     }));
   }, [setFreeCamera, viewport]);
 
+  const onDoubleClick = useCallback((e) => e.preventDefault(), []);
+
   const onMouseDown = useCallback((e) => {
     e.preventDefault();
     if (!isFreeCamera) return;
@@ -75,7 +77,7 @@ const World = observer((props) => {
   return (
     <StyledWorld
       dragging={dragging}
-      onDoubleClick={(e) => e.preventDefault()}
+      onDoubleClick={onDoubleClick}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
       onMouseMove={onMouseMove}
