@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import ActiveFilter from './ActiveFilter.jsx';
 
-const StyledText = styled.span`
+const StyledCooldownText = styled.span`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -16,7 +16,9 @@ const Cooldown = (props) => {
   const isCoolingDown = remaining > 0;
   return (
     <>
-      {isCoolingDown && <StyledText>{Math.ceil(remaining)}</StyledText>}
+      {isCoolingDown && (
+        <StyledCooldownText>{Math.ceil(remaining)}</StyledCooldownText>
+      )}
       <ActiveFilter active={!isCoolingDown}>
         {children}
       </ActiveFilter>
@@ -25,3 +27,4 @@ const Cooldown = (props) => {
 };
 
 export default Cooldown;
+export { StyledCooldownText };

@@ -1,25 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react-lite';
 
-import { UnitOrHeroResource } from '../../../components/index.js';
+import {
+  ActiveFilter, Cooldown, UnitOrHeroResource, StyledCooldownText,
+} from '../../../components/index.js';
 
 const StyledPortrait = styled.div`
+  position: relative;
   width: 138px;
   cursor: pointer;
 
   img {
     width: 138px;
   }
+
+  ${StyledCooldownText} {
+    font-size: 2em;
+  }
 `;
 
-const Portrait = (props) => {
+const Portrait = observer((props) => {
   const { onClick, unit } = props;
+  const { isDead, respawnCooldown } = unit;
+
+  const resource = <UnitOrHeroResource unit={unit} variant="portrait" />;
+  const children = respawnCooldown ? (
+    <Cooldown remaining={respawnCooldown.remaining}>{resource}</Cooldown>
+  ) : (
+    <ActiveFilter active={!isDead}>{resource}</ActiveFilter>
+  );
   return (
     <StyledPortrait onClick={onClick}>
-      <UnitOrHeroResource unit={unit} variant="portrait" />
+      {children}
     </StyledPortrait>
   );
-};
+});
 
-export default React.memo(Portrait);
+export default Portrait;
 export { StyledPortrait };

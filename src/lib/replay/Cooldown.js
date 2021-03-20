@@ -5,7 +5,7 @@ class Cooldown {
     this.replay = replay;
 
     this.value = 0;
-    this.duration = 0;
+    this.duration = null;
 
     makeObservable(this, {
       value: observable,
@@ -16,7 +16,7 @@ class Cooldown {
   }
 
   get remaining() {
-    if (this.value <= this.duration) {
+    if (this.duration === null || this.value <= this.duration) {
       return this.value;
     }
     // Older replays store cooldown in absolute game time

@@ -394,6 +394,9 @@ class Replay {
       if (`${tprefix}.m_iAssists` in delta) {
         player.assists = delta[`${tprefix}.m_iAssists`];
       }
+      if (`${tprefix}.m_iRespawnSeconds` in delta) {
+        player.respawnCooldown.value = delta[`${tprefix}.m_iRespawnSeconds`];
+      }
     }
   }
 

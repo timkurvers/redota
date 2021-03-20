@@ -29,6 +29,7 @@ class Hero extends UnitWithInventory {
       backpack: computed,
       neutralItem: computed,
       player: computed,
+      respawnCooldown: computed,
       stash: computed,
       teleportScroll: computed,
     });
@@ -59,6 +60,10 @@ class Hero extends UnitWithInventory {
 
   get refname() {
     return this.internalName;
+  }
+
+  get respawnCooldown() {
+    return this.player?.respawnCooldown;
   }
 
   get stash() {

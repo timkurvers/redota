@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import {
-  ActiveFilter, Bar, HeroResource, PlayerColor,
+  Bar, Cooldown, HeroResource, PlayerColor,
 } from '../../../components/index.js';
 
 const StyledHeroListEntry = styled.div`
+  position: relative;
   cursor: pointer;
   margin-left: 1px;
 
@@ -18,16 +19,16 @@ const StyledHeroListEntry = styled.div`
 const HeroListEntry = observer((props) => {
   const { hero, onClick } = props;
   const {
-    color, isDead, hp, hpMax, mp, mpMax, refname, teamID,
+    color, hp, hpMax, mp, mpMax, refname, respawnCooldown, teamID,
   } = hero;
   return (
     <StyledHeroListEntry onClick={onClick}>
       <PlayerColor color={color} />
-      <ActiveFilter active={!isDead}>
+      <Cooldown remaining={respawnCooldown.remaining}>
         <HeroResource refname={refname} variant="landscape" />
         <Bar type="health" size="mini" value={hp} max={hpMax} teamID={teamID} />
         <Bar type="mana" size="mini" value={mp} max={mpMax} />
-      </ActiveFilter>
+      </Cooldown>
     </StyledHeroListEntry>
   );
 });

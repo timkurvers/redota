@@ -58,7 +58,7 @@ const Selection = observer((props) => {
   // TODO: This is mightily inefficient as abilities, backpack etc. get computed
   // anew when any of these properties change.
   const {
-    handle, isDead, name, refname, hp, hpMax, mp, mpMax, level, teamID, xp,
+    handle, name, refname, hp, hpMax, mp, mpMax, level, teamID, xp,
     abilities, backpack, inventory, neutralItem, teleportScroll,
   } = unit;
 
@@ -73,9 +73,7 @@ const Selection = observer((props) => {
       {isHero && (
         <Level xp={xp}>{level}</Level>
       )}
-      <ActiveFilter active={!isDead}>
-        <Portrait unit={unit} onClick={onUnitSelect} />
-      </ActiveFilter>
+      <Portrait unit={unit} onClick={onUnitSelect} />
       <StyledCenter>
         <Abilities abilities={abilities} />
         <Bar type="health" value={hp} max={hpMax} teamID={teamID} />

@@ -6,10 +6,11 @@ import {
 } from '../../constants.js';
 
 import Entity from './Entity.js';
+import Cooldown from '../Cooldown.js';
 
 class Player extends Entity {
-  constructor(...args) {
-    super(...args);
+  constructor(replay, ...args) {
+    super(replay, ...args);
 
     this.id = null;
     this.name = null;
@@ -23,6 +24,7 @@ class Player extends Entity {
     this.isBroadcaster = false;
 
     this.camera = new Camera();
+    this.respawnCooldown = new Cooldown(replay);
 
     makeObservable(this, {
       id: observable,
@@ -37,6 +39,7 @@ class Player extends Entity {
       isBroadcaster: observable,
 
       camera: observable,
+      respawnCooldown: observable,
 
       color: computed,
       hero: computed,
