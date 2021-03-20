@@ -28,7 +28,8 @@ class Team extends Entity {
   }
 
   get players() {
-    return this.replay.players.filter((p) => p.teamID === this.id);
+    const players = this.replay.players.filter((p) => p.teamID === this.id);
+    return players.sort((a, b) => a.id - b.id);
   }
 
   get units() {
