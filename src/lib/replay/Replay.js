@@ -351,6 +351,9 @@ class Replay {
     if ('m_iTeamNum' in delta) {
       player.teamID = delta.m_iTeamNum;
     }
+
+    // TODO: Handle player unit selection (m_hSpectatorQueryUnit)
+
     if ('CBodyComponent.m_cellX' in delta) {
       player.camera.position.cellX = delta['CBodyComponent.m_cellX'];
     }
