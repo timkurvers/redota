@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import {
-  ActiveFilter, Bar, HStack, Level, StyledLevel, VStack,
+  Bar, HStack, Level, StyledLevel, VStack,
 } from '../../../components/index.js';
 import { Hero } from '../../../../lib/replay/entities/index.js';
 
