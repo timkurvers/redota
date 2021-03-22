@@ -93,7 +93,11 @@ const Unit = observer((props) => {
       onClick={() => onClick(handle)}
       selected={selected}
       size={isHero ? 'large' : 'default'}
-      style={{ left: `${relX * 100}%`, bottom: `${relY * 100}%` }}
+      style={{
+        left: `${relX * 100}%`,
+        bottom: `${relY * 100}%`,
+        zIndex: isHero ? 2 : 1,
+      }}
     >
       <Arrowhead selected={selected} unit={unit} />
       <UnitOrHeroResource unit={unit} variant="icon" />
