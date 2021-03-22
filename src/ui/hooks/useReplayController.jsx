@@ -6,7 +6,7 @@ import useInterval from './useInterval.jsx';
 
 const useReplayController = (replay) => {
   const [freeCamera, setFreeCamera] = useState({
-    x: 0, y: 0, width: 0, height: 0,
+    relX: 0, relY: 0, width: 0, height: 0,
   });
   const [cameraID, setCameraID] = useState(-1);
   const [playing, setPlaying] = useState(false);
