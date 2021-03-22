@@ -35,6 +35,45 @@ const StyledUnit = styled(ActiveFilter)`
   }
 `;
 
+const StyledArrowhead = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -15px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 15px solid currentColor;
+    transform: translate(0, -50%);
+  }
+`;
+
+const Arrowhead = observer((props) => {
+  const { selected, unit } = props;
+  let { color, rotation } = unit;
+  if (rotation === null) {
+    return null;
+  }
+  if (selected) {
+    color = 'white';
+  }
+  // Valve's QAngle orientation is counter-clockwise
+  rotation *= -1;
+  return (
+    <StyledArrowhead
+      style={{ color, transform: `rotate(${rotation}deg` }}
+    />
+  );
+});
+
 const Unit = observer((props) => {
   const { onClick, selected, unit } = props;
   const {
@@ -56,6 +95,7 @@ const Unit = observer((props) => {
       size={isHero ? 'large' : 'default'}
       style={{ left: `${relX * 100}%`, bottom: `${relY * 100}%` }}
     >
+      <Arrowhead selected={selected} unit={unit} />
       <UnitOrHeroResource unit={unit} variant="icon" />
       {isHero && (
         <Level xp={unit.xp} size="small">{unit.level}</Level>
