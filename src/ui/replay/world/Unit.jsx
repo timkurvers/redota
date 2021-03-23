@@ -89,6 +89,7 @@ const Unit = observer((props) => {
   }
 
   const isHero = unit instanceof Hero;
+  const zIndex = selected ? 3 : (isHero ? 2 : 1);
   return (
     <StyledUnit
       active={!isDead}
@@ -100,7 +101,7 @@ const Unit = observer((props) => {
       style={{
         left: `${relX * 100}%`,
         bottom: `${relY * 100}%`,
-        zIndex: isHero ? 2 : 1,
+        zIndex,
       }}
     >
       <Arrowhead selected={selected} unit={unit} />
