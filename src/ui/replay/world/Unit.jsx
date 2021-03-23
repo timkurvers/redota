@@ -23,6 +23,7 @@ const StyledUnit = styled(ActiveFilter)`
   position: absolute;
   transform: translate(-50%, 50%);
   background: ${(props) => props.color}AA;
+  box-shadow: 1px 1px 1px #111;
   cursor: pointer;
 
   img {
@@ -48,12 +49,12 @@ const StyledArrowhead = styled.div`
     content: '';
     position: absolute;
     top: 50%;
-    right: -15px;
+    right: -12px;
     width: 0;
     height: 0;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
-    border-left: 15px solid currentColor;
+    border-left: 12px solid currentColor;
     transform: translate(0, -50%);
   }
 `;
