@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
@@ -75,10 +75,14 @@ const Arrowhead = observer((props) => {
 });
 
 const Unit = observer((props) => {
-  const { onClick, selected, unit } = props;
+  const { selected, setSelection, unit } = props;
   const {
     color, handle, isDead, isWaitingToSpawn, position: { relX, relY },
   } = unit;
+
+  const onClick = useCallback(() => {
+    setSelection(handle);
+  }, [handle, setSelection]);
 
   if (isWaitingToSpawn) {
     return null;
@@ -90,7 +94,7 @@ const Unit = observer((props) => {
       active={!isDead}
       translucentWhenInactive
       color={color}
-      onClick={() => onClick(handle)}
+      onClick={onClick}
       selected={selected}
       size={isHero ? 'large' : 'default'}
       style={{

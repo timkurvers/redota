@@ -91,7 +91,7 @@ const World = observer((props) => {
             key={unit.handle}
             unit={unit}
             selected={selectedUnit === unit}
-            onClick={setSelection}
+            setSelection={setSelection}
           />
         ))}
       </Map>

@@ -20,7 +20,7 @@ const HeroList = observer((props) => {
         <HeroListEntry
           key={hero.handle}
           hero={hero}
-          onClick={() => setSelection(hero.handle)}
+          setSelection={setSelection}
         />
       ))}
     </StyledHeroList>

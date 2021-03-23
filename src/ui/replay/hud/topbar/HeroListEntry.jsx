@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
@@ -17,10 +17,15 @@ const StyledHeroListEntry = styled.div`
 `;
 
 const HeroListEntry = observer((props) => {
-  const { hero, onClick } = props;
+  const { hero, setSelection } = props;
   const {
-    color, hp, hpMax, mp, mpMax, refname, respawnCooldown, teamID,
+    color, handle, hp, hpMax, mp, mpMax, refname, respawnCooldown, teamID,
   } = hero;
+
+  const onClick = useCallback(() => {
+    setSelection(handle);
+  }, [handle, setSelection]);
+
   return (
     <StyledHeroListEntry onClick={onClick}>
       <PlayerColor color={color} />
