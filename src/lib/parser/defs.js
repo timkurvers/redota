@@ -5,6 +5,7 @@ import defs from '../../../dota/compiled.cjs';
 const { dota } = defs;
 
 export const {
+  CDemoFileInfo,
   CSVCMsg_FlattenedSerializer,
   EDemoCommands,
 } = dota;

@@ -17,6 +17,7 @@ import {
 } from './model/index.js';
 import { IndexedCollection } from '../utils/index.js';
 import {
+  CDemoFileInfo,
   CSVCMsg_FlattenedSerializer,
   EDemoCommands,
   commandToTypeMapping,
@@ -78,14 +79,28 @@ class Parser extends Reader {
   }
 
   get lastTick() {
+    return this.summary.playbackTicks;
+  }
+
+  get summary() {
     const { pos } = this;
     this.pos = MAGIC_SOURCE_2.length;
-    // Jump to the position of CDemoFileInfo message in replay
+    // Temporarily jump to the position of CDemoFileInfo message in replay
     this.pos = this.readUint32LE();
+
+    // Could re-use step() or seek() here, but to avoid impacting playback
+    // performance on the parser hot path, we duplicate the decoding routine
+    const cmd = this.readVarUint32();
     this.readVarUint32();
-    const lastTick = this.readVarUint32();
+    const size = this.readVarUint32();
+    let data = this.readBytes(size);
+    const compressed = (cmd & EDemoCommands.DEM_IsCompressed) === EDemoCommands.DEM_IsCompressed;
+    if (compressed) {
+      data = snappy.uncompress(data);
+    }
+    const summary = CDemoFileInfo.decode(data);
     this.pos = pos;
-    return lastTick;
+    return summary;
   }
 
   on(...args) {

@@ -27,6 +27,7 @@ if (level === 'high') {
 } else if (level === 'low') {
   parser = new Parser(buffer);
 }
+console.log('summary', parser.summary);
 
 parser.on('msg:CDemoFileHeader', (msg) => {
   console.log('header', msg);
