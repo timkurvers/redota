@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+
 import React, { useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import { observer } from 'mobx-react-lite';
