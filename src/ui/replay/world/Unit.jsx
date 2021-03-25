@@ -12,13 +12,18 @@ import { Hero } from '../../../lib/replay/entities/index.js';
 const StyledUnit = styled(ActiveFilter)`
   width: 32px;
   height: 32px;
-  ${(props) => props.size === 'large' && css`
-    padding: 10px;
-  `}
   border-radius: 50%;
+  ${(props) => props.type === 'hero' && css`
+    padding: 10px;
+    z-index: 2;
+  `}
+  ${(props) => props.type === 'building' && css`
+    padding: 5px;
+  `}
   border: 3px solid ${(props) => props.color}DD;
   ${(props) => props.selected && css`
     border-color: white;
+    z-index: 3;
   `}
   position: absolute;
   transform: translate(-50%, 50%);
@@ -92,7 +97,6 @@ const Unit = observer((props) => {
   }
 
   const isHero = unit instanceof Hero;
-  const zIndex = selected ? 3 : (isHero ? 2 : 1);
   return (
     <StyledUnit
       active={!isDead}
@@ -100,12 +104,11 @@ const Unit = observer((props) => {
       color={color}
       onClick={onClick}
       selected={selected}
-      size={isHero ? 'large' : 'default'}
       style={{
         left: `${relX * 100}%`,
         bottom: `${relY * 100}%`,
-        zIndex,
       }}
+      type={unit.type}
     >
       <Arrowhead selected={selected} unit={unit} />
       <UnitOrHeroResource unit={unit} variant="icon" />
