@@ -9,7 +9,7 @@ import { ObservableIndexedCollection } from '../utils/index.js';
 
 import Game from './Game.js';
 import {
-  Ability, Courier, Hero, Item, Player, Team, Unit, UnitWithInventory,
+  Ability, Building, Courier, Hero, Item, Player, Team, Unit, UnitWithInventory,
 } from './entities/index.js';
 
 const processorByClass = {
@@ -219,7 +219,7 @@ class Replay {
   }
 
   processBuilding(entity, delta, event) {
-    return this.processUnit(entity, delta, event, { hasRotation: false });
+    return this.processUnit(entity, delta, event, { class: Building, hasRotation: false });
   }
 
   processCourier(entity, delta, event) {
