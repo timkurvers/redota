@@ -5,6 +5,7 @@ import UnitWithInventory from './UnitWithInventory.js';
 class Courier extends UnitWithInventory {
   constructor(...args) {
     super(...args);
+    this.type = 'courier';
 
     this.isFlying = false;
 

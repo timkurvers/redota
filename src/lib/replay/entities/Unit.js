@@ -9,6 +9,7 @@ import Entity from './Entity.js';
 class Unit extends Entity {
   constructor(...args) {
     super(...args);
+    this.type = 'unit';
 
     this.modelID = null;
     this.teamID = null;

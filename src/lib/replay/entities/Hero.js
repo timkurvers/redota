@@ -8,6 +8,7 @@ import UnitWithInventory from './UnitWithInventory.js';
 class Hero extends UnitWithInventory {
   constructor(...args) {
     super(...args);
+    this.type = 'hero';
 
     this.playerID = -1;
     this.xp = 0;

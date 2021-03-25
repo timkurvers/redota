@@ -5,7 +5,6 @@ class Entity {
     this.replay = replay;
     this.entity = entity;
     this.internalName = internalName;
-    this.type = this.constructor.name.toLowerCase();
 
     makeObservable(this, {
       refname: computed,
