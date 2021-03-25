@@ -1,7 +1,3 @@
-syntax = "proto2";
-
-package dota;
-
 option optimize_for = SPEED;
 option cc_generic_services = false;
 
@@ -11,7 +7,7 @@ enum EDotaBroadcastMessages {
 }
 
 message CDOTABroadcastMsg {
-	required EDotaBroadcastMessages type = 1 [default = DOTA_BM_LANLobbyRequest];
+	required .EDotaBroadcastMessages type = 1 [default = DOTA_BM_LANLobbyRequest];
 	optional bytes msg = 2;
 }
 
@@ -27,7 +23,7 @@ message CDOTABroadcastMsg_LANLobbyReply {
 	optional uint64 id = 1;
 	optional uint32 tournament_id = 2;
 	optional uint32 tournament_game_id = 3;
-	repeated CDOTABroadcastMsg_LANLobbyReply.CLobbyMember members = 4;
+	repeated .CDOTABroadcastMsg_LANLobbyReply.CLobbyMember members = 4;
 	optional bool requires_pass_key = 5;
 	optional uint32 leader_account_id = 6;
 	optional uint32 game_mode = 7;

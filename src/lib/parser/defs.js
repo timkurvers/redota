@@ -2,13 +2,11 @@
 
 import defs from '../../../dota/compiled.cjs';
 
-const { dota } = defs;
-
 export const {
   CDemoFileInfo,
   CSVCMsg_FlattenedSerializer,
   EDemoCommands,
-} = dota;
+} = defs;
 
 const {
   CDemoPacket,
@@ -29,12 +27,12 @@ const {
   EDotaUserMessages,
   NET_Messages,
   SVC_Messages,
-} = dota;
+} = defs;
 
 const mapping = (enumeration, search, replace, lookup = {}) => {
   for (const [name, value] of Object.entries(enumeration)) {
     const fnname = name.replace(search, replace);
-    const type = dota[fnname];
+    const type = defs[fnname];
     if (type) {
       lookup[value] = [type, fnname];
     }

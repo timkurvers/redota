@@ -1,7 +1,3 @@
-syntax = "proto2";
-
-package dota;
-
 import "netmessages.proto";
 
 option cc_generic_services = false;
@@ -13,7 +9,7 @@ message C2S_CONNECT_Message {
 	optional fixed64 reservation_cookie = 4;
 	optional bool low_violence = 5;
 	optional bytes encrypted_password = 6;
-	repeated CCLCMsg_SplitPlayerConnect splitplayers = 7;
+	repeated .CCLCMsg_SplitPlayerConnect splitplayers = 7;
 	optional bytes auth_steam = 8;
 	optional string challenge_context = 9;
 	optional sint32 use_snp = 10;

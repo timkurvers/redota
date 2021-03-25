@@ -1,7 +1,3 @@
-syntax = "proto2";
-
-package dota;
-
 import "networkbasetypes.proto";
 import "dota_shared_enums.proto";
 import "dota_commonmessages.proto";
@@ -141,6 +137,22 @@ enum EDotaUserMessages {
 	DOTA_UM_FoundNeutralItem = 593;
 	DOTA_UM_OutpostCaptured = 594;
 	DOTA_UM_OutpostGrantedXP = 595;
+	DOTA_UM_MoveCameraToUnit = 596;
+	DOTA_UM_PauseMinigameData = 597;
+	DOTA_UM_VersusScene_PlayerBehavior = 598;
+	DOTA_UM_QoP_ArcanaSummary = 600;
+	DOTA_UM_HotPotato_Created = 601;
+	DOTA_UM_HotPotato_Exploded = 602;
+	DOTA_UM_WK_Arcana_Progress = 603;
+	DOTA_UM_GuildChallenge_Progress = 604;
+	DOTA_UM_WRArcanaProgress = 605;
+	DOTA_UM_WRArcanaSummary = 606;
+	DOTA_UM_EmptyItemSlotAlert = 607;
+	DOTA_UM_AghsStatusAlert = 608;
+	DOTA_UM_PingConfirmation = 609;
+	DOTA_UM_MutedPlayers = 610;
+	DOTA_UM_ContextualTip = 611;
+	DOTA_UM_ChatMessage = 612;
 }
 
 enum DOTA_CHAT_MESSAGE {
@@ -244,6 +256,11 @@ enum DOTA_CHAT_MESSAGE {
 	CHAT_MESSAGE_SENTRY_WARD_KILLED = 106;
 	CHAT_MESSAGE_ITEM_PLACED_IN_NEUTRAL_STASH = 107;
 	CHAT_MESSAGE_HERO_CHOICE_INVALID = 108;
+	CHAT_MESSAGE_BOUNTY = 109;
+	CHAT_MESSAGE_ABILITY_DRAFT_START = 110;
+	CHAT_MESSAGE_HERO_FOUND_CANDY = 111;
+	CHAT_MESSAGE_ABILITY_DRAFT_RANDOMED = 112;
+	CHAT_MESSAGE_PRIVATE_COACH_CONNECTED = 113;
 }
 
 enum DOTA_NO_BATTLE_POINTS_REASONS {
@@ -284,6 +301,8 @@ enum DOTA_REPLAY_STATE_EVENT {
 	DOTA_REPLAY_STATE_EVENT_STARTING_HORN = 2;
 	DOTA_REPLAY_STATE_EVENT_FIRST_BLOOD = 3;
 	DOTA_REPLAY_STATE_EVENT_SHOWCASE = 4;
+	DOTA_REPLAY_STATE_EVENT_POST_GAME = 5;
+	DOTA_REPLAY_STATE_EVENT_WAIT_FOR_MAP = 6;
 }
 
 enum EDotaEntityMessages {
@@ -319,6 +338,9 @@ enum DOTA_OVERHEAD_ALERT {
 	OVERHEAD_ALERT_DISABLE_RESIST = 19;
 	OVERHEAD_ALERT_DEATH = 20;
 	OVERHEAD_ALERT_BLOCKED = 21;
+	OVERHEAD_ALERT_ITEM_RECEIVED = 22;
+	OVERHEAD_ALERT_SHARD = 23;
+	OVERHEAD_ALERT_DEADLY_BLOW = 24;
 }
 
 enum DOTA_ROSHAN_PHASE {
@@ -389,6 +411,7 @@ enum EPlayerVoiceListenState {
 	kPVLS_DeniedHLTVTalkerNotBroadcaster = 5;
 	kPVLS_DeniedTeamSpectator = 6;
 	kPVLS_DeniedStudent = 8;
+	kPVLS_DeniedPrivateCoach = 9;
 	kPVLS_Denied = 64;
 	kPVLS_AllowHLTVTalkerIsBroadcaster = 65;
 	kPVLS_AllowCoBroadcaster = 66;
@@ -399,6 +422,7 @@ enum EPlayerVoiceListenState {
 	kPVLS_AllowCoachHearTeam = 71;
 	kPVLS_AllowSameTeam = 72;
 	kPVLS_AllowShowcase = 73;
+	kPVLS_AllowPrivateCoach = 74;
 }
 
 enum EProjectionEvent {
@@ -420,7 +444,7 @@ message CDOTAUserMsg_SwapVerify {
 }
 
 message CDOTAUserMsg_ChatEvent {
-	required DOTA_CHAT_MESSAGE type = 1 [default = CHAT_MESSAGE_INVALID];
+	required .DOTA_CHAT_MESSAGE type = 1 [default = CHAT_MESSAGE_INVALID];
 	optional uint32 value = 2;
 	optional sint32 playerid_1 = 3 [default = -1];
 	optional sint32 playerid_2 = 4 [default = -1];
@@ -442,12 +466,12 @@ message CDOTAUserMsg_BotChat {
 message CDOTAUserMsg_CombatHeroPositions {
 	optional uint32 index = 1;
 	optional int32 time = 2;
-	optional CMsgVector2D world_pos = 3;
+	optional .CMsgVector2D world_pos = 3;
 	optional int32 health = 4;
 }
 
 message CDOTAUserMsg_CombatLogBulkData {
-	repeated CMsgDOTACombatLogEntry combat_entries = 1;
+	repeated .CMsgDOTACombatLogEntry combat_entries = 1;
 	optional float timestamp = 2;
 	optional float duration = 3;
 	optional uint32 player_id = 4;
@@ -462,11 +486,11 @@ message CDOTAUserMsg_MiniKillCamInfo {
 
 		optional uint32 attacker = 1;
 		optional int32 total_damage = 2;
-		repeated CDOTAUserMsg_MiniKillCamInfo.Attacker.Ability abilities = 3;
+		repeated .CDOTAUserMsg_MiniKillCamInfo.Attacker.Ability abilities = 3;
 		optional string attacker_name = 4;
 	}
 
-	repeated CDOTAUserMsg_MiniKillCamInfo.Attacker attackers = 1;
+	repeated .CDOTAUserMsg_MiniKillCamInfo.Attacker attackers = 1;
 }
 
 message CDOTAUserMsg_GlobalLightColor {
@@ -475,18 +499,25 @@ message CDOTAUserMsg_GlobalLightColor {
 }
 
 message CDOTAUserMsg_GlobalLightDirection {
-	optional CMsgVector direction = 1;
+	optional .CMsgVector direction = 1;
 	optional float duration = 2;
 }
 
 message CDOTAUserMsg_LocationPing {
 	optional uint32 player_id = 1;
-	optional CDOTAMsg_LocationPing location_ping = 2;
+	optional .CDOTAMsg_LocationPing location_ping = 2;
+}
+
+message CDOTAUserMsg_PingConfirmation {
+	optional uint32 player_id_of_original_pinger = 1;
+	optional uint32 entity_index = 2;
+	optional uint32 icon_type = 3;
+	optional .CMsgVector location = 4;
 }
 
 message CDOTAUserMsg_ItemAlert {
 	optional uint32 player_id = 1;
-	optional CDOTAMsg_ItemAlert item_alert = 2;
+	optional .CDOTAMsg_ItemAlert item_alert = 2;
 }
 
 message CDOTAUserMsg_EnemyItemAlert {
@@ -545,7 +576,7 @@ message CDOTAUserMsg_MarsArenaOfBloodAttack {
 }
 
 message CDOTAEntityMsg_InvokerSpellCast {
-	optional CEntityMsg entity_msg = 1;
+	optional .CEntityMsg entity_msg = 1;
 	optional int32 cast_activity = 2;
 }
 
@@ -571,7 +602,7 @@ message CDOTAUserMsg_CourierKilledAlert {
 	optional uint32 gold_value = 2;
 	optional int32 entity_handle = 3;
 	optional int32 timestamp = 4;
-	repeated CDOTAUserMsg_CourierKilledAlert.LostItem lost_items = 5;
+	repeated .CDOTAUserMsg_CourierKilledAlert.LostItem lost_items = 5;
 	optional int32 killer_player_id = 6;
 	optional int32 owning_player_id = 7;
 }
@@ -587,11 +618,11 @@ message CDOTAUserMsg_MinimapEvent {
 
 message CDOTAUserMsg_MapLine {
 	optional int32 player_id = 1;
-	optional CDOTAMsg_MapLine mapline = 2;
+	optional .CDOTAMsg_MapLine mapline = 2;
 }
 
 message CDOTAUserMsg_MinimapDebugPoint {
-	optional CMsgVector location = 1;
+	optional .CMsgVector location = 1;
 	optional uint32 color = 2;
 	optional int32 size = 3;
 	optional float duration = 4;
@@ -599,12 +630,12 @@ message CDOTAUserMsg_MinimapDebugPoint {
 }
 
 message CDOTAUserMsg_CreateLinearProjectile {
-	optional CMsgVector origin = 1;
-	optional CMsgVector2D velocity = 2;
+	optional .CMsgVector origin = 1;
+	optional .CMsgVector2D velocity = 2;
 	optional int32 entindex = 4;
 	optional uint64 particle_index = 5;
 	optional int32 handle = 6;
-	optional CMsgVector2D acceleration = 7;
+	optional .CMsgVector2D acceleration = 7;
 	optional float max_speed = 8;
 	optional float fow_radius = 9;
 	optional bool sticky_fow_reveal = 10;
@@ -633,7 +664,7 @@ message CDOTAUserMsg_SpectatorPlayerUnitOrders {
 	repeated int32 units = 3;
 	optional int32 target_index = 4;
 	optional int32 ability_id = 5;
-	optional CMsgVector position = 6;
+	optional .CMsgVector position = 6;
 	optional bool queue = 7;
 	optional int32 sequence_number = 8;
 	optional uint32 flags = 9;
@@ -642,7 +673,7 @@ message CDOTAUserMsg_SpectatorPlayerUnitOrders {
 message CDOTAUserMsg_NevermoreRequiem {
 	optional int32 entity_handle = 1;
 	optional int32 lines = 2;
-	optional CMsgVector origin = 3;
+	optional .CMsgVector origin = 3;
 	optional bool reverse = 4;
 }
 
@@ -681,14 +712,14 @@ message CDOTAUserMsg_PredictionResult {
 		optional uint32 item_def = 1;
 		optional uint32 num_correct = 2;
 		optional uint32 num_fails = 3;
-		optional CDOTAUserMsg_PredictionResult.Prediction.EResult result = 4 [default = k_eResult_ItemGranted];
+		optional .CDOTAUserMsg_PredictionResult.Prediction.EResult result = 4 [default = k_eResult_ItemGranted];
 		repeated uint32 granted_item_defs = 6;
 	}
 
 	optional uint32 account_id = 1;
 	optional uint64 match_id = 2;
 	optional bool correct = 3;
-	repeated CDOTAUserMsg_PredictionResult.Prediction predictions = 4;
+	repeated .CDOTAUserMsg_PredictionResult.Prediction predictions = 4;
 }
 
 message CDOTAResponseQuerySerialized {
@@ -701,30 +732,37 @@ message CDOTAResponseQuerySerialized {
 		}
 
 		required int32 key = 1;
-		required CDOTAResponseQuerySerialized.Fact.ValueType valtype = 2 [default = NUMERIC];
+		required .CDOTAResponseQuerySerialized.Fact.ValueType valtype = 2 [default = NUMERIC];
 		optional float val_numeric = 3;
 		optional string val_string = 4;
 		optional int32 val_stringtable_index = 5;
 		optional sint32 val_int_numeric = 6;
 	}
 
-	repeated CDOTAResponseQuerySerialized.Fact facts = 1;
+	repeated .CDOTAResponseQuerySerialized.Fact facts = 1;
 }
 
 message CDOTASpeechMatchOnClient {
 	optional int32 concept = 1;
 	optional int32 recipient_type = 2;
-	optional CDOTAResponseQuerySerialized responsequery = 3;
+	optional .CDOTAResponseQuerySerialized responsequery = 3;
 	optional sfixed32 randomseed = 4 [default = 0];
 }
 
 message CDOTAUserMsg_UnitEvent {
+	message Interval {
+		optional float start = 1;
+		optional float range = 2;
+	}
+
 	message Speech {
 		optional int32 concept = 1;
 		optional string response = 2;
 		optional int32 recipient_type = 3;
 		optional int32 level = 4;
 		optional bool muteable = 5 [default = false];
+		optional .CDOTAUserMsg_UnitEvent.Interval predelay = 6;
+		optional uint32 flags = 7;
 	}
 
 	message SpeechMute {
@@ -754,15 +792,15 @@ message CDOTAUserMsg_UnitEvent {
 		optional int32 activity = 1;
 	}
 
-	required EDotaEntityMessages msg_type = 1 [default = DOTA_UNIT_SPEECH];
+	required .EDotaEntityMessages msg_type = 1 [default = DOTA_UNIT_SPEECH];
 	required int32 entity_index = 2;
-	optional CDOTAUserMsg_UnitEvent.Speech speech = 3;
-	optional CDOTAUserMsg_UnitEvent.SpeechMute speech_mute = 4;
-	optional CDOTAUserMsg_UnitEvent.AddGesture add_gesture = 5;
-	optional CDOTAUserMsg_UnitEvent.RemoveGesture remove_gesture = 6;
-	optional CDOTAUserMsg_UnitEvent.BloodImpact blood_impact = 7;
-	optional CDOTAUserMsg_UnitEvent.FadeGesture fade_gesture = 8;
-	optional CDOTASpeechMatchOnClient speech_match_on_client = 9;
+	optional .CDOTAUserMsg_UnitEvent.Speech speech = 3;
+	optional .CDOTAUserMsg_UnitEvent.SpeechMute speech_mute = 4;
+	optional .CDOTAUserMsg_UnitEvent.AddGesture add_gesture = 5;
+	optional .CDOTAUserMsg_UnitEvent.RemoveGesture remove_gesture = 6;
+	optional .CDOTAUserMsg_UnitEvent.BloodImpact blood_impact = 7;
+	optional .CDOTAUserMsg_UnitEvent.FadeGesture fade_gesture = 8;
+	optional .CDOTASpeechMatchOnClient speech_match_on_client = 9;
 }
 
 message CDOTAUserMsg_ItemPurchased {
@@ -782,7 +820,7 @@ message CDOTAUserMsg_ItemFound {
 }
 
 message CDOTAUserMsg_OverheadEvent {
-	required DOTA_OVERHEAD_ALERT message_type = 1 [default = OVERHEAD_ALERT_GOLD];
+	required .DOTA_OVERHEAD_ALERT message_type = 1 [default = OVERHEAD_ALERT_GOLD];
 	optional int32 value = 2;
 	optional int32 target_player_entindex = 3;
 	optional int32 target_entindex = 4;
@@ -813,7 +851,7 @@ message CDOTAUserMsg_SendGenericToolTip {
 
 message CDOTAUserMsg_WorldLine {
 	optional int32 player_id = 1;
-	optional CDOTAMsg_WorldLine worldline = 2;
+	optional .CDOTAMsg_WorldLine worldline = 2;
 }
 
 message CDOTAUserMsg_ChatWheel {
@@ -869,15 +907,15 @@ message CDOTAUserMsg_AddQuestLogEntry {
 
 message CDOTAUserMsg_SendStatPopup {
 	optional int32 player_id = 1;
-	optional CDOTAMsg_SendStatPopup statpopup = 2;
+	optional .CDOTAMsg_SendStatPopup statpopup = 2;
 }
 
 message CDOTAUserMsg_DismissAllStatPopups {
-	optional CDOTAMsg_DismissAllStatPopups dismissallmsg = 1;
+	optional .CDOTAMsg_DismissAllStatPopups dismissallmsg = 1;
 }
 
 message CDOTAUserMsg_SendRoshanSpectatorPhase {
-	optional DOTA_ROSHAN_PHASE phase = 1 [default = k_SRSP_ROSHAN_ALIVE];
+	optional .DOTA_ROSHAN_PHASE phase = 1 [default = k_SRSP_ROSHAN_ALIVE];
 	optional int32 phase_start_time = 2;
 	optional int32 phase_length = 3;
 }
@@ -900,7 +938,7 @@ message CDOTAUserMsg_CustomMsg {
 
 message CDOTAUserMsg_CoachHUDPing {
 	optional uint32 player_id = 1;
-	optional CDOTAMsg_CoachHUDPing hud_ping = 2;
+	optional .CDOTAMsg_CoachHUDPing hud_ping = 2;
 }
 
 message CDOTAUserMsg_ClientLoadGridNav {
@@ -919,18 +957,18 @@ message CDOTAUserMsg_TE_Projectile {
 	optional fixed32 colorgemcolor = 11;
 	optional int32 launch_tick = 12;
 	optional int32 handle = 13;
-	optional CMsgVector vTargetLoc = 14;
+	optional .CMsgVector vTargetLoc = 14;
 }
 
 message CDOTAUserMsg_TE_ProjectileLoc {
-	optional CMsgVector vSourceLoc = 1;
+	optional .CMsgVector vSourceLoc = 1;
 	optional int32 hTarget = 2;
 	optional int32 moveSpeed = 3;
 	optional int64 particleSystemHandle = 4;
 	optional bool dodgeable = 5;
 	optional bool isAttack = 6;
 	optional float expireTime = 9;
-	optional CMsgVector vTargetLoc = 10;
+	optional .CMsgVector vTargetLoc = 10;
 	optional fixed32 colorgemcolor = 11;
 	optional int32 launch_tick = 12;
 	optional int32 handle = 13;
@@ -950,7 +988,7 @@ message CDOTAUserMsg_TE_DotaBloodImpact {
 message CDOTAUserMsg_AbilityPing {
 	optional uint32 player_id = 1;
 	optional uint32 ability_id = 2;
-	optional DOTA_ABILITY_PING_TYPE type = 3 [default = ABILITY_PING_READY];
+	optional .DOTA_ABILITY_PING_TYPE type = 3 [default = ABILITY_PING_READY];
 	optional uint32 cooldown_seconds = 4;
 	optional uint32 level = 5;
 	optional bool passive = 6;
@@ -1009,7 +1047,7 @@ message CDOTAUserMsg_BoosterStatePlayer {
 }
 
 message CDOTAUserMsg_BoosterState {
-	repeated CDOTAUserMsg_BoosterStatePlayer boosted_players = 1;
+	repeated .CDOTAUserMsg_BoosterStatePlayer boosted_players = 1;
 }
 
 message CDOTAUserMsg_PlayerMMR {
@@ -1031,12 +1069,12 @@ message CDOTAUserMsg_StatsHeroLookup {
 
 message CDOTAUserMsg_StatsHeroPositionInfo {
 	message PositionPair {
-		optional DOTA_POSITION_CATEGORY position_category = 1 [default = DOTA_POSITION_NONE];
+		optional .DOTA_POSITION_CATEGORY position_category = 1 [default = DOTA_POSITION_NONE];
 		optional uint32 position_count = 2;
 	}
 
 	optional float average_position = 1;
-	repeated CDOTAUserMsg_StatsHeroPositionInfo.PositionPair position_details = 2;
+	repeated .CDOTAUserMsg_StatsHeroPositionInfo.PositionPair position_details = 2;
 }
 
 message CDOTAUserMsg_StatsHeroMinuteDetails {
@@ -1044,7 +1082,7 @@ message CDOTAUserMsg_StatsHeroMinuteDetails {
 	optional uint32 hero_kills = 2;
 	optional uint32 hero_damage = 3;
 	optional uint32 tower_damage = 4;
-	optional CDOTAUserMsg_StatsHeroPositionInfo position_info = 5;
+	optional .CDOTAUserMsg_StatsHeroPositionInfo position_info = 5;
 	optional uint32 total_xp = 6;
 	optional uint32 net_worth = 7;
 	optional uint32 harvested_creep_gold = 8;
@@ -1064,7 +1102,7 @@ message CDOTAUserMsg_StatsTeamMinuteDetails {
 		optional uint32 value = 3;
 	}
 
-	repeated CDOTAUserMsg_StatsHeroMinuteDetails player_stats = 1;
+	repeated .CDOTAUserMsg_StatsHeroMinuteDetails player_stats = 1;
 	optional uint32 tower_kills = 2;
 	optional uint32 barrack_kills = 3;
 	optional uint32 available_lane_creep_gold = 4;
@@ -1073,7 +1111,7 @@ message CDOTAUserMsg_StatsTeamMinuteDetails {
 	optional uint32 balance_barracks_value = 7;
 	optional uint32 balance_gold_value = 8;
 	optional uint32 balance_xp_value = 9;
-	repeated CDOTAUserMsg_StatsTeamMinuteDetails.LocationPerformance lane_performance = 10;
+	repeated .CDOTAUserMsg_StatsTeamMinuteDetails.LocationPerformance lane_performance = 10;
 }
 
 message CDOTAUserMsg_StatsPlayerKillShare {
@@ -1087,7 +1125,7 @@ message CDOTAUserMsg_StatsPlayerKillShare {
 
 message CDOTAUserMsg_StatsKillDetails {
 	optional uint32 victim_id = 1;
-	repeated CDOTAUserMsg_StatsPlayerKillShare kill_shares = 2;
+	repeated .CDOTAUserMsg_StatsPlayerKillShare kill_shares = 2;
 	optional uint32 damage_to_kill = 3;
 	optional uint32 effective_health = 4;
 	optional float death_time = 5;
@@ -1105,16 +1143,16 @@ message CDOTAUserMsg_StatsMatchDetails {
 	message CDOTAUserMsg_StatsFightDetails {
 		optional float start_time = 1;
 		optional float end_time = 2;
-		optional CDOTAUserMsg_StatsMatchDetails.CDOTAUserMsg_StatsFightTeamDetails radiant_fight_details = 3;
-		optional CDOTAUserMsg_StatsMatchDetails.CDOTAUserMsg_StatsFightTeamDetails dire_fight_details = 4;
+		optional .CDOTAUserMsg_StatsMatchDetails.CDOTAUserMsg_StatsFightTeamDetails radiant_fight_details = 3;
+		optional .CDOTAUserMsg_StatsMatchDetails.CDOTAUserMsg_StatsFightTeamDetails dire_fight_details = 4;
 	}
 
-	repeated CDOTAUserMsg_StatsHeroLookup hero_lookup = 1;
-	repeated CDOTAUserMsg_StatsTeamMinuteDetails radiant_stats = 2;
-	repeated CDOTAUserMsg_StatsTeamMinuteDetails dire_stats = 3;
-	repeated CDOTAUserMsg_StatsKillDetails radiant_kills = 4;
-	repeated CDOTAUserMsg_StatsKillDetails dire_kills = 5;
-	repeated CDOTAUserMsg_StatsMatchDetails.CDOTAUserMsg_StatsFightDetails fight_details = 6;
+	repeated .CDOTAUserMsg_StatsHeroLookup hero_lookup = 1;
+	repeated .CDOTAUserMsg_StatsTeamMinuteDetails radiant_stats = 2;
+	repeated .CDOTAUserMsg_StatsTeamMinuteDetails dire_stats = 3;
+	repeated .CDOTAUserMsg_StatsKillDetails radiant_kills = 4;
+	repeated .CDOTAUserMsg_StatsKillDetails dire_kills = 5;
+	repeated .CDOTAUserMsg_StatsMatchDetails.CDOTAUserMsg_StatsFightDetails fight_details = 6;
 }
 
 message CDOTAUserMsg_MiniTaunt {
@@ -1133,19 +1171,19 @@ message CDOTAUserMsg_CustomHeaderMessage {
 }
 
 message CMsgHeroAbilityStat {
-	optional EHeroStatType stat_type = 1 [default = k_EHeroStatType_None];
+	optional .EHeroStatType stat_type = 1 [default = k_EHeroStatType_None];
 	optional int32 int_value = 2;
 	optional float float_value = 3;
 }
 
 message CMsgCombatAnalyzerPlayerStat {
 	optional uint32 account_id = 1;
-	repeated CMsgHeroAbilityStat hero_ability_stats = 2;
+	repeated .CMsgHeroAbilityStat hero_ability_stats = 2;
 }
 
 message CMsgCombatAnalyzerStats {
 	optional uint64 match_id = 1;
-	repeated CMsgCombatAnalyzerPlayerStat player_stats = 2;
+	repeated .CMsgCombatAnalyzerPlayerStat player_stats = 2;
 }
 
 message CDOTAUserMsg_BeastChat {
@@ -1177,7 +1215,7 @@ message CDOTAUserMsg_CompendiumStatePlayer {
 }
 
 message CDOTAUserMsg_CompendiumState {
-	repeated CDOTAUserMsg_CompendiumStatePlayer compendium_players = 1;
+	repeated .CDOTAUserMsg_CompendiumStatePlayer compendium_players = 1;
 }
 
 message CDOTAUserMsg_ProjectionAbility {
@@ -1185,14 +1223,14 @@ message CDOTAUserMsg_ProjectionAbility {
 	optional int32 caster_ent_index = 2;
 	optional int32 caster_team = 3;
 	optional bool channel_end = 4;
-	optional CMsgVector origin = 5;
+	optional .CMsgVector origin = 5;
 	optional bool track_caster_only = 6;
 	optional float end_time = 7;
 	optional int32 victim_ent_index = 8;
 }
 
 message CDOTAUserMsg_ProjectionEvent {
-	optional EProjectionEvent event_id = 1 [default = ePE_FirstBlood];
+	optional .EProjectionEvent event_id = 1 [default = ePE_FirstBlood];
 	optional uint32 team = 2;
 }
 
@@ -1286,6 +1324,7 @@ message CDOTAUserMsg_HeroRelicProgress {
 message CDOTAUserMsg_AbilityDraftRequestAbility {
 	optional uint32 player_id = 1;
 	optional uint32 requested_ability_id = 2;
+	optional bool ctrl_is_down = 3;
 }
 
 message CDOTAUserMsg_DamageReport {
@@ -1336,6 +1375,7 @@ message CDOTAUserMsg_OMArcanaCombo {
 message CDOTAUserMsg_HighFiveCompleted {
 	optional uint32 player_id_1 = 1;
 	optional uint32 player_id_2 = 2;
+	optional bool special_high_five = 3;
 }
 
 message CDOTAUserMsg_HighFiveLeftHanging {
@@ -1344,8 +1384,9 @@ message CDOTAUserMsg_HighFiveLeftHanging {
 
 message CDOTAUserMsg_ShovelUnearth {
 	optional uint32 player_id = 1;
-	optional uint32 shovel_outcome = 2;
-	optional bool all_chat = 3;
+	optional bool all_chat = 2;
+	optional string locstring = 3;
+	optional uint32 quantity = 4;
 }
 
 message CDOTAUserMsg_AllStarEvent {
@@ -1358,7 +1399,7 @@ message CDOTAUserMsg_AllStarEvent {
 	optional int32 target_player_id = 2;
 	optional uint32 point_amount = 3;
 	optional uint32 event_id = 4;
-	repeated CDOTAUserMsg_AllStarEvent.PlayerScore player_scores = 5;
+	repeated .CDOTAUserMsg_AllStarEvent.PlayerScore player_scores = 5;
 }
 
 message CDOTAUserMsg_QueuedOrderRemoved {
@@ -1390,4 +1431,135 @@ message CDOTAUserMsg_OutpostCaptured {
 message CDOTAUserMsg_OutpostGrantedXP {
 	optional uint32 team_id = 1;
 	optional uint32 xp_amount = 2;
+}
+
+message CDOTAUserMsg_MoveCameraToUnit {
+	optional int32 unit_ehandle = 1;
+}
+
+message CDOTAUserMsg_PauseMinigameData {
+	message DataBit {
+		optional uint32 index = 1;
+		optional int32 data = 2;
+		optional int64 data_extra = 3;
+	}
+
+	repeated .CDOTAUserMsg_PauseMinigameData.DataBit data_bits = 1;
+}
+
+message CDOTAUserMsg_VersusScene_PlayerBehavior {
+	optional uint32 player_id = 1;
+	optional .EDOTAVersusScenePlayerBehavior behavior = 2 [default = VS_PLAYER_BEHAVIOR_PLAY_ACTIVITY];
+	optional .VersusScene_PlayActivity play_activity = 3;
+	optional .VersusScene_ChatWheel chat_wheel = 4;
+	optional .VersusScene_PlaybackRate playback_rate = 5;
+}
+
+message CDOTAUserMsg_QoP_ArcanaSummary {
+	optional uint32 ehandle = 1;
+	optional uint32 arcana_level = 2;
+	optional uint32 players_hit = 3;
+	optional uint32 players_killed = 4;
+}
+
+message CDOTAUserMsg_HotPotato_Created {
+	optional uint32 player_id_1 = 1;
+	optional uint32 player_id_2 = 2;
+}
+
+message CDOTAUserMsg_HotPotato_Exploded {
+	optional uint32 player_id = 1;
+}
+
+message CDOTAUserMsg_WK_Arcana_Progress {
+	optional uint32 ehandle = 1;
+	optional uint32 arcana_level = 2;
+	optional uint32 hero_id = 3;
+}
+
+message CDOTAUserMsg_GuildChallenge_Progress {
+	message PlayerProgress {
+		optional uint32 player_id = 1;
+		optional uint32 progress = 6;
+	}
+
+	enum EChallengeType {
+		k_EChallengeType_Invalid = 0;
+		k_EChallengeType_Cooperative = 1;
+		k_EChallengeType_Contract = 2;
+	}
+
+	repeated .CDOTAUserMsg_GuildChallenge_Progress.PlayerProgress player_progress = 1;
+	optional uint32 guild_id = 2;
+	optional uint32 challenge_instance_id = 3;
+	optional uint32 challenge_parameter = 4;
+	optional .CDOTAUserMsg_GuildChallenge_Progress.EChallengeType challenge_type = 5 [default = k_EChallengeType_Invalid];
+	optional uint32 challenge_progress_at_start = 7;
+	optional bool complete = 8;
+}
+
+message CDOTAUserMsg_WRArcanaProgress {
+	optional uint32 ehandle = 1;
+	optional uint32 target_ehandle = 2;
+	optional uint32 arrows_landed = 3;
+	optional uint32 damage_dealt = 4;
+	optional uint32 target_hp = 5;
+	optional uint32 target_max_hp = 6;
+	optional uint32 arcana_level = 7;
+}
+
+message CDOTAUserMsg_WRArcanaSummary {
+	optional uint32 ehandle = 1;
+	optional uint32 target_ehandle = 2;
+	optional uint32 arrows_landed = 3;
+	optional uint32 damage_dealt = 4;
+	optional uint32 target_hp = 5;
+	optional uint32 target_max_hp = 6;
+	optional uint32 arcana_level = 7;
+	optional bool success = 8;
+}
+
+message CDOTAUserMsg_EmptyItemSlotAlert {
+	optional int32 source_player_id = 1;
+	optional int32 target_player_id = 2;
+	optional int32 slot_index = 3;
+	optional int32 cooldown_seconds = 4;
+}
+
+message CDOTAUserMsg_AghsStatusAlert {
+	optional uint32 source_player_id = 1;
+	optional uint32 target_player_id = 2;
+	optional uint32 target_entindex = 3;
+	optional uint32 alert_type = 4;
+	optional bool has_scepter = 5;
+	optional bool has_shard = 6;
+}
+
+message CDOTAUserMsg_MutedPlayers {
+	repeated int32 text_muted_player_ids = 1;
+	repeated int32 voice_muted_player_ids = 2;
+}
+
+message CDOTAUserMsg_ContextualTip {
+	optional int32 tip_id = 1;
+	repeated string referenced_abilities = 2;
+	repeated string referenced_units = 3;
+	repeated string panorama_classes = 4;
+	optional bool force_annotation = 5;
+	optional int32 variant = 6;
+	optional int32 int_param = 7;
+	optional int32 int_param2 = 8;
+	optional float float_param = 9;
+	optional float float_param2 = 10;
+	optional string string_param = 11;
+	optional string string_param2 = 12;
+	optional string tip_text_override = 13;
+	optional string tip_annotation_override = 14;
+	optional string panorama_snippet = 15;
+}
+
+message CDOTAUserMsg_ChatMessage {
+	optional int32 source_player_id = 1;
+	optional uint32 channel_type = 2;
+	optional string message_text = 3;
 }

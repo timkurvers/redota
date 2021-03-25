@@ -1,7 +1,3 @@
-syntax = "proto2";
-
-package dota;
-
 option optimize_for = SPEED;
 option cc_generic_services = false;
 
@@ -530,7 +526,7 @@ enum EMsg {
 	k_EMsgGCCmdSwitch = 2209;
 	k_EMsgAMRefreshSessions = 2210;
 	k_EMsgGCAchievementAwarded = 2212;
-	k_EMsgGCSystemMessageCS = 2213;
+	k_EMsgGCSystemMessage = 2213;
 	k_EMsgGCCmdStatus = 2216;
 	k_EMsgGCRegisterWebInterfaces_Deprecated = 2217;
 	k_EMsgGCGetAccountDetails_DEPRECATED = 2218;

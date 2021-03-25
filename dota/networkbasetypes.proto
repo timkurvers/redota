@@ -1,10 +1,17 @@
-syntax = "proto2";
-
-package dota;
-
 import "network_connection.proto";
 
 option cc_generic_services = false;
+
+enum SignonState_t {
+	SIGNONSTATE_NONE = 0;
+	SIGNONSTATE_CHALLENGE = 1;
+	SIGNONSTATE_CONNECTED = 2;
+	SIGNONSTATE_NEW = 3;
+	SIGNONSTATE_PRESPAWN = 4;
+	SIGNONSTATE_SPAWN = 5;
+	SIGNONSTATE_FULL = 6;
+	SIGNONSTATE_CHANGELEVEL = 7;
+}
 
 enum NET_Messages {
 	net_NOP = 0;
@@ -75,7 +82,7 @@ message CMsg_CVars {
 		optional string value = 2;
 	}
 
-	repeated CMsg_CVars.CVar cvars = 1;
+	repeated .CMsg_CVars.CVar cvars = 1;
 }
 
 message CNETMsg_NOP {
@@ -86,7 +93,7 @@ message CNETMsg_SplitScreenUser {
 }
 
 message CNETMsg_Disconnect {
-	optional ENetworkDisconnectionReason reason = 2 [default = NETWORK_DISCONNECT_INVALID];
+	optional .ENetworkDisconnectionReason reason = 2 [default = NETWORK_DISCONNECT_INVALID];
 }
 
 message CNETMsg_Tick {
@@ -97,6 +104,7 @@ message CNETMsg_Tick {
 	optional uint32 host_computationtime_std_deviation = 5;
 	optional uint32 host_framestarttime_std_deviation = 6;
 	optional uint32 host_loss = 7;
+	optional uint32 host_unfiltered_frametime = 8;
 }
 
 message CNETMsg_StringCmd {
@@ -104,11 +112,11 @@ message CNETMsg_StringCmd {
 }
 
 message CNETMsg_SetConVar {
-	optional CMsg_CVars convars = 1;
+	optional .CMsg_CVars convars = 1;
 }
 
 message CNETMsg_SignonState {
-	optional uint32 signon_state = 1;
+	optional .SignonState_t signon_state = 1 [default = SIGNONSTATE_NONE];
 	optional uint32 spawn_count = 2;
 	optional uint32 num_server_players = 3;
 	repeated string players_networkids = 4;
@@ -130,16 +138,16 @@ message CSVCMsg_GameEvent {
 
 	optional string event_name = 1;
 	optional int32 eventid = 2;
-	repeated CSVCMsg_GameEvent.key_t keys = 3;
+	repeated .CSVCMsg_GameEvent.key_t keys = 3;
 }
 
 message CSVCMsgList_GameEvents {
 	message event_t {
 		optional int32 tick = 1;
-		optional CSVCMsg_GameEvent event = 2;
+		optional .CSVCMsg_GameEvent event = 2;
 	}
 
-	repeated CSVCMsgList_GameEvents.event_t events = 1;
+	repeated .CSVCMsgList_GameEvents.event_t events = 1;
 }
 
 message CSVCMsg_UserMessage {
@@ -150,10 +158,10 @@ message CSVCMsg_UserMessage {
 message CSVCMsgList_UserMessages {
 	message usermsg_t {
 		optional int32 tick = 1;
-		optional CSVCMsg_UserMessage msg = 2;
+		optional .CSVCMsg_UserMessage msg = 2;
 	}
 
-	repeated CSVCMsgList_UserMessages.usermsg_t usermsgs = 1;
+	repeated .CSVCMsgList_UserMessages.usermsg_t usermsgs = 1;
 }
 
 message CNETMsg_SpawnGroup_Load {
@@ -162,8 +170,8 @@ message CNETMsg_SpawnGroup_Load {
 	optional string entityfiltername = 3;
 	optional uint32 spawngrouphandle = 4;
 	optional uint32 spawngroupownerhandle = 5;
-	optional CMsgVector world_offset_pos = 6;
-	optional CMsgQAngle world_offset_angle = 7;
+	optional .CMsgVector world_offset_pos = 6;
+	optional .CMsgQAngle world_offset_angle = 7;
 	optional bytes spawngroupmanifest = 8;
 	optional uint32 flags = 9;
 	optional int32 tickcount = 10;

@@ -1,7 +1,3 @@
-syntax = "proto2";
-
-package dota;
-
 import "steammessages.proto";
 
 option optimize_for = SPEED;
@@ -60,7 +56,7 @@ message CMsgGCStorePurchaseInit {
 	optional string country = 1;
 	optional int32 language = 2;
 	optional int32 currency = 3;
-	repeated CGCStorePurchaseInit_LineItem line_items = 4;
+	repeated .CGCStorePurchaseInit_LineItem line_items = 4;
 }
 
 message CMsgGCStorePurchaseInitResponse {
@@ -85,7 +81,7 @@ message CMsgInviteToParty {
 	optional uint32 client_version = 2;
 	optional uint32 team_id = 3;
 	optional bool as_coach = 4;
-	optional CMsgClientPingData ping_data = 5;
+	optional .CMsgClientPingData ping_data = 5;
 }
 
 message CMsgInviteToLobby {
@@ -103,7 +99,7 @@ message CMsgPartyInviteResponse {
 	optional uint64 party_id = 1;
 	optional bool accept = 2;
 	optional uint32 client_version = 3;
-	optional CMsgClientPingData ping_data = 8;
+	optional .CMsgClientPingData ping_data = 8;
 }
 
 message CMsgLobbyInviteResponse {
@@ -122,13 +118,13 @@ message CMsgLeaveParty {
 }
 
 message CMsgCustomGameInstallStatus {
-	optional ECustomGameInstallStatus status = 1 [default = k_ECustomGameInstallStatus_Unknown];
+	optional .ECustomGameInstallStatus status = 1 [default = k_ECustomGameInstallStatus_Unknown];
 	optional string message = 2;
 	optional fixed32 latest_timestamp_from_steam = 3;
 }
 
 message CMsgServerAvailable {
-	optional CMsgCustomGameInstallStatus custom_game_install_status = 1;
+	optional .CMsgCustomGameInstallStatus custom_game_install_status = 1;
 }
 
 message CMsgLANServerAvailable {
@@ -162,7 +158,7 @@ message CSOItemCriteria {
 	optional uint32 initial_inventory = 5;
 	optional uint32 initial_quantity = 6;
 	optional bool ignore_enabled_flag = 8;
-	repeated CSOItemCriteriaCondition conditions = 9;
+	repeated .CSOItemCriteriaCondition conditions = 9;
 	optional bool recent_only = 10;
 }
 
@@ -183,8 +179,8 @@ message CSOItemRecipe {
 	optional int32 class_usage_for_output = 14;
 	optional int32 slot_usage_for_output = 15;
 	optional int32 set_for_output = 16;
-	repeated CSOItemCriteria input_items_criteria = 20;
-	repeated CSOItemCriteria output_items_criteria = 21;
+	repeated .CSOItemCriteria input_items_criteria = 20;
+	repeated .CSOItemCriteria output_items_criteria = 21;
 	repeated uint32 input_item_dupe_counts = 22;
 }
 
@@ -224,11 +220,11 @@ message CSOEconItem {
 	optional uint32 quality = 7 [default = 4];
 	optional uint32 flags = 8 [default = 0];
 	optional uint32 origin = 9 [default = 0];
-	repeated CSOEconItemAttribute attribute = 12;
-	optional CSOEconItem interior_item = 13;
+	repeated .CSOEconItemAttribute attribute = 12;
+	optional .CSOEconItem interior_item = 13;
 	optional uint32 style = 15 [default = 0];
 	optional uint64 original_id = 16 [default = 0];
-	repeated CSOEconItemEquipped equipped_state = 18;
+	repeated .CSOEconItemEquipped equipped_state = 18;
 }
 
 message CMsgSortItems {
@@ -261,7 +257,7 @@ message CMsgConVarValue {
 }
 
 message CMsgReplicateConVars {
-	repeated CMsgConVarValue convars = 1;
+	repeated .CMsgConVarValue convars = 1;
 }
 
 message CMsgItemAcknowledged {
@@ -279,7 +275,7 @@ message CMsgSetItemPositions {
 		optional uint32 position = 2;
 	}
 
-	repeated CMsgSetItemPositions.ItemPosition item_positions = 1;
+	repeated .CMsgSetItemPositions.ItemPosition item_positions = 1;
 }
 
 message CMsgGCNameItemNotification {
@@ -411,7 +407,7 @@ message CMsgRecipeComponent {
 
 message CMsgFulfillDynamicRecipeComponent {
 	optional uint64 tool_item_id = 1;
-	repeated CMsgRecipeComponent consumption_components = 2;
+	repeated .CMsgRecipeComponent consumption_components = 2;
 }
 
 message CMsgGCClientMarketDataRequest {
@@ -426,7 +422,7 @@ message CMsgGCClientMarketDataEntry {
 }
 
 message CMsgGCClientMarketData {
-	repeated CMsgGCClientMarketDataEntry entries = 1;
+	repeated .CMsgGCClientMarketDataEntry entries = 1;
 }
 
 message CMsgExtractGems {
@@ -445,7 +441,7 @@ message CMsgExtractGemsResponse {
 	}
 
 	optional uint64 item_id = 1;
-	optional CMsgExtractGemsResponse.EExtractGems response = 2 [default = k_ExtractGems_Succeeded];
+	optional .CMsgExtractGemsResponse.EExtractGems response = 2 [default = k_ExtractGems_Succeeded];
 }
 
 message CMsgAddSocket {
@@ -464,7 +460,7 @@ message CMsgAddSocketResponse {
 
 	optional uint64 item_id = 1;
 	repeated uint32 updated_socket_index = 2;
-	optional CMsgAddSocketResponse.EAddSocket response = 3 [default = k_AddSocket_Succeeded];
+	optional .CMsgAddSocketResponse.EAddSocket response = 3 [default = k_AddSocket_Succeeded];
 }
 
 message CMsgAddItemToSocketData {
@@ -474,7 +470,7 @@ message CMsgAddItemToSocketData {
 
 message CMsgAddItemToSocket {
 	optional uint64 item_item_id = 1;
-	repeated CMsgAddItemToSocketData gems_to_socket = 2;
+	repeated .CMsgAddItemToSocketData gems_to_socket = 2;
 }
 
 message CMsgAddItemToSocketResponse {
@@ -491,7 +487,7 @@ message CMsgAddItemToSocketResponse {
 
 	optional uint64 item_item_id = 1;
 	repeated uint32 updated_socket_index = 2;
-	optional CMsgAddItemToSocketResponse.EAddGem response = 3 [default = k_AddGem_Succeeded];
+	optional .CMsgAddItemToSocketResponse.EAddGem response = 3 [default = k_AddGem_Succeeded];
 }
 
 message CMsgResetStrangeGemCount {
@@ -508,7 +504,7 @@ message CMsgResetStrangeGemCountResponse {
 		k_ResetGem_Failed_SocketCannotBeReset = 4;
 	}
 
-	optional CMsgResetStrangeGemCountResponse.EResetGem response = 1 [default = k_ResetGem_Succeeded];
+	optional .CMsgResetStrangeGemCountResponse.EResetGem response = 1 [default = k_ResetGem_Succeeded];
 }
 
 message CMsgGCToClientPollFileRequest {

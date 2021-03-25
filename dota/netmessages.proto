@@ -1,7 +1,3 @@
-syntax = "proto2";
-
-package dota;
-
 import "networkbasetypes.proto";
 
 option cc_generic_services = false;
@@ -22,6 +18,7 @@ enum CLC_Messages {
 	clc_ServerPing = 32;
 	clc_RequestPause = 33;
 	clc_CmdKeyValues = 34;
+	clc_RconServerDetails = 35;
 }
 
 enum SVC_Messages {
@@ -50,6 +47,7 @@ enum SVC_Messages {
 	svc_HLTVStatus = 62;
 	svc_ServerSteamID = 63;
 	svc_FullFrameSplit = 70;
+	svc_RconServerDetails = 71;
 }
 
 enum VoiceDataFormat_t {
@@ -106,7 +104,6 @@ message CCLCMsg_ClientInfo {
 	optional fixed32 send_table_crc = 1;
 	optional uint32 server_count = 2;
 	optional bool is_hltv = 3;
-	optional bool is_replay = 4;
 	optional uint32 friends_id = 5;
 	optional string friends_name = 6;
 }
@@ -118,7 +115,7 @@ message CCLCMsg_Move {
 }
 
 message CMsgVoiceAudio {
-	optional VoiceDataFormat_t format = 1 [default = VOICEDATA_FORMAT_STEAM];
+	optional .VoiceDataFormat_t format = 1 [default = VOICEDATA_FORMAT_STEAM];
 	optional bytes voice_data = 2;
 	optional int32 sequence_bytes = 3;
 	optional uint32 section_number = 4;
@@ -127,7 +124,7 @@ message CMsgVoiceAudio {
 }
 
 message CCLCMsg_VoiceData {
-	optional CMsgVoiceAudio audio = 1;
+	optional .CMsgVoiceAudio audio = 1;
 	optional fixed64 xuid = 2;
 	optional uint32 tick = 3;
 }
@@ -181,7 +178,7 @@ message CCLCMsg_ServerPing {
 }
 
 message CCLCMsg_RequestPause {
-	optional RequestPause_t pause_type = 1 [default = RP_PAUSE];
+	optional .RequestPause_t pause_type = 1 [default = RP_PAUSE];
 	optional int32 pause_group = 2;
 }
 
@@ -189,12 +186,15 @@ message CCLCMsg_CmdKeyValues {
 	optional bytes data = 1;
 }
 
+message CCLCMsg_RconServerDetails {
+	optional bytes token = 1;
+}
+
 message CSVCMsg_ServerInfo {
 	optional int32 protocol = 1;
 	optional int32 server_count = 2;
 	optional bool is_dedicated = 3;
 	optional bool is_hltv = 4;
-	optional bool is_replay = 5;
 	optional int32 c_os = 6;
 	optional int32 max_clients = 10;
 	optional int32 max_classes = 11;
@@ -205,7 +205,7 @@ message CSVCMsg_ServerInfo {
 	optional string sky_name = 16;
 	optional string host_name = 17;
 	optional string addon_name = 18;
-	optional CSVCMsg_GameSessionConfiguration game_session_config = 19;
+	optional .CSVCMsg_GameSessionConfiguration game_session_config = 19;
 	optional bytes game_session_manifest = 20;
 }
 
@@ -217,7 +217,7 @@ message CSVCMsg_ClassInfo {
 	}
 
 	optional bool create_on_client = 1;
-	repeated CSVCMsg_ClassInfo.class_t classes = 2;
+	repeated .CSVCMsg_ClassInfo.class_t classes = 2;
 }
 
 message CSVCMsg_SetPause {
@@ -258,12 +258,12 @@ message CSVCMsg_Sounds {
 	}
 
 	optional bool reliable_sound = 1;
-	repeated CSVCMsg_Sounds.sounddata_t sounds = 2;
+	repeated .CSVCMsg_Sounds.sounddata_t sounds = 2;
 }
 
 message CSVCMsg_Prefetch {
 	optional int32 sound_index = 1;
-	optional PrefetchType resource_type = 2 [default = PFT_SOUND];
+	optional .PrefetchType resource_type = 2 [default = PFT_SOUND];
 }
 
 message CSVCMsg_SetView {
@@ -273,15 +273,15 @@ message CSVCMsg_SetView {
 
 message CSVCMsg_FixAngle {
 	optional bool relative = 1;
-	optional CMsgQAngle angle = 2;
+	optional .CMsgQAngle angle = 2;
 }
 
 message CSVCMsg_CrosshairAngle {
-	optional CMsgQAngle angle = 1;
+	optional .CMsgQAngle angle = 1;
 }
 
 message CSVCMsg_BSPDecal {
-	optional CMsgVector pos = 1;
+	optional .CMsgVector pos = 1;
 	optional int32 decal_texture_index = 2;
 	optional int32 entity_index = 3;
 	optional int32 model_index = 4;
@@ -289,7 +289,7 @@ message CSVCMsg_BSPDecal {
 }
 
 message CSVCMsg_SplitScreen {
-	optional ESplitScreenMessageType type = 1 [default = MSG_SPLITSCREEN_ADDUSER];
+	optional .ESplitScreenMessageType type = 1 [default = MSG_SPLITSCREEN_ADDUSER];
 	optional int32 slot = 2;
 	optional int32 player_index = 3;
 }
@@ -320,7 +320,7 @@ message CSVCMsg_SendTable {
 	optional bool is_end = 1;
 	optional string net_table_name = 2;
 	optional bool needs_decoder = 3;
-	repeated CSVCMsg_SendTable.sendprop_t props = 4;
+	repeated .CSVCMsg_SendTable.sendprop_t props = 4;
 }
 
 message CSVCMsg_GameEventList {
@@ -332,13 +332,21 @@ message CSVCMsg_GameEventList {
 	message descriptor_t {
 		optional int32 eventid = 1;
 		optional string name = 2;
-		repeated CSVCMsg_GameEventList.key_t keys = 3;
+		repeated .CSVCMsg_GameEventList.key_t keys = 3;
 	}
 
-	repeated CSVCMsg_GameEventList.descriptor_t descriptors = 1;
+	repeated .CSVCMsg_GameEventList.descriptor_t descriptors = 1;
 }
 
 message CSVCMsg_PacketEntities {
+	message command_queue_info_t {
+		optional uint32 commands_queued = 1;
+		optional uint32 command_queue_desired_size = 2;
+		optional uint32 starved_command_ticks = 3;
+		optional float time_dilation_percent = 4;
+		optional uint32 discarded_command_ticks = 5;
+	}
+
 	optional int32 max_entries = 1;
 	optional int32 updated_entries = 2;
 	optional bool is_delta = 3;
@@ -352,6 +360,7 @@ message CSVCMsg_PacketEntities {
 	optional uint32 last_cmd_number = 11;
 	optional uint32 server_tick = 12;
 	optional bytes serialized_entities = 13;
+	optional .CSVCMsg_PacketEntities.command_queue_info_t command_queue_info = 14;
 }
 
 message CSVCMsg_TempEntities {
@@ -379,7 +388,7 @@ message CSVCMsg_UpdateStringTable {
 }
 
 message CSVCMsg_VoiceData {
-	optional CMsgVoiceAudio audio = 1;
+	optional .CMsgVoiceAudio audio = 1;
 	optional int32 client = 2;
 	optional bool proximity = 3;
 	optional fixed64 xuid = 4;
@@ -415,6 +424,11 @@ message CSVCMsg_CmdKeyValues {
 	optional bytes data = 1;
 }
 
+message CSVCMsg_RconServerDetails {
+	optional bytes token = 1;
+	optional string details = 2;
+}
+
 message CMsgIPCAddress {
 	optional fixed64 computer_guid = 1;
 	optional uint32 process_id = 2;
@@ -423,14 +437,14 @@ message CMsgIPCAddress {
 message CMsgServerPeer {
 	optional int32 player_slot = 1;
 	optional fixed64 steamid = 2;
-	optional CMsgIPCAddress ipc = 3;
+	optional .CMsgIPCAddress ipc = 3;
 	optional bool they_hear_you = 4;
 	optional bool you_hear_them = 5;
 	optional bool is_listenserver_host = 6;
 }
 
 message CSVCMsg_PeerList {
-	repeated CMsgServerPeer peer = 1;
+	repeated .CMsgServerPeer peer = 1;
 }
 
 message CSVCMsg_ClearAllStringTables {
@@ -457,9 +471,9 @@ message ProtoFlattenedSerializer_t {
 }
 
 message CSVCMsg_FlattenedSerializer {
-	repeated ProtoFlattenedSerializer_t serializers = 1;
+	repeated .ProtoFlattenedSerializer_t serializers = 1;
 	repeated string symbols = 2;
-	repeated ProtoFlattenedSerializerField_t fields = 3;
+	repeated .ProtoFlattenedSerializerField_t fields = 3;
 }
 
 message CSVCMsg_StopSound {
@@ -490,8 +504,8 @@ message CBidirMsg_RelayInfo {
 		RIO_ESTABLISH_CONNECTION = 4;
 	}
 
-	required CBidirMsg_RelayInfo.Operation_t operation = 1 [default = RIO_REQUEST_RELAY];
-	optional SerializedNetAddress_t serializedTargetAddress = 2;
+	required .CBidirMsg_RelayInfo.Operation_t operation = 1 [default = RIO_REQUEST_RELAY];
+	optional .SerializedNetAddress_t serializedTargetAddress = 2;
 	optional uint32 additionalHops = 3;
 }
 
@@ -503,15 +517,15 @@ message SignedPayload_t {
 
 message CBidirMsg_RelayPacket {
 	message SignedDestinationAddress_t {
-		required SerializedNetAddress_t serializedAddr = 1;
+		required .SerializedNetAddress_t serializedAddr = 1;
 		required uint32 signature = 2;
 		optional bytes encryptedPayloadKey = 3;
 	}
 
 	required uint32 prevhopcount = 1;
-	required SerializedNetAddress_t originalSender = 2;
-	required SignedPayload_t signedPayload = 3;
-	repeated CBidirMsg_RelayPacket.SignedDestinationAddress_t recipientList = 4;
+	required .SerializedNetAddress_t originalSender = 2;
+	required .SignedPayload_t signedPayload = 3;
+	repeated .CBidirMsg_RelayPacket.SignedDestinationAddress_t recipientList = 4;
 }
 
 message CMsgServerNetworkStats {
@@ -540,7 +554,7 @@ message CMsgServerNetworkStats {
 	optional int32 num_spectators = 10;
 	optional int32 num_tv_relays = 11;
 	optional float fps = 12;
-	repeated CMsgServerNetworkStats.Port ports = 17;
+	repeated .CMsgServerNetworkStats.Port ports = 17;
 	optional float avg_latency_out = 18;
 	optional float avg_latency_in = 19;
 	optional float avg_packets_out = 20;
@@ -553,5 +567,5 @@ message CMsgServerNetworkStats {
 	optional uint64 total_packets_in = 27;
 	optional uint64 total_data_out = 28;
 	optional uint64 total_packets_out = 29;
-	repeated CMsgServerNetworkStats.Player players = 30;
+	repeated .CMsgServerNetworkStats.Player players = 30;
 }
