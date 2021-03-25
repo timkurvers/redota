@@ -756,7 +756,61 @@ export default augment({
   },
 
   //
-  // TODO: Buildings
+  // Buildings
   //
+
+  npc_dota_badguys_fort: {
+    name: 'Dire Ancient',
+    model: 'models/props_structures/dire_ancient_base001.vmdl',
+    match: (unit) => unit.internalName === 'dota_badguys_fort',
+  },
+
+  npc_dota_badguys_melee_rax: {
+    name: 'Dire Melee Barracks',
+    model: 'models/props_structures/dire_barracks_melee001.vmdl',
+    match: (unit) => unit.internalName.startsWith('bad_rax_melee'),
+  },
+
+  npc_dota_badguys_range_rax: {
+    name: 'Dire Ranged Barracks',
+    model: 'models/props_structures/dire_barracks_ranged001.vmdl',
+    match: (unit) => unit.internalName.startsWith('bad_rax_range'),
+  },
+
+  npc_dota_badguys_tower: {
+    name: 'Dire Tower',
+    model: 'models/props_structures/dire_tower002.vmdl',
+    match: (unit) => unit.internalName.startsWith('dota_badguys_tower'),
+  },
+
+  npc_dota_goodguys_fort: {
+    name: 'Radiant Ancient',
+    model: 'models/props_structures/radiant_ancient001.vmdl',
+    match: (unit) => unit.internalName === 'dota_goodguys_fort',
+  },
+
+  npc_dota_goodguys_melee_rax: {
+    name: 'Radiant Melee Barracks',
+    model: 'models/props_structures/radiant_melee_barracks001.vmdl',
+    match: (unit) => unit.internalName.startsWith('good_rax_melee'),
+  },
+
+  npc_dota_goodguys_range_rax: {
+    name: 'Radiant Ranged Barracks',
+    model: 'models/props_structures/radiant_ranged_barracks001.vmdl',
+    match: (unit) => unit.internalName.startsWith('good_rax_range'),
+  },
+
+  npc_dota_goodguys_tower: {
+    name: 'Radiant Tower',
+    model: 'models/props_structures/radiant_tower002.vmdl',
+    match: (unit) => unit.internalName.startsWith('dota_goodguys_tower'),
+  },
+
+  npc_dota_watch_tower: {
+    name: 'Outpost',
+    model: 'models/props_structures/outpost.vmdl',
+    match: (unit) => unit.internalName.startsWith('npc_dota_watch_tower'),
+  },
 
 });
