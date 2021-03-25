@@ -1,3 +1,5 @@
+/* eslint-disable func-names */
+
 import MurmurHash from '../utils/MurmurHash.js';
 
 // Names from Dota 2's English localization: resource/localizations/dota_english.txt
@@ -9,6 +11,7 @@ import MurmurHash from '../utils/MurmurHash.js';
 // For units that share a model (such as granite and rock golems) a match function
 // is used to derive the type at runtime using a unit's properties (e.g level).
 
+// Augments unit definitions with model IDs
 const augment = (definitions) => {
   for (const [, definition] of Object.entries(definitions)) {
     const modelIDs = {
@@ -22,6 +25,11 @@ const augment = (definitions) => {
     definition.modelIDs = modelIDs;
   }
   return definitions;
+};
+
+// Matcher to uniquely identify units using its model ID
+const matchByModelID = function (unit, definition = this) {
+  return unit.modelID in definition.modelIDs;
 };
 
 export default augment({
@@ -63,13 +71,17 @@ export default augment({
   npc_dota_broodmother_spiderling: {
     name: 'Spiderling',
     model: 'models/heroes/broodmother/spiderling.vmdl',
-    match: (unit) => unit.level === 3,
+    match(unit) {
+      return matchByModelID(unit, this) && unit.level === 3;
+    },
   },
 
   npc_dota_broodmother_spiderite: {
     name: 'Spiderite',
     model: 'models/heroes/broodmother/spiderling.vmdl',
-    match: (unit) => unit.level === 2,
+    match(unit) {
+      return matchByModelID(unit, this) && unit.level === 2;
+    },
   },
 
   npc_dota_broodmother_web: {
@@ -100,6 +112,7 @@ export default augment({
   npc_dota_eidolon: {
     name: 'Eidolon',
     model: 'models/heroes/enigma/eidelon.vmdl',
+    match: matchByModelID,
     variants: [
       'models/items/enigma/eidolon/absolute_zero_updated_eidolon/absolute_zero_updated_eidolon.vmdl',
       'models/items/enigma/eidolon/artifacts_of_crushing_depths_eidolon_of_crushing_depths/artifacts_of_crushing_depths_eidolon_of_crushing_depths.vmdl',
@@ -119,6 +132,7 @@ export default augment({
   npc_dota_furion_treant: {
     name: 'Treant',
     model: 'models/heroes/furion/treant.vmdl',
+    match: matchByModelID,
     variants: [
       'models/items/furion/treant_flower_1.vmdl',
       'models/items/furion/treant_stump.vmdl',
@@ -141,14 +155,13 @@ export default augment({
   npc_dota_grimstroke_ink_creature: {
     name: 'Phantom',
     model: 'models/heroes/grimstroke/ink_phantom.vmdl',
-    variants: [
-      // No known skin variants for this unit
-    ],
+    match: matchByModelID,
   },
 
   npc_dota_gyrocopter_homing_missile: {
     name: 'Homing Missile',
     model: 'models/heroes/gyro/gyro_missile.vmdl',
+    match: matchByModelID,
     variants: [
       'models/items/gyrocopter/dwarven_gyrocopter_off_hand/dwarven_gyrocopter_off_hand.vmdl',
       'models/items/gyrocopter/emerging_dragon_attack/emerging_dragon_attack.vmdl',
@@ -179,6 +192,7 @@ export default augment({
   npc_dota_juggernaut_healing_ward: {
     name: 'Healing Ward',
     model: 'models/heroes/juggernaut/jugg_healing_ward.vmdl',
+    match: matchByModelID,
     variants: [
       'models/items/juggernaut/ward_foo.vmdl',
       'models/items/juggernaut/ward/dc_wardupate/dc_wardupate.vmdl',
@@ -205,6 +219,7 @@ export default augment({
   npc_dota_lycan_wolf: {
     name: 'Lycan Wolf',
     model: 'models/heroes/lycan/summon_wolves.vmdl',
+    match: matchByModelID,
     variants: [
       'models/items/lycan/wolves/alpha_summon_01/alpha_summon_01.vmdl',
       'models/items/lycan/wolves/ambry_summon/ambry_summon.vmdl',
@@ -219,16 +234,19 @@ export default augment({
   npc_dota_necronomicon_warrior: {
     name: 'Necronomicon Warrior',
     model: 'models/creeps/item_creeps/i_creep_necro_warrior/necro_warrior.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_necronomicon_archer: {
     name: 'Necronomicon Archer',
     model: 'models/creeps/item_creeps/i_creep_necro_archer/necro_archer.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_phoenix_sun: {
     name: 'Phoenix Sun',
     model: 'models/heroes/phoenix/phoenix_egg.vmdl',
+    match: matchByModelID,
     variants: [
       'models/items/phoenix/ultimate/aristocratic_rebirth_supernova/aristocratic_rebirth_supernova.vmdl',
       'models/items/phoenix/ultimate/blazing_wing_blazing_egg/blazing_wing_blazing_egg.vmdl',
@@ -243,6 +261,7 @@ export default augment({
   npc_dota_pugna_nether_ward: {
     name: 'Nether Ward',
     model: 'models/heroes/pugna/pugna_ward.vmdl',
+    match: matchByModelID,
     variants: [
       'models/items/pugna/ward/dplus_battlemages_fury_ward/dplus_battlemages_fury_ward.vmdl',
       'models/items/pugna/ward/nether_grandmasters_ward/nether_grandmasters_ward.vmdl',
@@ -272,6 +291,7 @@ export default augment({
   npc_dota_techies_land_mine: {
     name: 'Proximity Mine',
     model: 'models/heroes/techies/fx_techiesfx_mine.vmdl',
+    match: matchByModelID,
     variants: [
       'models/items/techies/bigshot/fx_bigshot_mine.vmdl',
       'models/items/techies/techies_ti9_immortal_prox_mine/techies_ti9_immortal_prox_mine.vmdl',
@@ -286,6 +306,7 @@ export default augment({
   npc_dota_techies_stasis_trap: {
     name: 'Stasis Trap',
     model: 'models/heroes/techies/fx_techiesfx_stasis.vmdl',
+    match: matchByModelID,
     variants: [
       'models/items/techies/bigshot/fx_bigshot_stasis.vmdl',
     ],
@@ -294,6 +315,7 @@ export default augment({
   npc_dota_techies_remote_mine: {
     name: 'Remote Mine',
     model: 'models/heroes/techies/fx_techies_remotebomb.vmdl',
+    match: matchByModelID,
     variants: [
       'models/heroes/techies/fx_techies_remotebomb_rubick.vmdl',
       'models/items/techies/bigshot/bigshot_remotebomb.vmdl',
@@ -309,9 +331,7 @@ export default augment({
     name: 'Psionic Trap',
     // Visual model: models/heroes/lanaya/lanaya_trap_crystal.vmdl
     model: 'models/heroes/lanaya/lanaya_trap_crystal_invis.vmdl',
-    variants: [
-      // No known skin variants for this unit
-    ],
+    match: matchByModelID,
   },
 
   npc_dota_tusk_frozen_sigil: {
@@ -357,6 +377,7 @@ export default augment({
   npc_dota_weaver_swarm: {
     name: 'Beetle',
     model: 'models/heroes/weaver/weaver_bug.vmdl',
+    match: matchByModelID,
     variants: [
       'models/items/weaver/weaver_immortal_head_ti7/weaver_bug_ti7.vmdl',
     ],
@@ -379,91 +400,109 @@ export default augment({
   npc_dota_creep_badguys_melee: {
     name: 'Dire Melee Creep',
     model: 'models/creeps/lane_creeps/creep_bad_melee/creep_bad_melee.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_creep_badguys_melee_upgraded: {
     name: 'Dire Super Melee Creep',
     model: 'models/creeps/lane_creeps/creep_bad_melee/creep_bad_melee.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_creep_badguys_melee_upgraded_mega: {
     name: 'Dire Mega Melee Creep',
     model: 'models/creeps/lane_creeps/creep_bad_melee/creep_bad_melee_mega.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_creep_badguys_ranged: {
     name: 'Dire Ranged Creep',
     model: 'models/creeps/lane_creeps/creep_bad_ranged/lane_dire_ranged.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_creep_badguys_ranged_upgraded: {
     name: 'Dire Super Ranged Creep',
     model: 'models/creeps/lane_creeps/creep_bad_ranged/lane_dire_ranged.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_creep_badguys_ranged_upgraded_mega: {
     name: 'Dire Mega Ranged Creep',
     model: 'models/creeps/lane_creeps/creep_bad_ranged/lane_dire_ranged_mega.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_badguys_siege: {
     name: 'Dire Siege Creep',
     model: 'models/creeps/lane_creeps/creep_bad_siege/creep_bad_siege.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_badguys_siege_upgraded: {
     name: 'Dire Super Siege Creep',
     model: 'models/creeps/lane_creeps/creep_bad_siege/creep_bad_siege.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_badguys_siege_upgraded_mega: {
     name: 'Dire Mega Siege Creep',
     model: 'models/creeps/lane_creeps/creep_bad_siege/creep_bad_siege.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_creep_goodguys_melee: {
     name: 'Radiant Melee Creep',
     model: 'models/creeps/lane_creeps/creep_radiant_melee/radiant_melee.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_creep_goodguys_melee_upgraded: {
     name: 'Radiant Super Melee Creep',
     model: 'models/creeps/lane_creeps/creep_radiant_melee/radiant_melee.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_creep_goodguys_melee_upgraded_mega: {
     name: 'Radiant Mega Melee Creep',
     model: 'models/creeps/lane_creeps/creep_radiant_melee/radiant_melee_mega.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_creep_goodguys_ranged: {
     name: 'Radiant Ranged Creep',
     model: 'models/creeps/lane_creeps/creep_radiant_ranged/radiant_ranged.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_creep_goodguys_ranged_upgraded: {
     name: 'Radiant Super Ranged Creep',
     model: 'models/creeps/lane_creeps/creep_radiant_ranged/radiant_ranged.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_creep_goodguys_ranged_upgraded_mega: {
     name: 'Radiant Mega Ranged Creep',
     model: 'models/creeps/lane_creeps/creep_radiant_ranged/radiant_ranged_mega.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_goodguys_siege: {
     name: 'Radiant Siege Creep',
     model: 'models/creeps/lane_creeps/creep_good_siege/creep_good_siege.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_goodguys_siege_upgraded: {
     name: 'Radiant Super Siege Creep',
     model: 'models/creeps/lane_creeps/creep_good_siege/creep_good_siege.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_goodguys_siege_upgraded_mega: {
     name: 'Radiant Mega Siege Creep',
     model: 'models/creeps/lane_creeps/creep_good_siege/creep_good_siege.vmdl',
+    match: matchByModelID,
   },
 
   //
@@ -473,202 +512,247 @@ export default augment({
   npc_dota_dark_troll_warlord_skeleton_warrior: {
     name: 'Skeleton',
     model: 'models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_alpha_wolf: {
     name: 'Alpha Wolf',
     model: 'models/creeps/neutral_creeps/n_creep_worg_large/n_creep_worg_large.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_giant_wolf: {
     name: 'Giant Wolf',
     model: 'models/creeps/neutral_creeps/n_creep_worg_small/n_creep_worg_small.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_big_thunder_lizard: {
     name: 'Ancient Thunderhide',
     model: 'models/creeps/neutral_creeps/n_creep_thunder_lizard/n_creep_thunder_lizard_big.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_small_thunder_lizard: {
     name: 'Ancient Rumblehide',
     model: 'models/creeps/neutral_creeps/n_creep_thunder_lizard/n_creep_thunder_lizard_small.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_black_drake: {
     name: 'Ancient Black Drake',
     model: 'models/creeps/neutral_creeps/n_creep_black_drake/n_creep_black_drake.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_black_dragon: {
     name: 'Ancient Black Dragon',
     model: 'models/creeps/neutral_creeps/n_creep_black_dragon/n_creep_black_dragon.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_centaur_outrunner: {
     name: 'Centaur Courser',
     model: 'models/creeps/neutral_creeps/n_creep_centaur_med/n_creep_centaur_med.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_centaur_khan: {
     name: 'Centaur Conqueror',
     model: 'models/creeps/neutral_creeps/n_creep_centaur_lrg/n_creep_centaur_lrg.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_dark_troll: {
     name: 'Hill Troll',
     model: 'models/creeps/neutral_creeps/n_creep_troll_dark_a/n_creep_troll_dark_a.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_dark_troll_warlord: {
     name: 'Dark Troll Summoner',
     model: 'models/creeps/neutral_creeps/n_creep_troll_dark_b/n_creep_troll_dark_b.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_enraged_wildkin: {
     name: 'Wildwing Ripper',
     model: 'models/creeps/neutral_creeps/n_creep_vulture_a/n_creep_vulture_a.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_wildkin: {
     name: 'Wildwing',
     model: 'models/creeps/neutral_creeps/n_creep_vulture_b/n_creep_vulture_b.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_fel_beast: {
     name: 'Fell Spirit',
     model: 'models/creeps/neutral_creeps/n_creep_ghost_b/n_creep_ghost_b.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_ghost: {
     name: 'Ghost',
     model: 'models/creeps/neutral_creeps/n_creep_ghost_a/n_creep_ghost_a.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_forest_troll_berserker: {
     name: 'Hill Troll Berserker',
     model: 'models/creeps/neutral_creeps/n_creep_forest_trolls/n_creep_forest_troll_berserker.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_forest_troll_high_priest: {
     name: 'Hill Troll Priest',
     model: 'models/creeps/neutral_creeps/n_creep_forest_trolls/n_creep_forest_troll_high_priest.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_gnoll_assassin: {
     name: 'Vhoul Assassin',
     model: 'models/creeps/neutral_creeps/n_creep_gnoll/n_creep_gnoll.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_granite_golem: {
     name: 'Ancient Granite Golem',
     model: 'models/creeps/neutral_creeps/n_creep_golem_a/neutral_creep_golem_a.vmdl',
-    match: (unit) => unit.level === 6,
+    match(unit) {
+      return matchByModelID(unit, this) && unit.level === 6;
+    },
   },
 
   npc_dota_neutral_rock_golem: {
     name: 'Ancient Rock Golem',
     model: 'models/creeps/neutral_creeps/n_creep_golem_a/neutral_creep_golem_a.vmdl',
-    match: (unit) => unit.level === 5,
+    match(unit) {
+      return matchByModelID(unit, this) && unit.level === 5;
+    },
   },
 
   npc_dota_neutral_harpy_scout: {
     name: 'Harpy Scout',
     model: 'models/creeps/neutral_creeps/n_creep_harpy_a/n_creep_harpy_a.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_harpy_storm: {
     name: 'Harpy Stormcrafter',
     model: 'models/creeps/neutral_creeps/n_creep_harpy_b/n_creep_harpy_b.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_jungle_stalker: {
     name: 'Ancient Stalker',
     model: 'models/creeps/neutral_creeps/n_creep_gargoyle/n_creep_gargoyle.vmdl',
-    match: (unit) => unit.level === 5,
+    match(unit) {
+      return matchByModelID(unit, this) && unit.level === 5;
+    },
   },
 
   npc_dota_neutral_elder_jungle_stalker: {
     name: 'Ancient Primal Stalker',
     model: 'models/creeps/neutral_creeps/n_creep_gargoyle/n_creep_gargoyle.vmdl',
-    match: (unit) => unit.level === 6,
+    match(unit) {
+      return matchByModelID(unit, this) && unit.level === 6;
+    },
   },
 
   npc_dota_neutral_kobold: {
     name: 'Kobold',
     model: 'models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_c.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_kobold_tunneler: {
     name: 'Kobold Soldier',
     model: 'models/creeps/neutral_creeps/n_creep_kobold/kobold_b/n_creep_kobold_b.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_kobold_taskmaster: {
     name: 'Kobold Foreman',
     model: 'models/creeps/neutral_creeps/n_creep_kobold/kobold_a/n_creep_kobold_a.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_mud_golem: {
     name: 'Mud Golem',
     model: 'models/creeps/neutral_creeps/n_creep_golem_b/n_creep_golem_b.vmdl',
-    match: (unit) => unit.hpMax >= 800,
+    match(unit) {
+      return matchByModelID(unit, this) && unit.hpMax >= 800;
+    },
   },
 
   npc_dota_neutral_mud_golem_split: {
     name: 'Shard Golem',
     model: 'models/creeps/neutral_creeps/n_creep_golem_b/n_creep_golem_b.vmdl',
-    match: (unit) => unit.hpMax <= 400,
+    match(unit) {
+      return matchByModelID(unit, this) && unit.hpMax <= 400;
+    },
   },
 
   npc_dota_neutral_mud_golem_split_doom: {
     name: 'Doom Shard',
     model: 'models/heroes/doom/doom.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_ogre_mauler: {
     name: 'Ogre Bruiser',
     model: 'models/creeps/neutral_creeps/n_creep_ogre_med/n_creep_ogre_med.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_ogre_magi: {
     name: 'Ogre Frostmage',
     model: 'models/creeps/neutral_creeps/n_creep_ogre_lrg/n_creep_ogre_lrg.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_polar_furbolg_champion: {
     name: 'Hellbear',
     model: 'models/creeps/neutral_creeps/n_creep_beast/n_creep_beast.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_polar_furbolg_ursa_warrior: {
     name: 'Hellbear Smasher',
     model: 'models/creeps/neutral_creeps/n_creep_furbolg/n_creep_furbolg_disrupter.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_prowler_acolyte: {
     name: 'Ancient Prowler Acolyte',
     model: 'models/creeps/neutral_creeps/n_creep_satyr_spawn_a/n_creep_satyr_spawn_b.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_prowler_shaman: {
     name: 'Ancient Prowler Shaman',
     model: 'models/creeps/neutral_creeps/n_creep_satyr_spawn_a/n_creep_satyr_spawn_a.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_satyr_soulstealer: {
     name: 'Satyr Mindstealer',
     model: 'models/creeps/neutral_creeps/n_creep_satyr_c/n_creep_satyr_c.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_satyr_hellcaller: {
     name: 'Satyr Tormenter',
     model: 'models/creeps/neutral_creeps/n_creep_satyr_a/n_creep_satyr_a.vmdl',
+    match: matchByModelID,
   },
 
   npc_dota_neutral_satyr_trickster: {
     name: 'Satyr Banisher',
     model: 'models/creeps/neutral_creeps/n_creep_satyr_b/n_creep_satyr_b.vmdl',
+    match: matchByModelID,
   },
 
   //

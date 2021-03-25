@@ -82,12 +82,9 @@ class Unit extends Entity {
       return internalName;
     }
 
-    const { modelID } = this;
+    // TODO: Investigate caching refname to avoid looping over unit definitions
     for (const [key, entry] of Object.entries(unitsByName)) {
-      if (!(modelID in entry.modelIDs)) {
-        continue;
-      }
-      if (!entry.match || entry.match(this)) {
+      if (entry.match && entry.match(this)) {
         return key;
       }
     }
