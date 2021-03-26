@@ -12,8 +12,8 @@ import World from './world/World.jsx';
 
 const StyledQuitLink = styled(Link)`
   position: absolute;
-  top: 12px;
-  left: 15px;
+  top: 16px;
+  right: 15px;
   z-index: 5;
 `;
 
@@ -42,7 +42,7 @@ const ReplayView = observer(({ replay }) => {
 
   return (
     <StyledReplayView>
-      <StyledQuitLink to="/">Back to ReDota</StyledQuitLink>
+      <StyledQuitLink to="/">Close replay</StyledQuitLink>
       <HUD>
         <MiniMap
           camera={camera}
