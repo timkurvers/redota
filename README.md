@@ -13,22 +13,23 @@ View live: https://timkurvers.github.io/redota
 This is an experiment to revisit past Dota 2 matches in the browser, fully relying
 on parsing replays client-side without any server involvement.
 
-ReDota is a heavily derived project and stands on the shoulders of giants,
-notably parsers by [Dotabuff], [OpenDota] and [Skadistats].
-
-# Status
-
-Currently, ReDota is capable of parsing replays and playing back in real time.
-It does not yet parse everything correctly though.
-
 Contributions in form of issues, feedback or pull requests more than welcome!
+
+# Attribution
+
+ReDota is a heavily derived project and stands on the shoulders of giants, notably
+parsers by [Dotabuff] and [Skadistats].
+
+Special thanks to community members from [OpenDota] and [ModDota] who assisted in
+deciphering replay specifics.
 
 # Legalese
 
 - Dota 2 is a registered trademark of [Valve Corporation].
 - Image resources, lore and other references are property of [Valve Corporation].
 - The Dota 2 map and minimap images originate from [Gamepedia].
-- Lane creep icons come from The Noun Project, see [this README file](./public/images/icons/README.md).
+- The redo-symbol in the ReDota logo and favicon originates from [Font Awesome].
+- Lane creep and building icons come from The Noun Project, see [this README file](./public/images/icons/README.md).
 
 # Setup & Development
 
@@ -58,8 +59,10 @@ modularized using [ECMAScript modules] and bundled with [webpack].
 [Dotabuff]: https://github.com/dotabuff/manta
 [ECMAScript modules]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 [ES2020+]: https://www.strictmode.io/articles/whats-new-es2020/
+[Font Awesome]: https://fontawesome.com/license
 [Gamepedia]: https://dota2.gamepedia.com/Map
 [MobX]: https://mobx.js.org
+[ModDota]: https://moddota.com
 [Node.js]: https://nodejs.org/
 [OpenDota]: https://github.com/odota/parser
 [React]: https://reactjs.org/
