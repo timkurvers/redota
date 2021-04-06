@@ -1,3 +1,5 @@
+# ReDota: Icons
+
 A few of these icons come directly from the following Dota 2 game files:
 
 - `materials/vgui/hud/minimap_hero_sheet_psd_*.png`
