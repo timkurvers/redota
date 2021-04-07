@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
-import { Link } from '../components/index.js';
 import { useReplayController } from '../hooks/index.js';
 
 import HUD, {
@@ -10,20 +9,9 @@ import HUD, {
 } from './hud/HUD.jsx';
 import World from './world/World.jsx';
 
-const StyledQuitLink = styled(Link)`
-  position: absolute;
-  top: 16px;
-  right: 15px;
-  z-index: 5;
-`;
-
 const StyledReplayView = styled.div`
   width: 100%;
   height: 100%;
-  text-shadow: 1px 1px 1px #111,
-               -1px 1px 1px #111,
-               1px -1px 1px #111,
-               -1px -1px 1px #111;
 `;
 
 const ReplayView = observer(({ replay }) => {
@@ -42,7 +30,6 @@ const ReplayView = observer(({ replay }) => {
 
   return (
     <StyledReplayView>
-      <StyledQuitLink to="/">Close replay</StyledQuitLink>
       <HUD>
         <MiniMap
           camera={camera}
