@@ -1,21 +1,31 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
 
 const StyledLink = styled(RouterLink)`
   color: #C22E1F;
+  text-decoration: none;
 
   &:hover {
     color: #FF1700;
   }
+
+  ${(props) => props.grayscale && css`
+    color: #CCC;
+    border-bottom: 1px solid currentColor;
+
+    &:hover {
+      color: #FFF;
+    }
+  `}
 `;
 
 const Link = (props) => {
-  const { children, to } = props;
+  const { to } = props;
   const external = to.startsWith('http');
   if (external) {
     return (
-      <StyledLink as="a" href={to}>{children}</StyledLink>
+      <StyledLink as="a" href={to} {...props} />
     );
   }
   return <StyledLink {...props} />;
