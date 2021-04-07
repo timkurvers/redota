@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import {
-  Button, HStack, StyledButton, Time,
+  Button, HStack, Icon, StyledButton, Time,
 } from '../../../components/index.js';
 
 const StyledTimeline = styled(HStack)`
@@ -49,7 +49,7 @@ const Timeline = observer((props) => {
   return (
     <StyledTimeline>
       <Button onClick={onTogglePlaying}>
-        {!playing ? '►' : '❚❚'}
+        <Icon name={playing ? 'pause' : 'play'} />
       </Button>
       <input
         type="range"
