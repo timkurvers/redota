@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Hero from '../../lib/replay/entities/Hero.js';
 import {
   abilityResourceFor,
   heroResourceFor,
@@ -51,7 +50,7 @@ const UnitResource = React.memo((props) => {
 
 const UnitOrHeroResource = React.memo((props) => {
   const { unit, unit: { refname }, variant } = props;
-  if (unit instanceof Hero) {
+  if (unit.type === 'hero') {
     return <HeroResource refname={refname} variant={variant} />;
   }
   return <UnitResource refname={refname} variant={variant} />;
