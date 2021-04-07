@@ -13,10 +13,10 @@ const StyledTeamLogo = styled.div`
 `;
 
 const TeamLogo = (props) => {
-  const { teamID } = props;
+  const { alt, teamID } = props;
   return (
     <StyledTeamLogo>
-      <TeamLogoResource teamID={teamID} />
+      <TeamLogoResource alt={alt} teamID={teamID} />
     </StyledTeamLogo>
   );
 };

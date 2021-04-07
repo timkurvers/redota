@@ -10,13 +10,13 @@ import {
 } from '../../lib/resources.js';
 
 const Resource = (props) => {
-  const { src } = props;
+  const { alt, src } = props;
   return (
     <img
       src={src}
       draggable="false"
       // TODO: Determine alt text for these resources
-      alt=""
+      alt={alt}
       style={{ userSelect: 'none' }}
     />
   );
@@ -38,8 +38,8 @@ const ItemResource = React.memo((props) => {
 });
 
 const TeamLogoResource = React.memo((props) => {
-  const { teamID } = props;
-  return <Resource src={teamLogoResourceFor(teamID)} />;
+  const { alt, teamID } = props;
+  return <Resource alt={alt} src={teamLogoResourceFor(teamID)} />;
 });
 
 const UnitResource = React.memo((props) => {
