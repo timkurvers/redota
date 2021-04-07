@@ -11,6 +11,7 @@ export { default as ItemSlot, ItemSlotCollection, StyledItemSlot } from './ItemS
 export { default as Level, StyledLevel } from './Level.jsx';
 export { default as Link } from './Link.jsx';
 export { default as Logo } from './Logo.jsx';
+export { default as Modal } from './Modal.jsx';
 export { default as Notice } from './Notice.jsx';
 export { default as PlayerColor } from './PlayerColor.jsx';
 export * from './Resource.jsx';
