@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { TeamLogoResource } from './Resource.jsx';
 
 const StyledTeamLogo = styled.div`
-  width: 60px;
+  padding: 0 10px;
   text-align: center;
 
   img {
@@ -22,3 +22,4 @@ const TeamLogo = (props) => {
 };
 
 export default React.memo(TeamLogo);
+export { StyledTeamLogo };

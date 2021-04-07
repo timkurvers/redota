@@ -15,5 +15,5 @@ export { default as Notice } from './Notice.jsx';
 export { default as PlayerColor } from './PlayerColor.jsx';
 export * from './Resource.jsx';
 export * from './Stack.jsx';
-export { default as TeamLogo } from './TeamLogo.jsx';
+export { default as TeamLogo, StyledTeamLogo } from './TeamLogo.jsx';
 export { default as Time } from './Time.jsx';
