@@ -27,7 +27,8 @@ class Ability extends Entity {
 
   // TODO: Surely there is a better way to determine this?
   get isTalent() {
-    return this.refname.startsWith('special_bonus_');
+    return this.refname.startsWith('special_bonus_')
+           || this.refname.startsWith('ad_special_bonus_');
   }
 }
 
