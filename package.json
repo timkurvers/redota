@@ -26,7 +26,7 @@
     "dexie": "^3.1.0-alpha.8",
     "dexie-observable": "^3.0.0-beta.10",
     "dexie-react-hooks": "^1.0.6",
-    "dotaconstants": "^6.38.0",
+    "dotaconstants": "^7.1.0",
     "mobx": "^6.0.4",
     "mobx-react-lite": "^3.1.6",
     "protobufjs": "^6.10.1",
