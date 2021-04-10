@@ -13,6 +13,7 @@ class Match {
     this.matchID = null;
     this.leagueID = null;
     this.duration = null;
+    this.createdAt = new Date();
     this.endedAt = null;
     this.winningTeamID = null;
 
