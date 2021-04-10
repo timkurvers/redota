@@ -1,3 +1,10 @@
+import React from 'react';
+import styled from 'styled-components';
+
+const StyledDate = styled.span`
+  white-space: nowrap;
+`;
+
 const Date = (props) => {
   const { date } = props;
   if (!date) {
@@ -9,7 +16,11 @@ const Date = (props) => {
     month: 'short',
     day: 'numeric',
   };
-  return date.toLocaleString(navigator.language, options);
+  return (
+    <StyledDate>
+      {date.toLocaleString('en-US', options)}
+    </StyledDate>
+  );
 };
 
 export default Date;
