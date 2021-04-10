@@ -1,6 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
+import { HStack } from './Stack.jsx';
+
 const StyledButton = styled.button`
   appearance: none;
   background: none;
@@ -42,5 +44,17 @@ const Button = (props) => {
   return <StyledButton type="button" {...rest} {...accessibility} />;
 };
 
+const StyledButtonCollection = styled(HStack)`
+  margin-top: .8125rem;
+
+  ${StyledButton} {
+    margin: 1em;
+  }
+`;
+
+const ButtonCollection = (props) => (
+  <StyledButtonCollection justify="center" {...props} />
+);
+
 export default Button;
-export { StyledButton };
+export { ButtonCollection, StyledButton, StyledButtonCollection };
