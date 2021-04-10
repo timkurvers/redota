@@ -81,7 +81,7 @@ const StyledActions = styled(VStack)`
     opacity: .5;
     padding: 5px 10px;
 
-    &:hover {
+    &:hover, &:focus {
       opacity: 1;
     }
   }

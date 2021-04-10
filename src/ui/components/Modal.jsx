@@ -35,7 +35,7 @@ const StyledCloseButton = styled(Button)`
   font-size: 1.5em;
   opacity: .5;
 
-  &:hover {
+  &:hover, &:focus {
     opacity: 1;
   }
 `;

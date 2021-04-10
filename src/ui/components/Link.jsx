@@ -6,7 +6,7 @@ const StyledLink = styled(RouterLink)`
   color: #C22E1F;
   text-decoration: none;
 
-  &:hover {
+  &:hover, &:focus {
     color: #FF1700;
   }
 
@@ -14,7 +14,7 @@ const StyledLink = styled(RouterLink)`
     color: #CCC;
     border-bottom: 1px solid currentColor;
 
-    &:hover {
+    &:hover, &:focus {
       color: #FFF;
     }
   `}
