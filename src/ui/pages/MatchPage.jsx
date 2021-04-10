@@ -66,7 +66,7 @@ const MatchPage = () => {
       </StyledCloseLink>
 
       <ErrorBoundary context="replay">
-        <ReplayView replay={replay} />;
+        <ReplayView replay={replay} />
       </ErrorBoundary>
     </StyledMatchPage>
   );
