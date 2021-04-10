@@ -17,6 +17,12 @@ const StyledButton = styled.button`
     padding: 6px 40px;
     font-family: 'Galdeano', sans-serif;
     text-shadow: 1px 1px 0 #942020, -1px -1px 1px #000000;
+
+    ${!props.disabled && css`
+      &:hover, &:focus {
+        filter: saturate(125%);
+      }
+    `}
   `}
 
   ${(props) => props.disabled && css`
