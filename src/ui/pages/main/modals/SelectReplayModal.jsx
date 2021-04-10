@@ -2,9 +2,9 @@ import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Error from '../../../components/Error.jsx';
-import Match from '../../../../lib/database/Match.js';
 import Modal from '../../../components/Modal.jsx';
 import Notice from '../../../components/Notice.jsx';
+import db from '../../../../lib/database/index.js';
 import isValidReplay from '../../../../lib/utils/isValidReplay.js';
 import useTitle from '../../../hooks/useTitle.jsx';
 
@@ -26,7 +26,7 @@ const SelectReplayModal = () => {
       try {
         valid = await isValidReplay(file);
         if (valid) {
-          const match = new Match();
+          const match = new db.models.Match();
           await match.update(file);
           await match.save();
           close();
