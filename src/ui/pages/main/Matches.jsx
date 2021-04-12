@@ -2,23 +2,14 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
-import Button, { StyledButton } from '../../components/Button.jsx';
+import Button, { ButtonCollection } from '../../components/Button.jsx';
 import ErrorBoundary from '../../components/ErrorBoundary.jsx';
 import Link from '../../components/Link.jsx';
 import Notice from '../../components/Notice.jsx';
 import db from '../../../lib/database/index.js';
-import { HStack } from '../../components/Stack.jsx';
 import { useDatabaseQuery } from '../../hooks/index.js';
 
 import Match from './Match.jsx';
-
-const StyledActions = styled(HStack)`
-  margin-top: .8125rem;
-
-  ${StyledButton} {
-    margin: 1em;
-  }
-`;
 
 const MatchList = () => {
   const history = useHistory();
@@ -57,20 +48,21 @@ const MatchList = () => {
 
       {!isLoading && !matches.length && (
         <Notice kind="instructions">
-          Need a replay file to get started?<br />
+          Need a replay file to get started?
+          <br />
           {sample}, unzip it and select it below.
         </Notice>
       )}
 
-      <StyledActions justify="center">
+      <ButtonCollection>
         <Button fancy onClick={openFindMatchModal} disabled>
-          Find replays by match ID
+          Find replay by match ID
         </Button>
 
         <Button fancy onClick={openSelectReplayModal}>
-          Select a local replay file
+          Select local replay file
         </Button>
-      </StyledActions>
+      </ButtonCollection>
 
       {usage > 0 && (
         <p>
@@ -78,6 +70,11 @@ const MatchList = () => {
           in your browser. Use the trash cans to get rid of unwanted replays.
         </p>
       )}
+
+      <p>
+        <strong>Note:</strong> your browser may occasionally perform house keeping and remove
+        website data including the replays. Maintain a local copy on your computer if you need them.
+      </p>
     </>
   );
 };
@@ -91,11 +88,6 @@ const Matches = () => (
     <ErrorBoundary context="database">
       <MatchList />
     </ErrorBoundary>
-
-    <p>
-      <strong>Note:</strong> your browser may occasionally perform house keeping and remove
-      website data including the replays. Maintain a local copy on your computer if you need them.
-    </p>
   </StyledMatches>
 );
 
