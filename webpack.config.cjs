@@ -55,7 +55,19 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: 'babel-loader',
+        loader: 'babel-loader',
+      },
+      {
+        test: /\.worker\.js$/,
+        loader: 'worker-loader',
+        options: {
+          filename: (pathData) => {
+            let { name } = pathData.chunk;
+            name = name.replace('.worker', '');
+            name = name.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+            return `redota-${name}-[chunkhash:8].worker.js`;
+          },
+        },
       },
     ],
   },
