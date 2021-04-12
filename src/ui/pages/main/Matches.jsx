@@ -50,7 +50,7 @@ const MatchList = () => {
         <Notice kind="instructions">
           Need a replay file to get started?
           <br />
-          {sample}, unzip it and select it below.
+          {sample} and select it below.
         </Notice>
       )}
 
