@@ -28,8 +28,7 @@ const StyledButton = styled.button`
   `}
 
   ${(props) => props.disabled && css`
-    filter: grayscale(50%);
-    opacity: .5;
+    filter: brightness(50%);
     cursor: not-allowed;
   `}
 `;
