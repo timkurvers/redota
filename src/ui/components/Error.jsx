@@ -49,14 +49,16 @@ const Error = (props) => {
   );
 
   const { name, message } = error;
-  const label = `${name}: ${message}\n`;
+  const label = `${name ? `${name}: ` : ''}${message}\n`;
 
   // Normalize stack between V8-based browsers and Firefox/Safari
   let { stack } = error;
-  if (stack.startsWith(label)) {
-    stack = stack.replace(label, '');
-  } else {
-    stack = stack.replace(/^/gm, '    at ');
+  if (stack) {
+    if (stack.startsWith(label)) {
+      stack = stack.replace(label, '');
+    } else {
+      stack = stack.replace(/^/gm, '    at ');
+    }
   }
 
   return (
