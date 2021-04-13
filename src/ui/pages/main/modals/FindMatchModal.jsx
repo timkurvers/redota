@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Modal from '../../../components/Modal.jsx';
 import useTitle from '../../../hooks/useTitle.jsx';
 
-const FindMatchModel = () => {
+const FindMatchModal = () => {
   useTitle('Find match');
   const history = useHistory();
 
@@ -21,4 +21,4 @@ const FindMatchModel = () => {
   );
 };
 
-export default FindMatchModel;
+export default FindMatchModal;
