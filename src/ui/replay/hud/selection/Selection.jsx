@@ -58,7 +58,7 @@ const Selection = observer((props) => {
   // TODO: This is mightily inefficient as abilities, backpack etc. get computed
   // anew when any of these properties change.
   const {
-    handle, name, refname, hp, hpMax, mp, mpMax, level, teamID, xp,
+    handle, name, hp, hpMax, mp, mpMax, level, teamID, xp,
     abilities, backpack, inventory, neutralItem, teleportScroll,
   } = unit;
 
