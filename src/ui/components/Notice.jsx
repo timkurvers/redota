@@ -8,6 +8,10 @@ const StyledNotice = styled.p`
   ${(props) => props.kind === 'error' && css`
     color: #C22E1F;
   `}
+
+  ${(props) => props.kind === 'warning' && css`
+    color: #B08C00;
+  `}
 `;
 
 const Notice = (props) => {

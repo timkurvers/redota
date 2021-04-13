@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import Button, { ButtonCollection } from '../../components/Button.jsx';
 import ErrorBoundary from '../../components/ErrorBoundary.jsx';
+import Icon from '../../components/Icon.jsx';
 import Link from '../../components/Link.jsx';
 import Notice from '../../components/Notice.jsx';
 import db from '../../../lib/database/index.js';
@@ -41,16 +42,21 @@ const MatchList = () => {
 
   return (
     <>
-      {/* TODO: Add loading indicator */}
-      {!isLoading && matches.map((match) => (
-        <Match key={match.uuid} match={match} />
-      ))}
-
       {!isLoading && !matches.length && (
         <Notice kind="instructions">
           Get started with ReDota by {searching}.
         </Notice>
       )}
+
+      <Notice kind="warning">
+        <Icon name="exclamation-triangle" /> ReDota currently uses the 7.23 map as a background.
+        <br />
+        Games played on patch 7.29 may consequently look odd.
+      </Notice>
+
+      {!isLoading && matches.map((match) => (
+        <Match key={match.uuid} match={match} />
+      ))}
 
       <ButtonCollection>
         <Button fancy onClick={openFindMatchModal}>
