@@ -1,6 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 
 import React, { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
+
+const StyledWizard = styled.div`
+  min-width: 350px;
+`;
 
 const Wizard = (props) => {
   const { children, onDone } = props;
@@ -47,7 +52,12 @@ const Wizard = (props) => {
     }
   }, [currentIndex, onDone, steps]);
 
-  return steps.slice(0, currentIndex + 1);
+  const step = steps[currentIndex];
+  return (
+    <StyledWizard>
+      {step}
+    </StyledWizard>
+  );
 };
 
 export default Wizard;
