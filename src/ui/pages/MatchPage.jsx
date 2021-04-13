@@ -44,8 +44,12 @@ const MatchPage = () => {
       match = await db.models.Match.query.get({ uuid: id });
     }
     if (!match) {
-      // TODO: Redirect to 'find match by ID'-modal once implemented
-      history.push('/');
+      if (isMatchID) {
+        // Forward the user to a pre-filled 'Find match by ID'-modal
+        history.push(`/matches/find/${id}`);
+      } else {
+        history.push('/');
+      }
       return;
     }
 

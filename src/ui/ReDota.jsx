@@ -28,9 +28,9 @@ const ReDota = () => (
   <StyledReDota>
     <HashRouter>
       <Switch>
-        <Route exact path={['/', '/matches', '/matches/find', '/matches/select']}>
+        <Route exact path={['/', '/matches', '/matches/find/:prefill?', '/matches/select']}>
           <MainPage>
-            <Route path="/matches/find">
+            <Route path="/matches/find/:prefill?">
               <FindMatchModal />
             </Route>
 
