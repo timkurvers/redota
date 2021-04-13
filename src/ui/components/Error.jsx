@@ -14,6 +14,7 @@ const StyledError = styled.div`
   border: 1px solid #FF0000;
   color: #FFFFFF;
   text-shadow: 1px 1px 1px #000000;
+  text-align: left;
 
   h3 {
     margin-top: 0;

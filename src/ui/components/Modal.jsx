@@ -44,19 +44,12 @@ const StyledContent = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  padding: 25px;
+  padding: 0px 20px 10px;
   transform: translate(-50%, -50%);
   background: rgba(17, 17, 17, .75);
   border: 2px solid #333;
   border-radius: 10px;
-
-  & :nth-child(2) {
-    margin-top: 0;
-  }
-
-  & :last-child {
-    margin-bottom: 0;
-  }
+  text-align: center;
 `;
 
 const Modal = (props) => {
