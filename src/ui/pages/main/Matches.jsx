@@ -55,7 +55,7 @@ const MatchList = () => {
       )}
 
       <ButtonCollection>
-        <Button fancy onClick={openFindMatchModal} disabled>
+        <Button fancy onClick={openFindMatchModal}>
           Find replay by match ID
         </Button>
 
