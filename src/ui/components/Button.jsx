@@ -17,6 +17,7 @@ const StyledButton = styled.button`
     box-shadow: inset 1px 1px 0 0 #B60A0A, inset -1px -1px 0 0 #410404;
     border-radius: 6px;
     padding: 6px 40px;
+    margin: .5em 1em 1em;
     font-family: 'Galdeano', sans-serif;
     text-shadow: 1px 1px 0 #942020, -1px -1px 1px #000000;
 
