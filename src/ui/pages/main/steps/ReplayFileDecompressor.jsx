@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 
+import Button from '../../../components/Button.jsx';
 import Error from '../../../components/Error.jsx';
 import Notice from '../../../components/Notice.jsx';
 import Worker from '../../../../workers/Bzip2Decompressor.worker.js';
@@ -17,10 +18,10 @@ const isValidBzip2Archive = async (blob) => {
 };
 
 const ReplayFileDecompressor = (props) => {
-  const { input: file, next } = props;
+  const { input: file, next, reset } = props;
 
   const [error, setError] = useState(null);
-  const [progress, setProgress] = useState(null);
+  const [progress, setProgress] = useState(0);
 
   // Hold a reference to worker thread
   const workerRef = useRef(null);
@@ -69,12 +70,18 @@ const ReplayFileDecompressor = (props) => {
 
   return (
     <>
-      {progress !== null && (
-        <Notice>
-          Decompressing replay file...
-          <br />
-          {progress}%
-        </Notice>
+      {!error && (
+        <>
+          <Notice>
+            Decompressing replay file...
+            <br />
+            {progress}%
+          </Notice>
+
+          <Button fancy onClick={reset}>
+            Cancel
+          </Button>
+        </>
       )}
 
       {error && (
