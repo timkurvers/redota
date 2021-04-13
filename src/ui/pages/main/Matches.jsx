@@ -33,9 +33,9 @@ const MatchList = () => {
     usage = Math.round(bytes / (1000 * 1000));
   }
 
-  const sample = (
-    <Link to="http://replay138.valve.net/570/5712001132_579859928.dem.bz2">
-      Download a replay of a pro-team match
+  const searching = (
+    <Link to="/matches/find/5712001132">
+      searching for a professional game
     </Link>
   );
 
@@ -48,9 +48,7 @@ const MatchList = () => {
 
       {!isLoading && !matches.length && (
         <Notice kind="instructions">
-          Need a replay file to get started?
-          <br />
-          {sample} and select it below.
+          Get started with ReDota by {searching}.
         </Notice>
       )}
 
