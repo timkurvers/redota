@@ -49,6 +49,12 @@ const MatchProcessor = (props) => {
 
   return (
     <>
+      {!feedback && (
+        <Notice>
+          Please wait...
+        </Notice>
+      )}
+
       {feedback && (
         <Notice kind="error">{feedback}</Notice>
       )}
