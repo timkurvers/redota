@@ -23,6 +23,10 @@ const Wizard = (props) => {
     setValues(values.slice(0, -1));
   }, [setValues, values]);
 
+  const reset = useCallback(() => {
+    setValues([]);
+  }, [setValues]);
+
   // Construct steps for this wizard passing in the value produced by the previous
   // step effectively chaining them together
   const steps = children.map((child, index) => (
@@ -32,6 +36,7 @@ const Wizard = (props) => {
       invalidate: invalidate.bind(null, index),
       next: next.bind(null, index),
       prev,
+      reset,
     })
   ));
 
