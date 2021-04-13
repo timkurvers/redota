@@ -90,6 +90,7 @@ const StyledActions = styled(VStack)`
 const StyledDuration = styled.div`
   min-width: 90px;
   text-align: center;
+  white-space: nowrap;
 
   @media screen and (max-width: 700px) {
     display: none;
@@ -106,7 +107,7 @@ const StyledTeams = styled(VStack)`
 `;
 
 const Match = (props) => {
-  const { match } = props;
+  const { match, isPreview = false } = props;
   const {
     id, duration, endedAt, label, radiant, dire, winningTeamID,
   } = match;
@@ -118,7 +119,7 @@ const Match = (props) => {
   return (
     <StyledMatch>
       <StyledInfo>
-        <Link to={`/matches/${id}`}>{label}</Link>
+        {!isPreview && <Link to={`/matches/${id}`}>{label}</Link>}
         <Date date={endedAt} />
       </StyledInfo>
 
@@ -131,11 +132,13 @@ const Match = (props) => {
         {dire && <Team team={dire} isWinner={winningTeamID === TEAM_DIRE} />}
       </StyledTeams>
 
-      <StyledActions>
-        <Button onClick={remove} label="Remove match">
-          <Icon name="trash-alt" />
-        </Button>
-      </StyledActions>
+      {!isPreview && (
+        <StyledActions>
+          <Button onClick={remove} label="Remove match">
+            <Icon name="trash-alt" />
+          </Button>
+        </StyledActions>
+      )}
     </StyledMatch>
   );
 };
