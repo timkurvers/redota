@@ -13,6 +13,8 @@ View live: https://timkurvers.github.io/redota
 This is an experiment to revisit past Dota 2 matches in the browser, fully relying
 on parsing replays client-side without any server involvement.
 
+ReDota can download these replay files from Valve through a [replay proxy].
+
 Contributions in form of issues, feedback or pull requests more than welcome!
 
 # Attribution
@@ -68,5 +70,6 @@ modularized using [ECMAScript modules] and bundled with [webpack].
 [React]: https://reactjs.org/
 [Skadistats]: https://github.com/skadistats/clarity
 [Valve Corporation]: https://www.valvesoftware.com/
+[replay proxy]: https://github.com/timkurvers/redota-replay-proxy
 [styled-components]: https://styled-components.com/
 [webpack]: https://webpack.js.org/
