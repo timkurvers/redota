@@ -40,6 +40,18 @@ const MatchList = () => {
     </Link>
   );
 
+  const actions = (
+    <ButtonCollection>
+      <Button fancy onClick={openFindMatchModal}>
+        Find replay by match ID
+      </Button>
+
+      <Button fancy onClick={openSelectReplayModal}>
+        Select local replay file
+      </Button>
+    </ButtonCollection>
+  );
+
   return (
     <>
       {!isLoading && !matches.length && (
@@ -54,19 +66,15 @@ const MatchList = () => {
         Games played on patch 7.29 may consequently look odd.
       </Notice>
 
+      {!isLoading && matches.length > 5 && (
+        actions
+      )}
+
       {!isLoading && matches.map((match) => (
         <Match key={match.uuid} match={match} />
       ))}
 
-      <ButtonCollection>
-        <Button fancy onClick={openFindMatchModal}>
-          Find replay by match ID
-        </Button>
-
-        <Button fancy onClick={openSelectReplayModal}>
-          Select local replay file
-        </Button>
-      </ButtonCollection>
+      {actions}
 
       {usage > 0 && (
         <>
