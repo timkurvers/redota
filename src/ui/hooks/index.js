@@ -1,4 +1,5 @@
 export { default as useAsyncEffect } from 'use-async-effect';
+export { useHotkeys as useHotkey, useIsHotkeyPressed } from 'react-hotkeys-hook';
 
 export { default as useDatabaseQuery } from './useDatabaseQuery.jsx';
 export { default as useInterval } from './useInterval.jsx';

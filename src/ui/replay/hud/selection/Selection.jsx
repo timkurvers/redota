@@ -6,6 +6,7 @@ import {
   Bar, HStack, Level, StyledLevel, VStack,
 } from '../../../components/index.js';
 import { Hero } from '../../../../lib/replay/entities/index.js';
+import { useHotkey } from '../../../hooks/index.js';
 
 import Abilities from './Abilities.jsx';
 import Inventory from './Inventory.jsx';
@@ -61,6 +62,10 @@ const Selection = observer((props) => {
     handle, name, hp, hpMax, mp, mpMax, level, teamID, xp,
     abilities, backpack, inventory, neutralItem, teleportScroll,
   } = unit;
+
+  useHotkey('esc', () => {
+    setSelection(null);
+  }, [setSelection]);
 
   const onUnitSelect = useCallback(() => {
     setSelection(handle);

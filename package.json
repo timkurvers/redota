@@ -33,6 +33,7 @@
     "protobufjs": "^6.10.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-hotkeys-hook": "^3.3.1",
     "react-router-dom": "^5.2.0",
     "seek-bzip": "^2.0.0",
     "snappyjs": "^0.6.0",
