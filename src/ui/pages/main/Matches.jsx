@@ -69,16 +69,18 @@ const MatchList = () => {
       </ButtonCollection>
 
       {usage > 0 && (
-        <p>
-          The above replays take up approximately <strong>{usage} MB</strong> of storage space
-          in your browser. Use the trash cans to get rid of unwanted replays.
-        </p>
-      )}
+        <>
+          <p>
+            The above replays take up approximately <strong>{usage} MB</strong> of storage space
+            in your browser. Use the trash cans to get rid of unwanted replays.
+          </p>
 
-      <p>
-        <strong>Note:</strong> your browser may occasionally perform house keeping and remove
-        website data including the replays. Maintain a local copy on your computer if you need them.
-      </p>
+          <p>
+            <strong>Note:</strong> Your browser may perform house keeping and remove replay data.
+            Keep a copy if you need them.
+          </p>
+        </>
+      )}
     </>
   );
 };

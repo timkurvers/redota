@@ -112,6 +112,13 @@ const Match = (props) => {
     id, duration, endedAt, label, radiant, dire, winningTeamID,
   } = match;
 
+  const download = useCallback(() => {
+    const a = document.createElement('a');
+    a.setAttribute('download', match.replay.filename);
+    a.setAttribute('href', URL.createObjectURL(match.replay.blob));
+    a.click();
+  }, [match]);
+
   const remove = useCallback(() => {
     match.delete();
   }, [match]);
@@ -134,6 +141,10 @@ const Match = (props) => {
 
       {!isPreview && (
         <StyledActions>
+          <Button onClick={download} label="Download replay">
+            <Icon name="file-download" />
+          </Button>
+
           <Button onClick={remove} label="Remove match">
             <Icon name="trash-alt" />
           </Button>
