@@ -7,6 +7,7 @@ import Icon from '../../components/Icon.jsx';
 import Link from '../../components/Link.jsx';
 import TeamLogo, { StyledTeamLogo } from '../../components/TeamLogo.jsx';
 import Time from '../../components/Time.jsx';
+import gameModesByID from '../../../lib/definitions/gameModesByID.js';
 import { HeroResource } from '../../components/Resource.jsx';
 import { HStack, VStack } from '../../components/Stack.jsx';
 import { TEAM_DIRE, TEAM_RADIANT } from '../../../lib/constants.js';
@@ -109,7 +110,7 @@ const StyledTeams = styled(VStack)`
 const Match = (props) => {
   const { match, isPreview = false } = props;
   const {
-    id, duration, endedAt, label, radiant, dire, winningTeamID,
+    id, duration, endedAt, gameMode, label, radiant, dire, winningTeamID,
   } = match;
 
   const download = useCallback(() => {
@@ -127,6 +128,7 @@ const Match = (props) => {
     <StyledMatch>
       <StyledInfo>
         {!isPreview && <Link to={`/matches/${id}`}>{label}</Link>}
+        {gameModesByID[gameMode]?.name}
         <Date date={endedAt} />
       </StyledInfo>
 
