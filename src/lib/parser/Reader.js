@@ -48,7 +48,7 @@ class Reader {
   nextByte() {
     const { pos } = this;
     if (this.eof) {
-      throw guard(pos, this.length);
+      throw guard(pos, 1);
     }
     this.pos += 1;
     return this.buffer[pos];
