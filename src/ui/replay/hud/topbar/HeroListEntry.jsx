@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import {
   Bar, Cooldown, HeroResource, PlayerColor,
 } from '../../../components/index.js';
+import { useHotkey } from '../../../hooks/index.js';
 
 const StyledHeroListEntry = styled.div`
   position: relative;
@@ -21,6 +22,12 @@ const HeroListEntry = observer((props) => {
   const {
     color, handle, hp, hpMax, mp, mpMax, refname, respawnCooldown, teamID,
   } = hero;
+
+  // Quick-jump hotkey to this hero based on the player ID
+  const hotkey = (player.id + 1) % 10;
+  useHotkey(`${hotkey}`, () => {
+    setSelection(handle);
+  }, [handle, setSelection]);
 
   const onClick = useCallback(() => {
     setSelection(handle);
