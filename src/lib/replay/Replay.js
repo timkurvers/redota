@@ -465,10 +465,10 @@ class Replay {
       unit.hpMax = delta.m_iMaxHealth;
     }
     if ('m_flMana' in delta) {
-      unit.mp = delta.m_flMana;
+      unit.mana = delta.m_flMana;
     }
     if ('m_flMaxMana' in delta) {
-      unit.mpMax = delta.m_flMaxMana;
+      unit.manaMax = delta.m_flMaxMana;
     }
     if ('m_bIsWaitingToSpawn' in delta) {
       unit.isWaitingToSpawn = delta.m_bIsWaitingToSpawn;

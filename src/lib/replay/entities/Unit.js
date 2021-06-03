@@ -18,8 +18,8 @@ class Unit extends Entity {
     this.level = 1;
     this.hp = 0;
     this.hpMax = 0;
-    this.mp = 0;
-    this.mpMax = 0;
+    this.mana = 0;
+    this.manaMax = 0;
     this.isWaitingToSpawn = false;
 
     this.ownerHandle = null;
@@ -33,8 +33,8 @@ class Unit extends Entity {
       level: observable,
       hp: observable,
       hpMax: observable,
-      mp: observable,
-      mpMax: observable,
+      mana: observable,
+      manaMax: observable,
       isWaitingToSpawn: observable,
 
       ownerHandle: observable,

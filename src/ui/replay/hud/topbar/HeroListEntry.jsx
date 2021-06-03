@@ -20,7 +20,7 @@ const StyledHeroListEntry = styled.div`
 const HeroListEntry = observer((props) => {
   const { hero, setSelection } = props;
   const {
-    color, handle, hp, hpMax, mp, mpMax, refname, respawnCooldown, teamID,
+    color, handle, hp, hpMax, mana, manaMax, player, refname, respawnCooldown, teamID,
   } = hero;
 
   // Quick-jump hotkey to this hero based on the player ID
@@ -39,7 +39,7 @@ const HeroListEntry = observer((props) => {
       <Cooldown remaining={respawnCooldown.remaining}>
         <HeroResource refname={refname} variant="landscape" />
         <Bar type="health" size="mini" value={hp} max={hpMax} teamID={teamID} />
-        <Bar type="mana" size="mini" value={mp} max={mpMax} />
+        <Bar type="mana" size="mini" value={mana} max={manaMax} />
       </Cooldown>
     </StyledHeroListEntry>
   );
