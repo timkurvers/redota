@@ -1,6 +1,7 @@
 import { makeObservable, observable } from 'mobx';
 
 import Cooldown from '../Cooldown.js';
+import { abilitiesByName } from '../../definitions/index.js';
 
 import Entity from './Entity.js';
 
@@ -12,6 +13,8 @@ class Ability extends Entity {
     this.hidden = false;
     this.level = null;
     this.manaCost = null;
+
+    this.definition = abilitiesByName[this.refname];
 
     makeObservable(this, {
       cooldown: observable,
@@ -29,6 +32,10 @@ class Ability extends Entity {
   get isTalent() {
     return this.refname.startsWith('special_bonus_')
            || this.refname.startsWith('ad_special_bonus_');
+  }
+
+  get maxLevel() {
+    return this.definition.maxLevel ?? this.level;
   }
 }
 
