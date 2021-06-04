@@ -57,7 +57,7 @@ const Abilities = observer((props) => {
   return (
     <StyledAbilities>
       {abilities.map((ability) => (
-        !ability.hidden && <Ability key={ability.handle} ability={ability} />
+        !ability.isHidden && <Ability key={ability.handle} ability={ability} />
       ))}
     </StyledAbilities>
   );

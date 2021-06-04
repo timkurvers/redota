@@ -208,7 +208,7 @@ class Replay {
       ability.cooldown.duration = delta.m_flCooldownLength;
     }
     if ('m_bHidden' in delta) {
-      ability.hidden = delta.m_bHidden;
+      ability.isHidden = delta.m_bHidden;
     }
     if ('m_iLevel' in delta) {
       ability.level = delta.m_iLevel;

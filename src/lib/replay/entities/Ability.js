@@ -10,7 +10,7 @@ class Ability extends Entity {
     super(replay, ...args);
 
     this.cooldown = new Cooldown(replay);
-    this.hidden = false;
+    this.isHidden = false;
     this.level = null;
     this.manaCost = null;
 
@@ -18,7 +18,7 @@ class Ability extends Entity {
 
     makeObservable(this, {
       cooldown: observable,
-      hidden: observable,
+      isHidden: observable,
       level: observable,
       manaCost: observable,
     });
