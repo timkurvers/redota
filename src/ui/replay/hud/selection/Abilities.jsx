@@ -19,7 +19,7 @@ const StyledAbilityLevel = styled.div`
   max-width: 8px;
   height: 3px;
   margin: 0 3px;
-  background: darkgray;
+  background: #444444;
   box-shadow: 1px 1px 1px #111,
               -1px 1px 1px #111,
               1px -1px 1px #111,
@@ -32,17 +32,16 @@ const StyledAbilityLevel = styled.div`
 
 const Ability = observer((props) => {
   const { ability } = props;
-  const { level } = ability;
-  const levels = new Array(level).fill();
+  const { level, maxLevel } = ability;
+  const levels = new Array(maxLevel).fill();
   return (
     <StyledAbility>
       <ActiveFilter active={level >= 1}>
         <AbilitySlot ability={ability} />
       </ActiveFilter>
       <HStack justify="center">
-        {/* TODO: Render unacquired levels, too */}
         {levels.map((_, index) => (
-          <StyledAbilityLevel key={index} acquired />
+          <StyledAbilityLevel key={index} acquired={index < level} />
         ))}
       </HStack>
     </StyledAbility>
