@@ -26,6 +26,14 @@ class Ability extends Entity {
     });
   }
 
+  get isDotaPlus() {
+    return this.refname.startsWith('plus_');
+  }
+
+  get isFluff() {
+    return this.isDotaPlus || this.isSeasonal;
+  }
+
   get isSeasonal() {
     return this.refname.startsWith('seasonal_');
   }

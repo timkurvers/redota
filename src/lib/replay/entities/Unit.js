@@ -52,7 +52,7 @@ class Unit extends Entity {
   get abilities() {
     return this.abilityHandles.reduce((abilities, handle) => {
       const ability = this.replay.abilities.get(handle);
-      if (ability && !ability.isSeasonal && !ability.isTalent) {
+      if (ability && !ability.isFluff && !ability.isTalent) {
         abilities.push(ability);
       }
       return abilities;
