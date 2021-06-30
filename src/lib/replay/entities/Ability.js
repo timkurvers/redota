@@ -14,7 +14,9 @@ class Ability extends Entity {
     this.level = null;
     this.manaCost = null;
 
-    this.definition = abilitiesByName[this.refname];
+    this.definition = abilitiesByName[this.refname] || {
+      dname: this.refname,
+    };
 
     makeObservable(this, {
       cooldown: observable,
@@ -36,6 +38,10 @@ class Ability extends Entity {
 
   get maxLevel() {
     return this.definition.maxLevel ?? this.level;
+  }
+
+  get name() {
+    return this.definition.dname;
   }
 }
 
