@@ -29,7 +29,9 @@ deciphering replay specifics.
 
 - Dota 2 is a registered trademark of [Valve Corporation].
 - Image resources, lore and other references are property of [Valve Corporation].
-- The Dota 2 map and minimap images originate from [Gamepedia].
+- The Dota 2 map and minimap images come from multiple sources:
+  - 7.23 images originate from [Gamepedia].
+  - 7.29 images contributed by [likwidoxigen](https://github.com/timkurvers/redota/pull/48).
 - The redo-symbol in the ReDota logo ~~and favicon~~ originates from [Font Awesome].
 - Lane creep and building icons come from The Noun Project, see [this README file](./public/images/icons/README.md).
 
