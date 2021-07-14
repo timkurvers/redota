@@ -78,6 +78,14 @@ class Player extends Entity {
     return this.teamID === TEAM_SPECTATORS;
   }
 
+  get kda() {
+    return (this.kills + this.assists) / (this.deaths + 1);
+  }
+
+  get level() {
+    return this.hero?.level;
+  }
+
   get team() {
     return this.replay.teams.byID.get(this.teamID);
   }
