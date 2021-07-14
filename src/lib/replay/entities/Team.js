@@ -1,6 +1,10 @@
 import { computed, makeObservable, observable } from 'mobx';
 
+import { compareByProp } from '../../utils/index.js';
+
 import Entity from './Entity.js';
+
+const byID = compareByProp('id');
 
 class Team extends Entity {
   constructor(...args) {
@@ -29,7 +33,7 @@ class Team extends Entity {
 
   get players() {
     const players = this.replay.players.filter((p) => p.teamID === this.id);
-    return players.sort((a, b) => a.id - b.id);
+    return players.sort(byID);
   }
 
   get units() {
