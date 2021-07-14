@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 const StyledAnnotation = styled.div`
   position: absolute;
   bottom: 1px;
-  right: 3px;
+  right: 4px;
   font-size: 0.85em;
 
   ${(props) => props.type === 'mana' && css`

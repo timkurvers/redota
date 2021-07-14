@@ -41,16 +41,16 @@ const ItemSlot = observer((props) => {
     <StyledItemSlot className={className} rounded={rounded}>
       {item && (
         <Cooldown remaining={item.cooldown.remaining}>
+          <ItemResource refname={item.refname} />
           {item.charges > 0 && (
             <Annotation value={item.charges} />
           )}
-          {item.manaCost > 0 && (
+          {!item.charges && item.manaCost > 0 && (
             <Annotation type="mana" value={item.manaCost} />
           )}
           {item.annotation && (
             <Annotation value={item.annotation} />
           )}
-          <ItemResource refname={item.refname} />
         </Cooldown>
       )}
     </StyledItemSlot>
