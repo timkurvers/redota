@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
+import { Dropdown } from '../../../components/index.js';
 import { TEAM_DIRE, TEAM_RADIANT } from '../../../../lib/constants.js';
 
 const StyledOptions = styled.div`
@@ -42,15 +43,12 @@ const Options = observer((props) => {
 
   return (
     <StyledOptions>
-      <label>
-        <span>Camera: </span>
-        <select onChange={onCameraChange} value={cameraID}>
-          <option value={-1}>Free</option>
-          <CameraOptionGroup label="Radiant" players={radiant} />
-          <CameraOptionGroup label="Dire" players={dire} />
-          <CameraOptionGroup label="Broadcasters" players={broadcasters} />
-        </select>
-      </label>
+      <Dropdown onChange={onCameraChange} value={cameraID}>
+        <option value={-1}>Free camera</option>
+        <CameraOptionGroup label="Radiant" players={radiant} />
+        <CameraOptionGroup label="Dire" players={dire} />
+        <CameraOptionGroup label="Broadcasters" players={broadcasters} />
+      </Dropdown>
     </StyledOptions>
   );
 });

@@ -4,6 +4,7 @@ export { default as Annotation } from './Annotation.jsx';
 export { default as Bar } from './Bar.jsx';
 export { default as Button, StyledButton } from './Button.jsx';
 export { default as Cooldown, StyledCooldownText } from './Cooldown.jsx';
+export { default as Dropdown } from './Dropdown.jsx';
 export { default as Error } from './Error.jsx';
 export { default as ErrorBoundary } from './ErrorBoundary.jsx';
 export { default as Form } from './Form.jsx';
