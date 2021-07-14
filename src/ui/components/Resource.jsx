@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import {
   abilityResourceFor,
@@ -8,15 +9,18 @@ import {
   unitResourceFor,
 } from '../../lib/resources.js';
 
+const StyledResource = styled.img`
+  user-select: none;
+`;
+
 const Resource = (props) => {
   const { alt, src } = props;
   return (
-    <img
+    <StyledResource
       src={src}
       draggable="false"
       // TODO: Determine alt text for these resources
       alt={alt}
-      style={{ userSelect: 'none' }}
     />
   );
 };
@@ -61,6 +65,7 @@ export {
   HeroResource,
   ItemResource,
   TeamLogoResource,
+  StyledResource,
   UnitOrHeroResource,
   UnitResource,
 };

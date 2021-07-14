@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite';
 import Annotation from './Annotation.jsx';
 import Cooldown from './Cooldown.jsx';
 import { HStack } from './Stack.jsx';
-import { ItemResource } from './Resource.jsx';
+import { ItemResource, StyledResource } from './Resource.jsx';
 
 const StyledItemSlot = styled.div`
   position: relative;
@@ -17,7 +17,7 @@ const StyledItemSlot = styled.div`
   border-color: #333 #444 #444 #333;
   background: black;
 
-  img {
+  ${StyledResource} {
     display: block;
     width: 100%;
     height: 100%;
@@ -28,7 +28,7 @@ const StyledItemSlot = styled.div`
     border-radius: 50%;
     overflow: hidden;
 
-    img {
+    ${StyledResource} {
       width: 50px;
       transform: translate(-6px, 0);
     }

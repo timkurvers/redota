@@ -8,7 +8,7 @@ import Link from '../../components/Link.jsx';
 import TeamLogo, { StyledTeamLogo } from '../../components/TeamLogo.jsx';
 import Time from '../../components/Time.jsx';
 import gameModesByID from '../../../lib/definitions/gameModesByID.js';
-import { HeroResource } from '../../components/Resource.jsx';
+import { HeroResource, StyledResource } from '../../components/Resource.jsx';
 import { HStack, VStack } from '../../components/Stack.jsx';
 import { TEAM_DIRE, TEAM_RADIANT } from '../../../lib/constants.js';
 
@@ -38,7 +38,7 @@ const StyledTeam = styled(HStack)`
     height: 100%;
   }
 
-  img {
+  ${StyledResource} {
     height: 100%;
     margin-right: 2px;
     vertical-align: middle;

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 
 import Annotation from './Annotation.jsx';
 import Cooldown from './Cooldown.jsx';
-import { AbilityResource } from './Resource.jsx';
+import { AbilityResource, StyledResource } from './Resource.jsx';
 
 const StyledAbilitySlot = styled.div`
   position: relative;
@@ -15,7 +15,7 @@ const StyledAbilitySlot = styled.div`
   outline: 1px solid #111;
   background: black;
 
-  img {
+  ${StyledResource} {
     display: block;
     width: 100%;
     height: 100%;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import {
-  ActiveFilter, Cooldown, UnitOrHeroResource, StyledCooldownText,
+  ActiveFilter, Cooldown, UnitOrHeroResource, StyledCooldownText, StyledResource,
 } from '../../../components/index.js';
 
 const StyledPortrait = styled.div`
@@ -11,7 +11,7 @@ const StyledPortrait = styled.div`
   width: 138px;
   cursor: pointer;
 
-  img {
+  ${StyledResource} {
     width: 138px;
   }
 

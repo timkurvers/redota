@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { TeamLogoResource } from './Resource.jsx';
+import { StyledResource, TeamLogoResource } from './Resource.jsx';
 
 const StyledTeamLogo = styled.div`
   padding: 0 10px;
   text-align: center;
 
-  img {
+  ${StyledResource} {
     max-width: 40px;
   }
 `;

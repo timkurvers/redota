@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import {
-  ActiveFilter, Level, StyledLevel, UnitOrHeroResource,
+  ActiveFilter, Level, StyledLevel, UnitOrHeroResource, StyledResource,
 } from '../../components/index.js';
 import { Hero } from '../../../lib/replay/entities/index.js';
 
@@ -31,7 +31,7 @@ const StyledUnit = styled(ActiveFilter)`
   box-shadow: 1px 1px 1px #111;
   cursor: pointer;
 
-  img {
+  ${StyledResource} {
     display: block;
   }
 
