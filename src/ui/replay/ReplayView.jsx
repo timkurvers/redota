@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { useReplayController } from '../hooks/index.js';
 
 import HUD, {
-  MiniMap, Options, Selection, Timeline, Topbar,
+  MiniMap, Options, Selection, Stats, Timeline, Topbar,
 } from './hud/HUD.jsx';
 import World from './world/World.jsx';
 
@@ -49,6 +49,9 @@ const ReplayView = observer(({ replay }) => {
             setSelection={setSelection}
           />
         )}
+        <Stats
+          players={replay.players}
+        />
         <Timeline
           playing={playing}
           replay={replay}

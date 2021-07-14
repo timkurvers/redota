@@ -7,7 +7,7 @@ export { default as Cooldown, StyledCooldownText } from './Cooldown.jsx';
 export { default as Dropdown } from './Dropdown.jsx';
 export { default as Error } from './Error.jsx';
 export { default as ErrorBoundary } from './ErrorBoundary.jsx';
-export { default as Form } from './Form.jsx';
+export { default as Form, StyledForm } from './Form.jsx';
 export { default as Icon } from './Icon.jsx';
 export { default as ItemSlot, ItemSlotCollection, StyledItemSlot } from './ItemSlot.jsx';
 export { default as Level, StyledLevel } from './Level.jsx';
