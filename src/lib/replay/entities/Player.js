@@ -17,9 +17,14 @@ class Player extends Entity {
     this.heroID = null;
     this.teamID = null;
     this.steamID = null;
+
     this.kills = 0;
     this.assists = 0;
     this.deaths = 0;
+    this.lastHits = 0;
+    this.denies = 0;
+    this.networth = 0;
+
     this.isBot = false;
     this.isBroadcaster = false;
 
@@ -32,9 +37,14 @@ class Player extends Entity {
       heroID: observable,
       teamID: observable,
       steamID: observable,
+
       kills: observable,
       assists: observable,
       deaths: observable,
+      lastHits: observable,
+      denies: observable,
+      networth: observable,
+
       isBot: observable,
       isBroadcaster: observable,
 

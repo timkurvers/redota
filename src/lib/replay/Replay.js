@@ -6,6 +6,7 @@ import { action, makeObservable, observable } from 'mobx';
 import Parser from '../parser/Parser.js';
 import { EntityEvent } from '../parser/model/index.js';
 import { ObservableIndexedCollection } from '../utils/index.js';
+import { TEAM_DIRE, TEAM_RADIANT } from '../constants.js';
 
 import Game from './Game.js';
 import {
@@ -31,6 +32,8 @@ const processorByClass = {
   CDOTA_BaseNPC_Warlock_Golem: 'processUnit',
   CDOTA_BaseNPC_Watch_Tower: 'processBuilding',
   CDOTA_DarkWillow_Creature: 'processUnit',
+  CDOTA_DataDire: 'processTeamData',
+  CDOTA_DataRadiant: 'processTeamData',
   CDOTA_Item_Physical: 'processCollectable',
   CDOTA_Item_Rune: 'processCollectable',
   CDOTA_Item_RuneSpawner: null,
@@ -420,6 +423,25 @@ class Replay {
     }
     if ('m_iHeroKills' in delta) {
       team.kills = delta.m_iHeroKills;
+    }
+  }
+
+  processTeamData(entity, delta) {
+    const teamID = entity.class.name === 'CDOTA_DataDire' ? TEAM_DIRE : TEAM_RADIANT;
+    const team = this.teams.byID.get(teamID);
+    const players = team.players;
+
+    for (const [index, player] of Object.entries(players)) {
+      const tprefix = `m_vecDataTeam.000${index}`;
+      if (`${tprefix}.m_iLastHitCount` in delta) {
+        player.lastHits = delta[`${tprefix}.m_iLastHitCount`];
+      }
+      if (`${tprefix}.m_iDenyCount` in delta) {
+        player.denies = delta[`${tprefix}.m_iDenyCount`];
+      }
+      if (`${tprefix}.m_iNetWorth` in delta) {
+        player.networth = delta[`${tprefix}.m_iNetWorth`];
+      }
     }
   }
 
