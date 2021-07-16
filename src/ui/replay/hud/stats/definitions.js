@@ -28,30 +28,30 @@ export default {
     sort: compareByPropDesc('level'),
     value: (player) => player.level,
   },
-  // xpmin: {
-  //   label: 'XP Per Minute',
-  //   hotkey: 'R',
-  //   sort: compareByPropDesc('xpm'),
-  //   value: (player) => player.xpm,
-  // },
-  // gold: {
-  //   label: 'Current Gold',
-  //   hotkey: 'T',
-  //   sort: compareByPropDesc('gold'),
-  //   value: (player) => player.gold,
-  // },
+  xpm: {
+    label: 'XP Per Minute',
+    hotkey: 'R',
+    sort: compareByPropDesc('xpm'),
+    value: (player) => player.xpm,
+  },
+  gold: {
+    label: 'Current Gold',
+    hotkey: 'T',
+    sort: compareByPropDesc('gold'),
+    value: (player) => player.gold,
+  },
   networth: {
     label: 'Net Worth',
     hotkey: 'Y',
     sort: compareByPropDesc('networth'),
     value: (player) => player.networth,
   },
-  // gpm: {
-  //   label: 'Gold Per Minute',
-  //   hotkey: 'U',
-  //   sort: compareByPropDesc('gpm'),
-  //   value: (player) => player.gpm,
-  // },
+  gpm: {
+    label: 'Gold Per Minute',
+    hotkey: 'U',
+    sort: compareByPropDesc('gpm'),
+    value: (player) => player.gpm,
+  },
   // buyback: {
   //   label: 'Buyback Status',
   //   hotkey: 'I',

@@ -442,6 +442,18 @@ class Replay {
       if (`${tprefix}.m_iNetWorth` in delta) {
         player.networth = delta[`${tprefix}.m_iNetWorth`];
       }
+      if (`${tprefix}.m_iReliableGold` in delta) {
+        player.reliableGold = delta[`${tprefix}.m_iReliableGold`];
+      }
+      if (`${tprefix}.m_iUnreliableGold` in delta) {
+        player.unreliableGold = delta[`${tprefix}.m_iUnreliableGold`];
+      }
+      if (`${tprefix}.m_iTotalEarnedGold` in delta) {
+        player.totalEarnedGold = delta[`${tprefix}.m_iTotalEarnedGold`];
+      }
+      if (`${tprefix}.m_iTotalEarnedXP` in delta) {
+        player.totalEarnedXP = delta[`${tprefix}.m_iTotalEarnedXP`];
+      }
     }
   }
 

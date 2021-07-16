@@ -24,6 +24,10 @@ class Player extends Entity {
     this.lastHits = 0;
     this.denies = 0;
     this.networth = 0;
+    this.reliableGold = 0;
+    this.unreliableGold = 0;
+    this.totalEarnedGold = 0;
+    this.totalEarnedXP = 0;
 
     this.isBot = false;
     this.isBroadcaster = false;
@@ -44,6 +48,10 @@ class Player extends Entity {
       lastHits: observable,
       denies: observable,
       networth: observable,
+      reliableGold: observable,
+      unreliableGold: observable,
+      totalEarnedGold: observable,
+      totalEarnedXP: observable,
 
       isBot: observable,
       isBroadcaster: observable,
@@ -52,14 +60,29 @@ class Player extends Entity {
       respawnCooldown: observable,
 
       color: computed,
+      gold: computed,
+      gpm: computed,
       hero: computed,
       index: computed,
       team: computed,
+      xpm: computed,
     });
   }
 
   get color() {
     return PLAYER_COLORS[this.id];
+  }
+
+  get gold() {
+    return this.reliableGold + this.unreliableGold;
+  }
+
+  get gpm() {
+    const { clockTime } = this.replay.game;
+    if (!clockTime || clockTime <= 0) {
+      return 0;
+    }
+    return Math.round((this.totalEarnedGold / clockTime) * 60);
   }
 
   get hero() {
@@ -88,6 +111,14 @@ class Player extends Entity {
 
   get team() {
     return this.replay.teams.byID.get(this.teamID);
+  }
+
+  get xpm() {
+    const { clockTime } = this.replay.game;
+    if (!clockTime || clockTime <= 0) {
+      return 0;
+    }
+    return Math.round((this.totalEarnedXP / clockTime) * 60);
   }
 }
 
