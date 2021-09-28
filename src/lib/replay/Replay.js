@@ -305,7 +305,7 @@ class Replay {
       hero.neutralItemHandle = delta['m_hItems.0016'];
     }
     if ('m_hReplicatingOtherHeroModel' in delta) {
-      hero.isIllusion = delta['m_hReplicatingOtherHeroModel'] != 16777215;
+      hero.isIllusion = delta.m_hReplicatingOtherHeroModel !== 16777215;
     }
   }
 
