@@ -13,6 +13,9 @@ const StyledUnit = styled(ActiveFilter)`
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  ${(props) => props.isIllusion && css`
+    filter: sepia(100%) hue-rotate(190deg) saturate(500%);
+  `}
   ${(props) => props.type === 'hero' && css`
     padding: 10px;
     z-index: 2;
@@ -104,6 +107,7 @@ const Unit = observer((props) => {
       color={color}
       onClick={onClick}
       selected={selected}
+      isIllusion={unit.isIllusion}
       style={{
         left: `${relX * 100}%`,
         bottom: `${relY * 100}%`,

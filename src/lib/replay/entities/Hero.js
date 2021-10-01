@@ -12,6 +12,7 @@ class Hero extends UnitWithInventory {
 
     this.playerID = -1;
     this.xp = 0;
+    this.isIllusion = false;
 
     this.backpackHandles = [null, null, null];
     this.neutralItemHandle = null;
@@ -21,6 +22,7 @@ class Hero extends UnitWithInventory {
     makeObservable(this, {
       playerID: observable,
       xp: observable,
+      isIllusion: observable,
 
       backpackHandles: observable,
       neutralItemHandle: observable,
