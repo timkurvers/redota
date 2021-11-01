@@ -42,8 +42,8 @@ export const itemResourceFor = (refname) => {
 };
 
 export const teamLogoResourceFor = (teamID) => (
-  // Example: https://cdn.cloudflare.steamstatic.com/apps/dota2/images/team_logos/36.png
-  `${CDN_BASE_URL}/team_logos/${teamID}.png`
+  // Example: https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/teams/36.png
+  `${CDN_BASE_URL}/dota_react/teams/${teamID}.png`
 );
 
 export const unitResourceFor = (refname, variant) => {

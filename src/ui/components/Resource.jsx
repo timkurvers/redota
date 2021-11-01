@@ -14,13 +14,14 @@ const StyledResource = styled.img`
 `;
 
 const Resource = (props) => {
-  const { alt, src } = props;
+  const { alt, src, title } = props;
   return (
     <StyledResource
       src={src}
       draggable="false"
       // TODO: Determine alt text for these resources
       alt={alt}
+      title={title}
     />
   );
 };
@@ -42,7 +43,7 @@ const ItemResource = React.memo((props) => {
 
 const TeamLogoResource = React.memo((props) => {
   const { alt, teamID } = props;
-  return <Resource alt={alt} src={teamLogoResourceFor(teamID)} />;
+  return <Resource alt={alt} src={teamLogoResourceFor(teamID)} title={alt} />;
 });
 
 const UnitResource = React.memo((props) => {
