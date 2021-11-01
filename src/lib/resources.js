@@ -32,13 +32,13 @@ export const heroResourceFor = (refname, variant) => {
 };
 
 export const itemResourceFor = (refname) => {
-  // Example: https://cdn.cloudflare.steamstatic.com/apps/dota2/images/items/blink_lg.png
+  // Example: https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png
   let itemname = refname.replace('item_', '');
   // TODO: Overrides should preferably not be in the UI
   if (itemname.startsWith('recipe_')) {
     itemname = 'recipe';
   }
-  return `${CDN_BASE_URL}/items/${itemname}_lg.png`;
+  return `${CDN_BASE_URL}/dota_react/items/${itemname}.png`;
 };
 
 export const teamLogoResourceFor = (teamID) => (
