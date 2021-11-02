@@ -13,7 +13,7 @@ const StyledUnit = styled(ActiveFilter)`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  ${(props) => props.isIllusion && css`
+  ${(props) => props.active && props.isIllusion && css`
     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
   `}
   ${(props) => props.type === 'hero' && css`
