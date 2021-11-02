@@ -8,27 +8,31 @@ export const abilityResourceFor = (refname) => (
 );
 
 export const heroResourceFor = (refname, variant) => {
-  let suffix = 'full.png';
+  const heroname = refname.replace('npc_dota_hero_', '');
+
+  let suffix = null;
   switch (variant) {
     case 'portrait':
       // Example: https://cdn.cloudflare.steamstatic.com/apps/dota2/images/heroes/phoenix_vert.jpg
-      suffix = 'vert.jpg';
+      suffix = '_vert.jpg';
       break;
+    default:
     case 'landscape':
       // Example: https://cdn.cloudflare.steamstatic.com/apps/dota2/images/heroes/oracle_sb.png
-      suffix = 'sb.png';
+      suffix = '_sb.png';
       break;
     case 'icon':
       // Example: https://cdn.cloudflare.steamstatic.com/apps/dota2/images/heroes/shadow_shaman_icon.png
-      suffix = 'icon.png';
-      break;
-    default:
-      // Example: https://cdn.cloudflare.steamstatic.com/apps/dota2/images/heroes/jakiro_full.png
-      suffix = 'full.png';
+      suffix = '_icon.png';
       break;
   }
-  const heroname = refname.replace('npc_dota_hero_', '');
-  return `${CDN_BASE_URL}/heroes/${heroname}_${suffix}`;
+
+  // Various new heroes lack portrait and low-bandwidth images on legacy CDN so use bundled
+  let base = CDN_BASE_URL;
+  if (heroname === 'dawnbreaker' || heroname === 'marci') {
+    base = BUNDLED_BASE_URL;
+  }
+  return `${base}/heroes/${heroname}${suffix}`;
 };
 
 export const itemResourceFor = (refname) => {
