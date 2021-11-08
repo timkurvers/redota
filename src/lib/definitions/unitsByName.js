@@ -74,6 +74,21 @@ export default augment({
     match(unit) {
       return matchByModelID(unit, this) && unit.level === 3;
     },
+    variants: [
+      'models/items/broodmother/spiderling/amber_queen_spiderling_2/amber_queen_spiderling_2.vmdl',
+      'models/items/broodmother/spiderling/araknarok_broodmother_araknarok_spiderling/araknarok_broodmother_araknarok_spiderling.vmdl',
+      'models/items/broodmother/spiderling/dplus_malevolent_mother_malevoling/dplus_malevolent_mother_malevoling.vmdl',
+      'models/items/broodmother/spiderling/elder_blood_heir_of_elder_blood/elder_blood_heir_of_elder_blood.vmdl',
+      'models/items/broodmother/spiderling/lycosidae_spiderling/lycosidae_spiderling.vmdl',
+      'models/items/broodmother/spiderling/perceptive_spiderling/perceptive_spiderling.vmdl',
+      'models/items/broodmother/spiderling/spiderling_dlotus_red/spiderling_dlotus_red.vmdl',
+      'models/items/broodmother/spiderling/the_glacial_creeper_creepling/the_glacial_creeper_creepling.vmdl',
+      'models/items/broodmother/spiderling/thistle_crawler/thistle_crawler.vmdl',
+      'models/items/broodmother/spiderling/ti8_brood_the_great_arachne_spiderling/ti8_brood_the_great_arachne_spiderling.vmdl',
+      'models/items/broodmother/spiderling/ti9_cache_brood_mother_of_thousands_spiderling/ti9_cache_brood_mother_of_thousands_spiderling.vmdl',
+      'models/items/broodmother/spiderling/virulent_matriarchs_spiderling/virulent_matriarchs_spiderling.vmdl',
+      'models/items/broodmother/spiderling/witchs_grasp_spiderling/witchs_grasp_spiderling.vmdl',
+    ],
   },
 
   npc_dota_broodmother_spiderite: {
@@ -82,6 +97,21 @@ export default augment({
     match(unit) {
       return matchByModelID(unit, this) && unit.level === 2;
     },
+    variants: [
+      'models/items/broodmother/spiderling/amber_queen_spiderling_2/amber_queen_spiderling_2.vmdl',
+      'models/items/broodmother/spiderling/araknarok_broodmother_araknarok_spiderling/araknarok_broodmother_araknarok_spiderling.vmdl',
+      'models/items/broodmother/spiderling/dplus_malevolent_mother_malevoling/dplus_malevolent_mother_malevoling.vmdl',
+      'models/items/broodmother/spiderling/elder_blood_heir_of_elder_blood/elder_blood_heir_of_elder_blood.vmdl',
+      'models/items/broodmother/spiderling/lycosidae_spiderling/lycosidae_spiderling.vmdl',
+      'models/items/broodmother/spiderling/perceptive_spiderling/perceptive_spiderling.vmdl',
+      'models/items/broodmother/spiderling/spiderling_dlotus_red/spiderling_dlotus_red.vmdl',
+      'models/items/broodmother/spiderling/the_glacial_creeper_creepling/the_glacial_creeper_creepling.vmdl',
+      'models/items/broodmother/spiderling/thistle_crawler/thistle_crawler.vmdl',
+      'models/items/broodmother/spiderling/ti8_brood_the_great_arachne_spiderling/ti8_brood_the_great_arachne_spiderling.vmdl',
+      'models/items/broodmother/spiderling/ti9_cache_brood_mother_of_thousands_spiderling/ti9_cache_brood_mother_of_thousands_spiderling.vmdl',
+      'models/items/broodmother/spiderling/virulent_matriarchs_spiderling/virulent_matriarchs_spiderling.vmdl',
+      'models/items/broodmother/spiderling/witchs_grasp_spiderling/witchs_grasp_spiderling.vmdl',
+    ],
   },
 
   npc_dota_broodmother_web: {
@@ -121,6 +151,7 @@ export default augment({
       'models/items/enigma/eidolon/life_cycle_life_cycle_eidolons/life_cycle_life_cycle_eidolons.vmdl',
       'models/items/enigma/eidolon/tentacular_conqueror_tentacular_conqueror_eidolons/tentacular_conqueror_tentacular_conqueror_eidolons.vmdl',
       'models/items/enigma/eidolon/ti9_cache_enigma_lord_of_luminaries_eidolons/ti9_cache_enigma_lord_of_luminaries_eidolons.vmdl',
+      'models/items/enigma/eidolon/world_eater_eidelon/world_eater_eidelon.vmdl',
     ],
   },
 
@@ -144,6 +175,7 @@ export default augment({
       'models/items/furion/treant/fungal_lord_shroomthing/fungal_lord_shroomthing.vmdl',
       'models/items/furion/treant/furion_treant_nelum_red/furion_treant_nelum_red.vmdl',
       'models/items/furion/treant/hallowed_horde/hallowed_horde.vmdl',
+      'models/items/furion/treant/np_desert_traveller_treant/np_desert_traveller_treant.vmdl',
       'models/items/furion/treant/primeval_treant/primeval_treant.vmdl',
       'models/items/furion/treant/ravenous_woodfang/ravenous_woodfang.vmdl',
       'models/items/furion/treant/shroomling_treant/shroomling_treant.vmdl',
@@ -175,6 +207,7 @@ export default augment({
       'models/items/gyrocopter/rainmaker_offhand/rainmaker_offhand.vmdl',
       'models/items/gyrocopter/skyhigh_bomb_missle/skyhigh_bomb.vmdl',
       'models/items/gyrocopter/submersible_aircraft_08_off_hand/submersible_aircraft_08_off_hand.vmdl',
+      'models/items/gyrocopter/thunderbolt_quadcopter_off_hand/thunderbolt_quadcopter_off_hand.vmdl',
       'models/items/gyrocopter/ti8_gyro_digger_wasp_copter_off_hand/ti8_gyro_digger_wasp_copter_off_hand.vmdl',
     ],
   },
@@ -221,6 +254,7 @@ export default augment({
     model: 'models/heroes/lycan/summon_wolves.vmdl',
     match: matchByModelID,
     variants: [
+      'models/items/lycan/wolves/_ascension_of_the_hallowed_beast_summons/_ascension_of_the_hallowed_beast_summons.vmdl',
       'models/items/lycan/wolves/alpha_summon_01/alpha_summon_01.vmdl',
       'models/items/lycan/wolves/ambry_summon/ambry_summon.vmdl',
       'models/items/lycan/wolves/blood_moon_hunter_wolves/blood_moon_hunter_wolves.vmdl',
