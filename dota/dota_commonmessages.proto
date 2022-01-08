@@ -3,6 +3,13 @@ import "networkbasetypes.proto";
 option optimize_for = SPEED;
 option cc_generic_services = false;
 
+enum EPingSource {
+	k_ePingSource_Default = 0;
+	k_ePingSource_Warning = 1;
+	k_ePingSource_Wheel = 2;
+	k_ePingSource_System = 3;
+}
+
 enum EDOTAStatPopupTypes {
 	k_EDOTA_SPT_Textline = 0;
 	k_EDOTA_SPT_Basic = 1;
@@ -52,6 +59,7 @@ enum dotaunitorder_t {
 	DOTA_UNIT_ORDER_PREGAME_ADJUST_ITEM_ASSIGNMENT = 36;
 	DOTA_UNIT_ORDER_DROP_ITEM_AT_FOUNTAIN = 37;
 	DOTA_UNIT_ORDER_TAKE_ITEM_FROM_NEUTRAL_ITEM_STASH = 38;
+	DOTA_UNIT_ORDER_MOVE_RELATIVE = 39;
 }
 
 enum EDOTAVersusScenePlayerBehavior {
@@ -66,6 +74,7 @@ message CDOTAMsg_LocationPing {
 	optional int32 target = 3;
 	optional bool direct_ping = 4;
 	optional int32 type = 5;
+	optional .EPingSource ping_source = 6 [default = k_ePingSource_Default];
 }
 
 message CDOTAMsg_ItemAlert {
