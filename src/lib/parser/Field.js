@@ -20,13 +20,14 @@ const FieldModel = {
 
 const POINTER_TYPES = {
   CBodyComponent:             true,
+  CDOTAGameManager:           true,
+  CDOTAGamerules:             true,
+  CDOTASpectatorGraphManager: true,
   CEntityIdentity:            true,
   CPhysicsComponent:          true,
-  CRenderComponent:           true,
-  CDOTAGamerules:             true,
-  CDOTAGameManager:           true,
-  CDOTASpectatorGraphManager: true,
+  CPlayer_CameraServices:     true,
   CPlayerLocalData:           true,
+  CRenderComponent:           true,
   PhysicsRagdollPose_t:       true,
 };
 

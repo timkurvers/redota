@@ -391,7 +391,10 @@ class Parser extends Reader {
             }
           } else if (field.fieldType.count > 0 && field.fieldType.baseType !== 'char') {
             field.model = FieldModel.FIXED_ARRAY;
-          } else if (field.fieldType.baseType === 'CUtlVector') {
+          } else if (
+            field.fieldType.baseType === 'CUtlVector'
+            || field.fieldType.baseType === 'CNetworkUtlVectorBase'
+          ) {
             field.model = FieldModel.VARIABLE_ARRAY;
           } else {
             field.model = FieldModel.SIMPLE;
