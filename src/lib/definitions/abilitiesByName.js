@@ -2,6 +2,12 @@
 
 import baseAbilitiesByName from 'dotaconstants/build/abilities.json';
 
+// Ignore attributes in the OpenDota definition that result in wrong max levels
+const IGNORE_ATTRIBUTES = [
+  'epicenter_radius',
+  'lifestealer_open_wounds',
+];
+
 const abilitiesByName = Object.entries(baseAbilitiesByName).reduce((lookup, [name, definition]) => {
   const {
     attrib = [], cd, dmg, mc,
@@ -9,7 +15,10 @@ const abilitiesByName = Object.entries(baseAbilitiesByName).reduce((lookup, [nam
 
   // Collect scaling values for attributes, cooldown, magic and manacost into a collection
   const entries = [
-    ...attrib.map((attr) => attr.value),
+    ...attrib.map((attr) => {
+      if (IGNORE_ATTRIBUTES.includes(attr.key)) return undefined;
+      return attr.value;
+    }),
     cd,
     dmg,
     mc,
