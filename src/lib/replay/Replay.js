@@ -415,9 +415,9 @@ class Replay {
     if (!team) {
       team = new Team(this, entity);
       team.id = entity.get('m_iTeamNum');
-      team.proID = entity.get('m_unTournamentTeamID');
       this.teams.add(team);
     }
+    team.proID = entity.get('m_unTournamentTeamID');
     if (team && event & EntityEvent.DELETED) {
       throw new Error('no support for team deletion');
     }
@@ -431,7 +431,15 @@ class Replay {
 
   processTeamData(entity, delta) {
     const teamID = entity.class.name === 'CDOTA_DataDire' ? TEAM_DIRE : TEAM_RADIANT;
-    const team = this.teams.byID.get(teamID);
+
+    // Older replays may initialize team entities in a later changeset
+    let team = this.teams.byID.get(teamID);
+    if (!team) {
+      team = new Team(this, entity);
+      team.id = entity.get('m_iTeamNum');
+      this.teams.add(team);
+    }
+
     const players = team.players;
 
     for (const [index, player] of Object.entries(players)) {
