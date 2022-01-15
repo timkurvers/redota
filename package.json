@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@loadable/component": "^5.14.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "buffer": "^6.0.1",
     "dexie": "^3.1.0-alpha.8",
     "dexie-observable": "^3.0.0-beta.10",
