@@ -2,11 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
-import { HeroResource, HStack, StyledResource } from '../../../components/index.js';
+import {
+  HeroResource, HStack, PlayerColorStrip, StyledResource,
+} from '../../../components/index.js';
 import { TEAM_COLORS } from '../../../../lib/constants.js';
 
 const StyledPlayerEntry = styled(HStack)`
-  align-items: center;
+  align-items: stretch;
   height: 28px;
   margin-top: 2px;
 
@@ -28,13 +30,14 @@ const StyledWrapper = styled.div`
 
 const PlayerEntry = observer((props) => {
   const { children, player } = props;
-  const { hero, teamID } = player;
+  const { color, hero, teamID } = player;
 
-  const color = TEAM_COLORS[teamID];
-  const backgroundImage = `linear-gradient(to right, ${color}AA, ${color}00)`;
+  const bgcolor = TEAM_COLORS[teamID];
+  const backgroundImage = `linear-gradient(to right, ${bgcolor}AA, ${bgcolor}00)`;
 
   return (
     <StyledPlayerEntry style={{ backgroundImage }}>
+      <PlayerColorStrip color={color} direction="vertical" />
       <HeroResource refname={hero.refname} variant="landscape" />
       <StyledWrapper>
         {children}

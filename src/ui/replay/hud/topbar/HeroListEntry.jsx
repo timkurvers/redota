@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import {
-  Bar, Cooldown, HeroResource, PlayerColor,
+  Bar, Cooldown, HeroResource, PlayerColorStrip,
 } from '../../../components/index.js';
 import { useHotkey } from '../../../hooks/index.js';
 
@@ -35,7 +35,7 @@ const HeroListEntry = observer((props) => {
 
   return (
     <StyledHeroListEntry onClick={onClick}>
-      <PlayerColor color={color} />
+      <PlayerColorStrip color={color} />
       <Cooldown remaining={respawnCooldown.remaining}>
         <HeroResource refname={refname} variant="landscape" />
         <Bar type="health" size="mini" value={hp} max={hpMax} teamID={teamID} />
