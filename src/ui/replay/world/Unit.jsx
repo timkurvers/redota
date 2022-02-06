@@ -5,7 +5,8 @@ import styled, { css } from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import {
-  ActiveFilter, Level, StyledLevel, UnitOrHeroResource, StyledResource,
+  ActiveFilter, Level, PlayerName, StyledLevel, StyledPlayerName, StyledResource,
+  UnitOrHeroResource,
 } from '../../components/index.js';
 import { Hero } from '../../../lib/replay/entities/index.js';
 
@@ -43,6 +44,13 @@ const StyledUnit = styled(ActiveFilter)`
     bottom: 0;
     left: 0;
     transform: translate(-20%, 20%);
+  }
+
+  ${StyledPlayerName} {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 `;
 
@@ -117,7 +125,10 @@ const Unit = observer((props) => {
       <Arrowhead selected={selected} unit={unit} />
       <UnitOrHeroResource unit={unit} variant="icon" />
       {isHero && (
-        <Level xp={unit.xp} size="small">{unit.level}</Level>
+        <>
+          <Level xp={unit.xp} size="small">{unit.level}</Level>
+          {unit.player && <PlayerName player={unit.player} />}
+        </>
       )}
     </StyledUnit>
   );

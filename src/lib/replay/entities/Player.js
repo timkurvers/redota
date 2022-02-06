@@ -4,6 +4,7 @@ import Camera from '../Camera.js';
 import {
   PLAYER_COLORS, TEAM_DIRE, TEAM_RADIANT, TEAM_SPECTATORS,
 } from '../../constants.js';
+import { lookupProPlayer } from '../../definitions/proPlayersByHash.js';
 
 import Entity from './Entity.js';
 import Cooldown from '../Cooldown.js';
@@ -13,7 +14,7 @@ class Player extends Entity {
     super(replay, ...args);
 
     this.id = null;
-    this.name = null;
+    this.nickname = null;
     this.heroID = null;
     this.teamID = null;
     this.steamID = null;
@@ -37,7 +38,7 @@ class Player extends Entity {
 
     makeObservable(this, {
       id: observable,
-      name: observable,
+      nickname: observable,
       heroID: observable,
       teamID: observable,
       steamID: observable,
@@ -64,6 +65,7 @@ class Player extends Entity {
       gpm: computed,
       hero: computed,
       index: computed,
+      name: computed,
       team: computed,
       xpm: computed,
     });
@@ -97,6 +99,10 @@ class Player extends Entity {
     return this.teamID === TEAM_RADIANT || this.teamID === TEAM_DIRE;
   }
 
+  get isProPlayer() {
+    return !!lookupProPlayer(this.steamID);
+  }
+
   get isSpectator() {
     return this.teamID === TEAM_SPECTATORS;
   }
@@ -107,6 +113,10 @@ class Player extends Entity {
 
   get level() {
     return this.hero?.level;
+  }
+
+  get name() {
+    return lookupProPlayer(this.steamID)?.name || this.nickname;
   }
 
   get team() {

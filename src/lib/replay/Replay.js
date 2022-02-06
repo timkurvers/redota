@@ -381,7 +381,7 @@ class Replay {
 
       const prefix = `m_vecPlayerData.${player.index}`;
       if (`${prefix}.m_iszPlayerName` in delta) {
-        player.name = delta[`${prefix}.m_iszPlayerName`];
+        player.nickname = delta[`${prefix}.m_iszPlayerName`];
       }
       if (`${prefix}.m_iPlayerSteamID` in delta) {
         player.steamID = delta[`${prefix}.m_iPlayerSteamID`];

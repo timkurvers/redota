@@ -16,6 +16,7 @@ export { default as Logo } from './Logo.jsx';
 export { default as Modal } from './Modal.jsx';
 export { default as Notice } from './Notice.jsx';
 export { default as PlayerColorStrip } from './PlayerColorStrip.jsx';
+export { default as PlayerName, StyledPlayerName } from './PlayerName.jsx';
 export * from './Resource.jsx';
 export * from './Stack.jsx';
 export { default as TeamLogo, StyledTeamLogo } from './TeamLogo.jsx';

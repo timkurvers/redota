@@ -1,4 +1,4 @@
-import { BinaryHeap } from '../utils/index.js';
+import BinaryHeap from '../utils/BinaryHeap.js';
 
 import { operations } from './FieldPathOperation.js';
 

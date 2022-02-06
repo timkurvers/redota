@@ -15,6 +15,7 @@
     "parse": "bin/parse.js",
     "parse:vrman": "bin/parse-vrman.js",
     "start:dev": "webpack serve",
+    "sync:pro-players": "bin/sync-pro-players.js",
     "sync:protos": "bin/sync-protos.js",
     "test": "jest",
     "test:coverage": "jest --coverage",

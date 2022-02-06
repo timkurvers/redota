@@ -5,4 +5,5 @@ export { default as xpPerLevel } from 'dotaconstants/build/xp_level.json';
 export { default as abilitiesByName } from './abilitiesByName.js';
 export { default as gameModesByID } from './gameModesByID.js';
 export { default as heroesByID } from './heroesByID.js';
+export { default as proPlayersByHash } from './proPlayersByHash.js';
 export { default as unitsByName } from './unitsByName.js';
