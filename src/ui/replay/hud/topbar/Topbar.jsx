@@ -31,13 +31,13 @@ const Topbar = observer((props) => {
 
   return (
     <StyledTopbar>
-      {radiant.proID > 0 && <TeamLogo alt={radiant.name} teamID={radiant.proID} />}
+      {radiant.isProTeam && <TeamLogo alt={radiant.name} teamID={radiant.proID} />}
       <HeroList heroes={radiant.heroes} setSelection={setSelection} />
       <Score value={radiant.kills} />
       <Clock time={clockTime} />
       <Score value={dire.kills} />
       <HeroList heroes={dire.heroes} setSelection={setSelection} />
-      {dire.proID > 0 && <TeamLogo alt={dire.name} teamID={dire.proID} />}
+      {dire.isProTeam && <TeamLogo alt={dire.name} teamID={dire.proID} />}
     </StyledTopbar>
   );
 });

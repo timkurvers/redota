@@ -31,6 +31,10 @@ class Team extends Entity {
     return this.players.map((p) => p.hero).filter(Boolean);
   }
 
+  get isProTeam() {
+    return this.proID > 0;
+  }
+
   get players() {
     const players = this.replay.players.filter((p) => p.teamID === this.id);
     return players.sort(byID);
