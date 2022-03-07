@@ -66,13 +66,14 @@ class Player extends Entity {
       hero: computed,
       index: computed,
       name: computed,
+      slot: computed,
       team: computed,
       xpm: computed,
     });
   }
 
   get color() {
-    return PLAYER_COLORS[this.id];
+    return PLAYER_COLORS[this.slot];
   }
 
   get gold() {
@@ -92,7 +93,7 @@ class Player extends Entity {
   }
 
   get index() {
-    return String(this.id).padStart(4, '0');
+    return String(this.slot).padStart(4, '0');
   }
 
   get isPlayer() {
@@ -117,6 +118,10 @@ class Player extends Entity {
 
   get name() {
     return lookupProPlayer(this.steamID)?.name || this.nickname;
+  }
+
+  get slot() {
+    return this.id / this.replay.stepPlayerID;
   }
 
   get team() {

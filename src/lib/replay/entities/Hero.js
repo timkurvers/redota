@@ -46,7 +46,8 @@ class Hero extends UnitWithInventory {
 
   get color() {
     // Note: Cannot rely on player being present in case of disconnects
-    return PLAYER_COLORS[this.playerID];
+    const slot = this.playerID / this.replay.stepPlayerID;
+    return PLAYER_COLORS[slot];
   }
 
   get name() {

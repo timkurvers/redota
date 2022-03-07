@@ -89,6 +89,11 @@ class Replay {
     this.tickInterval = null;
     this.lastTick = this.parser.lastTick;
 
+    // Valve started doubling player IDs in patch 7.31. The step interval below
+    // is used to normalize these to their sane 0-9 range, when applicable.
+    // For matches before patch 7.31, this interval is kept at 1.
+    this.stepPlayerID = 1;
+
     this.abilities = new ObservableIndexedCollection('handle');
     this.items = new ObservableIndexedCollection('handle');
     this.players = new ObservableIndexedCollection('handle', { byID: 'id' });
@@ -112,6 +117,7 @@ class Replay {
       tick: observable,
       tickInterval: observable,
       lastTick: observable,
+      stepPlayerID: observable,
 
       abilities: observable,
       items: observable,
@@ -344,7 +350,12 @@ class Replay {
     let player = this.players.get(handle);
     if (!player) {
       player = new Player(this, entity);
-      player.id = entity.get('m_iPlayerID');
+      if ('m_nPlayerID' in delta) {
+        player.id = delta.m_nPlayerID;
+        this.stepPlayerID = 2;
+      } else if ('m_iPlayerID' in delta) {
+        player.id = delta.m_iPlayerID;
+      }
       this.players.add(player);
     }
     if (player && event & EntityEvent.DELETED) {
