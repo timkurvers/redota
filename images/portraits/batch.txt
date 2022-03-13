@@ -9,7 +9,6 @@ npc_dota_brewmaster_storm.jpg: model=models/heroes/brewmaster/brewmaster_windspi
 npc_dota_brewmaster_void.jpg: model=models/heroes/brewmaster/brewmaster_voidspirit.vmdl&portrait
 npc_dota_broodmother_spiderite.jpg: model=models/heroes/broodmother/spiderling.vmdl&portrait
 npc_dota_broodmother_spiderling.jpg: model=models/heroes/broodmother/spiderling.vmdl&portrait
-npc_dota_broodmother_web.jpg: model=unknown-model&portrait
 npc_dota_clinkz_skeleton_archer.jpg: model=models/heroes/clinkz/clinkz_archer.vmdl&portrait
 npc_dota_courier.jpg: model=models/props_gameplay/donkey.vmdl&portrait
 npc_dota_creep_badguys_melee_upgraded_mega.jpg: model=models/creeps/lane_creeps/creep_bad_melee/creep_bad_melee_mega.vmdl&portrait
