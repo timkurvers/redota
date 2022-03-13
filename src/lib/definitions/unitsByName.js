@@ -83,6 +83,7 @@ export default augment({
       'models/items/broodmother/spiderling/perceptive_spiderling/perceptive_spiderling.vmdl',
       'models/items/broodmother/spiderling/spiderling_dlotus_red/spiderling_dlotus_red.vmdl',
       'models/items/broodmother/spiderling/strangling_gloom_spiderling/strangling_gloom_spiderling.vmdl',
+      'models/items/broodmother/spiderling/the_glacial_creeper_creepling/the_glacial_creeper_creepling_dpc.vmdl',
       'models/items/broodmother/spiderling/the_glacial_creeper_creepling/the_glacial_creeper_creepling.vmdl',
       'models/items/broodmother/spiderling/thistle_crawler/thistle_crawler.vmdl',
       'models/items/broodmother/spiderling/ti8_brood_the_great_arachne_spiderling/ti8_brood_the_great_arachne_spiderling.vmdl',
@@ -108,6 +109,7 @@ export default augment({
       'models/items/broodmother/spiderling/perceptive_spiderling/perceptive_spiderling.vmdl',
       'models/items/broodmother/spiderling/spiderling_dlotus_red/spiderling_dlotus_red.vmdl',
       'models/items/broodmother/spiderling/strangling_gloom_spiderling/strangling_gloom_spiderling.vmdl',
+      'models/items/broodmother/spiderling/the_glacial_creeper_creepling/the_glacial_creeper_creepling_dpc.vmdl',
       'models/items/broodmother/spiderling/the_glacial_creeper_creepling/the_glacial_creeper_creepling.vmdl',
       'models/items/broodmother/spiderling/thistle_crawler/thistle_crawler.vmdl',
       'models/items/broodmother/spiderling/ti8_brood_the_great_arachne_spiderling/ti8_brood_the_great_arachne_spiderling.vmdl',
@@ -265,6 +267,7 @@ export default augment({
       'models/items/lycan/wolves/alpha_summon_01/alpha_summon_01.vmdl',
       'models/items/lycan/wolves/ambry_summon/ambry_summon.vmdl',
       'models/items/lycan/wolves/blood_moon_hunter_wolves/blood_moon_hunter_wolves.vmdl',
+      'models/items/lycan/wolves/frostivus2018_lycan_winter_snow_wolf_wolves/dpc_2022_frostivus2018_lycan_winter_snow_wolf_wolves.vmdl',
       'models/items/lycan/wolves/frostivus2018_lycan_winter_snow_wolf_wolves/frostivus2018_lycan_winter_snow_wolf_wolves.vmdl',
       'models/items/lycan/wolves/hunter_kings_wolves/hunter_kings_wolves.vmdl',
       'models/items/lycan/wolves/icewrack_pack/icewrack_pack.vmdl',
@@ -359,6 +362,8 @@ export default augment({
     model: 'models/heroes/techies/fx_techies_remotebomb.vmdl',
     match: matchByModelID,
     variants: [
+      'models/heroes/techies/fx_techies_remote_cart_elephant.vmdl',
+      'models/heroes/techies/fx_techies_remote_cart_pig.vmdl',
       'models/heroes/techies/fx_techies_remotebomb_rubick.vmdl',
       'models/items/techies/bigshot/bigshot_remotebomb.vmdl',
       'models/items/techies/crazy_night_of_magic_mines/crazy_night_of_magic_mines.vmdl',
@@ -725,7 +730,7 @@ export default augment({
     name: 'Mud Golem',
     model: 'models/creeps/neutral_creeps/n_creep_golem_b/n_creep_golem_b.vmdl',
     match(unit) {
-      return matchByModelID(unit, this) && unit.hpMax >= 800;
+      return matchByModelID(unit, this) && unit.hpMax >= 750;
     },
   },
 
