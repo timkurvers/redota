@@ -29,7 +29,7 @@ export const heroResourceFor = (refname, variant) => {
 
   // Various new heroes lack portrait and low-bandwidth images on legacy CDN so use bundled
   let base = CDN_BASE_URL;
-  if (heroname === 'dawnbreaker' || heroname === 'marci') {
+  if (heroname === 'dawnbreaker' || heroname === 'marci' || heroname === 'primal_beast') {
     base = BUNDLED_BASE_URL;
   }
   return `${base}/heroes/${heroname}${suffix}`;
