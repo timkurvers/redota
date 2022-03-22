@@ -12,6 +12,7 @@ class Team extends Entity {
 
     this.id = null;
     this.name = null;
+    this.tag = null;
     this.kills = 0;
     this.proID = null;
 

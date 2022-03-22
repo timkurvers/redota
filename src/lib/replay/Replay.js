@@ -432,6 +432,9 @@ class Replay {
     if (team && event & EntityEvent.DELETED) {
       throw new Error('no support for team deletion');
     }
+    if ('m_szTag' in delta) {
+      team.tag = delta.m_szTag;
+    }
     if ('m_szTeamname' in delta) {
       team.name = delta.m_szTeamname;
     }

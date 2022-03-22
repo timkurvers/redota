@@ -6,6 +6,8 @@ const StyledPlayerName = styled.div`
 `;
 
 const StyledTag = styled.span`
+  color: #CCC;
+
   &:after {
     content: '.';
   }
@@ -15,10 +17,8 @@ const StyledName = styled.span``;
 
 const PlayerName = (props) => {
   const { player } = props;
-  const { color, name } = player;
-
-  // TODO: Determine team tag
-  const tag = null;
+  const { color, name, team } = player;
+  const tag = team?.tag;
 
   return (
     <StyledPlayerName>
