@@ -6,6 +6,7 @@ const StyledAnnotation = styled.div`
   bottom: 1px;
   right: 4px;
   font-size: 0.85em;
+  pointer-events: none;
 
   ${(props) => props.type === 'mana' && css`
     color: #65D9F7;

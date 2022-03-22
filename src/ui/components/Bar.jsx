@@ -26,6 +26,7 @@ const StyledBar = styled.div`
   background: rgba(0, 0, 0, .4);
   border-radius: 4px;
   text-align: center;
+  pointer-events: none;
 
   ${(props) => props.size === 'default' && css`
     height: 25px;

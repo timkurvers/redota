@@ -9,6 +9,7 @@ const StyledCooldownText = styled.span`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
+  pointer-events: none;
 `;
 
 const Cooldown = (props) => {

@@ -13,6 +13,7 @@ const StyledLevel = styled.div`
   font-weight: bold;
   text-align: center;
   line-height: 30px;
+  pointer-events: none;
 
   svg {
     transform: rotate(-90deg);
