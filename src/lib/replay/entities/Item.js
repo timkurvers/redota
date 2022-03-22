@@ -15,9 +15,7 @@ class Item extends Entity {
     this.level = null;
     this.manaCost = null;
 
-    this.definition = itemsByName[this.refname.replace('item_', '')] || {
-      dname: this.refname,
-    };
+    this.definition = itemsByName[this.refname.replace('item_', '')];
 
     makeObservable(this, {
       acquireTime: observable,
@@ -46,7 +44,7 @@ class Item extends Entity {
   }
 
   get name() {
-    return this.definition.dname;
+    return this.definition?.dname || this.refname;
   }
 }
 
