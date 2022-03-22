@@ -42,6 +42,10 @@ class Ability extends Entity {
            || this.refname.startsWith('ad_special_bonus_');
   }
 
+  get isVisible() {
+    return !this.isHidden && this.refname !== 'neutral_upgrade';
+  }
+
   get maxLevel() {
     return this.definition?.maxLevel ?? this.level;
   }
