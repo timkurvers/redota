@@ -708,6 +708,18 @@ export default augment({
     },
   },
 
+  npc_dota_neutral_frostbitten_golem: {
+    name: 'Ancient Frostbitten Golem',
+    model: 'models/creeps/ice_biome/frostbitten/n_creep_frostbitten_swollen01.vmdl',
+    match: matchByModelID,
+  },
+
+  npc_dota_neutral_ice_shaman: {
+    name: 'Ancient Ice Shaman',
+    model: 'models/creeps/ice_biome/giant/ice_giant01.vmdl',
+    match: matchByModelID,
+  },
+
   npc_dota_neutral_kobold: {
     name: 'Kobold',
     model: 'models/creeps/neutral_creeps/n_creep_kobold/kobold_c/n_creep_kobold_c.vmdl',
@@ -799,6 +811,12 @@ export default augment({
   npc_dota_neutral_satyr_trickster: {
     name: 'Satyr Banisher',
     model: 'models/creeps/neutral_creeps/n_creep_satyr_b/n_creep_satyr_b.vmdl',
+    match: matchByModelID,
+  },
+
+  npc_dota_neutral_warpine_raider: {
+    name: 'Warpine Raider',
+    model: 'models/creeps/pine_cone/pine_cone.vmdl',
     match: matchByModelID,
   },
 
