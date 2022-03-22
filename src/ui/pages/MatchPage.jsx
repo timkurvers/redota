@@ -66,7 +66,7 @@ const MatchPage = () => {
   return (
     <StyledMatchPage>
       <StyledCloseLink to="/">
-        <Icon name="times" /> Close replay
+        <Icon name="times" /> Close Replay
       </StyledCloseLink>
 
       <ErrorBoundary context="replay">
