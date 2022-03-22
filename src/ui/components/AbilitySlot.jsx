@@ -31,7 +31,7 @@ const AbilitySlot = observer((props) => {
           {ability.manaCost > 0 && (
             <Annotation type="mana" value={ability.manaCost} />
           )}
-          <AbilityResource refname={ability.refname} />
+          <AbilityResource name={ability.name} refname={ability.refname} />
         </Cooldown>
       )}
     </StyledAbilitySlot>

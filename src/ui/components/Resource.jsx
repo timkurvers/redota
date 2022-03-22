@@ -27,8 +27,8 @@ const Resource = (props) => {
 };
 
 const AbilityResource = React.memo((props) => {
-  const { refname } = props;
-  return <Resource src={abilityResourceFor(refname)} />;
+  const { name, refname } = props;
+  return <Resource alt={name} src={abilityResourceFor(refname)} title={name} />;
 });
 
 const HeroResource = React.memo((props) => {
@@ -37,8 +37,8 @@ const HeroResource = React.memo((props) => {
 });
 
 const ItemResource = React.memo((props) => {
-  const { refname } = props;
-  return <Resource src={itemResourceFor(refname)} />;
+  const { name, refname } = props;
+  return <Resource alt={name} src={itemResourceFor(refname)} title={name} />;
 });
 
 const TeamLogoResource = React.memo((props) => {
