@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -15,6 +15,11 @@ const StyledResource = styled.img`
 
 const Resource = (props) => {
   const { alt, src, title } = props;
+
+  const preventDragging = useCallback((e) => {
+    e.preventDefault();
+  }, []);
+
   return (
     <StyledResource
       src={src}
@@ -22,6 +27,7 @@ const Resource = (props) => {
       // TODO: Determine alt text for these resources
       alt={alt}
       title={title}
+      onDragStart={preventDragging}
     />
   );
 };
