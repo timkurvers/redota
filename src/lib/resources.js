@@ -31,6 +31,15 @@ const MISSING_HERO_RESOURCES = [
   'primal_beast',
 ];
 
+const KNOWN_DUMMY_UNITS = [
+  'npc_dota_base_additive',
+  'npc_dota_base',
+  'npc_dota_thinker',
+];
+
+// See: http://probablyprogramming.com/2009/03/15/the-tiniest-gif-ever
+const EMPTY_RESOURCE = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+
 export const abilityResourceFor = (refname) => {
   // Example: https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/winter_wyvern_winters_curse.png
 
@@ -87,6 +96,9 @@ export const teamLogoResourceFor = (teamID) => (
 );
 
 export const unitResourceFor = (refname, variant) => {
+  if (KNOWN_DUMMY_UNITS.includes(refname)) {
+    return EMPTY_RESOURCE;
+  }
   switch (variant) {
     case 'portrait':
       // Example: ./images/portraits/npc_dota_roshan.jpg
