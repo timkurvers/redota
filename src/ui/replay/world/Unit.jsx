@@ -14,12 +14,15 @@ const StyledUnit = styled(ActiveFilter)`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  ${(props) => props.active && props.isIllusion && css`
+  ${(props) => props.isIllusion && props.active && css`
     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
   `}
   ${(props) => props.type === 'hero' && css`
     padding: 10px;
     z-index: 2;
+    ${() => props.active && !props.isIllusion && css`
+      z-index: 3;
+    `}
   `}
   ${(props) => props.type === 'building' && css`
     padding: 5px;
@@ -27,7 +30,7 @@ const StyledUnit = styled(ActiveFilter)`
   border: 3px solid ${(props) => props.color}DD;
   ${(props) => props.selected && css`
     border-color: white;
-    z-index: 3;
+    z-index: 4;
   `}
   position: absolute;
   transform: translate(-50%, 50%);
