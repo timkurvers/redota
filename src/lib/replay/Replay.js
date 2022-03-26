@@ -70,6 +70,7 @@ const processorByClass = {
   CDOTABaseAbility: 'processAbility',
   CDOTAGamerulesProxy: 'processGameRules',
   CDOTAPlayer: 'processPlayer',
+  CDOTAPlayerController: 'processPlayer',
   CDOTATeam: 'processTeam',
 };
 

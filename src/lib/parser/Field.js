@@ -22,6 +22,7 @@ const POINTER_TYPES = {
   CBodyComponent:             true,
   CDOTAGameManager:           true,
   CDOTAGamerules:             true,
+  CDOTAGameRules:             true,
   CDOTASpectatorGraphManager: true,
   CEntityIdentity:            true,
   CPhysicsComponent:          true,
@@ -56,7 +57,7 @@ class Field {
   }
 
   get isPointerType() {
-    return POINTER_TYPES[this.fieldType.baseType];
+    return this.fieldType.pointer || POINTER_TYPES[this.fieldType.baseType];
   }
 
   get model() {
