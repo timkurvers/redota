@@ -23,8 +23,8 @@ const HeroListEntry = observer((props) => {
     color, handle, hp, hpMax, mana, manaMax, player, refname, respawnCooldown, teamID,
   } = hero;
 
-  // Quick-jump hotkey to this hero based on the player ID
-  const hotkey = (player.id + 1) % 10;
+  // Quick-jump hotkey to this hero based on the player slot
+  const hotkey = (player.slot + 1) % 10;
   useHotkey(`${hotkey}`, () => {
     setSelection(handle);
   }, [handle, setSelection]);
