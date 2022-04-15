@@ -48,7 +48,7 @@ modularized using [ECMAScript modules] and bundled with [webpack].
 
 2. Download and install [Node.js] 14+ for your platform.
 
-   **Note**: Node.js 17+ is currently [not supported](#70).
+   **Note**: Node.js 17+ is currently [not supported][#70].
 
 3. Install dependencies:
 
@@ -77,3 +77,4 @@ modularized using [ECMAScript modules] and bundled with [webpack].
 [replay proxy]: https://github.com/timkurvers/redota-replay-proxy
 [styled-components]: https://styled-components.com/
 [webpack]: https://webpack.js.org/
+[#70]: https://github.com/timkurvers/redota/issues/70
