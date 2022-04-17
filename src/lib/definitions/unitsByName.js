@@ -878,4 +878,15 @@ export default augment({
     match: (unit) => unit.internalName.startsWith('npc_dota_watch_tower'),
   },
 
+  //
+  // Miscellaneous
+  //
+  npc_dota_companion: {
+    name: 'Pet',
+    model: 'models/pets/armadillo/armadillo.vmdl',
+    variants: [
+      'models/pets/icewrack_wolf/icewrack_wolf.vmdl',
+    ],
+  },
+
 });
