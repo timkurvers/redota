@@ -71,6 +71,7 @@ const processorByClass = {
   CDOTAGamerulesProxy: 'processGameRules',
   CDOTAPlayer: 'processPlayer',
   CDOTAPlayerController: 'processPlayer',
+  CDOTAPlayerPawn: 'processPlayerPawn',
   CDOTATeam: 'processTeam',
 };
 
@@ -366,11 +367,36 @@ class Replay {
     if ('m_hAssignedHero' in delta) {
       player.heroID = delta.m_hAssignedHero;
     }
+    if ('m_hPawn' in delta) {
+      player.pawnID = delta.m_hPawn;
+    }
     if ('m_iTeamNum' in delta) {
       player.teamID = delta.m_iTeamNum;
     }
 
     // TODO: Handle player unit selection (m_hSpectatorQueryUnit)
+
+    if ('CBodyComponent.m_cellX' in delta) {
+      player.camera.position.cellX = delta['CBodyComponent.m_cellX'];
+    }
+    if ('CBodyComponent.m_cellY' in delta) {
+      player.camera.position.cellY = delta['CBodyComponent.m_cellY'];
+    }
+    if ('CBodyComponent.m_vecX' in delta) {
+      player.camera.position.vecX = delta['CBodyComponent.m_vecX'];
+    }
+    if ('CBodyComponent.m_vecY' in delta) {
+      player.camera.position.vecY = delta['CBodyComponent.m_vecY'];
+    }
+  }
+
+  processPlayerPawn(entity, delta) {
+    const { handle } = entity;
+
+    const player = this.players.find((p) => p.pawnID === handle);
+    if (!player) {
+      return;
+    }
 
     if ('CBodyComponent.m_cellX' in delta) {
       player.camera.position.cellX = delta['CBodyComponent.m_cellX'];
