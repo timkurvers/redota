@@ -35,6 +35,7 @@ class Hero extends UnitWithInventory {
       respawnCooldown: computed,
       stash: computed,
       teleportScroll: computed,
+      ultimateAbility: computed,
     });
   }
 
@@ -78,6 +79,10 @@ class Hero extends UnitWithInventory {
 
   get teleportScroll() {
     return this.replay.items.get(this.teleportScrollHandle);
+  }
+
+  get ultimateAbility() {
+    return this.abilities[5];
   }
 }
 

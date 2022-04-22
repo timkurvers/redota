@@ -32,6 +32,10 @@ class Ability extends Entity {
     return this.isDotaPlus || this.isSeasonal;
   }
 
+  get isReady() {
+    return this.isTrained && this.cooldown.remaining === 0;
+  }
+
   get isSeasonal() {
     return this.refname.startsWith('seasonal_');
   }
@@ -40,6 +44,10 @@ class Ability extends Entity {
   get isTalent() {
     return this.refname.startsWith('special_bonus_')
            || this.refname.startsWith('ad_special_bonus_');
+  }
+
+  get isTrained() {
+    return this.level > 0;
   }
 
   get isVisible() {

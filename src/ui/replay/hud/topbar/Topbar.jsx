@@ -11,7 +11,7 @@ import Score from './Score.jsx';
 
 const StyledTopbar = styled(HStack)`
   align-items: center;
-  min-height: 46px;
+  min-height: 48px;
   position: absolute;
   top: 0;
   left: 50%;

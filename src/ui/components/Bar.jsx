@@ -41,7 +41,7 @@ const StyledBar = styled.div`
   `}
 
   ${(props) => props.size === 'mini' && css`
-    height: 3px;
+    height: 4px;
     margin: 1px auto;
 
     ${StyledFill} {
