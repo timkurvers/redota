@@ -32,6 +32,10 @@ class Ability extends Entity {
     return this.isDotaPlus || this.isSeasonal;
   }
 
+  get isPassive() {
+    return this.definition?.isPassive;
+  }
+
   get isReady() {
     return this.isTrained && this.cooldown.remaining === 0;
   }

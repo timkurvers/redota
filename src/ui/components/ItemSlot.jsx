@@ -14,7 +14,7 @@ const StyledItemSlot = styled.div`
   width: 50px;
   height: 38px;
   border: 1px solid #333;
-  border-color: #333 #444 #444 #333;
+  border-color: #333 #444 #555 #333;
   background: black;
 
   ${StyledResource} {

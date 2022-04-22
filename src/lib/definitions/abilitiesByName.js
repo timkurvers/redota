@@ -10,7 +10,7 @@ const IGNORE_ATTRIBUTES = [
 
 const abilitiesByName = Object.entries(baseAbilitiesByName).reduce((lookup, [name, definition]) => {
   const {
-    attrib = [], cd, dmg, mc,
+    attrib = [], behavior, cd, dmg, mc,
   } = definition;
 
   // Collect scaling values for attributes, cooldown, magic and manacost into a collection
@@ -25,6 +25,7 @@ const abilitiesByName = Object.entries(baseAbilitiesByName).reduce((lookup, [nam
   ];
 
   // Any array encountered in the above entries indicates the available levels
+  // TODO: Contribute to OpenDota's dotaconstants to include max level properly
   let maxLevel = 1;
   for (const entry of entries) {
     if (Array.isArray(entry)) {
@@ -33,10 +34,14 @@ const abilitiesByName = Object.entries(baseAbilitiesByName).reduce((lookup, [nam
     }
   }
 
-  // Augment the ability definition with its maximum level
+  // Whether this ability is passive
+  const isPassive = behavior && (behavior === 'Passive' || behavior.includes('Passive'));
+
+  // Augment the ability definition
   lookup[name] = {
     ...definition,
     maxLevel,
+    isPassive,
   };
 
   return lookup;
