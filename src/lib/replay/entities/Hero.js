@@ -82,6 +82,7 @@ class Hero extends UnitWithInventory {
   }
 
   get ultimateAbility() {
+    // Note: This may not be entirely accurate for old replays
     return this.abilities[5];
   }
 }
