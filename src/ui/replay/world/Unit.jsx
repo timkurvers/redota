@@ -99,7 +99,7 @@ const Arrowhead = observer((props) => {
 const Unit = observer((props) => {
   const { selected, setSelection, unit } = props;
   const {
-    color, handle, isDead, isWaitingToSpawn, position: { relX, relY },
+    color, handle, isDead, isIllusion, isWaitingToSpawn, position: { relX, relY },
   } = unit;
 
   const onClick = useCallback(() => {
@@ -117,8 +117,8 @@ const Unit = observer((props) => {
       translucentWhenInactive
       color={color}
       onClick={onClick}
+      isIllusion={isIllusion}
       selected={selected}
-      isIllusion={unit.isIllusion}
       style={{
         left: `${relX * 100}%`,
         bottom: `${relY * 100}%`,
