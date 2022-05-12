@@ -101,4 +101,5 @@ npc_dota_ward_base.jpg: model=models/props_gameplay/default_ward.vmdl&portrait
 npc_dota_warlock_golem.jpg: model=models/heroes/warlock/warlock_demon.vmdl&portrait
 npc_dota_weaver_swarm.jpg: model=models/heroes/weaver/weaver_bug.vmdl&portrait
 npc_dota_witch_doctor_death_ward.jpg: model=models/heroes/witchdoctor/witchdoctor_ward.vmdl&portrait
+npc_dota_wraith_king_skeleton_warrior.jpg: model=models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl&portrait
 npc_dota_zeus_cloud.jpg: model=models/heroes/zeus/zeus_sigil.vmdl&portrait=default_ward

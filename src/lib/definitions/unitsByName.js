@@ -309,6 +309,7 @@ export default augment({
     match: matchByModelID,
     variants: [
       'models/items/pugna/ward/dplus_battlemages_fury_ward/dplus_battlemages_fury_ward.vmdl',
+      'models/items/pugna/ward/draining_wight/draining_wight.vmdl',
       'models/items/pugna/ward/furious_phantasm_ward/furious_phantasm_ward.vmdl',
       'models/items/pugna/ward/nether_grandmasters_ward/nether_grandmasters_ward.vmdl',
       'models/items/pugna/ward/nether_heart/nether_heart.vmdl',
@@ -557,9 +558,11 @@ export default augment({
   //
 
   npc_dota_dark_troll_warlord_skeleton_warrior: {
-    name: 'Skeleton',
+    name: 'Skeleton Warrior',
     model: 'models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl',
-    match: matchByModelID,
+    match(unit) {
+      return matchByModelID(unit, this) && unit.hpMax >= 250;
+    },
   },
 
   npc_dota_neutral_alpha_wolf: {
@@ -818,6 +821,19 @@ export default augment({
     name: 'Warpine Raider',
     model: 'models/creeps/pine_cone/pine_cone.vmdl',
     match: matchByModelID,
+  },
+
+  npc_dota_wraith_king_skeleton_warrior: {
+    name: 'Wraith King Skeleton',
+    model: 'models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl',
+    match(unit) {
+      return matchByModelID(unit, this) && unit.hpMax <= 175;
+    },
+    variants: [
+      'models/items/wraith_king/arcana/wk_arcana_skeleton.vmdl',
+      'models/items/wraith_king/wk_ti8_creep/wk_ti8_creep_crimson.vmdl',
+      'models/items/wraith_king/wk_ti8_creep/wk_ti8_creep.vmdl',
+    ],
   },
 
   //

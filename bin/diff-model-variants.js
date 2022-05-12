@@ -29,7 +29,7 @@ const registry = Object.entries(unitsByName).reduce((lookup, [key, definition]) 
 
 // Valve's asset modifier properties are inconsistent and duplicated, so regex
 // for `asset_modifier` as well as `asset_modifier0` through `asset_modifier110`
-const ASSET_MODIFIER_REGEX = /"asset_modifier\d*"\s+{\s*"type"\s+"(?<type>[^"]+)"\s+"asset"\s+"(?<asset>[^"]+)"\s+"modifier"\s+"(?<modifier>[^"]+)"/g;
+const ASSET_MODIFIER_REGEX = /"asset_modifier\d*"\s+{\s*"type"\s+"(?<type>[^"]+)"\s+"asset"\s+"(?<asset>[^"]+?)(_\d)?"\s+"modifier"\s+"(?<modifier>[^"]+)"/g;
 
 // Process unit model variants
 for (const match of raw.matchAll(ASSET_MODIFIER_REGEX)) {
