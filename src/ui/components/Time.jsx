@@ -1,4 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const StyledTime = styled.span``;
 
 const Time = (props) => {
   let { time } = props;
@@ -10,7 +13,7 @@ const Time = (props) => {
   time %= 60;
   const secs = time | 0;
   return (
-    <>
+    <StyledTime>
       {sign}
       {hours > 0 && (
         <>
@@ -22,8 +25,9 @@ const Time = (props) => {
       :
       {`00${secs}`.slice(-2)}
       {sign ? ' ' : ''}
-    </>
+    </StyledTime>
   );
 };
 
 export default Time;
+export { StyledTime };

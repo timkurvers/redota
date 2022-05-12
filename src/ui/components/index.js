@@ -20,5 +20,5 @@ export { default as PlayerName, StyledPlayerName } from './PlayerName.jsx';
 export * from './Resource.jsx';
 export * from './Stack.jsx';
 export { default as TeamLogo, StyledTeamLogo } from './TeamLogo.jsx';
-export { default as Time } from './Time.jsx';
+export { default as Time, StyledTime } from './Time.jsx';
 export { default as Wizard } from './Wizard.jsx';

@@ -265,6 +265,18 @@ class Replay {
     if ('m_pGameRules.m_fGameTime' in delta) {
       game.time = delta['m_pGameRules.m_fGameTime'] | 0;
     }
+    if ('m_pGameRules.m_iNetTimeOfDay' in delta) {
+      game.timeOfDay = delta['m_pGameRules.m_iNetTimeOfDay'];
+    }
+    if ('m_pGameRules.m_bIsNightstalkerNight' in delta) {
+      game.isNightStalkerNight = delta['m_pGameRules.m_bIsNightstalkerNight'];
+    }
+    if ('m_pGameRules.m_bIsTemporaryDay' in delta) {
+      game.isTemporaryDay = delta['m_pGameRules.m_bIsTemporaryDay'];
+    }
+    if ('m_pGameRules.m_bIsTemporaryNight' in delta) {
+      game.isTemporaryNight = delta['m_pGameRules.m_bIsTemporaryNight'];
+    }
   }
 
   processHero(entity, delta, event) {

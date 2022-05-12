@@ -1,9 +1,15 @@
 import React from 'react';
+import styled from 'styled-components';
+
+const StyledIcon = styled.i``;
 
 const Icon = (props) => {
-  const { brand, name, title } = props;
-  const className = `${brand ? 'fab' : 'fas'} fa-${name}`;
-  return <i className={className} title={title} />;
+  const {
+    brand, className = '', name, title,
+  } = props;
+  const fqClassName = `${brand ? 'fab' : 'fas'} fa-${name} ${className}`;
+  return <StyledIcon className={fqClassName} title={title} />;
 };
 
 export default Icon;
+export { StyledIcon };
