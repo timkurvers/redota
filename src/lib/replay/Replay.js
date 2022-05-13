@@ -472,9 +472,9 @@ class Replay {
     if (!team) {
       team = new Team(this, entity);
       team.id = entity.get('m_iTeamNum');
+      team.proID = entity.get('m_unTournamentTeamID');
       this.teams.add(team);
     }
-    team.proID = entity.get('m_unTournamentTeamID');
     if (team && event & EntityEvent.DELETED) {
       throw new Error('no support for team deletion');
     }
