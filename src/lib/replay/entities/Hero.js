@@ -1,6 +1,5 @@
 import { computed, makeObservable, observable } from 'mobx';
 
-import { PLAYER_COLORS } from '../../constants.js';
 import { heroesByName } from '../../definitions/index.js';
 
 import UnitWithInventory from './UnitWithInventory.js';
@@ -46,9 +45,7 @@ class Hero extends UnitWithInventory {
   }
 
   get color() {
-    // Note: Cannot rely on player being present in case of disconnects
-    const slot = this.playerID / this.replay.stepPlayerID;
-    return PLAYER_COLORS[slot];
+    return this.player.color;
   }
 
   get name() {
@@ -60,7 +57,7 @@ class Hero extends UnitWithInventory {
   }
 
   get player() {
-    return this.replay.players.byID.get(this.playerID);
+    return this.replay.players.get(this.playerID);
   }
 
   get refname() {

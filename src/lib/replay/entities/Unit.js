@@ -73,7 +73,7 @@ class Unit extends Entity {
 
   get owner() {
     const { ownerHandle, replay } = this;
-    return replay.units.get(ownerHandle) || replay.players.get(ownerHandle);
+    return replay.units.get(ownerHandle) || replay.players.byHandle.get(ownerHandle);
   }
 
   get refname() {

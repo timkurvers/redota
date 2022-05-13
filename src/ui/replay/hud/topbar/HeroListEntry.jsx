@@ -3,17 +3,30 @@ import styled, { css } from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import {
-  Bar, Cooldown, HeroResource, PlayerColorStrip,
+  ActiveFilter, Bar, Cooldown, HeroResource, Icon, PlayerColorStrip,
 } from '../../../components/index.js';
 import { useHotkey } from '../../../hooks/index.js';
 
+const StyledDisconnectedIcon = styled(Icon).attrs(() => ({ name: 'plug' }))`
+  color: #FF1700;
+  font-size: 1.25em;
+`;
+
 const StyledHeroListEntry = styled.div`
   position: relative;
+  min-width: 59px;
   cursor: pointer;
   margin-left: 1px;
 
   &:last-child {
     margin-right: 1px;
+  }
+
+  ${StyledDisconnectedIcon} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 `;
 
@@ -55,12 +68,15 @@ const HeroListEntry = observer((props) => {
   return (
     <StyledHeroListEntry onClick={onClick}>
       <PlayerColorStrip color={color} />
-      <Cooldown remaining={respawnCooldown.remaining}>
-        <HeroResource refname={refname} variant="landscape" />
-        <Bar type="health" size="mini" value={hp} max={hpMax} teamID={teamID} />
-        <Bar type="mana" size="mini" value={mana} max={manaMax} />
-        <StyledUltimate ability={ultimateAbility} />
-      </Cooldown>
+      <ActiveFilter active={player.isConnected}>
+        <Cooldown remaining={respawnCooldown.remaining}>
+          <HeroResource refname={refname} variant="landscape" />
+          <Bar type="health" size="mini" value={hp} max={hpMax} teamID={teamID} />
+          <Bar type="mana" size="mini" value={mana} max={manaMax} />
+          {ultimateAbility && <StyledUltimate ability={ultimateAbility} />}
+        </Cooldown>
+      </ActiveFilter>
+      {!player.isConnected && <StyledDisconnectedIcon />}
     </StyledHeroListEntry>
   );
 });

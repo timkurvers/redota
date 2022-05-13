@@ -13,7 +13,7 @@ const useReplayController = (replay) => {
   const [selectionID, setSelectionID] = useState(null);
 
   const isFreeCamera = cameraID === -1;
-  const camera = isFreeCamera ? freeCamera : replay?.players.byID.get(cameraID)?.camera;
+  const camera = isFreeCamera ? freeCamera : replay?.players.get(cameraID)?.camera;
 
   // TODO: Replay clean-up on component unmount
   useEffect(() => {

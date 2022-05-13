@@ -2,7 +2,7 @@ import { computed, makeObservable, observable } from 'mobx';
 
 import Camera from '../Camera.js';
 import {
-  PLAYER_COLORS, TEAM_DIRE, TEAM_RADIANT, TEAM_SPECTATORS,
+  CONNECTION_STATE, PLAYER_COLORS, TEAM_DIRE, TEAM_RADIANT, TEAM_SPECTATORS,
 } from '../../constants.js';
 import { lookupProPlayer } from '../../definitions/proPlayersByHash.js';
 
@@ -31,6 +31,7 @@ class Player extends Entity {
     this.totalEarnedGold = 0;
     this.totalEarnedXP = 0;
 
+    this.connectionState = CONNECTION_STATE.UNKNOWN;
     this.isBot = false;
     this.isBroadcaster = false;
 
@@ -56,6 +57,7 @@ class Player extends Entity {
       totalEarnedGold: observable,
       totalEarnedXP: observable,
 
+      connectionState: observable,
       isBot: observable,
       isBroadcaster: observable,
 
@@ -71,6 +73,11 @@ class Player extends Entity {
       slot: computed,
       team: computed,
       xpm: computed,
+
+      isConnected: computed,
+      isPlayer: computed,
+      isProPlayer: computed,
+      isSpectator: computed,
     });
   }
 
@@ -96,6 +103,10 @@ class Player extends Entity {
 
   get index() {
     return String(this.slot).padStart(4, '0');
+  }
+
+  get isConnected() {
+    return this.connectionState === CONNECTION_STATE.CONNECTED;
   }
 
   get isPlayer() {

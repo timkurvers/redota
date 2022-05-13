@@ -98,7 +98,7 @@ class Replay {
 
     this.abilities = new ObservableIndexedCollection('handle');
     this.items = new ObservableIndexedCollection('handle');
-    this.players = new ObservableIndexedCollection('handle', { byID: 'id' });
+    this.players = new ObservableIndexedCollection('id', { byHandle: 'handle' });
     this.teams = new ObservableIndexedCollection('handle', { byID: 'id' });
     this.units = new ObservableIndexedCollection('handle');
     this.game = new Game();
@@ -360,22 +360,26 @@ class Replay {
   }
 
   processPlayer(entity, delta, event) {
-    const handle = entity.handle;
-    let player = this.players.get(handle);
+    const id = entity.has('m_nPlayerID') ? entity.get('m_nPlayerID') : entity.get('m_iPlayerID');
+
+    let player = this.players.get(id);
     if (!player) {
       player = new Player(this, entity);
+      player.id = id;
       if ('m_nPlayerID' in delta) {
-        player.id = delta.m_nPlayerID;
         this.stepPlayerID = 2;
-      } else if ('m_iPlayerID' in delta) {
-        player.id = delta.m_iPlayerID;
       }
+      this.players.add(player);
+    } else if (player.handle !== entity.handle) {
+      // On reconnect, index the player anew with an updated entity ref and handle
+      this.players.delete(player);
+      player.entity = entity;
       this.players.add(player);
     }
     if (player && event & EntityEvent.DELETED) {
-      this.players.delete(player);
-      return;
+      // Note: Keep players as they may reconnect using the same player ID
     }
+
     if ('m_hAssignedHero' in delta) {
       player.heroID = delta.m_hAssignedHero;
     }
@@ -430,6 +434,9 @@ class Replay {
       if (player.id === -1) continue;
 
       const prefix = `m_vecPlayerData.${player.index}`;
+      if (`${prefix}.m_iConnectionState` in delta) {
+        player.connectionState = delta[`${prefix}.m_iConnectionState`];
+      }
       if (`${prefix}.m_iszPlayerName` in delta) {
         player.nickname = delta[`${prefix}.m_iszPlayerName`];
       }

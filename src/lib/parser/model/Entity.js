@@ -26,6 +26,18 @@ class Entity {
     return struct;
   }
 
+  has(name) {
+    let fp = this.fpCache[name];
+    if (!fp) {
+      fp = new FieldPath();
+      if (!this.class.getFieldPathForName(fp, name)) {
+        return false;
+      }
+      this.fpCache[name] = fp;
+    }
+    return true;
+  }
+
   get(name) {
     let fp = this.fpCache[name];
     if (!fp) {
