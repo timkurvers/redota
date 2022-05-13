@@ -27,7 +27,18 @@ export const CONNECTION_STATE = {
   FAILED: 6,
 };
 
+// See DOTA_GameState in dota/dota_shared_enums.proto
 export const GAME_PHASE = {
+  INIT: 0,
+  WAIT_FOR_PLAYERS_TO_LOAD: 1,
+  HERO_SELECTION: 2,
+  STRATEGY_TIME: 3,
+  PRE_GAME: 4,
+  GAME_IN_PROGRESS: 5,
+  POST_GAME: 6,
+  DISCONNECT: 7,
+
+  // Deprecated
   PREGAME: 4,
   START: 5,
   END: 6,

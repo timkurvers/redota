@@ -19,7 +19,7 @@ const useReplayController = (replay) => {
   useEffect(() => {
     replay.on('warn', console.warn);
     replay.start();
-    replay.jumpTo(GAME_PHASE.PREGAME);
+    replay.jumpTo(GAME_PHASE.PRE_GAME);
   }, [replay]);
 
   // Replay files seem to (mostly) hop over every other tick, so decrease the
