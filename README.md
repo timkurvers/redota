@@ -57,7 +57,15 @@ modularized using [ECMAScript modules] and bundled with [webpack].
    npm install
    ```
 
-4. Run the dev server on `http://localhost:8080` which automatically monitors source files:
+4. Compile Valve's game message definitions to a format ReDota can work with:
+
+   ```shell
+   npm run build:protos
+   ```
+
+   **Note**: This step only needs to be done once, or when the definitions themselves change.
+
+5. Run the dev server on `http://localhost:8080` which automatically monitors source files:
 
    ```shell
    npm run start:dev
