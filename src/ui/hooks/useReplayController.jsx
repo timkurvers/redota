@@ -19,7 +19,11 @@ const useReplayController = (replay) => {
   useEffect(() => {
     replay.on('warn', console.warn);
     replay.start();
+
+    // Jump to the pre-game (skipping any draft) and a few ticks more to ensure
+    // heroes are assigned to all players
     replay.jumpTo(GAME_PHASE.PRE_GAME);
+    replay.seek(replay.tick + (1 / replay.tickInterval));
   }, [replay]);
 
   // Replay files seem to (mostly) hop over every other tick, so decrease the
