@@ -29,7 +29,7 @@ const ReplayFileDownloader = (props) => {
       response = await request();
     } catch (e) {
       if (e.response?.status === 404) {
-        setFeedback('Replay data for this match is no longer available.');
+        setFeedback('Replay data for this match is not yet or no longer available.');
       } else {
         setFeedback('Replay data could not be retrieved. Try again later.');
       }
