@@ -29,6 +29,7 @@ const MISSING_ABILITY_RESOURCES = [
 const MISSING_HERO_RESOURCES = [
   'dawnbreaker',
   'marci',
+  'muerta',
   'primal_beast',
 ];
 
