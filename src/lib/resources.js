@@ -11,6 +11,7 @@ const MISSING_ABILITY_RESOURCES = [
   'creep_siege',
   'enraged_wildkin_hurricane',
   'fel_beast_haunt',
+  'flagbearer_creep_aura_effect',
   'forest_troll_high_priest_heal_amp_aura',
   'frostbitten_golem_time_warp_aura',
   'furbolg_enrage_attack_speed',

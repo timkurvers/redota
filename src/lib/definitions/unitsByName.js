@@ -445,6 +445,24 @@ export default augment({
   // Lane creeps
   //
 
+  npc_dota_creep_badguys_flagbearer: {
+    name: 'Flagbearer Creep',
+    model: 'models/creeps/lane_creeps/creep_bad_melee/creep_bad_flagbearer.vmdl',
+    match: matchByModelID,
+  },
+
+  npc_dota_creep_badguys_flagbearer_upgraded: {
+    name: 'Super Flagbearer Creep',
+    model: 'models/creeps/lane_creeps/creep_bad_melee/creep_bad_flagbearer.vmdl',
+    match: matchByModelID,
+  },
+
+  npc_dota_creep_badguys_flagbearer_upgraded_mega: {
+    name: 'Mega Flagbearer Creep',
+    model: 'models/creeps/lane_creeps/creep_bad_melee/creep_bad_flagbearer_mega.vmdl',
+    match: matchByModelID,
+  },
+
   npc_dota_creep_badguys_melee: {
     name: 'Dire Melee Creep',
     model: 'models/creeps/lane_creeps/creep_bad_melee/creep_bad_melee.vmdl',
@@ -496,6 +514,24 @@ export default augment({
   npc_dota_badguys_siege_upgraded_mega: {
     name: 'Dire Mega Siege Creep',
     model: 'models/creeps/lane_creeps/creep_bad_siege/creep_bad_siege.vmdl',
+    match: matchByModelID,
+  },
+
+  npc_dota_creep_goodguys_flagbearer: {
+    name: 'Flagbearer Creep',
+    model: 'models/creeps/lane_creeps/creep_radiant_melee/radiant_flagbearer.vmdl',
+    match: matchByModelID,
+  },
+
+  npc_dota_creep_goodguys_flagbearer_upgraded: {
+    name: 'Super Flagbearer Creep',
+    model: 'models/creeps/lane_creeps/creep_radiant_melee/radiant_flagbearer.vmdl',
+    match: matchByModelID,
+  },
+
+  npc_dota_creep_goodguys_flagbearer_upgraded_mega: {
+    name: 'Mega Flagbearer Creep',
+    model: 'models/creeps/lane_creeps/creep_radiant_melee/radiant_flagbearer_mega.vmdl',
     match: matchByModelID,
   },
 
