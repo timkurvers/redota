@@ -35,6 +35,7 @@ const MISSING_HERO_RESOURCES = [
 const KNOWN_DUMMY_UNITS = [
   'npc_dota_base_additive',
   'npc_dota_base',
+  'npc_dota_broodmother_web',
   'npc_dota_companion',
   'npc_dota_thinker',
 ];
