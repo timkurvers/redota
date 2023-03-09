@@ -1,7 +1,5 @@
 import "networkbasetypes.proto";
 
-option cc_generic_services = false;
-
 enum CLC_Messages {
 	clc_ClientInfo = 20;
 	clc_Move = 21;
@@ -19,6 +17,7 @@ enum CLC_Messages {
 	clc_RequestPause = 33;
 	clc_CmdKeyValues = 34;
 	clc_RconServerDetails = 35;
+	clc_HltvReplay = 36;
 }
 
 enum SVC_Messages {
@@ -49,6 +48,9 @@ enum SVC_Messages {
 	svc_FullFrameSplit = 70;
 	svc_RconServerDetails = 71;
 	svc_UserMessage = 72;
+	svc_HltvReplay = 73;
+	svc_Broadcast_Command = 74;
+	svc_HltvFixupOperatorStatus = 75;
 }
 
 enum VoiceDataFormat_t {
@@ -99,6 +101,14 @@ enum Bidirectional_Messages {
 enum Bidirectional_Messages_LowFrequency {
 	bi_RelayInfo = 700;
 	bi_RelayPacket = 701;
+}
+
+enum ReplayEventType_t {
+	REPLAY_EVENT_CANCEL = 0;
+	REPLAY_EVENT_DEATH = 1;
+	REPLAY_EVENT_GENERIC = 2;
+	REPLAY_EVENT_STUCK_NEED_FULL_UPDATE = 3;
+	REPLAY_EVENT_VICTORY = 4;
 }
 
 message CCLCMsg_ClientInfo {
@@ -199,7 +209,7 @@ message CSVCMsg_ServerInfo {
 	optional int32 c_os = 6;
 	optional int32 max_clients = 10;
 	optional int32 max_classes = 11;
-	optional int32 player_slot = 12;
+	optional int32 player_slot = 12 [default = -1];
 	optional float tick_interval = 13;
 	optional string game_dir = 14;
 	optional string map_name = 15;
@@ -243,7 +253,7 @@ message CSVCMsg_Sounds {
 		optional uint32 volume = 4;
 		optional float delay_value = 5;
 		optional int32 sequence_number = 6;
-		optional int32 entity_index = 7;
+		optional int32 entity_index = 7 [default = -1];
 		optional int32 channel = 8;
 		optional int32 pitch = 9;
 		optional int32 flags = 10;
@@ -268,8 +278,8 @@ message CSVCMsg_Prefetch {
 }
 
 message CSVCMsg_SetView {
-	optional int32 entity_index = 1;
-	optional int32 slot = 2;
+	optional int32 entity_index = 1 [default = -1];
+	optional int32 slot = 2 [default = -1];
 }
 
 message CSVCMsg_FixAngle {
@@ -284,7 +294,7 @@ message CSVCMsg_CrosshairAngle {
 message CSVCMsg_BSPDecal {
 	optional .CMsgVector pos = 1;
 	optional int32 decal_texture_index = 2;
-	optional int32 entity_index = 3;
+	optional int32 entity_index = 3 [default = -1];
 	optional int32 model_index = 4;
 	optional bool low_priority = 5;
 }
@@ -292,7 +302,7 @@ message CSVCMsg_BSPDecal {
 message CSVCMsg_SplitScreen {
 	optional .ESplitScreenMessageType type = 1 [default = MSG_SPLITSCREEN_ADDUSER];
 	optional int32 slot = 2;
-	optional int32 player_index = 3;
+	optional int32 player_index = 3 [default = -1];
 }
 
 message CSVCMsg_GetCvarValue {
@@ -354,6 +364,11 @@ message CSVCMsg_PacketEntities {
 		optional uint32 discarded_command_ticks = 5;
 	}
 
+	message alternate_baseline_t {
+		optional int32 entity_index = 1;
+		optional int32 baseline_index = 2;
+	}
+
 	optional int32 max_entries = 1;
 	optional int32 updated_entries = 2;
 	optional bool is_delta = 3;
@@ -368,6 +383,7 @@ message CSVCMsg_PacketEntities {
 	optional uint32 server_tick = 12;
 	optional bytes serialized_entities = 13;
 	optional .CSVCMsg_PacketEntities.command_queue_info_t command_queue_info = 14;
+	repeated .CSVCMsg_PacketEntities.alternate_baseline_t alternate_baselines = 15;
 }
 
 message CSVCMsg_TempEntities {
@@ -396,7 +412,7 @@ message CSVCMsg_UpdateStringTable {
 
 message CSVCMsg_VoiceData {
 	optional .CMsgVoiceAudio audio = 1;
-	optional int32 client = 2;
+	optional int32 client = 2 [default = -1];
 	optional bool proximity = 3;
 	optional fixed64 xuid = 4;
 	optional int32 audible_mask = 5;
@@ -442,7 +458,7 @@ message CMsgIPCAddress {
 }
 
 message CMsgServerPeer {
-	optional int32 player_slot = 1;
+	optional int32 player_slot = 1 [default = -1];
 	optional fixed64 steamid = 2;
 	optional .CMsgIPCAddress ipc = 3;
 	optional bool they_hear_you = 4;
@@ -498,43 +514,6 @@ message CBidirMsg_RebroadcastSource {
 	optional int32 eventsource = 1;
 }
 
-message SerializedNetAddress_t {
-	required bytes serializedAddress = 1;
-}
-
-message CBidirMsg_RelayInfo {
-	enum Operation_t {
-		RIO_REQUEST_RELAY = 0;
-		RIO_WILL_RELAY = 1;
-		RIO_NO_ROUTE = 2;
-		RIO_REJECT_RELAY = 3;
-		RIO_ESTABLISH_CONNECTION = 4;
-	}
-
-	required .CBidirMsg_RelayInfo.Operation_t operation = 1 [default = RIO_REQUEST_RELAY];
-	optional .SerializedNetAddress_t serializedTargetAddress = 2;
-	optional uint32 additionalHops = 3;
-}
-
-message SignedPayload_t {
-	required bytes payloadData = 1;
-	required uint32 signature = 2;
-	required bool bPayloadEncrypted = 3;
-}
-
-message CBidirMsg_RelayPacket {
-	message SignedDestinationAddress_t {
-		required .SerializedNetAddress_t serializedAddr = 1;
-		required uint32 signature = 2;
-		optional bytes encryptedPayloadKey = 3;
-	}
-
-	required uint32 prevhopcount = 1;
-	required .SerializedNetAddress_t originalSender = 2;
-	required .SignedPayload_t signedPayload = 3;
-	repeated .CBidirMsg_RelayPacket.SignedDestinationAddress_t recipientList = 4;
-}
-
 message CMsgServerNetworkStats {
 	message Port {
 		optional int32 port = 1;
@@ -575,4 +554,43 @@ message CMsgServerNetworkStats {
 	optional uint64 total_data_out = 28;
 	optional uint64 total_packets_out = 29;
 	repeated .CMsgServerNetworkStats.Player players = 30;
+}
+
+message CSVCMsg_HltvReplay {
+	optional int32 delay = 1;
+	optional int32 primary_target = 2 [default = -1];
+	optional int32 replay_stop_at = 3;
+	optional int32 replay_start_at = 4;
+	optional int32 replay_slowdown_begin = 5;
+	optional int32 replay_slowdown_end = 6;
+	optional float replay_slowdown_rate = 7;
+	optional int32 reason = 8;
+}
+
+message CCLCMsg_HltvReplay {
+	optional int32 request = 1;
+	optional float slowdown_length = 2;
+	optional float slowdown_rate = 3;
+	optional int32 primary_target = 4 [default = -1];
+	optional float event_time = 5;
+}
+
+message CSVCMsg_Broadcast_Command {
+	optional string cmd = 1;
+}
+
+message CCLCMsg_HltvFixupOperatorTick {
+	optional int32 tick = 1;
+	optional bytes props_data = 2;
+	optional .CMsgVector origin = 3;
+	optional .CMsgQAngle eye_angles = 4;
+	optional int32 observer_mode = 5;
+	optional bool cameraman_scoreboard = 6;
+	optional int32 observer_target = 7;
+	optional .CMsgVector view_offset = 8;
+}
+
+message CSVCMsg_HltvFixupOperatorStatus {
+	optional uint32 mode = 1;
+	optional string override_operator_name = 2;
 }

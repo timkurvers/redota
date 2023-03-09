@@ -1,7 +1,5 @@
 import "network_connection.proto";
 
-option cc_generic_services = false;
-
 enum SignonState_t {
 	SIGNONSTATE_NONE = 0;
 	SIGNONSTATE_CHALLENGE = 1;
@@ -26,6 +24,7 @@ enum NET_Messages {
 	net_SpawnGroup_SetCreationTick = 11;
 	net_SpawnGroup_Unload = 12;
 	net_SpawnGroup_LoadCompleted = 13;
+	net_DebugOverlay = 15;
 }
 
 enum SpawnGroupFlags_t {
@@ -43,6 +42,7 @@ message CMsgVector {
 	optional float x = 1;
 	optional float y = 2;
 	optional float z = 3;
+	optional float w = 4;
 }
 
 message CMsgVector2D {
@@ -54,6 +54,19 @@ message CMsgQAngle {
 	optional float x = 1;
 	optional float y = 2;
 	optional float z = 3;
+}
+
+message CMsgQuaternion {
+	optional float x = 1;
+	optional float y = 2;
+	optional float z = 3;
+	optional float w = 4;
+}
+
+message CMsgTransform {
+	optional .CMsgVector position = 1;
+	optional float scale = 2;
+	optional .CMsgQuaternion orientation = 3;
 }
 
 message CMsgRGBA {
@@ -73,7 +86,7 @@ message CMsgPlayerInfo {
 }
 
 message CEntityMsg {
-	optional uint32 target_entity = 1;
+	optional uint32 target_entity = 1 [default = 16777215];
 }
 
 message CMsg_CVars {
@@ -105,6 +118,7 @@ message CNETMsg_Tick {
 	optional uint32 host_framestarttime_std_deviation = 6;
 	optional uint32 host_loss = 7;
 	optional uint32 host_unfiltered_frametime = 8;
+	optional uint32 hltv_replay_flags = 9;
 }
 
 message CNETMsg_StringCmd {
@@ -170,6 +184,7 @@ message CNETMsg_SpawnGroup_Load {
 	optional string savegamefilename = 17;
 	optional uint32 spawngroupparenthandle = 18;
 	optional bool leveltransition = 19;
+	optional string worldgroupname = 20;
 }
 
 message CNETMsg_SpawnGroup_ManifestUpdate {
@@ -214,4 +229,14 @@ message CSVCMsg_GameSessionConfiguration {
 	optional bool is_transition = 16;
 	optional string previouslevel = 17;
 	optional string landmarkname = 18;
+}
+
+message CNETMsg_DebugOverlay {
+	optional int32 etype = 1;
+	repeated .CMsgVector vectors = 2;
+	repeated .CMsgRGBA colors = 3;
+	repeated float dimensions = 4;
+	repeated float times = 5;
+	repeated bool bools = 6;
+	repeated uint64 uint64s = 7;
 }

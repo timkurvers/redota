@@ -1,9 +1,6 @@
 import "steammessages.proto";
 import "gcsdk_gcmessages.proto";
 
-option optimize_for = SPEED;
-option cc_generic_services = false;
-
 enum EGCBaseMsg {
 	k_EMsgGCReplicateConVars = 4002;
 	k_EMsgGCConVarUpdated = 4003;
@@ -27,6 +24,8 @@ enum EGCBaseMsg {
 	k_EMsgGCToClientApplyRemoteConVars = 4520;
 	k_EMsgGCToServerApplyRemoteConVars = 4521;
 	k_EMsgClientToGCIntegrityStatus = 4522;
+	k_EMsgClientToGCAggregateMetrics = 4523;
+	k_EMsgGCToClientAggregateMetricsBackoff = 4524;
 }
 
 enum ECustomGameInstallStatus {
@@ -152,7 +151,7 @@ message CMsgApplyEggEssence {
 }
 
 message CSOEconItemAttribute {
-	optional uint32 def_index = 1;
+	optional uint32 def_index = 1 [default = 65535];
 	optional uint32 value = 2;
 	optional bytes value_bytes = 3;
 }
@@ -175,7 +174,7 @@ message CSOEconItem {
 	repeated .CSOEconItemAttribute attribute = 12;
 	optional .CSOEconItem interior_item = 13;
 	optional uint32 style = 15 [default = 0];
-	optional uint64 original_id = 16 [default = 0];
+	optional uint64 original_id = 16;
 	repeated .CSOEconItemEquipped equipped_state = 18;
 }
 
@@ -294,7 +293,7 @@ message CMsgAddSocketResponse {
 
 message CMsgAddItemToSocketData {
 	optional uint64 gem_item_id = 1;
-	optional uint32 socket_index = 2;
+	optional uint32 socket_index = 2 [default = 65535];
 }
 
 message CMsgAddItemToSocket {
@@ -321,7 +320,7 @@ message CMsgAddItemToSocketResponse {
 
 message CMsgResetStrangeGemCount {
 	optional uint64 item_item_id = 1;
-	optional uint32 socket_index = 2;
+	optional uint32 socket_index = 2 [default = 65535];
 }
 
 message CMsgResetStrangeGemCountResponse {
@@ -355,7 +354,7 @@ message CMsgGCToGCPerformManualOp {
 
 message CMsgGCToGCPerformManualOpCompleted {
 	optional bool success = 1;
-	optional int32 source_gc = 2;
+	optional int32 source_gc = 2 [default = -1];
 }
 
 message CMsgGCToGCReloadServerRegionSettings {
@@ -396,4 +395,17 @@ message CMsgClientToGCIntegrityStatus {
 	optional string report = 1;
 	optional bool secure_allowed = 2;
 	repeated .CMsgClientToGCIntegrityStatus.keyvalue diagnostics = 3;
+}
+
+message CMsgClientToGCAggregateMetrics {
+	message SingleMetric {
+		optional string metric_name = 1;
+		optional uint32 metric_count = 2;
+	}
+
+	repeated .CMsgClientToGCAggregateMetrics.SingleMetric metrics = 1;
+}
+
+message CMsgGCToClientAggregateMetricsBackoff {
+	optional float upload_rate_modifier = 1;
 }
