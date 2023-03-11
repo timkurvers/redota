@@ -89,6 +89,7 @@ class Replay {
 
     this.tick = -1;
     this.tickInterval = null;
+    this.serverTick = null;
     this.lastTick = this.parser.lastTick;
 
     // Valve started doubling player IDs in patch 7.31. The step interval below
@@ -105,11 +106,13 @@ class Replay {
 
     this.onEntities = this.onEntities.bind(this);
     this.onTick = this.onTick.bind(this);
+    this.onServerTick = this.onServerTick.bind(this);
 
     // TODO: Support deregistering listeners
     this.parser.on('warn', this.emitter.emit.bind(this.emitter, 'warn'));
     this.parser.on('entities', this.onEntities);
     this.parser.on('tick', this.onTick);
+    this.parser.on('msg:CNETMsg_Tick', this.onServerTick);
 
     this.seek = this.parser.seek.bind(this.parser);
     this.start = this.parser.start.bind(this.parser);
@@ -202,6 +205,10 @@ class Replay {
     this.emitter.emit('update');
   }
 
+  onServerTick(msg) {
+    this.serverTick = msg.tick;
+  }
+
   processAbility(entity, delta, event) {
     const handle = entity.handle;
     let ability = this.abilities.get(handle);
@@ -252,6 +259,10 @@ class Replay {
     const { game } = this;
     if ('m_pGameRules.m_bGamePaused' in delta) {
       game.isPaused = delta['m_pGameRules.m_bGamePaused'];
+      game.pauseStartTick = game.isPaused ? delta['m_pGameRules.m_nPauseStartTick'] : null;
+      if (!game.isPaused) {
+        game.totalPausedTicks = delta['m_pGameRules.m_nTotalPausedTicks'];
+      }
     }
     if ('m_pGameRules.m_nGameState' in delta) {
       game.phase = delta['m_pGameRules.m_nGameState'];
@@ -267,6 +278,13 @@ class Replay {
     }
     if ('m_pGameRules.m_fGameTime' in delta) {
       game.time = delta['m_pGameRules.m_fGameTime'] | 0;
+    } else {
+      // Since patch 7.32e game time is no longer continously updated as part of
+      // the game rules entity. A delta still triggers approximately once a second
+      // for other fields. For these matches: infer the current game time based
+      // on server tick combined with the total amount of ticks the game was passed.
+      const ticksElapsed = (game.pauseStartTick || this.serverTick) - game.totalPausedTicks;
+      game.time = (ticksElapsed * this.tickInterval) | 0;
     }
     if ('m_pGameRules.m_iNetTimeOfDay' in delta) {
       game.timeOfDay = delta['m_pGameRules.m_iNetTimeOfDay'];
