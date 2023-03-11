@@ -250,6 +250,9 @@ class Replay {
 
   processGameRules(_entity, delta) {
     const { game } = this;
+    if ('m_pGameRules.m_bGamePaused' in delta) {
+      game.isPaused = delta['m_pGameRules.m_bGamePaused'];
+    }
     if ('m_pGameRules.m_nGameState' in delta) {
       game.phase = delta['m_pGameRules.m_nGameState'];
     }

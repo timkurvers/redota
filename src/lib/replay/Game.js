@@ -18,6 +18,8 @@ class Game {
     this.isTemporaryDay = false;
     this.isTemporaryNight = false;
 
+    this.isPaused = false;
+
     makeObservable(this, {
       phase: observable,
       preStartTime: observable,
@@ -29,6 +31,8 @@ class Game {
       isNightStalkerNight: observable,
       isTemporaryDay: observable,
       isTemporaryNight: observable,
+
+      isPaused: observable,
 
       clockTime: computed,
       isDay: computed,
