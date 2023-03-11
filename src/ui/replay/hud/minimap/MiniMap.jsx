@@ -7,8 +7,8 @@ import { Hero } from '../../../../lib/replay/entities/index.js';
 import Unit, { StyledUnit } from './Unit.jsx';
 
 const StyledMiniMap = styled.div`
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
   position: absolute;
   bottom: 0;
   left: 0;
