@@ -51,6 +51,12 @@ message CMsgConnectedPlayers {
 		optional .ENetworkDisconnectionReason disconnect_reason = 4 [default = NETWORK_DISCONNECT_INVALID];
 	}
 
+	message PlayerDraft {
+		optional fixed64 steam_id = 1;
+		optional .DOTA_GC_TEAM team = 2 [default = DOTA_GC_TEAM_GOOD_GUYS];
+		optional int32 team_slot = 3;
+	}
+
 	enum SendReason {
 		INVALID = 0;
 		HEARTBEAT = 1;
@@ -76,6 +82,7 @@ message CMsgConnectedPlayers {
 	optional uint32 dire_kills = 12;
 	optional int32 radiant_lead = 14;
 	optional uint32 building_state = 15;
+	repeated .CMsgConnectedPlayers.PlayerDraft player_draft = 16;
 }
 
 message CMsgGameServerInfo {
@@ -313,7 +320,6 @@ message CMsgGameMatchSignOut {
 	optional uint32 duration = 2;
 	optional bool good_guys_win = 3;
 	optional fixed32 date = 4;
-	repeated uint32 num_players = 5;
 	repeated .CMsgGameMatchSignOut.CTeam teams = 6;
 	repeated uint32 tower_status = 8;
 	repeated uint32 barracks_status = 9;
@@ -1377,6 +1383,13 @@ message CMsgServerToGCGetStickerHeroesResponse {
 message CMsgGCToServerSetSteamLearnDisable {
 }
 
+message CMsgGCToServerSetSteamLearnInferencing {
+	optional bool enable = 1;
+	optional uint32 project_id = 2;
+	optional uint32 published_version = 3;
+	optional string hmac_key = 4;
+}
+
 message CMsgGCToServerSetSteamLearnKeysChanged {
 	optional .CMsgSteamLearnHMACKeys keys = 1;
 }
@@ -1384,6 +1397,14 @@ message CMsgGCToServerSetSteamLearnKeysChanged {
 message CMsgSteamLearnMatchInfo {
 	optional uint32 average_mmr = 1;
 	optional bool radiant_won = 2;
+	optional uint32 duration = 3;
+	optional uint32 game_mode = 4;
+	optional uint32 lobby_type = 5;
+}
+
+message CMsgSteamLearnMatchInfoPlayer {
+	optional uint32 average_mmr = 1;
+	optional bool team_won = 2;
 	optional uint32 duration = 3;
 	optional uint32 game_mode = 4;
 	optional uint32 lobby_type = 5;
@@ -1437,11 +1458,18 @@ message CMsgSteamLearnMatchState {
 message CMsgSteamLearnItemPurchase {
 	optional int32 item_id = 1 [default = -1];
 	repeated int32 inventory_items = 2 [(steamlearn_count) = 20];
+	repeated int32 purchase_history = 3 [(steamlearn_count) = 20];
 	optional uint32 gold = 4;
 	optional uint32 net_worth = 5;
 	optional uint32 is_radiant_team = 6;
 	optional float game_time = 7;
 	optional bool is_using_dota_plus = 8;
+}
+
+message CMsgSteamLearnPreGameItemPurchases {
+	repeated int32 item_ids = 1 [(steamlearn_count) = 10];
+	optional uint32 is_radiant_team = 2;
+	optional bool is_using_dota_plus = 3;
 }
 
 message CMsgSteamLearnAbilitySkill {
@@ -1451,6 +1479,27 @@ message CMsgSteamLearnAbilitySkill {
 	optional bool is_using_dota_plus = 4;
 }
 
+message CMsgSteamLearnWardPlacement {
+	message Location {
+		optional float x = 1;
+		optional float y = 2;
+	}
+
+	optional .CMsgSteamLearnWardPlacement.Location ward_loc = 1;
+	repeated .CMsgSteamLearnWardPlacement.Location existing_ward_locs = 2 [(steamlearn_count) = 6];
+	optional uint32 team = 3;
+}
+
 message CMsgSignOutMuertaMinigame {
 	optional bytes event_game_data = 1;
+}
+
+message CMsgSignOutMapStats {
+	message Player {
+		optional uint32 account_id = 1;
+		optional .CMsgMapStatsSnapshot personal_stats = 2;
+	}
+
+	repeated .CMsgSignOutMapStats.Player players = 1;
+	optional .CMsgMapStatsSnapshot global_stats = 2;
 }
