@@ -243,7 +243,8 @@ class Parser extends Reader {
 
   onCSVCMsg_CreateStringTable(msg) {
     const {
-      name, userDataFixedSize, userDataSize, userDataSizeBits, flags, numEntries,
+      name, flags, numEntries,
+      userDataFixedSize, userDataSize, userDataSizeBits, usingVarintBitcounts,
     } = msg;
 
     const table = new StringTable(
@@ -252,6 +253,7 @@ class Parser extends Reader {
       userDataSize,
       userDataSizeBits,
       flags,
+      usingVarintBitcounts,
     );
     table.index = this.stringTables.size;
     this.stringTables.add(table);

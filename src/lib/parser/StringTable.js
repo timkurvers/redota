@@ -10,12 +10,14 @@ const KEY_HISTORY_MASK = (KEY_HISTORY_SIZE - 1);
 
 // See: https://github.com/dotabuff/manta/blob/master/string_table.go
 class StringTable {
-  constructor(name, userDataFixedSize, userDataSize, userDataSizeBits, flags) {
+  constructor(name, userDataFixedSize, userDataSize, userDataSizeBits, flags, varintBitcounts) {
     this.name = name;
     this.index = null;
     this.userDataFixedSize = userDataFixedSize;
     this.userDataSize = userDataSize;
     this.userDataSizeBits = userDataSizeBits;
+    this.varintBitcounts = varintBitcounts;
+
     this.flags = flags;
     this.entries = [];
   }
@@ -69,7 +71,11 @@ class StringTableEntry {
           if ((table.flags & 0x1) !== 0) {
             isCompressed = reader.readBitFlag();
           }
-          bitLength = reader.readBitInt(17) * 8;
+          if (table.varintBitcounts) {
+            bitLength = reader.readUBitVar() * 8;
+          } else {
+            bitLength = reader.readBitInt(17) * 8;
+          }
         }
 
         data = reader.readBitsAsBytes(bitLength);
