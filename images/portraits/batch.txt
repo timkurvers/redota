@@ -42,9 +42,12 @@ npc_dota_gyrocopter_homing_missile.jpg: model=models/heroes/gyro/gyro_missile.vm
 npc_dota_ignis_fatuus.jpg: model=models/heroes/keeper_of_the_light/kotl_wisp.vmdl&portrait
 npc_dota_invoker_forged_spirit.jpg: model=models/heroes/invoker/forge_spirit.vmdl&portrait
 npc_dota_juggernaut_healing_ward.jpg: model=models/heroes/juggernaut/jugg_healing_ward.vmdl&portrait
+npc_dota_lantern.jpg: model=models/props_gameplay/lantern/lantern_of_sight.vmdl&portrait
 npc_dota_lich_ice_spire.jpg: model=models/heroes/lich/ice_spire.vmdl&portrait=default_ward
 npc_dota_lone_druid_bear.jpg: model=models/heroes/lone_druid/spirit_bear.vmdl&portrait
 npc_dota_lycan_wolf.jpg: model=models/heroes/lycan/summon_wolves.vmdl&portrait
+npc_dota_mango_tree.jpg: model=models/props_gameplay/fountain_of_life/fountain_of_life.vmdl&primaryMesh=modelsprops_gameplayfountain_of_lifefountain_of_lifevmdl_cfountain_of_life_base_model_1&portrait
+npc_dota_miniboss.jpg: model=models/props_gameplay/divine_sentinel/divine_sentinel_cube.vmdl&portrait
 npc_dota_necronomicon_archer.jpg: model=models/creeps/item_creeps/i_creep_necro_archer/necro_archer.vmdl&portrait&primaryMesh=necro_archer_model_1
 npc_dota_necronomicon_warrior.jpg: model=models/creeps/item_creeps/i_creep_necro_warrior/necro_warrior.vmdl&portrait&primaryMesh=Embedded_Mesh_1_1
 npc_dota_neutral_alpha_wolf.jpg: model=models/creeps/neutral_creeps/n_creep_worg_large/n_creep_worg_large.vmdl&portrait
@@ -88,6 +91,7 @@ npc_dota_neutral_small_thunder_lizard.jpg: model=models/creeps/neutral_creeps/n_
 npc_dota_neutral_warpine_raider.jpg: model=models/creeps/pine_cone/pine_cone.vmdl&portrait
 npc_dota_neutral_wildkin.jpg: model=models/creeps/neutral_creeps/n_creep_vulture_b/n_creep_vulture_b.vmdl&portrait
 npc_dota_phoenix_sun.jpg: model=models/heroes/phoenix/phoenix_egg.vmdl&portrait
+npc_dota_portal.jpg: model=models/props_gameplay/team_portal/team_portal.vmdl&portrait
 npc_dota_pugna_nether_ward.jpg: model=models/heroes/pugna/pugna_ward.vmdl&portrait
 npc_dota_rattletrap_cog.jpg: model=models/heroes/rattletrap/rattletrap_cog.vmdl&portrait
 npc_dota_roshan.jpg: model=models/creeps/roshan/roshan.vmdl&portrait
