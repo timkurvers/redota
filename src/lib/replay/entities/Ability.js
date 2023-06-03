@@ -1,7 +1,7 @@
-import { makeObservable, observable } from 'mobx';
+import { computed, makeObservable, observable } from 'mobx';
 
 import Cooldown from '../Cooldown.js';
-import { abilitiesByName } from '../../definitions/index.js';
+import { abilitiesByName, resolveAttribNumber } from '../../definitions/index.js';
 
 import Entity from './Entity.js';
 
@@ -14,6 +14,8 @@ class Ability extends Entity {
     this.level = null;
     this.manaCost = null;
 
+    this.ownerHandle = null;
+
     this.definition = abilitiesByName[this.refname];
 
     makeObservable(this, {
@@ -21,7 +23,26 @@ class Ability extends Entity {
       isHidden: observable,
       level: observable,
       manaCost: observable,
+
+      ownerHandle: observable,
+
+      healthCost: computed,
+      owner: computed,
     });
+  }
+
+  get healthCost() {
+    let cost = (
+      resolveAttribNumber(this.definition, 'hp_cost_perc', this.level)
+      || resolveAttribNumber(this.definition, 'hp_cost', this.level)
+    );
+    if (!cost) return 0;
+    if (cost < 1) {
+      // Assume percentage-based current health cost
+      if (!this.owner) return 0;
+      cost = (this.owner.hp * cost) | 0;
+    }
+    return cost;
   }
 
   get isDotaPlus() {
@@ -64,6 +85,11 @@ class Ability extends Entity {
 
   get name() {
     return this.definition?.dname ?? this.refname;
+  }
+
+  get owner() {
+    const { ownerHandle, replay } = this;
+    return replay.units.get(ownerHandle);
   }
 }
 

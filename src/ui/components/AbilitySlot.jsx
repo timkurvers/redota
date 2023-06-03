@@ -44,6 +44,9 @@ const AbilitySlot = observer((props) => {
       isTrained={ability.isTrained}
     >
       <Cooldown remaining={ability.cooldown.remaining}>
+        {ability.healthCost > 0 && (
+          <Annotation type="health" value={ability.healthCost} />
+        )}
         {ability.manaCost > 0 && (
           <Annotation type="mana" value={ability.manaCost} />
         )}

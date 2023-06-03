@@ -8,6 +8,12 @@ const StyledAnnotation = styled.div`
   font-size: 0.85em;
   pointer-events: none;
 
+  ${(props) => props.type === 'health' && css`
+    left: 4px;
+    right: initial;
+    color: #FF1A1A;
+  `}
+
   ${(props) => props.type === 'mana' && css`
     color: #65D9F7;
   `}

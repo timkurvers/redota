@@ -233,6 +233,9 @@ class Replay {
     if ('m_bHidden' in delta) {
       ability.isHidden = delta.m_bHidden;
     }
+    if ('m_hOwnerEntity' in delta) {
+      ability.ownerHandle = delta.m_hOwnerEntity;
+    }
     if ('m_iLevel' in delta) {
       ability.level = delta.m_iLevel;
     }

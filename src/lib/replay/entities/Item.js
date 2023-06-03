@@ -30,6 +30,7 @@ class Item extends Entity {
 
       annotation: computed,
       name: computed,
+      owner: computed,
     });
   }
 
