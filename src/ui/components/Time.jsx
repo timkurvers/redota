@@ -24,7 +24,7 @@ const Time = (props) => {
       {`00${mins}`.slice(-2)}
       :
       {`00${secs}`.slice(-2)}
-      {sign ? ' ' : ''}
+      {sign ? '\u00A0' : ''}
     </StyledTime>
   );
 };
