@@ -76,4 +76,10 @@ const MatchPage = () => {
   );
 };
 
-export default MatchPage;
+const SafeMatchPage = () => (
+  <ErrorBoundary context="database">
+    <MatchPage />
+  </ErrorBoundary>
+);
+
+export default SafeMatchPage;
