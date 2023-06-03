@@ -15,6 +15,8 @@ class Item extends Entity {
     this.level = null;
     this.manaCost = null;
 
+    this.ownerHandle = null;
+
     this.definition = itemsByName[this.refname.replace('item_', '')];
 
     makeObservable(this, {
@@ -24,6 +26,8 @@ class Item extends Entity {
       level: observable,
       manaCost: observable,
 
+      ownerHandle: observable,
+
       annotation: computed,
       name: computed,
     });
@@ -31,7 +35,7 @@ class Item extends Entity {
 
   get annotation() {
     const { refname } = this;
-    if (refname === 'item_aegis') {
+    if (refname === 'item_aegis' && this.owner && this.owner.refname !== 'npc_dota_roshan') {
       // TODO: Verify this calculation with an expiring aegis in-game
       const duration = 300;
       const remaining = duration - (this.replay.game.time - this.acquireTime);
@@ -45,6 +49,11 @@ class Item extends Entity {
 
   get name() {
     return this.definition?.dname || this.refname;
+  }
+
+  get owner() {
+    const { ownerHandle, replay } = this;
+    return replay.units.get(ownerHandle);
   }
 }
 

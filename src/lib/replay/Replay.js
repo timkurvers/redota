@@ -372,6 +372,9 @@ class Replay {
     if ('m_flCooldownLength' in delta) {
       item.cooldown.duration = delta.m_flCooldownLength;
     }
+    if ('m_hOwnerEntity' in delta) {
+      item.ownerHandle = delta.m_hOwnerEntity;
+    }
     if ('m_iLevel' in delta) {
       item.level = delta.m_iLevel;
     }
