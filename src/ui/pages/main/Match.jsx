@@ -138,7 +138,7 @@ const Match = (props) => {
         {gameModesByID[gameMode]?.name}
         <StyledMeta>
           <Date date={endedAt} />
-          <StyledPatch>{patch.name}</StyledPatch>
+          {patch && <StyledPatch>{patch.name}</StyledPatch>}
         </StyledMeta>
       </StyledInfo>
 
