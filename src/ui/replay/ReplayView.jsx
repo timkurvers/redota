@@ -43,6 +43,7 @@ const ReplayView = observer(({ replay }) => {
         <Options
           cameraID={cameraID}
           players={replay.players}
+          replay={replay}
           setCameraID={setCameraID}
         />
         {selectedUnit && (
