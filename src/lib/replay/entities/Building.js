@@ -5,6 +5,11 @@ class Building extends Unit {
     super(...args);
     this.type = 'building';
   }
+
+  get isTower() {
+    // Note: Excludes npc_dota_watch_tower
+    return this.refname.endsWith('guys_tower');
+  }
 }
 
 export default Building;

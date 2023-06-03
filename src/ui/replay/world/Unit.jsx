@@ -8,7 +8,7 @@ import {
   ActiveFilter, Level, PlayerName, StyledLevel, StyledPlayerName, StyledResource,
   UnitOrHeroResource,
 } from '../../components/index.js';
-import { Hero } from '../../../lib/replay/entities/index.js';
+import { Building, Hero } from '../../../lib/replay/entities/index.js';
 
 const StyledUnit = styled(ActiveFilter)`
   width: 32px;
@@ -18,7 +18,6 @@ const StyledUnit = styled(ActiveFilter)`
     filter: sepia(100%) hue-rotate(190deg) saturate(500%);
   `}
   ${(props) => props.type === 'hero' && css`
-    padding: 10px;
     z-index: 2;
     ${() => props.active && !props.isIllusion && css`
       z-index: 3;
@@ -26,6 +25,9 @@ const StyledUnit = styled(ActiveFilter)`
   `}
   ${(props) => props.type === 'building' && css`
     padding: 5px;
+  `}
+  ${(props) => props.isLarge && css`
+    padding: 10px;
   `}
   border: 3px solid ${(props) => props.color}DD;
   ${(props) => props.selected && css`
@@ -111,6 +113,15 @@ const Unit = observer((props) => {
   }
 
   const isHero = unit instanceof Hero;
+
+  // Render heroes, buildings (non-towers), Tormentors and Roshan as large
+  const isLarge = (
+    isHero
+    || (unit instanceof Building && !unit.isTower)
+    || unit.refname === 'npc_dota_miniboss'
+    || unit.refname === 'npc_dota_roshan'
+  );
+
   return (
     <StyledUnit
       active={!isDead}
@@ -118,6 +129,7 @@ const Unit = observer((props) => {
       color={color}
       onClick={onClick}
       isIllusion={isIllusion}
+      isLarge={isLarge}
       selected={selected}
       style={{
         left: `${relX * 100}%`,
