@@ -102,6 +102,13 @@ const StyledInfo = styled(VStack)`
   flex-grow: 1;
 `;
 
+const StyledMeta = styled(HStack)``;
+
+const StyledPatch = styled.div`
+  opacity: .25;
+  margin-left: .5em;
+`;
+
 const StyledTeams = styled(VStack)`
   min-width: 340px;
   min-height: 54px;
@@ -110,7 +117,7 @@ const StyledTeams = styled(VStack)`
 const Match = (props) => {
   const { match, isPreview = false } = props;
   const {
-    id, duration, endedAt, gameMode, label, radiant, dire, winningTeamID,
+    id, duration, endedAt, gameMode, label, patch, radiant, dire, winningTeamID,
   } = match;
 
   const download = useCallback(() => {
@@ -129,7 +136,10 @@ const Match = (props) => {
       <StyledInfo>
         {!isPreview && <Link to={`/matches/${id}`}>{label}</Link>}
         {gameModesByID[gameMode]?.name}
-        <Date date={endedAt} />
+        <StyledMeta>
+          <Date date={endedAt} />
+          <StyledPatch>{patch.name}</StyledPatch>
+        </StyledMeta>
       </StyledInfo>
 
       <StyledDuration>
