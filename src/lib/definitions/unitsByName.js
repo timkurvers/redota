@@ -601,6 +601,11 @@ export default augment({
     },
   },
 
+  npc_dota_miniboss: {
+    name: 'Tormentor',
+    model: 'models/props_gameplay/divine_sentinel/divine_sentinel_cube.vmdl',
+  },
+
   npc_dota_neutral_alpha_wolf: {
     name: 'Alpha Wolf',
     model: 'models/creeps/neutral_creeps/n_creep_worg_large/n_creep_worg_large.vmdl',
@@ -922,6 +927,23 @@ export default augment({
     name: 'Radiant Tower',
     model: 'models/props_structures/radiant_tower002.vmdl',
     match: (unit) => unit.internalName.startsWith('dota_goodguys_tower'),
+  },
+
+  npc_dota_lantern: {
+    name: 'Watcher',
+    model: 'models/props_gameplay/lantern/lantern_of_sight.vmdl',
+  },
+
+  npc_dota_mango_tree: {
+    name: 'Lotus Pool',
+    model: 'models/props_gameplay/fountain_of_life/fountain_of_life.vmdl',
+    match: (unit) => unit.internalName.startsWith('npc_dota_mango_tree'),
+  },
+
+  npc_dota_portal: {
+    name: 'Twin Gate',
+    model: 'models/props_gameplay/team_portal/team_portal.vmdl',
+    match: (unit) => unit.internalName.startsWith('npc_dota_portal'),
   },
 
   npc_dota_watch_tower: {
