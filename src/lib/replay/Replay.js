@@ -83,10 +83,11 @@ const processorByPartialClass = [
 ];
 
 class Replay {
-  constructor(buffer) {
+  constructor(buffer, { patch = null } = {}) {
     this.emitter = new EventEmitter();
     this.parser = new Parser(buffer);
 
+    this.patch = patch;
     this.tick = -1;
     this.tickInterval = null;
     this.serverTick = null;

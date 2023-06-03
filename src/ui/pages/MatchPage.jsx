@@ -54,7 +54,7 @@ const MatchPage = () => {
     }
 
     const buffer = await match.replay.blob.arrayBuffer();
-    setReplay(new Replay(buffer));
+    setReplay(new Replay(buffer, { patch: match.patch }));
   }, () => {
     // TODO: Dispose of replay
   }, [id, isMatchID]);

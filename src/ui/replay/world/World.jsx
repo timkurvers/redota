@@ -29,7 +29,7 @@ const StyledWorld = styled.div`
 
 const World = observer((props) => {
   const {
-    camera, isFreeCamera, selectedUnit, setFreeCamera, setSelection, units,
+    camera, isFreeCamera, patch, selectedUnit, setFreeCamera, setSelection, units,
   } = props;
 
   const [dragging, setDragging] = useState(false);
@@ -83,6 +83,7 @@ const World = observer((props) => {
       onMouseMove={onMouseMove}
     >
       <Map
+        patch={patch}
         ref={mapRef}
         style={{ transform: `translate(${-relX * 100}%, ${relY * 100}%)` }}
       >

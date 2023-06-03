@@ -35,7 +35,7 @@ class Player extends Entity {
     this.isBot = false;
     this.isBroadcaster = false;
 
-    this.camera = new Camera();
+    this.camera = new Camera(replay);
     this.respawnCooldown = new Cooldown(replay);
 
     makeObservable(this, {

@@ -7,13 +7,13 @@ import { unitsByName } from '../../definitions/index.js';
 import Entity from './Entity.js';
 
 class Unit extends Entity {
-  constructor(...args) {
-    super(...args);
+  constructor(replay, ...args) {
+    super(replay, ...args);
     this.type = 'unit';
 
     this.modelID = null;
     this.teamID = null;
-    this.position = new Position();
+    this.position = new Position(replay);
     this.rotation = null;
     this.level = 1;
     this.hp = 0;

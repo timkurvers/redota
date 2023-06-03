@@ -1,10 +1,12 @@
 import { computed, makeObservable, observable } from 'mobx';
 
-import { CELL_SIZE, MAP_HALF_SIZE } from '../constants.js';
+import { CELL_SIZE, MAP_CENTER } from '../constants.js';
 import { scale } from '../utils/index.js';
 
 class Position {
-  constructor() {
+  constructor(replay) {
+    this.replay = replay;
+
     this.cellX = 0;
     this.cellY = 0;
     this.vecX = 0;
@@ -32,11 +34,13 @@ class Position {
   }
 
   get relX() {
-    return scale(this.x - MAP_HALF_SIZE);
+    const { patch } = this.replay;
+    return scale(this.x - MAP_CENTER, patch?.map?.size);
   }
 
   get relY() {
-    return scale(this.y - MAP_HALF_SIZE);
+    const { patch } = this.replay;
+    return scale(this.y - MAP_CENTER, patch?.map?.size);
   }
 }
 

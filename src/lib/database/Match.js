@@ -1,5 +1,7 @@
 import { TEAM_DIRE, TEAM_RADIANT } from '../constants.js';
 
+import patchesWithMap from '../definitions/patchesWithMap.js';
+
 let db = null;
 const table = 'matches';
 
@@ -34,6 +36,10 @@ class Match {
 
   get dire() {
     return this.teams[TEAM_DIRE];
+  }
+
+  get patch() {
+    return patchesWithMap.find((patch) => this.endedAt >= patch.date) || patchesWithMap[0];
   }
 
   get winner() {

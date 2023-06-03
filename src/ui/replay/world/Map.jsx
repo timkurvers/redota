@@ -15,10 +15,7 @@ const StyledOffset = styled.div`
 
   > img {
     position: relative;
-    width: 4000px;
-    height: 4000px;
-    // Minor offsets here to get the map to align with actual entities
-    transform: translate(-50.2%, 50.5%)
+    display: block;
   }
 `;
 
@@ -36,7 +33,8 @@ const StyledWebPFallback = styled.div`
 `;
 
 const Map = React.forwardRef((props, ref) => {
-  const { children, style } = props;
+  const { children, patch, style } = props;
+  const { map } = patch;
   return (
     <StyledMap style={style}>
       <StyledOffset>
@@ -45,7 +43,18 @@ const Map = React.forwardRef((props, ref) => {
           <p>If it never loads, your browser may not support the WebP image format.</p>
           <p>¯\_(ツ)_/¯</p>
         </StyledWebPFallback>
-        <img ref={ref} src="./images/map/7.23.webp" alt="Dota 2 map" />
+
+        <img
+          ref={ref}
+          src={`./images/map/${map.id}.webp`}
+          alt={`Dota 2 map v${map.id}`}
+          style={{
+            transform: `translate(${-50 + map.backdrop.offset.x}%, ${50 + map.backdrop.offset.y}%)`,
+            width: `${map.backdrop.size}px`,
+            height: `${map.backdrop.size}px`,
+          }}
+        />
+
         {children}
       </StyledOffset>
     </StyledMap>

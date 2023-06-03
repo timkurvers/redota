@@ -34,6 +34,7 @@ const ReplayView = observer(({ replay }) => {
         <MiniMap
           camera={camera}
           isFreeCamera={isFreeCamera}
+          patch={replay.patch}
           setFreeCamera={setFreeCamera}
           units={replay.units}
         />
@@ -67,6 +68,7 @@ const ReplayView = observer(({ replay }) => {
       <World
         camera={camera}
         isFreeCamera={isFreeCamera}
+        patch={replay.patch}
         selectedUnit={selectedUnit}
         setFreeCamera={setFreeCamera}
         setSelection={setSelection}

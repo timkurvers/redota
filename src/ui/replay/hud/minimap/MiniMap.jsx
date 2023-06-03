@@ -53,8 +53,9 @@ const StyledCamera = styled.div`
 
 const MiniMap = observer((props) => {
   const {
-    camera, isFreeCamera, selectedUnit, setFreeCamera, units,
+    camera, isFreeCamera, patch, selectedUnit, setFreeCamera, units,
   } = props;
+  const { map } = patch;
 
   const [dragging, setDragging] = useState(false);
 
@@ -106,9 +107,9 @@ const MiniMap = observer((props) => {
       <StyledOffset>
         <img
           ref={mapRef}
-          src="./images/minimap/7.23.webp"
+          src={`./images/minimap/${map.id}.webp`}
           draggable="false"
-          alt="Dota 2 minimap"
+          alt={`Dota 2 minimap v${map.id}`}
         />
         <StyledCamera
           style={{

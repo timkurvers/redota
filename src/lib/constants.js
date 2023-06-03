@@ -1,5 +1,4 @@
-export const MAP_SIZE = 32768;
-export const MAP_HALF_SIZE = MAP_SIZE / 2;
+export const MAP_CENTER = 128 * 128;
 export const CELL_SIZE = 128;
 
 export const PLAYER_COLORS = {

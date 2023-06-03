@@ -3,8 +3,8 @@ import { computed, makeObservable, observable } from 'mobx';
 import Position from './Position.js';
 
 class Camera {
-  constructor() {
-    this.position = new Position();
+  constructor(replay) {
+    this.position = new Position(replay);
 
     makeObservable(this, {
       position: observable,
