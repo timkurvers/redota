@@ -19,11 +19,13 @@ const ReplayView = observer(({ replay }) => {
     camera,
     cameraID,
     isFreeCamera,
+    playbackSpeed,
     playing,
     requestTick,
     selectedUnit,
     setCameraID,
     setFreeCamera,
+    setPlaybackSpeed,
     setPlaying,
     setSelection,
   } = useReplayController(replay);
@@ -54,8 +56,10 @@ const ReplayView = observer(({ replay }) => {
           players={replay.players}
         />
         <Timeline
+          playbackSpeed={playbackSpeed}
           playing={playing}
           replay={replay}
+          setPlaybackSpeed={setPlaybackSpeed}
           setPlaying={setPlaying}
           requestTick={requestTick}
         />

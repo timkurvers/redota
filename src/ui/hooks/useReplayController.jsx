@@ -10,6 +10,7 @@ const useReplayController = (replay) => {
   });
   const [cameraID, setCameraID] = useState(-1);
   const [playing, setPlaying] = useState(false);
+  const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [selectionID, setSelectionID] = useState(null);
 
   const isFreeCamera = cameraID === -1;
@@ -23,19 +24,25 @@ const useReplayController = (replay) => {
     // Jump to the pre-game (skipping any draft) and a few ticks more to ensure
     // heroes are assigned to all players
     replay.jumpTo(GAME_PHASE.PRE_GAME);
-    replay.seek(replay.tick + (1 / replay.tickInterval));
+    replay.seek(replay.tick + replay.ticksPerSecond);
   }, [replay]);
 
   // Replay files seem to (mostly) hop over every other tick, so decrease the
   // tick rate by a factor two
   useInterval(() => {
     replay.step(2);
-  }, replay && playing ? (1 / replay.tickInterval) * 2 : null);
+  }, replay && playing ? replay.ticksPerSecond * 2 * (1 / playbackSpeed) : null);
 
   const selectedUnit = replay?.units.find((u) => u.handle === selectionID);
 
   const requestTick = useCallback((target) => {
-    replay.jump(target);
+    // TODO: Remove this optimization once `jump` is optimized and not broken
+    const diff = target - replay.tick;
+    if (diff < 1000) {
+      replay.seek(target);
+    } else {
+      replay.jump(target);
+    }
   }, [replay]);
 
   const setSelection = useCallback((id) => {
@@ -53,11 +60,13 @@ const useReplayController = (replay) => {
     camera,
     cameraID,
     isFreeCamera,
+    playbackSpeed,
     playing,
     requestTick,
     selectedUnit,
     setCameraID,
     setFreeCamera,
+    setPlaybackSpeed,
     setPlaying,
     setSelection,
   };
