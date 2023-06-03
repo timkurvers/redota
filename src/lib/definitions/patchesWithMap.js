@@ -1,4 +1,5 @@
 import patches from 'dotaconstants/build/patch.json';
+import { makeAutoObservable } from 'mobx';
 
 // Map backdrop definitions (size is in Dota units; offset in CSS percentages)
 const maps = [
@@ -38,5 +39,7 @@ for (const definition of patches) {
     map: maps[currentIndex],
   });
 }
+
+makeAutoObservable(patchesWithMap, { length: false });
 
 export default patchesWithMap;

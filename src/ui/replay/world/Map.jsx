@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react-lite';
 
 // Due to Dota 2's Y coordinate being flipped compared to web coordinates most
 // of this styling uses `bottom` as well as various flipped Y transforms.
@@ -32,7 +33,20 @@ const StyledWebPFallback = styled.div`
   }
 `;
 
-const Map = React.forwardRef((props, ref) => {
+const StyledCrossHair = styled.div`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: -50%;
+  left: -50%;
+  background:
+    linear-gradient(180deg, transparent calc(50% - 2px), #F00 calc(50%), transparent calc(50% + 2px)),
+    linear-gradient( 90deg, transparent calc(50% - 2px), #F00 calc(50%), transparent calc(50% + 2px));
+  z-index: 4;
+  pointer-events: none;
+`;
+
+const Map = observer((props, ref) => {
   const { children, patch, style } = props;
   const { map } = patch;
   return (
@@ -43,6 +57,8 @@ const Map = React.forwardRef((props, ref) => {
           <p>If it never loads, your browser may not support the WebP image format.</p>
           <p>¯\_(ツ)_/¯</p>
         </StyledWebPFallback>
+
+        <StyledCrossHair />
 
         <img
           ref={ref}
@@ -59,6 +75,6 @@ const Map = React.forwardRef((props, ref) => {
       </StyledOffset>
     </StyledMap>
   );
-});
+}, { forwardRef: true });
 
 export default Map;

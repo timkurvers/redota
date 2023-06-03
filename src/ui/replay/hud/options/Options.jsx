@@ -31,7 +31,10 @@ const CameraOptionGroup = observer((props) => {
 });
 
 const Options = observer((props) => {
-  const { cameraID, players, setCameraID } = props;
+  const {
+    cameraID, players, replay, setCameraID,
+  } = props;
+  const { patch } = replay;
 
   const radiant = players.filter((p) => p.teamID === TEAM_RADIANT);
   const dire = players.filter((p) => p.teamID === TEAM_DIRE);
@@ -41,6 +44,18 @@ const Options = observer((props) => {
     setCameraID(+e.target.value);
   }, [setCameraID]);
 
+  const onMapSizeChange = useCallback((e) => {
+    patch.map.size = +e.target.value;
+  }, [patch]);
+
+  const onMapOffsetXChange = useCallback((e) => {
+    patch.map.backdrop.offset.x = +e.target.value;
+  }, [patch]);
+
+  const onMapOffsetYChange = useCallback((e) => {
+    patch.map.backdrop.offset.y = +e.target.value;
+  }, [patch]);
+
   return (
     <StyledOptions>
       <Dropdown onChange={onCameraChange} value={cameraID}>
@@ -49,6 +64,51 @@ const Options = observer((props) => {
         <CameraOptionGroup label="Dire" players={dire} />
         <CameraOptionGroup label="Broadcasters" players={broadcasters} />
       </Dropdown>
+
+      <hr />
+
+      Map Size: {patch.map.size}
+
+      <br />
+
+      <input
+        type="range"
+        min={16000}
+        max={20000}
+        step={1}
+        value={patch.map.size}
+        onChange={onMapSizeChange}
+      />
+
+      <br />
+
+      Offset X: {patch.map.backdrop.offset.x}
+
+      <br />
+
+      <input
+        type="range"
+        min={-2}
+        max={2}
+        step={0.1}
+        value={patch.map.backdrop.offset.x}
+        onChange={onMapOffsetXChange}
+      />
+
+      <br />
+
+      Offset Y: {patch.map.backdrop.offset.y}
+
+      <br />
+
+      <input
+        type="range"
+        min={-2}
+        max={2}
+        step={0.1}
+        value={patch.map.backdrop.offset.y}
+        onChange={onMapOffsetYChange}
+      />
     </StyledOptions>
   );
 });
