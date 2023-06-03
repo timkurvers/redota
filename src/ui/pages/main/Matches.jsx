@@ -60,12 +60,6 @@ const MatchList = () => {
         </Notice>
       )}
 
-      <Notice kind="warning">
-        <Icon name="exclamation-triangle" /> ReDota currently uses the 7.23 map as a background.
-        <br />
-        Games played on patch 7.29 or later may consequently look odd.
-      </Notice>
-
       {!isLoading && matches.length > 5 && (
         actions
       )}
