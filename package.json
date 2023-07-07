@@ -32,7 +32,7 @@
     "dotaconstants": "^7.16.0",
     "mobx": "^6.0.4",
     "mobx-react-lite": "^3.1.6",
-    "protobufjs": "^6.10.3",
+    "protobufjs": "^7.2.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hotkeys-hook": "^3.3.1",
