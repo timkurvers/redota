@@ -32,14 +32,21 @@ class Ability extends Entity {
   }
 
   get healthCost() {
+    if (!this.level) {
+      return 0;
+    }
     let cost = (
       resolveAttribNumber(this.definition, 'hp_cost_perc', this.level)
       || resolveAttribNumber(this.definition, 'hp_cost', this.level)
     );
-    if (!cost) return 0;
+    if (!cost) {
+      return 0;
+    }
     if (cost < 1) {
       // Assume percentage-based current health cost
-      if (!this.owner) return 0;
+      if (!this.owner) {
+        return 0;
+      }
       cost = (this.owner.hp * cost) | 0;
     }
     return cost;

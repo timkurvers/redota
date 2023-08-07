@@ -1,7 +1,7 @@
 /* eslint-disable prefer-destructuring */
 
 import EventEmitter from 'events';
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 
 import Parser from '../parser/Parser.js';
 import { EntityEvent } from '../parser/model/index.js';
@@ -136,11 +136,17 @@ class Replay {
       units: observable,
       game: observable,
 
+      ticksPerSecond: computed,
+
       jump: action,
       seek: action,
       start: action,
       step: action,
     });
+  }
+
+  get ticksPerSecond() {
+    return this.tickInterval ? 1 / this.tickInterval : 30;
   }
 
   entityNameFor(entity) {
