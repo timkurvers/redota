@@ -429,11 +429,11 @@ class Parser extends Reader {
     let delta;
 
     if (msg.hasPvsVisBits) {
-      console.warn("PVS/VisBits not yet supported");
+      this.emitter.emit('warn', 'PVS/VisBits not yet supported');
     }
 
     if (msg.lastCmdRecvMargin) {
-      console.warn("lastCmdRecvMargin not yet supported");
+      this.emitter.emit('warn', 'lastCmdRecvMargin not yet supported');
     }
 
     // is_delta was renamed to legacy_is_delta as part of The Dragon's Gift update.
