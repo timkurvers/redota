@@ -428,7 +428,20 @@ class Parser extends Reader {
     let event;
     let delta;
 
-    if (!msg.isDelta) {
+    if (msg.hasPvsVisBits) {
+      const warning = new Error('PVS/VisBits not yet supported');
+      this.emitter.emit('warn', warning);
+    }
+
+    if (msg.lastCmdRecvMargin) {
+      const warning = new Error('lastCmdRecvMargin not yet supported');
+      this.emitter.emit('warn', warning);
+    }
+
+    // is_delta was renamed to legacy_is_delta as part of The Dragon's Gift update.
+    // Keeping is_delta to support older protobufs.
+    // https://github.com/SteamDatabase/GameTracking-Dota2/commit/c8305d7337c84871a958baa743484d79b0d5ec5f
+    if (!(msg.legacyIsDelta || msg.isDelta)) {
       if (this.entityFullPacketCount > 0) {
         return;
       }

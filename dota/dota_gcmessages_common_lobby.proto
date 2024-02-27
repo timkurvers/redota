@@ -1,5 +1,6 @@
 import "steammessages.proto";
 import "dota_shared_enums.proto";
+import "gcsdk_gcmessages.proto";
 
 enum ELobbyMemberCoachRequestState {
 	k_eLobbyMemberCoachRequestState_None = 0;
@@ -35,18 +36,18 @@ message CMsgLobbyPlayerPlusSubscriptionData {
 	repeated .CMsgLobbyPlayerPlusSubscriptionData.HeroBadge hero_badges = 1;
 }
 
+message CMsgEventActionData {
+	optional uint32 action_id = 1;
+	optional uint32 action_score = 2;
+}
+
+message CMsgPeriodicResourceData {
+	optional uint32 periodic_resource_id = 1;
+	optional uint32 remaining = 2;
+	optional uint32 max = 3;
+}
+
 message CMsgLobbyEventPoints {
-	message PeriodicResourceData {
-		optional uint32 periodic_resource_id = 1;
-		optional uint32 remaining = 2;
-		optional uint32 max = 3;
-	}
-
-	message NetworkedEventAction {
-		optional uint32 action_id = 1;
-		optional uint32 times_granted = 2;
-	}
-
 	message AccountPoints {
 		optional uint32 account_id = 1;
 		optional uint32 normal_points = 2;
@@ -54,12 +55,13 @@ message CMsgLobbyEventPoints {
 		optional bool owned = 4;
 		optional uint64 active_effects_mask = 12;
 		optional uint32 wager_streak = 23;
-		repeated .CMsgLobbyEventPoints.NetworkedEventAction event_game_custom_actions = 25;
+		repeated .CMsgEventActionData event_game_custom_actions = 25;
 		optional uint32 tip_amount_index = 26;
 		optional uint32 active_event_season_id = 27;
 		optional uint32 teleport_fx_level = 28;
-		repeated .CMsgLobbyEventPoints.NetworkedEventAction networked_event_actions = 30;
-		repeated .CMsgLobbyEventPoints.PeriodicResourceData periodic_resources = 31;
+		repeated .CMsgEventActionData networked_event_actions = 30;
+		repeated .CMsgPeriodicResourceData periodic_resources = 31;
+		repeated .CExtraMsgBlock extra_event_messages = 32;
 	}
 
 	optional uint32 event_id = 1;
@@ -313,7 +315,6 @@ message CSODOTALobby {
 	optional uint32 league_node_id = 110;
 	optional uint32 match_duration = 111;
 	optional uint32 league_phase = 113;
-	optional bool record_detailed_stats = 114;
 	optional bool experimental_gameplay_enabled = 116;
 	repeated .CLobbyGuildChallenge guild_challenges = 117;
 	repeated .CLobbyGuildDetails guild_details = 118;
@@ -334,6 +335,7 @@ message CSODOTAServerLobby {
 message CSODOTAStaticLobby {
 	repeated .CSODOTAStaticLobbyMember all_members = 1;
 	optional bool is_player_draft = 2;
+	optional bool is_last_match_in_series = 3;
 }
 
 message CSODOTAServerStaticLobby {
