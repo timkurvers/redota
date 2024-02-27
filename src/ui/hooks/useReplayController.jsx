@@ -18,7 +18,7 @@ const useReplayController = (replay) => {
 
   // TODO: Replay clean-up on component unmount
   useEffect(() => {
-    replay.on('warn', console.warn);
+    replay.on('warn', console.warn); // eslint-disable-line no-console
     replay.start();
 
     // Jump to the pre-game (skipping any draft) and a few ticks more to ensure

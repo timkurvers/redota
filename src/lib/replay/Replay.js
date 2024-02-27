@@ -1,7 +1,9 @@
 /* eslint-disable prefer-destructuring */
 
 import EventEmitter from 'events';
-import { action, computed, makeObservable, observable } from 'mobx';
+import {
+  action, computed, makeObservable, observable,
+} from 'mobx';
 
 import Parser from '../parser/Parser.js';
 import { EntityEvent } from '../parser/model/index.js';

@@ -1,5 +1,7 @@
 #!/usr/bin/env node --experimental-json-modules
 
+/* eslint-disable no-console */
+
 import fs from 'fs';
 
 import Reader from '../src/lib/parser/Reader.js';

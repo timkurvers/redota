@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 
 import Button, { ButtonCollection } from '../../components/Button.jsx';
 import ErrorBoundary from '../../components/ErrorBoundary.jsx';
-import Icon from '../../components/Icon.jsx';
 import Link from '../../components/Link.jsx';
 import Notice from '../../components/Notice.jsx';
 import db from '../../../lib/database/index.js';

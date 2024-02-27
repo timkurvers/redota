@@ -1,5 +1,6 @@
 #!/usr/bin/env node --experimental-json-modules
-/* eslint-disable no-param-reassign */
+
+/* eslint-disable no-console, no-param-reassign */
 
 import fs from 'fs';
 
