@@ -29,12 +29,13 @@ const MISSING_ABILITY_RESOURCES = [
   'warpine_raider_seed_shot',
 ];
 
-const MISSING_HERO_RESOURCES = [
-  'dawnbreaker',
-  'marci',
-  'muerta',
-  'primal_beast',
-];
+const MISSING_HERO_RESOURCES = {
+  dawnbreaker: ['portrait', 'landscape', 'icon'],
+  marci: ['portrait', 'icon'],
+  muerta: ['portrait', 'icon'],
+  primal_beast: ['portrait', 'icon'],
+  ringmaster: ['icon'],
+};
 
 const KNOWN_DUMMY_UNITS = [
   'npc_dota_base_additive',
@@ -84,7 +85,7 @@ export const heroResourceFor = (refname, variant) => {
 
   // Various new heroes lack portrait and low-bandwidth images on legacy CDN so use bundled
   let base = CDN_BASE_URL;
-  if (MISSING_HERO_RESOURCES.includes(heroname)) {
+  if (MISSING_HERO_RESOURCES[heroname]?.includes(variant)) {
     base = BUNDLED_BASE_URL;
   }
   return `${base}/heroes/${heroname}${suffix}`;
