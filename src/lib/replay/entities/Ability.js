@@ -60,6 +60,10 @@ class Ability extends Entity {
     return this.isDotaPlus || this.isSeasonal;
   }
 
+  get isInnate() {
+    return this.definition?.isInnate;
+  }
+
   get isPassive() {
     return this.definition?.isPassive;
   }
@@ -83,7 +87,7 @@ class Ability extends Entity {
   }
 
   get isVisible() {
-    return !this.isHidden && this.refname !== 'neutral_upgrade';
+    return !this.isHidden && !this.isInnate && this.refname !== 'neutral_upgrade';
   }
 
   get maxLevel() {
