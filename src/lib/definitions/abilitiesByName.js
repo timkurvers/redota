@@ -10,7 +10,7 @@ const IGNORE_ATTRIBUTES = [
 
 const abilitiesByName = Object.entries(baseAbilitiesByName).reduce((lookup, [name, definition]) => {
   const {
-    attrib = [], behavior, cd, dmg, mc,
+    attrib = [], behavior, cd, dmg, mc, is_innate,
   } = definition;
 
   // Collect scaling values for attributes, cooldown, magic and manacost into a collection
@@ -34,13 +34,14 @@ const abilitiesByName = Object.entries(baseAbilitiesByName).reduce((lookup, [nam
     }
   }
 
-  // Whether this ability is passive
+  // Whether this ability is passive or innate
   const isPassive = behavior && (behavior === 'Passive' || behavior.includes('Passive'));
 
   // Augment the ability definition
   lookup[name] = {
     ...definition,
     maxLevel,
+    isInnate: !!is_innate,
     isPassive,
   };
 
