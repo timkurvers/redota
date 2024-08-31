@@ -25,6 +25,7 @@ const MISSING_ABILITY_RESOURCES = [
   'miniboss_unyielding_shield',
   'miniboss_reflect',
   'ogre_bruiser_ogre_smash',
+  'roshan_revengeroar',
   'warpine_raider_seed_shot',
 ];
 
