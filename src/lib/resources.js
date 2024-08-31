@@ -47,6 +47,8 @@ const KNOWN_DUMMY_UNITS = [
 const EMPTY_RESOURCE = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 
 export const abilityResourceFor = (refname) => {
+  if (!refname) return EMPTY_RESOURCE;
+
   // Example: https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/winter_wyvern_winters_curse.png
 
   // Various abilities lack images on CDN so use bundled
@@ -58,6 +60,8 @@ export const abilityResourceFor = (refname) => {
 };
 
 export const heroResourceFor = (refname, variant) => {
+  if (!refname) return EMPTY_RESOURCE;
+
   const heroname = refname.replace('npc_dota_hero_', '');
 
   let suffix = null;
@@ -86,6 +90,8 @@ export const heroResourceFor = (refname, variant) => {
 };
 
 export const itemResourceFor = (refname) => {
+  if (!refname) return EMPTY_RESOURCE;
+
   // Example: https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/blink.png
   let itemname = refname.replace('item_', '');
 
@@ -102,7 +108,7 @@ export const teamLogoResourceFor = (teamID) => (
 );
 
 export const unitResourceFor = (refname, variant) => {
-  if (KNOWN_DUMMY_UNITS.includes(refname)) {
+  if (!refname || KNOWN_DUMMY_UNITS.includes(refname)) {
     return EMPTY_RESOURCE;
   }
   switch (variant) {

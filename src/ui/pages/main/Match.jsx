@@ -61,9 +61,9 @@ const Team = (props) => {
       {isWinner && <Icon name="trophy" title="Winner" />}
       {proID > 0 && <TeamLogo alt={name} teamID={proID} />}
       <HStack>
-        {players.map((player) => (
+        {players.map((player, index) => (
           <HeroResource
-            key={player.hero}
+            key={player.hero || index}
             refname={player.hero}
             variant="landscape"
           />

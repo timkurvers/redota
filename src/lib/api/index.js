@@ -59,14 +59,14 @@ export const createMatchlikeFrom = (data) => ({
     name: data.radiant_team?.tag,
     proID: data.radiant_team?.team_id,
     players: data.players.filter((p) => p.isRadiant).map((p) => ({
-      hero: heroesByID[p.hero_id].name,
+      hero: heroesByID[p.hero_id]?.name,
     })),
   },
   dire: {
     name: data.dire_team?.tag,
     proID: data.dire_team?.team_id,
     players: data.players.filter((p) => !p.isRadiant).map((p) => ({
-      hero: heroesByID[p.hero_id].name,
+      hero: heroesByID[p.hero_id]?.name,
     })),
   },
 });

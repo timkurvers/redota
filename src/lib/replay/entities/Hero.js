@@ -49,7 +49,7 @@ class Hero extends UnitWithInventory {
   }
 
   get name() {
-    return heroesByName[this.refname].localized_name;
+    return heroesByName[this.refname]?.localized_name || this.refname.replace('npc_dota_hero_', '');
   }
 
   get neutralItem() {
