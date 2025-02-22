@@ -92,8 +92,8 @@ const ContentPage = (props) => {
   );
 
   const version = (
-    <Link to="https://github.com/timkurvers/redota/compare/v1.9.0...v1.10.0" grayscale>
-      v1.10.0
+    <Link to="https://github.com/timkurvers/redota/compare/v1.10.0...v1.11.0" grayscale>
+      v1.11.0
     </Link>
   );
 
