@@ -3,10 +3,12 @@ import "valveextensions.proto";
 import "dota_shared_enums.proto";
 import "dota_gcmessages_common.proto";
 import "econ_gcmessages.proto";
+import "base_gcmessages.proto";
 import "network_connection.proto";
 import "dota_gcmessages_common_lobby.proto";
 import "dota_gcmessages_common_match_management.proto";
 import "dota_gcmessages_common_overworld.proto";
+import "dota_gcmessages_common_craftworks.proto";
 import "gcsdk_gcmessages.proto";
 import "steammessages_steamlearn.steamworkssdk.proto";
 
@@ -275,6 +277,7 @@ message CMsgGameMatchSignOut {
 			repeated .CMsgTrackedStat player_tracked_stats = 80;
 			optional uint32 predicted_rank = 81;
 			optional uint32 selected_facet = 82;
+			optional uint32 enhancement_level = 83;
 		}
 
 		repeated .CMsgGameMatchSignOut.CTeam.CPlayer players = 1;
@@ -601,6 +604,9 @@ message CMsgServerToGCRequestBatchPlayerResourcesResponse {
 		optional int32 wins = 11;
 		optional int32 losses = 12;
 		optional int32 smurf_category = 13;
+		optional int32 comm_score = 14;
+		optional int32 behavior_score = 15;
+		optional int32 rank_uncertainty = 16;
 	}
 
 	repeated .CMsgServerToGCRequestBatchPlayerResourcesResponse.Result results = 6;
@@ -1302,14 +1308,6 @@ message CMsgServerToGCGetStickerHeroesResponse {
 	repeated .CMsgServerToGCGetStickerHeroesResponse.Player players = 1;
 }
 
-message CMsgGCToServerSteamLearnAccessTokensChanged {
-	optional .CMsgSteamLearnAccessTokens access_tokens = 1;
-}
-
-message CMsgGCToServerSteamLearnUseHTTP {
-	optional bool use_http = 1;
-}
-
 message CMsgSteamLearnMatchInfo {
 	optional uint32 average_mmr = 1;
 	optional bool radiant_won = 2;
@@ -1325,6 +1323,20 @@ message CMsgSteamLearnMatchInfoPlayer {
 	optional uint32 game_mode = 4;
 	optional uint32 lobby_type = 5;
 	optional uint32 player_mmr = 6;
+}
+
+message CMsgSteamLearnMatchInfoTeam {
+	message Player {
+		optional uint32 prematch_mmr = 1;
+		optional uint32 prematch_rank_uncertainty = 2;
+		optional uint32 prematch_behavior_score = 3;
+		optional uint32 prematch_comm_score = 4;
+		optional uint32 num_players_in_party = 5;
+	}
+
+	repeated .CMsgSteamLearnMatchInfoTeam.Player radiant_players = 1 [(steamlearn_count) = 5];
+	repeated .CMsgSteamLearnMatchInfoTeam.Player dire_players = 2 [(steamlearn_count) = 5];
+	optional bool radiant_team_won = 3;
 }
 
 message CMsgSteamLearnMatchHeroesV3 {
@@ -1424,6 +1436,13 @@ message CMsgSteamLearnNeutralItemPurchase {
 	optional bool is_using_dota_plus = 4;
 }
 
+message CMsgSteamLearnNeutralItemPurchaseV2 {
+	optional uint32 tier = 1;
+	optional int32 trinket_id = 2 [default = -1];
+	optional int32 enhancement_id = 3 [default = -1];
+	optional int32 previous_trinket_id = 4 [default = -1];
+}
+
 message CMsgSteamLearnAbilitySkill {
 	optional int32 ability_id = 1 [default = -1];
 	repeated int32 skilled_abilities = 2 [(steamlearn_count) = 30];
@@ -1431,22 +1450,18 @@ message CMsgSteamLearnAbilitySkill {
 	optional bool is_using_dota_plus = 4;
 }
 
-message CMsgSteamLearnEarlyGameItemPurchases {
-	repeated int32 item_ids = 1 [(steamlearn_count) = 10];
-}
-
 message CMsgSteamLearnEarlyGameItemPurchasesV2 {
 	repeated int32 item_ids = 1 [(steamlearn_count) = 10];
 	repeated int32 other_item_ids = 2 [(steamlearn_count) = 30];
 }
 
-message CMsgSteamLearnLateGameItemPurchases {
-	repeated int32 item_ids = 1 [(steamlearn_count) = 10];
-}
-
 message CMsgSteamLearnLateGameItemPurchasesV2 {
 	repeated int32 item_ids = 1 [(steamlearn_count) = 10];
 	repeated int32 other_item_ids = 2 [(steamlearn_count) = 30];
+}
+
+message CMsgSteamLearnMainGameItemPurchases {
+	repeated int32 item_ids = 1 [(steamlearn_count) = 10];
 }
 
 message CMsgSteamLearnWardPlacement {
@@ -1493,5 +1508,15 @@ message CMsgSignOutOverworld {
 	}
 
 	repeated .CMsgSignOutOverworld.Player players = 1;
+	optional .EEvent event_id = 2 [default = EVENT_ID_NONE];
+}
+
+message CMsgSignOutCraftworks {
+	message Player {
+		optional uint32 account_id = 1;
+		optional .CMsgCraftworksComponents components = 2;
+	}
+
+	repeated .CMsgSignOutCraftworks.Player players = 1;
 	optional .EEvent event_id = 2 [default = EVENT_ID_NONE];
 }
