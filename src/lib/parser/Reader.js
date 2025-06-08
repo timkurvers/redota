@@ -87,6 +87,7 @@ class Reader {
     }
 
     while (count > this.bitCount) {
+      this.bitVal &= (1 << this.bitCount) - 1;
       this.bitVal |= this.nextByte() << this.bitCount;
       this.bitCount += 8;
     }
