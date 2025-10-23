@@ -29,9 +29,12 @@ const MISSING_ABILITY_RESOURCES = [
   'ice_shaman_incendiary_bomb',
   'kobold_disarm',
   'kobold_tunneler_prospecting',
+  'miniboss_alleviation',
   'miniboss_unyielding_shield',
+  'miniboss_radiance',
   'miniboss_reflect',
   'ogre_bruiser_ogre_smash',
+  'roshan_grab_and_throw',
   'roshan_revengeroar',
   'warpine_raider_seed_shot',
 ];
