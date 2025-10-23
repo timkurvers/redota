@@ -21,6 +21,7 @@ class Unit extends Entity {
     this.mana = 0;
     this.manaMax = 0;
     this.isWaitingToSpawn = false;
+    this.isPhantom = false;
 
     this.ownerHandle = null;
     this.abilityHandles = [];
@@ -36,6 +37,7 @@ class Unit extends Entity {
       mana: observable,
       manaMax: observable,
       isWaitingToSpawn: observable,
+      isPhantom: observable,
 
       ownerHandle: observable,
       abilityHandles: observable,

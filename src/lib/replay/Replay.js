@@ -618,6 +618,9 @@ class Replay {
     if ('m_bIsWaitingToSpawn' in delta) {
       unit.isWaitingToSpawn = delta.m_bIsWaitingToSpawn;
     }
+    if ('m_bIsPhantom' in delta) {
+      unit.isPhantom = delta.m_bIsPhantom;
+    }
 
     if ('m_hOwnerEntity' in delta) {
       unit.ownerHandle = delta.m_hOwnerEntity;

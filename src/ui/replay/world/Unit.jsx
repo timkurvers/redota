@@ -38,7 +38,15 @@ const StyledUnit = styled(ActiveFilter)`
   transform: translate(-50%, 50%);
   background: ${(props) => props.color}AA;
   box-shadow: 1px 1px 1px #111;
-  cursor: pointer;
+
+  ${(props) => !props.isPhantom && css`
+    cursor: pointer;
+  `}
+
+  ${(props) => props.isPhantom && css`
+    width: 16px;
+    height: 16px;
+  `}
 
   ${StyledResource} {
     display: block;
@@ -101,7 +109,7 @@ const Arrowhead = observer((props) => {
 const Unit = observer((props) => {
   const { selected, setSelection, unit } = props;
   const {
-    color, handle, isDead, isIllusion, isWaitingToSpawn, position: { relX, relY },
+    color, handle, isDead, isIllusion, isPhantom, isWaitingToSpawn, position: { relX, relY },
   } = unit;
 
   const onClick = useCallback(() => {
@@ -127,9 +135,10 @@ const Unit = observer((props) => {
       active={!isDead}
       translucentWhenInactive
       color={color}
-      onClick={onClick}
+      onClick={isPhantom ? undefined : onClick}
       isIllusion={isIllusion}
       isLarge={isLarge}
+      isPhantom={isPhantom}
       selected={selected}
       style={{
         left: `${relX * 100}%`,
@@ -137,7 +146,7 @@ const Unit = observer((props) => {
       }}
       type={unit.type}
     >
-      <Arrowhead selected={selected} unit={unit} />
+      {!isPhantom && <Arrowhead selected={selected} unit={unit} />}
       <UnitOrHeroResource unit={unit} variant="icon" />
       {isHero && (
         <>
