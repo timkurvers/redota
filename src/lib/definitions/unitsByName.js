@@ -864,6 +864,48 @@ export default augment({
     match: matchByModelID,
   },
 
+  npc_dota_neutral_ancient_frog: {
+    name: 'Ancient Croaker',
+    model: 'models/creeps/neutral_creeps/n_creep_ancient_frog/n_creep_ancient_frog.vmdl',
+    match: matchByModelID,
+  },
+
+  npc_dota_neutral_ancient_frog_mage: {
+    name: 'Ancient Marshmage',
+    model: 'models/creeps/neutral_creeps/n_creep_ancient_frog/n_creep_ancient_frog_mage.vmdl',
+    match: matchByModelID,
+  },
+
+  npc_dota_neutral_froglet: {
+    name: 'Boglet',
+    model: 'models/creeps/neutral_creeps/n_creep_tadpole/n_creep_tadpole_v2.vmdl',
+    match: matchByModelID,
+  },
+
+  npc_dota_neutral_froglet_mage: {
+    name: 'Marshmage Apprentice',
+    model: 'models/creeps/neutral_creeps/n_creep_tadpole/n_creep_tadpole_ranged_v2.vmdl',
+    match: matchByModelID,
+  },
+
+  npc_dota_neutral_grown_frog: {
+    name: 'Croaker',
+    model: 'models/creeps/neutral_creeps/n_creep_froglet/n_creep_froglet.vmdl',
+    match: matchByModelID,
+  },
+
+  npc_dota_neutral_grown_frog_mage: {
+    name: 'Marshmage',
+    model: 'models/creeps/neutral_creeps/n_creep_froglet/n_creep_froglet_mage.vmdl',
+    match: matchByModelID,
+  },
+
+  npc_dota_neutral_tadpole: {
+    name: 'Pollywog',
+    model: 'models/creeps/neutral_creeps/n_creep_tadpole_c/n_creep_tadpole_c.vmdl',
+    match: matchByModelID,
+  },
+
   npc_dota_wraith_king_skeleton_warrior: {
     name: 'Wraith King Skeleton',
     model: 'models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl',

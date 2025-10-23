@@ -13,6 +13,13 @@ const MISSING_ABILITY_RESOURCES = [
   'fel_beast_haunt',
   'flagbearer_creep_aura_effect',
   'forest_troll_high_priest_heal_amp_aura',
+  'frogmen_arm_of_the_deep',
+  'frogmen_congregation_of_the_deep',
+  'frogmen_riverborn_aura',
+  'frogmen_tendrils_of_the_deep',
+  'frogmen_water_bubble_large',
+  'frogmen_water_bubble_medium',
+  'frogmen_water_bubble_small',
   'frostbitten_golem_time_warp_aura',
   'furbolg_enrage_attack_speed',
   'furbolg_enrage_damage',
@@ -36,6 +43,17 @@ const MISSING_HERO_RESOURCES = {
   primal_beast: ['portrait', 'icon'],
   ringmaster: ['icon'],
 };
+
+// TODO: Generate portraits once dota2-model-viewer handles these models properly
+const MISSING_UNIT_PORTRAITS = [
+  'npc_dota_neutral_ancient_frog',
+  'npc_dota_neutral_ancient_frog_mage',
+  'npc_dota_neutral_froglet',
+  'npc_dota_neutral_froglet_mage',
+  'npc_dota_neutral_grown_frog',
+  'npc_dota_neutral_grown_frog_mage',
+  'npc_dota_neutral_tadpole',
+];
 
 const KNOWN_DUMMY_UNITS = [
   'npc_dota_base_additive',
@@ -115,6 +133,10 @@ export const unitResourceFor = (refname, variant) => {
   }
   switch (variant) {
     case 'portrait':
+      if (MISSING_UNIT_PORTRAITS.includes(refname)) {
+        return `${BUNDLED_BASE_URL}/portraits/missing.png`;
+      }
+
       // Example: ./images/portraits/npc_dota_roshan.jpg
       return `${BUNDLED_BASE_URL}/portraits/${refname}.jpg`;
     case 'icon':
