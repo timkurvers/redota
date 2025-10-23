@@ -18,6 +18,14 @@ const maps = [
       offset: { x: -1.2, y: -0.3 },
     },
   },
+  {
+    id: '7.38',
+    size: 19134,
+    backdrop: {
+      size: 4700,
+      offset: { x: -1.2, y: -0.3 },
+    },
+  },
 ];
 
 // Holds list of patches (most recent first) augmented with date and map info

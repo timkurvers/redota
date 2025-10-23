@@ -33,6 +33,7 @@ deciphering replay specifics.
   - 7.23 images originate from [Gamepedia].
   - 7.29 images contributed by [likwidoxigen](https://github.com/timkurvers/redota/pull/48).
   - 7.33 images contributed by [@wykrhm](https://twitter.com/wykrhm).
+  - 7.38 images contributed by [leamare](https://github.com/leamare).
 - The redo-symbol in the ReDota logo ~~and favicon~~ originates from [Font Awesome].
 - Lane creep and building icons come from The Noun Project, see [this README file](./public/images/icons/README.md).
 
