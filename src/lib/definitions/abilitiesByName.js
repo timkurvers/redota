@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-import baseAbilitiesByName from 'dotaconstants/build/abilities.json';
+import { abilities as baseAbilitiesByName } from 'dotaconstants';
 
 // Ignore attributes in the OpenDota definition that result in wrong max levels
 const IGNORE_ATTRIBUTES = [

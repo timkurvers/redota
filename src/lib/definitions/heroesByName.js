@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-import heroesByID from 'dotaconstants/build/heroes.json';
+import { heroes as heroesByID } from 'dotaconstants';
 
 const heroesByName = Object.values(heroesByID).reduce((lookup, hero) => {
   lookup[hero.name] = hero;

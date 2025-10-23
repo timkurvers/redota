@@ -1,4 +1,4 @@
-import patches from 'dotaconstants/build/patch.json';
+import { patch as patches } from 'dotaconstants';
 
 // Map backdrop definitions (size is in Dota units; offset in CSS percentages)
 const maps = [

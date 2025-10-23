@@ -1,6 +1,6 @@
-export { default as heroesByID } from 'dotaconstants/build/heroes.json';
-export { default as itemsByName } from 'dotaconstants/build/items.json';
-export { default as xpPerLevel } from 'dotaconstants/build/xp_level.json';
+export { heroes as heroesByID } from 'dotaconstants';
+export { items as itemsByName } from 'dotaconstants';
+export { xp_level as xpPerLevel } from 'dotaconstants';
 
 export { default as abilitiesByName } from './abilitiesByName.js';
 export { default as gameModesByID } from './gameModesByID.js';

@@ -30,7 +30,7 @@
     "dexie": "^3.1.0-alpha.8",
     "dexie-observable": "^3.0.0-beta.10",
     "dexie-react-hooks": "^1.0.6",
-    "dotaconstants": "^9.4.0",
+    "dotaconstants": "^10.6.0",
     "mobx": "^6.0.4",
     "mobx-react-lite": "^3.1.6",
     "protobufjs": "^6.11.4",
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.13.15",
+    "@babel/plugin-syntax-import-assertions": "^7.27.1",
     "@babel/preset-env": "^7.13.15",
     "@babel/preset-react": "^7.13.13",
     "@commitlint/cli": "^19.0.1",
