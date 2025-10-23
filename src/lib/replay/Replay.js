@@ -625,56 +625,56 @@ class Replay {
     if ('m_hOwnerEntity' in delta) {
       unit.ownerHandle = delta.m_hOwnerEntity;
     }
-    if ('m_hAbilities.0000' in delta) {
-      unit.abilityHandles[0] = delta['m_hAbilities.0000'];
+    if ('m_hAbilities.0000' in delta || 'm_vecAbilities.0000' in delta) {
+      unit.abilityHandles[0] = delta['m_hAbilities.0000'] || delta['m_vecAbilities.0000'];
     }
-    if ('m_hAbilities.0001' in delta) {
-      unit.abilityHandles[1] = delta['m_hAbilities.0001'];
+    if ('m_hAbilities.0001' in delta || 'm_vecAbilities.0001' in delta) {
+      unit.abilityHandles[1] = delta['m_hAbilities.0001'] || delta['m_vecAbilities.0001'];
     }
-    if ('m_hAbilities.0002' in delta) {
-      unit.abilityHandles[2] = delta['m_hAbilities.0002'];
+    if ('m_hAbilities.0002' in delta || 'm_vecAbilities.0002' in delta) {
+      unit.abilityHandles[2] = delta['m_hAbilities.0002'] || delta['m_vecAbilities.0002'];
     }
-    if ('m_hAbilities.0003' in delta) {
-      unit.abilityHandles[3] = delta['m_hAbilities.0003'];
+    if ('m_hAbilities.0003' in delta || 'm_vecAbilities.0003' in delta) {
+      unit.abilityHandles[3] = delta['m_hAbilities.0003'] || delta['m_vecAbilities.0003'];
     }
-    if ('m_hAbilities.0004' in delta) {
-      unit.abilityHandles[4] = delta['m_hAbilities.0004'];
+    if ('m_hAbilities.0004' in delta || 'm_vecAbilities.0004' in delta) {
+      unit.abilityHandles[4] = delta['m_hAbilities.0004'] || delta['m_vecAbilities.0004'];
     }
-    if ('m_hAbilities.0005' in delta) {
-      unit.abilityHandles[5] = delta['m_hAbilities.0005'];
+    if ('m_hAbilities.0005' in delta || 'm_vecAbilities.0005' in delta) {
+      unit.abilityHandles[5] = delta['m_hAbilities.0005'] || delta['m_vecAbilities.0005'];
     }
-    if ('m_hAbilities.0006' in delta) {
-      unit.abilityHandles[6] = delta['m_hAbilities.0006'];
+    if ('m_hAbilities.0006' in delta || 'm_vecAbilities.0006' in delta) {
+      unit.abilityHandles[6] = delta['m_hAbilities.0006'] || delta['m_vecAbilities.0006'];
     }
-    if ('m_hAbilities.0007' in delta) {
-      unit.abilityHandles[7] = delta['m_hAbilities.0007'];
+    if ('m_hAbilities.0007' in delta || 'm_vecAbilities.0007' in delta) {
+      unit.abilityHandles[7] = delta['m_hAbilities.0007'] || delta['m_vecAbilities.0007'];
     }
-    if ('m_hAbilities.0008' in delta) {
-      unit.abilityHandles[8] = delta['m_hAbilities.0008'];
+    if ('m_hAbilities.0008' in delta || 'm_vecAbilities.0008' in delta) {
+      unit.abilityHandles[8] = delta['m_hAbilities.0008'] || delta['m_vecAbilities.0008'];
     }
-    if ('m_hAbilities.0009' in delta) {
-      unit.abilityHandles[9] = delta['m_hAbilities.0009'];
+    if ('m_hAbilities.0009' in delta || 'm_vecAbilities.0009' in delta) {
+      unit.abilityHandles[9] = delta['m_hAbilities.0009'] || delta['m_vecAbilities.0009'];
     }
-    if ('m_hAbilities.0010' in delta) {
-      unit.abilityHandles[10] = delta['m_hAbilities.0010'];
+    if ('m_hAbilities.0010' in delta || 'm_vecAbilities.0010' in delta) {
+      unit.abilityHandles[10] = delta['m_hAbilities.0010'] || delta['m_vecAbilities.0010'];
     }
-    if ('m_hAbilities.0011' in delta) {
-      unit.abilityHandles[11] = delta['m_hAbilities.0011'];
+    if ('m_hAbilities.0011' in delta || 'm_vecAbilities.0011' in delta) {
+      unit.abilityHandles[11] = delta['m_hAbilities.0011'] || delta['m_vecAbilities.0011'];
     }
-    if ('m_hAbilities.0012' in delta) {
-      unit.abilityHandles[12] = delta['m_hAbilities.0012'];
+    if ('m_hAbilities.0012' in delta || 'm_vecAbilities.0012' in delta) {
+      unit.abilityHandles[12] = delta['m_hAbilities.0012'] || delta['m_vecAbilities.0012'];
     }
-    if ('m_hAbilities.0013' in delta) {
-      unit.abilityHandles[13] = delta['m_hAbilities.0013'];
+    if ('m_hAbilities.0013' in delta || 'm_vecAbilities.0013' in delta) {
+      unit.abilityHandles[13] = delta['m_hAbilities.0013'] || delta['m_vecAbilities.0013'];
     }
-    if ('m_hAbilities.0014' in delta) {
-      unit.abilityHandles[14] = delta['m_hAbilities.0014'];
+    if ('m_hAbilities.0014' in delta || 'm_vecAbilities.0014' in delta) {
+      unit.abilityHandles[14] = delta['m_hAbilities.0014'] || delta['m_vecAbilities.0014'];
     }
-    if ('m_hAbilities.0015' in delta) {
-      unit.abilityHandles[15] = delta['m_hAbilities.0015'];
+    if ('m_hAbilities.0015' in delta || 'm_vecAbilities.0015' in delta) {
+      unit.abilityHandles[15] = delta['m_hAbilities.0015'] || delta['m_vecAbilities.0015'];
     }
-    if ('m_hAbilities.0016' in delta) {
-      unit.abilityHandles[16] = delta['m_hAbilities.0016'];
+    if ('m_hAbilities.0016' in delta || 'm_vecAbilities.0016' in delta) {
+      unit.abilityHandles[16] = delta['m_hAbilities.0016'] || delta['m_vecAbilities.0016'];
     }
     return unit;
   }
