@@ -51,8 +51,9 @@ for (const match of raw.matchAll(ASSET_MODIFIER_REGEX)) {
 // Filter unit model variants that require changes
 const todo = Object.entries(registry).reduce((lookup, [key, { current, parsed }]) => {
   const target = [...parsed];
-  const identical = current.size === parsed.size && target.every((e) => current.has(e));
-  if (!identical) {
+
+  const hasAllVariants = target.every((e) => current.has(e));
+  if (!hasAllVariants) {
     lookup[key] = target;
   }
   return lookup;
