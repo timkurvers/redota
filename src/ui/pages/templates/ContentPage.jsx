@@ -92,8 +92,8 @@ const ContentPage = (props) => {
   );
 
   const version = (
-    <Link to="https://github.com/timkurvers/redota/compare/v1.10.0...v1.11.0" grayscale>
-      v1.11.0
+    <Link to="https://github.com/timkurvers/redota/compare/v1.11.0...v1.12.0" grayscale>
+      v1.12.0
     </Link>
   );
 
@@ -118,7 +118,7 @@ const ContentPage = (props) => {
 
       <StyledFooter>
         <p>
-          <strong>&copy;2020-2023 ReDota {version}</strong>
+          <strong>&copy;2020-2025 ReDota {version}</strong>
         </p>
         <p>
           Dota 2 is a registered trademark of Valve Corporation.
