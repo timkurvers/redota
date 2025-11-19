@@ -119,6 +119,7 @@ const FIELD_TYPE_FACTORIES = {
   float32:                  floatFactory,
   CNetworkedQuantizedFloat: quantizedFactory,
   Vector:                   vectorFactory(3),
+  VectorWS:                 vectorFactory(3),
   Vector2D:                 vectorFactory(2),
   Vector4D:                 vectorFactory(4),
   uint64:                   unsigned64Factory,
