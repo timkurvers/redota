@@ -69,31 +69,55 @@ class Reader {
 
   // Reads given number of bits from buffer as integer
   readBitInt(count) {
-    if (count >= 32) {
-      // Casting numbers to BigInts just for bitwise operations is disastrous
-      // for performance as this method is THE hotspot for the parser.
-      // By only using it when absolutely necessary parsing speeds up by 10x.
-      const countn = BigInt(count);
-      let bitVal = BigInt(this.bitVal);
-      let bitCount = BigInt(this.bitCount);
-      while (countn > bitCount) {
-        bitVal |= BigInt(this.nextByte()) << bitCount;
-        bitCount += 8n;
+    // count < 32 case
+    // This case amounts for ~98% of all bit reads in the parser,
+    // thus has to be first in the method.
+    if (count < 32) {
+      // Check if we'll exceed 32-bit safe accumulation during the byte loading loop
+      // We need to be more conservative: check if accumulated bits could overflow
+      const bitsNeeded = count - this.bitCount;
+      const bytesNeeded = Math.ceil(bitsNeeded / 8);
+      const maxBitsAfterLoad = this.bitCount + bytesNeeded * 8;
+
+      if (maxBitsAfterLoad > 31) {
+        // Only use BigInt when we'll actually exceed 31 bits during accumulation
+        return this._readBitIntBigInt(count);
       }
-      const value = bitVal & ((1n << countn) - 1n);
-      this.bitVal = Number(bitVal >> countn);
-      this.bitCount = Number(bitCount - countn);
-      return Number(value);
+
+      // Normal 32-bit integer path
+      while (count > this.bitCount) {
+        this.bitVal |= this.nextByte() << this.bitCount;
+        this.bitCount += 8;
+      }
+
+      const value = this.bitVal & ((1 << count) - 1);
+      this.bitVal >>= count;
+      this.bitCount -= count;
+      return value;
     }
 
-    while (count > this.bitCount) {
-      this.bitVal |= this.nextByte() << this.bitCount;
-      this.bitCount += 8;
+    // count >= 32 case
+    // Casting numbers to BigInts just for bitwise operations is disastrous
+    // for performance as this method is THE hotspot for the parser.
+    // By only using it when absolutely necessary parsing speeds up by 10x.
+    return this._readBitIntBigInt(count);
+  }
+
+  // Helper for BigInt bit reading (used for overflow prevention and large counts)
+  _readBitIntBigInt(count) {
+    const countn = BigInt(count);
+    let bitVal = BigInt(this.bitVal);
+    let bitCount = BigInt(this.bitCount);
+
+    while (countn > bitCount) {
+      bitVal |= BigInt(this.nextByte()) << bitCount;
+      bitCount += 8n;
     }
-    const value = this.bitVal & ((1 << count) - 1);
-    this.bitVal >>= count;
-    this.bitCount -= count;
-    return value;
+
+    const value = bitVal & ((1n << countn) - 1n);
+    this.bitVal = Number(bitVal >> countn);
+    this.bitCount = Number(bitCount - countn);
+    return Number(value);
   }
 
   // Reads a single bit as a boolean
