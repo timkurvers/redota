@@ -41,6 +41,7 @@ const MISSING_ABILITY_RESOURCES = [
 
 const MISSING_HERO_RESOURCES = {
   dawnbreaker: ['portrait', 'landscape', 'icon'],
+  largo: ['icon'],
   marci: ['portrait', 'icon'],
   muerta: ['portrait', 'icon'],
   primal_beast: ['portrait', 'icon'],
