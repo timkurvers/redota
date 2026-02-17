@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { GAME_PHASE } from '../../lib/constants.js';
 
+import useDebugging from './useDebugging.jsx';
 import useInterval from './useInterval.jsx';
 
 const useReplayController = (replay) => {
@@ -55,6 +56,8 @@ const useReplayController = (replay) => {
     }
     setSelectionID(id);
   }, [isFreeCamera, selectionID, selectedUnit, setFreeCamera, setSelectionID]);
+
+  useDebugging(replay, selectedUnit);
 
   return {
     camera,

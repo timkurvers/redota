@@ -73,6 +73,8 @@ modularized using [ECMAScript modules] and bundled with [webpack].
    npm run start:dev
    ```
 
+6. To inspect replay data more thoroughly, use `redota` in the browser console, e.g. `redota.selectedUnit`
+
 [Dotabuff]: https://github.com/dotabuff/manta
 [ECMAScript modules]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 [ES2020+]: https://www.strictmode.io/articles/whats-new-es2020/
