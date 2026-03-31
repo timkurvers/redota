@@ -152,7 +152,10 @@ class Replay {
   }
 
   entityNameFor(entity) {
-    const index = entity.get('m_pEntity.m_nameStringableIndex');
+    const indexField = entity.has('m_pEntity.m_nameStringTableIndex')
+      ? 'm_pEntity.m_nameStringTableIndex'
+      : 'm_pEntity.m_nameStringableIndex';
+    const index = entity.get(indexField);
     return this.parser.stringTables.get('EntityNames').entries[index].key;
   }
 
