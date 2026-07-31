@@ -34,7 +34,7 @@
     "fzstd": "^0.1.1",
     "mobx": "^6.0.4",
     "mobx-react-lite": "^3.1.6",
-    "protobufjs": "^6.11.4",
+    "protobufjs": "^7.6.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hotkeys-hook": "^3.3.1",
