@@ -3,21 +3,21 @@ import React, { useRef, useState } from 'react';
 import Button from '../../../components/Button.jsx';
 import Error from '../../../components/Error.jsx';
 import Notice from '../../../components/Notice.jsx';
-import Worker from '../../../../workers/Bzip2Decompressor.worker.js';
+import Worker from '../../../../workers/ZstdDecompressor.worker.js';
 import { useAsyncEffect } from '../../../hooks/index.js';
 
-const MAGIC_BZIP2 = 'BZh';
+const MAGIC_ZSTD = [0x28, 0xB5, 0x2F, 0xFD];
 
-const isValidBzip2Archive = async (blob) => {
-  const { length } = MAGIC_BZIP2;
+const isZstdCompressed = async (blob) => {
+  const { length } = MAGIC_ZSTD;
   if (blob.size < length) {
     return false;
   }
-  const magic = await blob.slice(0, MAGIC_BZIP2.length).text();
-  return magic === MAGIC_BZIP2;
+  const magic = new Uint8Array(await blob.slice(0, length).arrayBuffer());
+  return MAGIC_ZSTD.every((byte, index) => magic[index] === byte);
 };
 
-const ReplayFileDecompressor = (props) => {
+const ReplayFileDecompressorZstd = (props) => {
   const { input: file, next, reset } = props;
 
   const [error, setError] = useState(null);
@@ -27,13 +27,13 @@ const ReplayFileDecompressor = (props) => {
   const workerRef = useRef(null);
 
   useAsyncEffect(async () => {
-    // Pass through file as-is when not dealing with a Bzip2 archive
-    if (!await isValidBzip2Archive(file)) {
+    // Pass through file as-is when not dealing with Zstd compression
+    if (!await isZstdCompressed(file)) {
       next(file);
       return;
     }
 
-    // Use a separate worker thread for Bzip2 decompression
+    // Use a separate worker thread for Zstd decompression
     const worker = new Worker();
     workerRef.current = worker;
 
@@ -50,19 +50,21 @@ const ReplayFileDecompressor = (props) => {
         const { result } = data;
 
         // Ensure the filename and last modified timestamps are preserved
-        const filename = file.name.replace('.bz2', '');
+        const filename = file.name.replace(/\.zstd?$/, '');
         const decompressed = new File([result], filename, {
           lastModified: file.lastModified,
         });
 
         worker.terminate();
         next(decompressed);
+      } else if (data.type === 'error') {
+        setError(data.error);
+        worker.terminate();
       }
     });
 
-    // Start decompression by sending the file buffer to the worker
-    const buffer = await file.arrayBuffer();
-    worker.postMessage(buffer, [buffer]);
+    // Start decompression by sending the file to the worker
+    worker.postMessage(file);
   }, () => {
     // Clean up worker when component unmounts
     workerRef.current?.terminate();
@@ -91,4 +93,4 @@ const ReplayFileDecompressor = (props) => {
   );
 };
 
-export default ReplayFileDecompressor;
+export default ReplayFileDecompressorZstd;

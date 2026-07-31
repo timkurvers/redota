@@ -5,7 +5,7 @@ import Modal from '../../../components/Modal.jsx';
 import Wizard from '../../../components/Wizard.jsx';
 import useTitle from '../../../hooks/useTitle.jsx';
 import {
-  MatchProcessor, ReplayFileDecompressor, ReplaySelectForm,
+  MatchProcessor, ReplayFileDecompressorBzip2, ReplayFileDecompressorZstd, ReplaySelectForm,
 } from '../steps/index.js';
 
 const SelectReplayModal = () => {
@@ -22,7 +22,8 @@ const SelectReplayModal = () => {
 
       <Wizard onDone={close}>
         <ReplaySelectForm />
-        <ReplayFileDecompressor />
+        <ReplayFileDecompressorZstd />
+        <ReplayFileDecompressorBzip2 />
         <MatchProcessor />
       </Wizard>
     </Modal>

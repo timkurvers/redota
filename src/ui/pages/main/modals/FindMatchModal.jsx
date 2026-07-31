@@ -5,7 +5,12 @@ import Modal from '../../../components/Modal.jsx';
 import Wizard from '../../../components/Wizard.jsx';
 import useTitle from '../../../hooks/useTitle.jsx';
 import {
-  MatchFinder, MatchIDForm, MatchProcessor, ReplayFileDecompressor, ReplayFileDownloader,
+  MatchFinder,
+  MatchIDForm,
+  MatchProcessor,
+  ReplayFileDecompressorBzip2,
+  ReplayFileDecompressorZstd,
+  ReplayFileDownloader,
 } from '../steps/index.js';
 
 const FindMatchModal = () => {
@@ -25,7 +30,8 @@ const FindMatchModal = () => {
         <MatchIDForm prefill={prefill} />
         <MatchFinder />
         <ReplayFileDownloader />
-        <ReplayFileDecompressor />
+        <ReplayFileDecompressorZstd />
+        <ReplayFileDecompressorBzip2 />
         <MatchProcessor />
       </Wizard>
     </Modal>

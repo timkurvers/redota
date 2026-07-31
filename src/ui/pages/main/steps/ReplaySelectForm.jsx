@@ -33,7 +33,7 @@ const ReplaySelectForm = (props) => {
 
   return (
     <Form>
-      <input type="file" onChange={onSelect} accept=".dem,.bz2" />
+      <input type="file" onChange={onSelect} accept=".dem,.bz2,.zst,.zstd" />
 
       <p>
         <strong>Note:</strong> The replay file you select is never uploaded to any server.
