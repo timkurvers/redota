@@ -1,10 +1,6 @@
-import React, {
-  useCallback, useEffect, useRef, useState,
-} from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
-
-import { useWindowDimensions } from '../../hooks/index.js';
 
 import Map from './Map.jsx';
 import Unit from './Unit.jsx';
@@ -36,18 +32,6 @@ const World = observer((props) => {
   const [dragging, setDragging] = useState(false);
 
   const mapRef = useRef(null);
-
-  // Ensure free camera is updated when window dimensions change
-  const [viewport] = useWindowDimensions();
-  useEffect(() => {
-    const width = mapRef.current?.width;
-    const height = mapRef.current?.height;
-    setFreeCamera((current) => ({
-      ...current,
-      width: width ? viewport.width / (width * zoom) : 0,
-      height: height ? viewport.height / (height * zoom) : 0,
-    }));
-  }, [setFreeCamera, viewport, zoom]);
 
   const onDoubleClick = useCallback((e) => e.preventDefault(), []);
 

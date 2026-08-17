@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
 
 import { Hero } from '../../../../lib/replay/entities/index.js';
+import { useWindowDimensions } from '../../../hooks/index.js';
 
 import Unit, { StyledUnit } from './Unit.jsx';
 
@@ -54,8 +55,10 @@ const StyledCamera = styled.div`
 const MiniMap = observer((props) => {
   const {
     camera, isFreeCamera, patch, selectedUnit, setFreeCamera, units,
+    zoom,
   } = props;
   const { map } = patch;
+  const [viewport] = useWindowDimensions();
 
   const [dragging, setDragging] = useState(false);
 
@@ -96,6 +99,8 @@ const MiniMap = observer((props) => {
 
   // TODO: Minimap should preferably also show buildings, creep camps etc.
   const heroes = units.filter((u) => u instanceof Hero);
+  const cameraWidth = viewport.width / (map.backdrop.size * zoom);
+  const cameraHeight = viewport.height / (map.backdrop.size * zoom);
 
   return (
     <StyledMiniMap
@@ -115,8 +120,8 @@ const MiniMap = observer((props) => {
           style={{
             left: `${camera.relX * 100}%`,
             bottom: `${camera.relY * 100}%`,
-            width: `${camera.width * 100}%`,
-            height: `${camera.height * 100}%`,
+            width: `${cameraWidth * 100}%`,
+            height: `${cameraHeight * 100}%`,
           }}
         />
         {heroes.map((unit) => (

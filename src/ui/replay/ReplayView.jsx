@@ -41,6 +41,7 @@ const ReplayView = observer(({ replay }) => {
           patch={replay.patch}
           setFreeCamera={setFreeCamera}
           units={replay.units}
+          zoom={zoom}
         />
         <Options
           cameraID={cameraID}
