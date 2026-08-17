@@ -13,6 +13,7 @@ const useReplayController = (replay) => {
   const [playing, setPlaying] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [selectionID, setSelectionID] = useState(null);
+  const [zoom, setZoom] = useState(1);
 
   const isFreeCamera = cameraID === -1;
   const camera = isFreeCamera ? freeCamera : replay?.players.get(cameraID)?.camera;
@@ -72,6 +73,8 @@ const useReplayController = (replay) => {
     setPlaybackSpeed,
     setPlaying,
     setSelection,
+    setZoom,
+    zoom,
   };
 };
 

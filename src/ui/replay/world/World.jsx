@@ -30,6 +30,7 @@ const StyledWorld = styled.div`
 const World = observer((props) => {
   const {
     camera, isFreeCamera, patch, selectedUnit, setFreeCamera, setSelection, units,
+    zoom,
   } = props;
 
   const [dragging, setDragging] = useState(false);
@@ -43,10 +44,10 @@ const World = observer((props) => {
     const height = mapRef.current?.height;
     setFreeCamera((current) => ({
       ...current,
-      width: width ? viewport.width / width : 0,
-      height: height ? viewport.height / height : 0,
+      width: width ? viewport.width / (width * zoom) : 0,
+      height: height ? viewport.height / (height * zoom) : 0,
     }));
-  }, [setFreeCamera, viewport]);
+  }, [setFreeCamera, viewport, zoom]);
 
   const onDoubleClick = useCallback((e) => e.preventDefault(), []);
 
@@ -85,7 +86,10 @@ const World = observer((props) => {
       <Map
         patch={patch}
         ref={mapRef}
-        style={{ transform: `translate(${-relX * 100}%, ${relY * 100}%)` }}
+        style={{
+          transformOrigin: '0 100%',
+          transform: `translate(${-relX * zoom * 100}%, ${relY * zoom * 100}%) scale(${zoom})`,
+        }}
       >
         {units.map((unit) => (
           <Unit
