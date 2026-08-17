@@ -84,6 +84,7 @@ const Timeline = observer((props) => {
         <option value="1">1x</option>
         <option value="1.5">1.5x</option>
         <option value="2">2x</option>
+        <option value="3">3x</option>
         <option value="4">4x</option>
       </Dropdown>
     </StyledTimeline>
