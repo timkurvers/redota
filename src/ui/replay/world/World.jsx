@@ -1,10 +1,6 @@
-import React, {
-  useCallback, useEffect, useRef, useState,
-} from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react-lite';
-
-import { useWindowDimensions } from '../../hooks/index.js';
 
 import Map from './Map.jsx';
 import Unit from './Unit.jsx';
@@ -30,23 +26,12 @@ const StyledWorld = styled.div`
 const World = observer((props) => {
   const {
     camera, isFreeCamera, patch, selectedUnit, setFreeCamera, setSelection, units,
+    zoom,
   } = props;
 
   const [dragging, setDragging] = useState(false);
 
   const mapRef = useRef(null);
-
-  // Ensure free camera is updated when window dimensions change
-  const [viewport] = useWindowDimensions();
-  useEffect(() => {
-    const width = mapRef.current?.width;
-    const height = mapRef.current?.height;
-    setFreeCamera((current) => ({
-      ...current,
-      width: width ? viewport.width / width : 0,
-      height: height ? viewport.height / height : 0,
-    }));
-  }, [setFreeCamera, viewport]);
 
   const onDoubleClick = useCallback((e) => e.preventDefault(), []);
 
@@ -85,7 +70,10 @@ const World = observer((props) => {
       <Map
         patch={patch}
         ref={mapRef}
-        style={{ transform: `translate(${-relX * 100}%, ${relY * 100}%)` }}
+        style={{
+          transformOrigin: '0 100%',
+          transform: `translate(${-relX * zoom * 100}%, ${relY * zoom * 100}%) scale(${zoom})`,
+        }}
       >
         {units.map((unit) => (
           <Unit

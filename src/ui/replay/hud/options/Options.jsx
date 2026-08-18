@@ -15,6 +15,14 @@ const StyledOptions = styled.div`
   text-align: center;
 `;
 
+const StyledControl = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 3px 0;
+`;
+
 const CameraOptionGroup = observer((props) => {
   const { label, players } = props;
   if (!players.length) {
@@ -31,7 +39,9 @@ const CameraOptionGroup = observer((props) => {
 });
 
 const Options = observer((props) => {
-  const { cameraID, players, setCameraID } = props;
+  const {
+    cameraID, players, setCameraID, setZoom, zoom,
+  } = props;
 
   const radiant = players.filter((p) => p.teamID === TEAM_RADIANT);
   const dire = players.filter((p) => p.teamID === TEAM_DIRE);
@@ -41,14 +51,29 @@ const Options = observer((props) => {
     setCameraID(+e.target.value);
   }, [setCameraID]);
 
+  const onZoomChange = useCallback((e) => {
+    setZoom(+e.target.value);
+  }, [setZoom]);
+
   return (
     <StyledOptions>
-      <Dropdown onChange={onCameraChange} value={cameraID}>
-        <option value={-1}>Free camera</option>
-        <CameraOptionGroup label="Radiant" players={radiant} />
-        <CameraOptionGroup label="Dire" players={dire} />
-        <CameraOptionGroup label="Broadcasters" players={broadcasters} />
-      </Dropdown>
+      <StyledControl>
+        Camera
+        <Dropdown aria-label="Camera" onChange={onCameraChange} value={cameraID}>
+          <option value={-1}>Free camera</option>
+          <CameraOptionGroup label="Radiant" players={radiant} />
+          <CameraOptionGroup label="Dire" players={dire} />
+          <CameraOptionGroup label="Broadcasters" players={broadcasters} />
+        </Dropdown>
+      </StyledControl>
+      <StyledControl>
+        Zoom
+        <Dropdown aria-label="Zoom" onChange={onZoomChange} value={zoom}>
+          <option value="1">1x</option>
+          <option value="0.75">1.5x</option>
+          <option value="0.5">2x</option>
+        </Dropdown>
+      </StyledControl>
     </StyledOptions>
   );
 });

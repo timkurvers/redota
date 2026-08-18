@@ -28,6 +28,8 @@ const ReplayView = observer(({ replay }) => {
     setPlaybackSpeed,
     setPlaying,
     setSelection,
+    setZoom,
+    zoom,
   } = useReplayController(replay);
 
   return (
@@ -39,11 +41,14 @@ const ReplayView = observer(({ replay }) => {
           patch={replay.patch}
           setFreeCamera={setFreeCamera}
           units={replay.units}
+          zoom={zoom}
         />
         <Options
           cameraID={cameraID}
           players={replay.players}
           setCameraID={setCameraID}
+          setZoom={setZoom}
+          zoom={zoom}
         />
         {selectedUnit && (
           <Selection
@@ -77,6 +82,7 @@ const ReplayView = observer(({ replay }) => {
         setFreeCamera={setFreeCamera}
         setSelection={setSelection}
         units={replay.units}
+        zoom={zoom}
       />
     </StyledReplayView>
   );
