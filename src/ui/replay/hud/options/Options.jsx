@@ -6,6 +6,9 @@ import { Dropdown } from '../../../components/index.js';
 import { TEAM_DIRE, TEAM_RADIANT } from '../../../../lib/constants.js';
 
 const StyledOptions = styled.div`
+  display: flex;
+  gap: 4px;
+  align-items: center;
   padding: 7px 7px;
   position: absolute;
   top: 54px;
@@ -31,7 +34,9 @@ const CameraOptionGroup = observer((props) => {
 });
 
 const Options = observer((props) => {
-  const { cameraID, players, setCameraID } = props;
+  const {
+    cameraID, cameraMode, players, setCameraID, setCameraMode,
+  } = props;
 
   const radiant = players.filter((p) => p.teamID === TEAM_RADIANT);
   const dire = players.filter((p) => p.teamID === TEAM_DIRE);
@@ -43,12 +48,26 @@ const Options = observer((props) => {
 
   return (
     <StyledOptions>
-      <Dropdown onChange={onCameraChange} value={cameraID}>
+      <Dropdown
+        aria-label="Player camera"
+        onChange={onCameraChange}
+        value={cameraID}
+      >
         <option value={-1}>Free camera</option>
         <CameraOptionGroup label="Radiant" players={radiant} />
         <CameraOptionGroup label="Dire" players={dire} />
         <CameraOptionGroup label="Broadcasters" players={broadcasters} />
       </Dropdown>
+      {cameraID !== -1 && (
+        <Dropdown
+          aria-label="Player follow mode"
+          onChange={(e) => setCameraMode(e.target.value)}
+          value={cameraMode}
+        >
+          <option value="camera">Recorded camera</option>
+          <option value="hero">Follow hero</option>
+        </Dropdown>
+      )}
     </StyledOptions>
   );
 });
