@@ -18,12 +18,14 @@ const ReplayView = observer(({ replay }) => {
   const {
     camera,
     cameraID,
+    cameraMode,
     isFreeCamera,
     playbackSpeed,
     playing,
     requestTick,
     selectedUnit,
     setCameraID,
+    setCameraMode,
     setFreeCamera,
     setPlaybackSpeed,
     setPlaying,
@@ -42,8 +44,10 @@ const ReplayView = observer(({ replay }) => {
         />
         <Options
           cameraID={cameraID}
+          cameraMode={cameraMode}
           players={replay.players}
           setCameraID={setCameraID}
+          setCameraMode={setCameraMode}
         />
         {selectedUnit && (
           <Selection
