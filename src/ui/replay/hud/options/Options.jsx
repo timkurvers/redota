@@ -67,11 +67,11 @@ const Options = observer((props) => {
         </Dropdown>
       </StyledControl>
       <StyledControl>
-        Zoom
-        <Dropdown aria-label="Zoom" onChange={onZoomChange} value={zoom}>
-          <option value="1">100%</option>
-          <option value="0.75">75%</option>
-          <option value="0.5">50%</option>
+        View
+        <Dropdown aria-label="View scale" onChange={onZoomChange} value={zoom}>
+          <option value="1">1x</option>
+          <option value="0.75">1.5x</option>
+          <option value="0.5">2x</option>
         </Dropdown>
       </StyledControl>
     </StyledOptions>
